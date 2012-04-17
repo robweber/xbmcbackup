@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+	<category id="general" label="30000">
+		<setting id="remote_path" type="folder" label="Remote Path" />
+	</category>
+</settings>

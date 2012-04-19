@@ -37,7 +37,27 @@ class XbmcBackup:
         if(self.Addon.getSetting('backup_addon_data') == 'true'):
             xbmcvfs.mkdir(self.remote_path + "userdata/addon_data")
             self.walkTree(self.local_path + "userdata/addon_data/")
+           
+        if(self.Addon.getSetting('backup_database') == 'true'):
+			xbmcvfs.mkdir(self.remote_path + "userdata/Database")
+			self.walkTree(self.local_path + "userdata/Database")
         
+        if(self.Addon.getSetting("backup_playlists") == 'true'):
+			xbmcvfs.mkdir(self.remote_path + "userdata/playlists")
+			self.walkTree(self.local_path + "userdata/playlists")
+			
+        if(self.Addon.getSetting("backup_thumbnails") == "true"):
+			xbmcvfs.mkdir(self.remote_path + "userdata/Thumbnails")
+			self.walkTree(self.local_path + "userdata/Thumbnails")
+		
+        if(self.Addon.getSetting("backup_config") == "true"):
+			#this on is an oddity
+			configFiles = os.listdir(self.local_path + "userdata/")
+			for aFile in configFiles:
+				if(aFile.endswith(".xml")):
+					self.log("Copying: " + self.local_path + "userdata/" + aFile)
+					xbmcvfs.copy(self.local_path + "userdata/" + aFile,self.remote_path + "userdata/" + aFile)
+			
     def walkTree(self,directory):
         for (path, dirs, files) in os.walk(directory):
             #get the relative part of this path

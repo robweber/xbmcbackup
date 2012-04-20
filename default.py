@@ -4,12 +4,39 @@ import xbmcgui
 import xbmcvfs
 import os
 
+class RestoreFile:
+    addonDir = ''
+    fHandle = None
+    
+    def __init__(self,addon_dir):
+        self.addonDir = addon_dir
+
+    def createRestoreFile(self):
+        #create the addon folder if it doesn't exist
+        if(not os.path.exists(unicode(xbmc.translatePath(self.addonDir),'utf-8'))):
+            os.makedirs(unicode(xbmc.translatePath(self.addonDir),'utf-8'))
+        xbmc.log(self.addonDir)
+        self.fHandle = open(unicode(xbmc.translatePath(self.addonDir + "restore.txt"),'utf-8'),"w")
+
+    def addFile(self,filename):
+        #write the full remote path name of this file
+        if(self.fHandle != None):
+            self.fHandle.write(str(filename) + "\n")
+
+    def closeRestoreFile(self,sendDir):
+        #close out the file and write it to the remote store
+        if(self.fHandle != None):
+            self.fHandle.close()
+            #xbmcvfs.copy(self.addonDir + "restore.txt",sendDir + "restore.txt")
+            
+
 class XbmcBackup:
     __addon_id__ = 'script.xbmcbackup'
     Addon = xbmcaddon.Addon(__addon_id__)
     local_path = ''
     remote_path = ''
-
+    restoreFile = None
+    
     #for the progress bar
     progressBar = None
     dirsLeft = 0
@@ -21,11 +48,14 @@ class XbmcBackup:
         if(self.Addon.getSetting('remote_path') != '' and self.Addon.getSetting("backup_name") != ''):
             self.remote_path = self.Addon.getSetting("remote_path") + self.Addon.getSetting('backup_name') + "/"
 
+        self.restoreFile = RestoreFile(self.Addon.getAddonInfo('profile'))
+        
         self.log("Starting")
         self.log('Local Dir: ' + self.local_path)
         self.log('Remote Dir: ' + self.remote_path)
         
     def syncFiles(self):
+        self.restoreFile.createRestoreFile()
         
         if(xbmcvfs.exists(self.remote_path)):
             #this will fail - need a disclaimer here
@@ -68,6 +98,8 @@ class XbmcBackup:
 					self.log("Copying: " + self.local_path + "userdata/" + aFile)
 					xbmcvfs.copy(self.local_path + "userdata/" + aFile,self.remote_path + "userdata/" + aFile)
 
+        #close out everything
+        self.restoreFile.closeRestoreFile(self.remote_path)
         if(self.Addon.getSetting('run_silent') == 'false'):
             self.progressBar.close()
 		    
@@ -85,10 +117,13 @@ class XbmcBackup:
                 #create all the subdirs first
                 for aDir in dirs:
                     xbmcvfs.mkdir(self.remote_path + os.sep + path + os.sep +  aDir)
+                    self.restoreFile.addFile(path + os.sep + aDir)
                 #copy all the files
                 for aFile in files:
                     filePath = path + os.sep + aFile
                     self.log("copying: " + self.local_path + filePath)
+                    self.restoreFile.addFile(filePath)
+                    
                     xbmcvfs.copy(self.local_path + filePath,self.remote_path + filePath)
 
     def updateProgress(self,dirCount,message=''):

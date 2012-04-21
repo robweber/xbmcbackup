@@ -9,6 +9,8 @@ In the addon settings you can define a remote path for the destination of your x
 
 On the Backup Selection page you can select which items from your user profile folder will be sent to the backup location. By default all are turned on except the Addon Data directory. 
 
+To restore your data simply switch the Mode from "backup" to "restore" and the files will be copied from your remote directory to the local path.
+
 What this Addon Will Not Do:
 
 This is not meant as an XBMC file sync solution. If you have multiple frontends you want to keep in sync this addon may work in a "poor man's" sort of way but it is not intended for that. 

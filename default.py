@@ -163,7 +163,7 @@ class XbmcBackup:
 
         #update the progress bar
         if(self.progressBar != None):
-            self.progressBar.update((float(self.filesTotal - self.filesLeft)/float(self.filesTotal)) * 100,message)
+            self.progressBar.update(int((float(self.filesTotal - self.filesLeft)/float(self.filesTotal)) * 100),message)
             
     def checkCancel(self):
         result = False

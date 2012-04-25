@@ -87,7 +87,7 @@ class XbmcBackup:
     #for the progress bar
     progressBar = None
     filesLeft = 0
-    filesTotal = 0
+    filesTotal = 1
 
     fileManager = None
     
@@ -112,6 +112,11 @@ class XbmcBackup:
         self.log('Remote Dir: ' + self.remote_path)
 
     def run(self):
+	#check if we should use the progress bar
+        if(self.Addon.getSetting('run_silent') == 'false'):
+            self.progressBar = xbmcgui.DialogProgress()
+            self.progressBar.create('XBMC Backup','Gathering file list.....')
+	    
         #check what mode were are in
         if(int(self.Addon.getSetting('addon_mode')) == 0):
             self.syncFiles()
@@ -148,11 +153,6 @@ class XbmcBackup:
     def writeFiles(self,fileList,source,dest):
         self.filesTotal = len(fileList)
         self.filesLeft = self.filesTotal
-
-        #check if we should use the progress bar
-        if(self.Addon.getSetting('run_silent') == 'false'):
-            self.progressBar = xbmcgui.DialogProgress()
-            self.progressBar.create('XBMC Backup','Running......')
 
         #write each file from source to destination
         for aFile in fileList:

@@ -90,14 +90,15 @@ class XbmcBackup:
     
     def __init__(self):
         self.local_path = xbmc.translatePath("special://home")
-
-	if(self.Addon.getSetting('remote_path_2') != '' and vfs.exists(self.Addon.getSetting('remote_path_2'))):
+      
+	if(self.Addon.getSetting('remote_selection') == '1' and vfs.exists(self.Addon.getSetting('remote_path_2'))):
+            xbmc.log(str(self.Addon.getSetting('remote_path_2')))
 	    self.remote_path = self.Addon.getSetting('remote_path_2')
 	    self.Addon.setSetting("remote_path","")
-        elif(self.Addon.getSetting('remote_path') != '' and vfs.exists(self.Addon.getSetting("remote_path"))):
+        elif(self.Addon.getSetting('remote_selection') == '0' and vfs.exists(self.Addon.getSetting("remote_path"))):
             self.remote_path = self.Addon.getSetting("remote_path")
 	
-	if(self.Addon.getSetting("backup_name") != ''):
+	if(self.Addon.getSetting("backup_name") != '' and self.remote_path != ''):
 	    self.remote_path = self.remote_path + self.Addon.getSetting("backup_name") + "/"
 	else:
 	    self.remote_path = ""

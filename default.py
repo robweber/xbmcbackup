@@ -143,6 +143,9 @@ class XbmcBackup:
 
         #write list from remote to local
         self.writeFiles(allFiles,self.remote_path,self.local_path)
+
+        #call update addons to refresh everything
+        xbmc.executebuiltin('UpdateLocalAddons')
         
     def writeFiles(self,fileList,source,dest):
         self.filesTotal = len(fileList)

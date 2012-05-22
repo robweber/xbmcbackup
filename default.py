@@ -7,8 +7,8 @@ import os
 class FileManager:
     walk_path = ''
     addonDir = ''
-    fHandle = None
-
+    fileArray = None
+	
     def __init__(self,path,addon_dir):
         self.walk_path = path
         self.addonDir = addon_dir
@@ -18,7 +18,7 @@ class FileManager:
             os.makedirs(unicode(xbmc.translatePath(self.addonDir),'utf-8'))
 
     def createFileList(self,Addon):
-        self.fHandle = open(unicode(xbmc.translatePath(self.addonDir + "restore.txt"),'utf-8'),"w")
+        self.fileArray = []
         
         #figure out which syncing options to run
         if(Addon.getSetting('backup_addons') == 'true'):
@@ -49,9 +49,6 @@ class FileManager:
 	    for aFile in configFiles:
 		if(aFile.endswith(".xml")):
 		    self.addFile("userdata/" + aFile)
-
-	if(self.fHandle != None):
-            self.fHandle.close()
         
     def walkTree(self,directory):
         for (path, dirs, files) in vfs.walk(directory):
@@ -66,13 +63,10 @@ class FileManager:
                     
     def addFile(self,filename):
         #write the full remote path name of this file
-        if(self.fHandle != None):
-            self.fHandle.write(str(filename) + "\n")
+        self.fileArray.append(filename)
 
-    def readFileList(self):
-        allFiles = open(unicode(xbmc.translatePath(self.addonDir + "restore.txt"),'utf-8'),"r").read().splitlines()
-
-        return allFiles
+    def getFileList(self):
+       return self.fileArray
 
 class XbmcBackup:
     __addon_id__ = 'script.xbmcbackup'
@@ -131,7 +125,7 @@ class XbmcBackup:
         
         self.fileManager.createFileList(self.Addon)
 
-        allFiles = self.fileManager.readFileList()
+        allFiles = self.fileManager.getFileList()
 
         #write list from local to remote
         self.writeFiles(allFiles,self.local_path,self.remote_path)
@@ -139,7 +133,7 @@ class XbmcBackup:
     def restoreFiles(self):
         self.fileManager.createFileList(self.Addon)
         
-        allFiles = self.fileManager.readFileList()
+        allFiles = self.fileManager.getFileList()
 
         #write list from remote to local
         self.writeFiles(allFiles,self.remote_path,self.local_path)

@@ -42,7 +42,11 @@ class FileManager:
         if(Addon.getSetting("backup_thumbnails") == "true"):
 	    self.addFile("-userdata/Thumbnails")
 	    self.walkTree(self.walk_path + "userdata/Thumbnails")
-		
+
+	if(Addon.getSetting("backup_keymaps") == "true"):
+		self.addFile("-userdata/keymaps")
+		self.walkTree(self.walk_path + "userdata/keymaps")		
+
         if(Addon.getSetting("backup_config") == "true"):
 	    #this one is an oddity
             configFiles = os.listdir(self.walk_path + "userdata/")

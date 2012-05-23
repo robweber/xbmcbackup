@@ -48,14 +48,14 @@ def walk(path):
                 current_dirs, current_files = [], []
 
                 for x in listdir(current_path, extra_metadata=True):
+					if not x['file'].startswith("zip://"):
+						if x['filetype'] == 'directory':
 
-                    if x['filetype'] == 'directory':
+							current_dirs.append(x['file'])
 
-                        current_dirs.append(x['file'])
+						else:
 
-                    else:
-
-                        current_files.append(x['file'])
+							current_files.append(x['file'])
 
             except IndexError:
 

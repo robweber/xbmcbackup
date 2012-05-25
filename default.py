@@ -53,8 +53,9 @@ class FileManager:
 	    #this part is an oddity
             configFiles = vfs.listdir(self.walk_path + "userdata/",extra_metadata=True)
 	    for aFile in configFiles:
+                xbmc.log(aFile['file'][len(self.walk_path):])
 		if(aFile['file'].endswith(".xml")):
-		    self.addFile("userdata/" + aFile['file'])
+		    self.addFile(aFile['file'][len(self.walk_path):])
         
     def walkTree(self,directory):
         for (path, dirs, files) in vfs.walk(directory):

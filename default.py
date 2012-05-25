@@ -44,11 +44,17 @@ class FileManager:
 	    self.walkTree(self.walk_path + "userdata/Thumbnails")
 		
         if(Addon.getSetting("backup_config") == "true"):
-	    #this one is an oddity
-            configFiles = os.listdir(self.walk_path + "userdata/")
+            self.addFile("-userdata/keymaps")
+            self.walkTree(self.walk_path + "userdata/keymaps")
+
+            self.addFile("-userdata/peripheral_data")
+            self.walkTree(self.walk_path + "userdata/peripheral_data")
+            
+	    #this part is an oddity
+            configFiles = vfs.listdir(self.walk_path + "userdata/",extra_metadata=True)
 	    for aFile in configFiles:
-		if(aFile.endswith(".xml")):
-		    self.addFile("userdata/" + aFile)
+		if(aFile['file'].endswith(".xml")):
+		    self.addFile("userdata/" + aFile['file'])
         
     def walkTree(self,directory):
         for (path, dirs, files) in vfs.walk(directory):

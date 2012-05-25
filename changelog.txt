@@ -23,3 +23,7 @@ File Selection is now followed for both backup and restore options
 [b]Version 0.0.7[/b]
 
 removed "restore.txt" file and now write file listing to memory list instead
+
+[b]Version 0.0.8[/b]
+
+modified vfs.py script to exclude handling zip files as directories, added keymap and peripheral data folders in the "config" section

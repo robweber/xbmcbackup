@@ -53,7 +53,6 @@ class FileManager:
 	    #this part is an oddity
             configFiles = vfs.listdir(self.walk_path + "userdata/",extra_metadata=True)
 	    for aFile in configFiles:
-                xbmc.log(aFile['file'][len(self.walk_path):])
 		if(aFile['file'].endswith(".xml")):
 		    self.addFile(aFile['file'][len(self.walk_path):])
         
@@ -129,7 +128,8 @@ class XbmcBackup:
 
         #make the remote directory
         vfs.mkdir(self.remote_path)
-        
+
+        self.log("Creating Files List")
         self.fileManager.createFileList(self.Addon)
 
         allFiles = self.fileManager.getFileList()
@@ -139,7 +139,8 @@ class XbmcBackup:
         
     def restoreFiles(self):
         self.fileManager.createFileList(self.Addon)
-        
+
+        self.log("Creating Files List")
         allFiles = self.fileManager.getFileList()
 
         #write list from remote to local
@@ -149,12 +150,14 @@ class XbmcBackup:
         xbmc.executebuiltin('UpdateLocalAddons')
         
     def writeFiles(self,fileList,source,dest):
+        self.log("Writing files to: " + dest)
         self.filesTotal = len(fileList)
         self.filesLeft = self.filesTotal
 
         #write each file from source to destination
         for aFile in fileList:
             if(not self.checkCancel()):
+                xbmc.log('Writing file: ' + source + aFile, level=xbmc.LOGDEBUG)
                 self.updateProgress(aFile)
                 if (aFile.startswith("-")):
                     vfs.mkdir(dest + aFile[1:])

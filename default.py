@@ -8,7 +8,8 @@ class FileManager:
     walk_path = ''
     addonDir = ''
     fileArray = None
-	
+    verbose_log = False
+    
     def __init__(self,path,addon_dir):
         self.walk_path = path
         self.addonDir = addon_dir
@@ -19,7 +20,8 @@ class FileManager:
 
     def createFileList(self,Addon):
         self.fileArray = []
-        
+        self.verbose_log = Addon.getSetting("verbose_log") == 'true'
+       
         #figure out which syncing options to run
         if(Addon.getSetting('backup_addons') == 'true'):
             self.addFile("-addons")
@@ -69,6 +71,8 @@ class FileManager:
                     
     def addFile(self,filename):
         #write the full remote path name of this file
+        if(self.verbose_log):
+            xbmc.log("Add File: " + filename)
         self.fileArray.append(filename)
 
     def getFileList(self):

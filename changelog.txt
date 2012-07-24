@@ -33,3 +33,7 @@ modified vfs.py script to exclude handling zip files as directories, added keyma
 modified vfs.py again to filter out xsp files (smart playlists). Created running list for these types of compressed files
 
 added enable/disable logging toggle in settings
+
+[b]Version 0.1.0[/b]
+
+removed transparency from icon.png

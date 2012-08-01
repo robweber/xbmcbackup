@@ -72,7 +72,7 @@ class FileManager:
     def addFile(self,filename):
         #write the full remote path name of this file
         if(self.verbose_log):
-            xbmc.log("Add File: " + filename)
+            xbmc.log("Add File: " + filename.encode("utf-8"))
         self.fileArray.append(filename)
 
     def getFileList(self):
@@ -93,10 +93,9 @@ class XbmcBackup:
     fileManager = None
     
     def __init__(self):
-        self.local_path = xbmc.translatePath("special://home")
+        self.local_path = xbmc.translatePath("special://home").encode("utf-8");
       
 	if(self.Addon.getSetting('remote_selection') == '1' and vfs.exists(self.Addon.getSetting('remote_path_2'))):
-            xbmc.log(str(self.Addon.getSetting('remote_path_2')))
 	    self.remote_path = self.Addon.getSetting('remote_path_2')
 	    self.Addon.setSetting("remote_path","")
         elif(self.Addon.getSetting('remote_selection') == '0' and vfs.exists(self.Addon.getSetting("remote_path"))):
@@ -106,6 +105,8 @@ class XbmcBackup:
 	    self.remote_path = self.remote_path + self.Addon.getSetting("backup_name") + "/"
 	else:
 	    self.remote_path = ""
+
+        self.remote_path = self.remote_path.encode("utf-8");
         
         self.log("Starting")
         self.log('Local Dir: ' + self.local_path)

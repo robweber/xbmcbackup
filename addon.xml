@@ -11,6 +11,6 @@
     <summary lang="en">Backup and restore your XBMC database and configuration files in the event of a crash or file corruption.</summary>
     <description lang="en">Ever hosed your XBMC configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by XBMC.</description>
     <platform>all</platform>
-    <language>en</language>
+    <language>en fr</language>
   </extension>
 </addon>

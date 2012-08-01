@@ -41,3 +41,9 @@ removed transparency from icon.png
 [b]Version 0.1.1[/b]
 
 added check for key in vfs.py - Thanks Martijn!
+
+[b]Version 0.1.2[/b]
+
+added French language translation - thanks mikebzh44
+
+added some utf-8 encoding tags to filenames

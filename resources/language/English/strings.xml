@@ -23,4 +23,12 @@
 	<string id="30034">Thumbnails/Fanart</string>
 	<string id="30035">Config Files</string>
 
+	<string id="30045">Error: Remote path cannot be empty</string>
+	<string id="30046">Starting</string>
+	<string id="30047">Local Dir</string>
+	<string id="30048">Remote Dir</string>
+	<string id="30049">Gathering file list</string>
+	<string id="30050">Remote Path exists - may have old files in it!</string>
+	<string id="30051">Creating Files List</string>
+	<string id="30052">Writing file</string>
 </strings>

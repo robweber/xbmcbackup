@@ -14,7 +14,6 @@
 	<string id="30023">Mode</string>
 	<string id="30024">Type Remote Path</string>
 	<string id="30025">Remote Path Type</string>
-	<string id="30026">Verbose Logging</string>
 	
 	<string id="30030">User Addons</string>
 	<string id="30031">Addon Data</string>
@@ -31,4 +30,5 @@
 	<string id="30050">Remote Path exists - may have old files in it!</string>
 	<string id="30051">Creating Files List</string>
 	<string id="30052">Writing file</string>
+
 </strings>

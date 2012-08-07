@@ -8,7 +8,9 @@
      <provides>executable</provides> 
   </extension> 
   <extension point="xbmc.addon.metadata">
+    <summary lang="de">Die XBMC Datenbank sichern und bei Dateiverlust oder Beschädigung wiederherstellen.</summary>
     <summary lang="en">Backup and restore your XBMC database and configuration files in the event of a crash or file corruption.</summary>
+    <description lang="de">Jemals deine XBMC Konfiguration zerschossen und dir dann gewünscht, dass ein Backup existiert? Jetzt kannst du eine Sicherung mit nur einem Klick erzeugen. Du kannst deine Datenbanen, Playlisten, Thumbnails, Addons und andere Details zu einem Ort deiner Wahl sichern.</description>
     <description lang="en">Ever hosed your XBMC configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by XBMC.</description>
     <platform>all</platform>
     <language>en fr</language>

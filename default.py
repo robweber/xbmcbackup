@@ -74,8 +74,7 @@ class FileManager:
                     
     def addFile(self,filename):
         #write the full remote path name of this file
-        if(self.verbose_log):
-            xbmc.log("Add File: " + filename.encode("utf-8"))
+        xbmc.log("Add File: " + filename.encode("utf-8"),level=xbmc.LOGDEBUG)
         self.fileArray.append(filename)
 
     def getFileList(self):
@@ -111,15 +110,15 @@ class XbmcBackup:
 
         self.remote_path = self.remote_path.encode("utf-8");
         
-        self.log("Starting")
-        self.log('Local Dir: ' + self.local_path)
-        self.log('Remote Dir: ' + self.remote_path)
+        self.log(self.addon.getLocalizedString(30046))
+        self.log(self.addon.getLocalizedString(30047) + " :" + self.local_path)
+        self.log(self.addon.getLocalizedString(30048) + " :" + self.remote_path)
 
     def run(self):
 	#check if we should use the progress bar
         if(self.addon.getSetting('run_silent') == 'false'):
             self.progressBar = xbmcgui.DialogProgress()
-            self.progressBar.create('XBMC Backup','Gathering file list.....')
+            self.progressBar.create(self.addon.getLocalizedString(30010),self.addon.getLocalizedString(30049) + "......")
 	    
         #check what mode were are in
         if(int(self.addon.getSetting('addon_mode')) == 0):
@@ -132,12 +131,12 @@ class XbmcBackup:
     def syncFiles(self):
         if(vfs.exists(self.remote_path)):
             #this will fail - need a disclaimer here
-            self.log("Remote Path exists - may have old files in it!")
+            self.log(self.addon.getLocalizedString(30050))
 
         #make the remote directory
         vfs.mkdir(self.remote_path)
 
-        self.log("Creating Files List")
+        self.log(self.addon.getLocalizedString(30051))
         self.fileManager.createFileList(self.addon)
 
         allFiles = self.fileManager.getFileList()
@@ -148,7 +147,7 @@ class XbmcBackup:
     def restoreFiles(self):
         self.fileManager.createFileList(self.addon)
 
-        self.log("Creating Files List")
+        self.log(self.addon.getLocalizedString(30051))
         allFiles = self.fileManager.getFileList()
 
         #write list from remote to local
@@ -165,7 +164,7 @@ class XbmcBackup:
         #write each file from source to destination
         for aFile in fileList:
             if(not self.checkCancel()):
-                xbmc.log('Writing file: ' + source + aFile, level=xbmc.LOGDEBUG)
+                xbmc.log(self.addon.getLocalizedString(30052) + ": " + source + aFile, level=xbmc.LOGDEBUG)
                 self.updateProgress(aFile)
                 if (aFile.startswith("-")):
                     vfs.mkdir(dest + aFile[1:])

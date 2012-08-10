@@ -21,4 +21,13 @@
     <string id="30033">Playlists</string>
     <string id="30034">Miniatures / Fanart</string>
     <string id="30035">Fichiers de configuration</string>
+	
+	<string id="30045">Erreur : Le chemin distant ne peut pas être vide.</string>
+    <string id="30046">Démarrage</string>
+    <string id="30047">Dossier Local</string>
+    <string id="30048">Dossier Distant</string>
+    <string id="30049">Collecte de la liste des fichiers</string>
+    <string id="30050">Le chemin distant existe - d'anciens fichiers peuvent s'y trouver !</string>
+    <string id="30051">Création de la liste des fichiers</string>
+    <string id="30052">Ecriture du fichier</string>
 </strings>

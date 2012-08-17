@@ -3,6 +3,7 @@ import xbmcaddon
 import xbmcgui
 import resources.lib.vfs as vfs
 import os
+import time
 
 __addon_id__ = 'script.xbmcbackup'
 __Addon = xbmcaddon.Addon(__addon_id__)
@@ -102,8 +103,16 @@ class XbmcBackup:
 	    self.addon.setSetting("remote_path","")
         elif(self.addon.getSetting('remote_selection') == '0'):
             self.remote_path = self.addon.getSetting("remote_path")
-	
-	if(self.addon.getSetting("backup_name") != '' and self.remote_path != ''):
+
+        #check if trailing slash is included
+        if(self.remote_path[-1:] != "/"):
+            self.remote_path = self.remote_path + "/"
+
+	#append backup folder name
+        if(int(self.addon.getSetting('addon_mode')) == 0 and self.remote_path != ''):
+            date_today = time.localtime(time.time())
+            self.remote_path = self.remote_path + str(date_today[1]) + str(date_today[2]) + str(date_today[0]) + "/"
+	elif(int(self.addon.getSetting('addon_mode')) == 1 and self.addon.getSetting("backup_name") != '' and self.remote_path != ''):
 	    self.remote_path = self.remote_path + self.addon.getSetting("backup_name") + "/"
 	else:
 	    self.remote_path = ""
@@ -121,16 +130,24 @@ class XbmcBackup:
         #check what mode were are in
         if(int(self.addon.getSetting('addon_mode')) == 0):
             self.fileManager = FileManager(self.local_path,self.addon.getAddonInfo('profile'))
+
+            #for backups check if remote path exists
+            if(vfs.exists(self.remote_path)):
+                #this will fail - need a disclaimer here
+                log(self.addon.getLocalizedString(30050))
+
             self.syncFiles()
         else:
             self.fileManager = FileManager(self.remote_path,self.addon.getAddonInfo('profile'))
-            self.restoreFiles()
+
+            #for restores remote path must exist
+            if(vfs.exists(self.remote_path)):
+                self.restoreFiles()
+            else:
+                xbmcgui.Dialog().ok(self.addon.getLocalizedString(30010),self.addon.getLocalizedString(30045))
         
     def syncFiles(self):
-        if(vfs.exists(self.remote_path)):
-            #this will fail - need a disclaimer here
-            log(self.addon.getLocalizedString(30050))
-
+        
         #make the remote directory
         vfs.mkdir(self.remote_path)
 

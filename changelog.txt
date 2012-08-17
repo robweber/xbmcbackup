@@ -56,3 +56,5 @@ removed need for separate verbose logging setting
 
 updated utf-8 encoding for all logging
 
+backup now uses date as folder name, restore allows user to type date of last backup
+

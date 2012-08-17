@@ -4,10 +4,10 @@
     <string id="30011">Général</string>
     <string id="30012">Sélection des fichiers</string>
     
-	<string id="30016">Sauvegarde</string>
-	<string id="30017">Restauration</string>
-	<string id="30018">Parcourir</string>
-	<string id="30019">Saisir</string>
+    <string id="30016">Sauvegarde</string>
+    <string id="30017">Restauration</string>
+    <string id="30018">Parcourir</string>
+    <string id="30019">Saisir</string>
     <string id="30020">Parcourir le chemin de sauvegarde</string>
     <string id="30021">Nom du répertoire de sauvegarde</string>
     <string id="30022">Mode silencieux</string>
@@ -22,7 +22,7 @@
     <string id="30034">Miniatures / Fanart</string>
     <string id="30035">Fichiers de configuration</string>
 	
-	<string id="30045">Erreur : Le chemin distant ne peut pas être vide.</string>
+    <string id="30045">Erreur : Le chemin distant ne peut pas être vide.</string>
     <string id="30046">Démarrage</string>
     <string id="30047">Dossier Local</string>
     <string id="30048">Dossier Distant</string>

@@ -1,7 +1,7 @@
 import xbmc
 import xbmcaddon
 import xbmcgui
-import resources.lib.vfs as vfs
+import xbmcvfs
 import os
 import time
 
@@ -13,6 +13,7 @@ class FileManager:
     addonDir = ''
     fileArray = None
     verbose_log = False
+    not_dir = ['.zip','.xsp','.rar']
     
     def __init__(self,path,addon_dir):
         self.walk_path = path
@@ -29,13 +30,13 @@ class FileManager:
         #figure out which syncing options to run
         if(Addon.getSetting('backup_addons') == 'true'):
             self.addFile("-addons")
-            self.walkTree(self.walk_path + "addons/")
+            self.walkTree(self.walk_path + "addons")
 
         self.addFile("-userdata")
         
         if(Addon.getSetting('backup_addon_data') == 'true'):
             self.addFile("-userdata/addon_data")
-            self.walkTree(self.walk_path + "userdata/addon_data/")
+            self.walkTree(self.walk_path + "userdata/addon_data")
            
         if(Addon.getSetting('backup_database') == 'true'):
 	    self.addFile("-userdata/Database")
@@ -57,21 +58,28 @@ class FileManager:
             self.walkTree(self.walk_path + "userdata/peripheral_data")
             
 	    #this part is an oddity
-            configFiles = vfs.listdir(self.walk_path + "userdata/",extra_metadata=True)
+            dirs,configFiles = xbmcvfs.listdir(self.walk_path + "userdata/")
 	    for aFile in configFiles:
-		if(aFile['file'].endswith(".xml")):
-		    self.addFile(aFile['file'][len(self.walk_path):])
+		if(aFile.endswith(".xml")):
+		    self.addFile("userdata/" + aFile)
         
     def walkTree(self,directory):
-        for (path, dirs, files) in vfs.walk(directory):
+        dirs,files = xbmcvfs.listdir(directory)
+        
+        #create all the subdirs first
+        for aDir in dirs:
+            dirPath = xbmc.translatePath(directory + "/" + aDir)
+            file_ext = aDir.split('.')[-1]
+
+            self.addFile("-" + dirPath[len(self.walk_path):].decode("UTF-8"))  
+            #catch for "non directory" type files
+            if (not any(file_ext in s for s in self.not_dir)):
+                self.walkTree(dirPath)  
             
-            #create all the subdirs first
-            for aDir in dirs:
-                self.addFile("-" + aDir[len(self.walk_path):])
-            #copy all the files
-            for aFile in files:
-                filePath = aFile[len(self.walk_path):]
-                self.addFile(filePath)
+        #copy all the files
+        for aFile in files:
+            filePath = xbmc.translatePath(directory + "/" + aFile)
+            self.addFile(filePath[len(self.walk_path):].decode("UTF-8"))
                     
     def addFile(self,filename):
         #write the full remote path name of this file
@@ -116,6 +124,9 @@ class XbmcBackup:
 	    self.remote_path = self.remote_path + self.addon.getSetting("backup_name") + "/"
 	else:
 	    self.remote_path = ""
+
+        self.local_path = self.local_path.decode("UTF-8")
+        self.local_path = self.local_path.decode("UTF-8")
         
         log(self.addon.getLocalizedString(30046))
         log(self.addon.getLocalizedString(30047) + ": " + self.local_path)
@@ -132,7 +143,7 @@ class XbmcBackup:
             self.fileManager = FileManager(self.local_path,self.addon.getAddonInfo('profile'))
 
             #for backups check if remote path exists
-            if(vfs.exists(self.remote_path)):
+            if(xbmcvfs.exists(self.remote_path)):
                 #this will fail - need a disclaimer here
                 log(self.addon.getLocalizedString(30050))
 
@@ -141,7 +152,7 @@ class XbmcBackup:
             self.fileManager = FileManager(self.remote_path,self.addon.getAddonInfo('profile'))
 
             #for restores remote path must exist
-            if(vfs.exists(self.remote_path)):
+            if(xbmcvfs.exists(self.remote_path)):
                 self.restoreFiles()
             else:
                 xbmcgui.Dialog().ok(self.addon.getLocalizedString(30010),self.addon.getLocalizedString(30045))
@@ -149,7 +160,7 @@ class XbmcBackup:
     def syncFiles(self):
         
         #make the remote directory
-        vfs.mkdir(self.remote_path)
+        xbmcvfs.mkdir(self.remote_path)
 
         log(self.addon.getLocalizedString(30051))
         self.fileManager.createFileList(self.addon)
@@ -182,9 +193,9 @@ class XbmcBackup:
                 log('Writing file: ' + source + aFile,xbmc.LOGDEBUG)
                 self.updateProgress(aFile)
                 if (aFile.startswith("-")):
-                    vfs.mkdir(xbmc.makeLegalFilename(dest + aFile[1:],False))
+                    xbmcvfs.mkdir(xbmc.makeLegalFilename(dest + aFile[1:],False))
                 else:
-                    vfs.copy(xbmc.makeLegalFilename(source + aFile),xbmc.makeLegalFilename(dest + aFile,False))
+                    xbmcvfs.copy(xbmc.makeLegalFilename(source + aFile),xbmc.makeLegalFilename(dest + aFile,False))
 
         if(self.addon.getSetting('run_silent') == 'false'):
             self.progressBar.close()
@@ -209,7 +220,8 @@ class XbmcBackup:
 
 #global functions for logging and encoding
 def log(message,loglevel=xbmc.LOGNOTICE):
-    xbmc.log(encode(__Addon.getLocalizedString(30010) + ": " + message),level=loglevel)
+    logM = encode(__Addon.getLocalizedString(30010) + ": " + message)
+    xbmc.log(logM,level=loglevel)
 
 def encode(string):
     return string.encode('UTF-8','replace')

@@ -1,3 +1,9 @@
+[b]Version 0.2.0[/b]
+
+removed the vfs.py helper library
+
+default.py file now uses xbmcvfs python library exclusively for listing directories and copy operations
+
 [b]Version 0.1.3[/b]
 
 added German translations - thanks dersphere
@@ -57,16 +63,3 @@ Added progress bar and "silent" option for running on startup or as a script
 [b]Version 0.0.2[/b]
 
 First version, should backup directories as needed
-
-
-
-
-
-
-
-[b]Version 0.2.0[/b]
-
-removed the vfs.py helper library
-
-default.py file now uses xbmcvfs python library exclusively for listing directories and copy operations
-

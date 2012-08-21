@@ -24,8 +24,8 @@
 	
     <string id="30045">Erreur : le chemin distant n'existe pas</string>
     <string id="30046">Démarrage</string>
-    <string id="30047">Dossier Local</string>
-    <string id="30048">Dossier Distant</string>
+    <string id="30047">Dossier local</string>
+    <string id="30048">Dossier distant</string>
     <string id="30049">Collecte de la liste des fichiers</string>
     <string id="30050">Le chemin distant existe déjà - d'anciens fichiers peuvent s'y trouver !</string>
     <string id="30051">Création de la liste des fichiers</string>

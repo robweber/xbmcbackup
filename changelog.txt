@@ -1,5 +1,7 @@
 [b]Version 0.1.3[/b]
 
+backup folder format - thanks zeroram
+
 added German translations - thanks dersphere
 
 removed need for separate verbose logging setting

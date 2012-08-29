@@ -118,8 +118,7 @@ class XbmcBackup:
 
 	#append backup folder name
         if(int(self.addon.getSetting('addon_mode')) == 0 and self.remote_path != ''):
-            date_today = time.localtime(time.time())
-            self.remote_path = self.remote_path + str(date_today[1]) + str(date_today[2]) + str(date_today[0]) + "/"
+            self.remote_path = self.remote_path + time.strftime("%Y%m%d") + "/"
 	elif(int(self.addon.getSetting('addon_mode')) == 1 and self.addon.getSetting("backup_name") != '' and self.remote_path != ''):
 	    self.remote_path = self.remote_path + self.addon.getSetting("backup_name") + "/"
 	else:

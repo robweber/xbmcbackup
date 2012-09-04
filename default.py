@@ -82,6 +82,10 @@ class FileManager:
        return self.fileArray
 
 class XbmcBackup:
+    #constants for initiating a back or restore
+    Backup = 0
+    Restore = 1
+    
     addon = None
     local_path = ''
     remote_path = ''
@@ -107,27 +111,33 @@ class XbmcBackup:
         #check if trailing slash is included
         if(self.remote_path[-1:] != "/"):
             self.remote_path = self.remote_path + "/"
-
-	#append backup folder name
-        if(int(self.addon.getSetting('addon_mode')) == 0 and self.remote_path != ''):
-            self.remote_path = self.remote_path + time.strftime("%Y%m%d") + "/"
-	elif(int(self.addon.getSetting('addon_mode')) == 1 and self.addon.getSetting("backup_name") != '' and self.remote_path != ''):
-	    self.remote_path = self.remote_path + self.addon.getSetting("backup_name") + "/"
-	else:
-	    self.remote_path = ""
         
         log(self.addon.getLocalizedString(30046))
-        log(self.addon.getLocalizedString(30047) + ": " + self.local_path)
-        log(self.addon.getLocalizedString(30048) + ": " + self.remote_path)
 
-    def run(self):
+    def run(self,mode=-1):
 	#check if we should use the progress bar
         if(self.addon.getSetting('run_silent') == 'false'):
             self.progressBar = xbmcgui.DialogProgress()
             self.progressBar.create(self.addon.getLocalizedString(30010),self.addon.getLocalizedString(30049) + "......")
-	    
-        #check what mode were are in
-        if(int(self.addon.getSetting('addon_mode')) == 0):
+
+        #determine backup mode
+        if(mode == -1):
+            mode = int(self.addon.getSetting('addon_mode'))
+
+        #append backup folder name
+        if(mode == self.Backup and self.remote_path != ''):
+            self.remote_path = self.remote_path + time.strftime("%Y%m%d") + "/"
+	elif(mode == self.Restore and self.addon.getSetting("backup_name") != '' and self.remote_path != ''):
+	    self.remote_path = self.remote_path + self.addon.getSetting("backup_name") + "/"
+	else:
+	    self.remote_path = ""
+
+        log(self.addon.getLocalizedString(30047) + ": " + self.local_path)
+        log(self.addon.getLocalizedString(30048) + ": " + self.remote_path)
+
+        #run the correct mode
+        if(mode == self.Backup):
+            log(self.addon.getLocalizedString(30023) + " - " + self.addon.getLocalizedString(30016))
             self.fileManager = FileManager(self.local_path,self.addon.getAddonInfo('profile'))
 
             #for backups check if remote path exists
@@ -137,6 +147,7 @@ class XbmcBackup:
 
             self.syncFiles()
         else:
+            log(self.addon.getLocalizedString(30023) + " - " + self.addon.getLocalizedString(30017))
             self.fileManager = FileManager(self.remote_path,self.addon.getAddonInfo('profile'))
 
             #for restores remote path must exist

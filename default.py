@@ -143,7 +143,7 @@ class XbmcBackup:
             if(vfs.exists(self.remote_path)):
                 self.restoreFiles()
             else:
-                xbmcgui.Dialog().ok(self.addon.getLocalizedString(30010),self.addon.getLocalizedString(30045))
+                xbmcgui.Dialog().ok(self.addon.getLocalizedString(30010),self.addon.getLocalizedString(30045),self.remote_path)
         
     def syncFiles(self):
         

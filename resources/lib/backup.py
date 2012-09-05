@@ -97,8 +97,11 @@ class XbmcBackup:
         elif(utils.getSetting('remote_selection') == '0'):
             self.remote_path = utils.getSetting("remote_path")
 
+        #fix slashes
+        self.remote_path = self.remote_path.replace("\\","/")
+        
         #check if trailing slash is included
-        if(self.remote_path[-1:] != "/" and self.remote_path[-1:] != "\\"):
+        if(self.remote_path[-1:] != "/"):
             self.remote_path = self.remote_path + "/"
         
         utils.log(utils.getString(30046))

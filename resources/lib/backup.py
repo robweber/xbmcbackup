@@ -106,9 +106,9 @@ class XbmcBackup:
         
         utils.log(utils.getString(30046))
 
-    def run(self,mode=-1):
+    def run(self,mode=-1,runSilent=False):
 	#check if we should use the progress bar
-        if(utils.getSetting('run_silent') == 'false'):
+        if(utils.getSetting('run_silent') == 'false' and not runSilent):
             self.progressBar = xbmcgui.DialogProgress()
             self.progressBar.create(utils.getString(30010),utils.getString(30049) + "......")
 
@@ -147,6 +147,9 @@ class XbmcBackup:
                 self.restoreFiles()
             else:
                 xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_path)
+
+        if(utils.getSetting('run_silent') == 'false' and not runSilent):
+            self.progressBar.close()
         
     def syncFiles(self):
         
@@ -187,9 +190,6 @@ class XbmcBackup:
                     vfs.mkdir(xbmc.makeLegalFilename(dest + aFile[1:],False))
                 else:
                     vfs.copy(xbmc.makeLegalFilename(source + aFile),xbmc.makeLegalFilename(dest + aFile,False))
-
-        if(utils.getSetting('run_silent') == 'false'):
-            self.progressBar.close()
 
     def updateProgress(self,message=''):
         self.filesLeft = self.filesLeft - 1

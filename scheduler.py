@@ -1,24 +1,57 @@
 import xbmc
+import datetime
 import time
 import resources.lib.utils as utils
+from resources.lib.croniter import croniter
 from resources.lib.backup import XbmcBackup
 
 class BackupScheduler:
     enabled = "false"
-
+    next_run = 0
+    
     def __init__(self):
         self.enabled = utils.getSetting("enable_scheduler")
+
+        if(self.enabled == "true"):
+            self.setup()
+
+    def setup(self):
+        #scheduler was turned on, find next run time
+        utils.log("scheduler enabled, finding next run time")
+        self.findNextRun(time.time())
+        utils.log("scheduler will run again on " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
         
     def start(self):
         while(not xbmc.abortRequested):
             if(self.enabled == "true"):
-                cron_exp = self.parseSchedule()
-                utils.log(cron_exp)
+                now = time.time()
+
+                if(self.next_run <= now):
+                    if(utils.getSetting('run_silent') == 'false'):
+                        utils.showNotification("Starting scheduled backup")
+                    #run the job in backup mode, hiding the dialog box
+                    backup = XbmcBackup()
+                    backup.run(XbmcBackup.Backup,True)
+                    
+                self.findNextRun(now)
             else:
-                utils.log("backup not enabled")
                 self.enabled = utils.getSetting("enable_scheduler")
+
+                if(self.enabled == "true"):
+                    self.setup()
                 
             time.sleep(10)
+
+    def findNextRun(self,now):
+        #find the cron expression and get the next run time
+        cron_exp = self.parseSchedule()
+
+        cron_ob = croniter(cron_exp,datetime.datetime.fromtimestamp(now))
+        new_run_time = cron_ob.get_next(float)
+
+        if(new_run_time != self.next_run):
+            self.next_run = new_run_time
+            utils.log("scheduler will run again on " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
 
     def parseSchedule(self):
         schedule_type = int(utils.getSetting("schedule_interval"))

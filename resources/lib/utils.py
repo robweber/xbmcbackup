@@ -8,6 +8,9 @@ __Addon = xbmcaddon.Addon(__addon_id__)
 def log(message,loglevel=xbmc.LOGNOTICE):
     xbmc.log(encode(__addon_id__ + ": " + message),level=loglevel)
 
+def showNotification(message):
+    xbmc.executebuiltin("Notification(" + getString(30010) + "," + message + ",4000," + xbmc.translatePath(__Addon.getAddonInfo('path') + "/icon.png") + ")")
+
 def getSetting(name):
     return __Addon.getSetting(name)
 

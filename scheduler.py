@@ -28,7 +28,7 @@ class BackupScheduler:
 
                 if(self.next_run <= now):
                     if(utils.getSetting('run_silent') == 'false'):
-                        utils.showNotification("Starting scheduled backup")
+                        utils.showNotification(utils.getString(30053))
                     #run the job in backup mode, hiding the dialog box
                     backup = XbmcBackup()
                     backup.run(XbmcBackup.Backup,True)

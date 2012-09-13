@@ -4,7 +4,9 @@ import xbmcaddon
 __addon_id__= 'script.xbmcbackup'
 __Addon = xbmcaddon.Addon(__addon_id__)
 
-#global functions for logging and encoding
+def data_dir():
+    return __Addon.getAddonInfo('profile')
+
 def log(message,loglevel=xbmc.LOGNOTICE):
     xbmc.log(encode(__addon_id__ + ": " + message),level=loglevel)
 

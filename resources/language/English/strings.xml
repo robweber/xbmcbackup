@@ -32,6 +32,7 @@
 	<string id="30051">Creating Files List</string>
 	<string id="30052">Writing file</string>
     <string id="30053">Starting scheduled backup</string>
+	<string id="30054">Removing backup</string>
 	
 	<string id="30060">Enable Scheduler</string>
     <string id="30061">Schedule</string>

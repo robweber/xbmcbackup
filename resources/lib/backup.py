@@ -86,6 +86,7 @@ class XbmcBackup:
     Restore = 1
     
     local_path = ''
+    remote_root = ''
     remote_path = ''
     restoreFile = None
     
@@ -100,17 +101,17 @@ class XbmcBackup:
         self.local_path = xbmc.makeLegalFilename(xbmc.translatePath("special://home"),False);
       
 	if(utils.getSetting('remote_selection') == '1'):
-	    self.remote_path = utils.getSetting('remote_path_2')
+	    self.remote_root = utils.getSetting('remote_path_2')
 	    utils.setSetting("remote_path","")
         elif(utils.getSetting('remote_selection') == '0'):
-            self.remote_path = utils.getSetting("remote_path")
+            self.remote_root = utils.getSetting("remote_path")
 
         #fix slashes
-        self.remote_path = self.remote_path.replace("\\","/")
+        self.remote_root = self.remote_root.replace("\\","/")
         
         #check if trailing slash is included
-        if(self.remote_path[-1:] != "/"):
-            self.remote_path = self.remote_path + "/"
+        if(self.remote_root[-1:] != "/"):
+            self.remote_root = self.remote_root + "/"
         
         utils.log(utils.getString(30046))
 
@@ -125,10 +126,10 @@ class XbmcBackup:
             mode = int(utils.getSetting('addon_mode'))
 
         #append backup folder name
-        if(mode == self.Backup and self.remote_path != ''):
-            self.remote_path = self.remote_path + time.strftime("%Y%m%d") + "/"
-	elif(mode == self.Restore and utils.getSetting("backup_name") != '' and self.remote_path != ''):
-	    self.remote_path = self.remote_path + utils.getSetting("backup_name") + "/"
+        if(mode == self.Backup and self.remote_root != ''):
+            self.remote_path = self.remote_root + time.strftime("%Y%m%d") + "/"
+	elif(mode == self.Restore and utils.getSetting("backup_name") != '' and self.remote_root != ''):
+	    self.remote_path = self.remote_root + utils.getSetting("backup_name") + "/"
 	else:
 	    self.remote_path = ""
 
@@ -146,6 +147,25 @@ class XbmcBackup:
                 utils.log(utils.getString(30050))
 
             self.syncFiles()
+
+            #remove old backups
+            total_backups = int(utils.getSetting('backup_rotation'))
+            if(total_backups > 0):
+                
+                dirs,files = xbmcvfs.listdir(self.remote_root)
+                if(len(dirs) > total_backups):
+                    #remove backups to equal total wanted
+                    remove_num = len(dirs) - total_backups - 1
+                    self.filesTotal = self.filesTotal + remove_num + 1
+
+                    #update the progress bar if it is available
+                    while(remove_num >= 0 and not self.checkCancel()):
+                        self.updateProgress(utils.getString(30054) + " " + dirs[remove_num])
+                        utils.log("Removing backup " + dirs[remove_num])
+                        xbmcvfs.rmdir(self.remote_root + dirs[remove_num] + "/",True)
+                        remove_num = remove_num - 1
+                        
+                
         else:
             utils.log(utils.getString(30023) + " - " + utils.getString(30017))
             self.fileManager = FileManager(self.remote_path)
@@ -215,4 +235,4 @@ class XbmcBackup:
         return result
 
     def isReady(self):
-        return True if self.remote_path != '' else False
+        return True if self.remote_root != '' else False

@@ -1,9 +1,13 @@
 import xbmc
 import xbmcgui
 import xbmcvfs
+from resources.dropbox import client, rest, session
 import utils as utils
 import os
 import time
+
+APP_KEY = 'f5wlmek6aoriqax'
+APP_SECRET = 'b1461sje1kxgzet'
 
 class FileManager:
     walk_path = ''
@@ -127,7 +131,13 @@ class XbmcBackup:
 
         #append backup folder name
         if(mode == self.Backup and self.remote_root != ''):
-            self.remote_path = self.remote_root + time.strftime("%Y%m%d") + "/"
+            #check here if we're using Dropbox or not
+            if(utils.getSetting('remote_selection') == 2):
+                session = session.DropboxSession(APP_KEY,APP_SECRET,"app_folder")
+                token = session.obtain_request_token()
+                access_token = session.obtain_access_token(token)
+            else:
+                self.remote_path = self.remote_root + time.strftime("%Y%m%d") + "/"
 	elif(mode == self.Restore and utils.getSetting("backup_name") != '' and self.remote_root != ''):
 	    self.remote_path = self.remote_root + utils.getSetting("backup_name") + "/"
 	else:

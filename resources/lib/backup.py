@@ -1,7 +1,7 @@
 import xbmc
 import xbmcgui
 import xbmcvfs
-from resources.dropbox import client, rest, session
+from dropbox import client, rest, session
 import utils as utils
 import os
 import time

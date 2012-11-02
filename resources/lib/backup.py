@@ -1,23 +1,22 @@
 import xbmc
 import xbmcgui
 import xbmcvfs
-from dropbox import client, rest, session
 import utils as utils
 import os
 import time
-
-APP_KEY = 'f5wlmek6aoriqax'
-APP_SECRET = 'b1461sje1kxgzet'
+from vfs import XBMCFilesystem,DropboxFilesystem
 
 class FileManager:
     walk_path = ''
     fileArray = None
     verbose_log = False
     not_dir = ['.zip','.xsp','.rar']
+    vfs = None
     
-    def __init__(self,path):
+    def __init__(self,path,vfs):
         self.walk_path = path
-
+        self.vfs = vfs
+        
     def createFileList(self):
         self.fileArray = []
         self.verbose_log = utils.getSetting("verbose_log") == 'true'
@@ -53,13 +52,13 @@ class FileManager:
             self.walkTree(self.walk_path + "userdata/peripheral_data")
             
 	    #this part is an oddity
-            dirs,configFiles = xbmcvfs.listdir(self.walk_path + "userdata/")
+            dirs,configFiles = self.vfs.listdir(self.walk_path + "userdata/")
 	    for aFile in configFiles:
 		if(aFile.endswith(".xml")):
 		    self.addFile("userdata/" + aFile)
         
     def walkTree(self,directory):
-        dirs,files = xbmcvfs.listdir(directory)
+        dirs,files = self.vfs.listdir(directory)
         
         #create all the subdirs first
         for aDir in dirs:
@@ -88,6 +87,9 @@ class XbmcBackup:
     #constants for initiating a back or restore
     Backup = 0
     Restore = 1
+
+    #remote file system
+    vfs = None
     
     local_path = ''
     remote_root = ''
@@ -103,21 +105,29 @@ class XbmcBackup:
     
     def __init__(self):
         self.local_path = xbmc.makeLegalFilename(xbmc.translatePath("special://home"),False);
-      
-	if(utils.getSetting('remote_selection') == '1'):
+
+        self.configureVFS()
+        
+        utils.log(utils.getString(30046))
+
+    def configureVFS(self):
+        if(utils.getSetting('remote_selection') == '1'):
 	    self.remote_root = utils.getSetting('remote_path_2')
 	    utils.setSetting("remote_path","")
+	    self.vfs = XBMCFilesystem()
         elif(utils.getSetting('remote_selection') == '0'):
             self.remote_root = utils.getSetting("remote_path")
-
+            self.vfs = XBMCFilesystem()
+        elif(utils.getSetting('remote_selection') == '2'):
+            self.remote_root = '/xbmc'
+            
         #fix slashes
         self.remote_root = self.remote_root.replace("\\","/")
         
         #check if trailing slash is included
         if(self.remote_root[-1:] != "/"):
             self.remote_root = self.remote_root + "/"
-        
-        utils.log(utils.getString(30046))
+
 
     def run(self,mode=-1,runSilent=False):
 	#check if we should use the progress bar
@@ -131,13 +141,7 @@ class XbmcBackup:
 
         #append backup folder name
         if(mode == self.Backup and self.remote_root != ''):
-            #check here if we're using Dropbox or not
-            if(utils.getSetting('remote_selection') == 2):
-                session = session.DropboxSession(APP_KEY,APP_SECRET,"app_folder")
-                token = session.obtain_request_token()
-                access_token = session.obtain_access_token(token)
-            else:
-                self.remote_path = self.remote_root + time.strftime("%Y%m%d") + "/"
+            self.remote_path = self.remote_root + time.strftime("%Y%m%d") + "/"
 	elif(mode == self.Restore and utils.getSetting("backup_name") != '' and self.remote_root != ''):
 	    self.remote_path = self.remote_root + utils.getSetting("backup_name") + "/"
 	else:
@@ -146,13 +150,15 @@ class XbmcBackup:
         utils.log(utils.getString(30047) + ": " + self.local_path)
         utils.log(utils.getString(30048) + ": " + self.remote_path)
 
+        
+
         #run the correct mode
         if(mode == self.Backup):
             utils.log(utils.getString(30023) + " - " + utils.getString(30016))
-            self.fileManager = FileManager(self.local_path)
+            self.fileManager = FileManager(self.local_path,XBMCFileSystem())
 
             #for backups check if remote path exists
-            if(xbmcvfs.exists(self.remote_path)):
+            if(self.vfs.exists(self.remote_path)):
                 #this will fail - need a disclaimer here
                 utils.log(utils.getString(30050))
 
@@ -162,7 +168,7 @@ class XbmcBackup:
             total_backups = int(utils.getSetting('backup_rotation'))
             if(total_backups > 0):
                 
-                dirs,files = xbmcvfs.listdir(self.remote_root)
+                dirs,files = self.vfs.listdir(self.remote_root)
                 if(len(dirs) > total_backups):
                     #remove backups to equal total wanted
                     remove_num = len(dirs) - total_backups - 1
@@ -172,16 +178,16 @@ class XbmcBackup:
                     while(remove_num >= 0 and not self.checkCancel()):
                         self.updateProgress(utils.getString(30054) + " " + dirs[remove_num])
                         utils.log("Removing backup " + dirs[remove_num])
-                        xbmcvfs.rmdir(self.remote_root + dirs[remove_num] + "/",True)
+                        self.vfs.rmdir(self.remote_root + dirs[remove_num] + "/")
                         remove_num = remove_num - 1
                         
                 
         else:
             utils.log(utils.getString(30023) + " - " + utils.getString(30017))
-            self.fileManager = FileManager(self.remote_path)
+            self.fileManager = FileManager(self.remote_path,self.vfs)
 
             #for restores remote path must exist
-            if(xbmcvfs.exists(self.remote_path)):
+            if(self.vfs.exists(self.remote_path)):
                 self.restoreFiles()
             else:
                 xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_path)
@@ -192,7 +198,7 @@ class XbmcBackup:
     def syncFiles(self):
         
         #make the remote directory
-        xbmcvfs.mkdir(self.remote_path)
+        self.vfs.mkdir(self.remote_path)
 
         utils.log(utils.getString(30051))
         self.fileManager.createFileList()

@@ -1,45 +1,77 @@
 import utils as utils
 import xbmcvfs
+import xbmcgui
 from dropbox import client, rest, session
 
 APP_KEY = 'f5wlmek6aoriqax'
 APP_SECRET = 'b1461sje1kxgzet'
 
 class Vfs:
-    type = 'none'
+    root_path = None
 
-    def listdir(directory):
+    def set_root(self,rootString):
+        self.root_path = rootString
+
+        #fix slashes
+        self.root_path = self.root_path.replace("\\","/")
+        
+        #check if trailing slash is included
+        if(self.root_path[-1:] != "/"):
+            self.root_path = self.root_path + "/"
+        
+    def listdir(self,directory):
         return {}
 
-    def mkdir(directory):
+    def mkdir(self,directory):
         return True
 
-    def copy(source,dest):
+    def copy(self,source,dest):
         return True
 
-    def rmdir(directory):
+    def rmdir(self,directory):
         return True
 
-    def exists(aFile):
+    def exists(self,aFile):
         return True
         
 class XBMCFileSystem(Vfs):
-    self.root_path
-    def listdir(directory):
+    
+    def listdir(self,directory):
         return xbmcvfs.listdir(directory)
 
-    def mkdir(directory):
+    def mkdir(self,directory):
         return xbmcvfs.mkdir(directory)
 
-    def rmdir(directory):
+    def copy(self,source,dest):
+        return xbmcvfs.copy(source,dest)
+
+    def rmdir(self,directory):
         return xbmcvfs.rmdir(directory,True)
 
-    def exists(aFile):
+    def exists(self,aFile):
         return xbmcvfs.exists(aFile)
 
-class DropboxFilesystem(Vfs):
-
+class DropboxFileSystem(Vfs):
+    user_token = None
+    
     def __init__(self):
-        session = session.DropboxSession(APP_KEY,APP_SECRET,"app_folder")
-        token = session.obtain_request_token()
-        access_token = session.obtain_access_token(token)
+        self.user_token = utils.getSetting('dropbox_token')
+        sess = session.DropboxSession(APP_KEY,APP_SECRET,"app_folder")
+
+        if(self.user_token == ''):
+            token = sess.obtain_request_token()
+            url = sess.build_authorize_url(token)
+            try:
+                self.user_token = sess.obtain_access_token(token)
+                utils.setSetting("dropbox_token",self.user_token)
+            except:
+                xbmcgui.Dialog().ok(utils.getString(30010),"Authorize Dropbox URL, also in log",url)
+                utils.log("Authorize URL: " + url)
+
+        self.client = client.DropboxClient(sess)
+        utils.log(self.client.account_info())
+            
+
+
+
+            

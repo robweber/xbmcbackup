@@ -171,6 +171,7 @@ class XbmcBackup:
                 dirs,files = self.vfs.listdir(self.remote_root)
                 if(len(dirs) > total_backups):
                     #remove backups to equal total wanted
+                    dirs.sort()
                     remove_num = len(dirs) - total_backups - 1
                     self.filesTotal = self.filesTotal + remove_num + 1
 

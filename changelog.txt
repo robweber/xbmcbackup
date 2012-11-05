@@ -1,3 +1,7 @@
+[b]Version 0.2.2[/b]
+
+fix for backup rotation sort
+
 [b]Version 0.2.1[/b]
 
 added ability to rotate backups, keeping a set number of days

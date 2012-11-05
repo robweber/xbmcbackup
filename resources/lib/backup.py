@@ -2,7 +2,7 @@ import xbmc
 import xbmcgui
 import xbmcvfs
 import utils as utils
-import os
+import os.path
 import time
 from vfs import XBMCFileSystem,DropboxFileSystem
 
@@ -131,8 +131,10 @@ class XbmcBackup:
             mode = int(utils.getSetting('addon_mode'))
 
         #append backup folder name
+        remote_base_path = ""
         if(mode == self.Backup and self.remote_vfs.root_path != ''):
-            self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d") + "/")
+            #capture base path for backup rotation
+            remote_base_path = self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d") + "/")
 	elif(mode == self.Restore and utils.getSetting("backup_name") != '' and self.remote_vfs.root_path != ''):
 	    self.remote_vfs.set_root(self.remote_vfs.root_path + utils.getSetting("backup_name") + "/")
 	else:
@@ -157,7 +159,7 @@ class XbmcBackup:
             total_backups = int(utils.getSetting('backup_rotation'))
             if(total_backups > 0):
                 
-                dirs,files = self.remote_vfs.listdir(self.remote_vfs.root_path)
+                dirs,files = self.remote_vfs.listdir(remote_base_path)
                 if(len(dirs) > total_backups):
                     #remove backups to equal total wanted
                     dirs.sort()
@@ -168,7 +170,7 @@ class XbmcBackup:
                     while(remove_num >= 0 and not self.checkCancel()):
                         self.updateProgress(utils.getString(30054) + " " + dirs[remove_num])
                         utils.log("Removing backup " + dirs[remove_num])
-                        self.remote_vfs.rmdir(self.remote_vfs.root_path + dirs[remove_num] + "/")
+                        self.remote_vfs.rmdir(remote_base_path + dirs[remove_num] + "/")
                         remove_num = remove_num - 1
                         
                 

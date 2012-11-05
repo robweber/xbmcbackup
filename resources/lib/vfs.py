@@ -10,6 +10,7 @@ class Vfs:
     root_path = None
 
     def set_root(self,rootString):
+        old_root = self.root_path
         self.root_path = rootString
 
         #fix slashes
@@ -18,6 +19,9 @@ class Vfs:
         #check if trailing slash is included
         if(self.root_path[-1:] != "/"):
             self.root_path = self.root_path + "/"
+
+        #return the old root
+        return old_root
         
     def listdir(self,directory):
         return {}

@@ -83,11 +83,34 @@ class DropboxFileSystem(Vfs):
         self.client = client.DropboxClient(sess)
         utils.log(str(self.client.account_info()))
 
+    def listdir(self,directory):
+        if(self.client != None and self.exists(directory)):
+            files = []
+            dirs = []
+            metadata = self.client.metadata(directory)
+
+            for aFile in metadata['contents']:
+                if(aFile['is_dir']):
+                    dirs.append(aFile['path'][len(directory):])
+                else:
+                    files.append(aFile['path'][len(directory):])
+
+            return [dirs,files]
+        else:
+            return [[],[]]
+            
+
     def mkdir(self,directory):
         if(self.client != None):
             if(not self.exists(directory)):
                 self.client.file_create_folder(directory)
             return True
+        else:
+            return False
+
+    def rmdir(self,directory):
+        if(self.client != None and self.exists(directory)):
+            self.client.file_delete(directory)
         else:
             return False
 
@@ -102,11 +125,16 @@ class DropboxFileSystem(Vfs):
         else:
             return False
 
-    def copy(self,source,dest):
+    def copy(self,source,dest):        
         if(self.client != None):
             f = open(source,'rb')
-            response = self.client.put_file(dest,f,True)
-            return True
+            try:
+                response = self.client.put_file(dest,f,True)
+                return True
+            except:
+                #if we have an exception retry
+                retry = True
+                return self.copy(source,dest)
         else:
             return False
             

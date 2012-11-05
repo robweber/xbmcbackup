@@ -118,7 +118,7 @@ class XbmcBackup:
             self.remote_vfs.set_root(utils.getSetting("remote_path"))
         elif(utils.getSetting('remote_selection') == '2'):
             self.remote_vfs = DropboxFileSystem()
-            self.remote_vfs.set_root(utils.getSetting("dropbox_path"))
+            self.remote_vfs.set_root('/')
 
     def run(self,mode=-1,runSilent=False):
 	#check if we should use the progress bar

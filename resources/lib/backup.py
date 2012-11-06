@@ -225,7 +225,12 @@ class XbmcBackup:
                 if (aFile.startswith("-")):
                     dest.mkdir(dest.root_path + aFile[1:])
                 else:
-                    dest.copy(source.root_path + aFile,dest.root_path + aFile)
+                    if(isinstance(source,DropboxFileSystem)):
+                        #if copying from dropbox we need the file handle, use get_file
+                        source.get_file(source.root_path + aFile,dest.root_path + aFile)
+                    else:
+                        #copy using normal method
+                        dest.put(source.root_path + aFile,dest.root_path + aFile)
 
     def updateProgress(self,message=''):
         self.filesLeft = self.filesLeft - 1

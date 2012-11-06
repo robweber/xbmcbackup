@@ -31,9 +31,12 @@ class Vfs:
     def mkdir(self,directory):
         return True
 
-    def copy(self,source,dest):
+    def put(self,source,dest):
         return True
 
+    def getFile(self,source):
+        return True
+    
     def rmdir(self,directory):
         return True
 
@@ -48,9 +51,9 @@ class XBMCFileSystem(Vfs):
     def mkdir(self,directory):
         return xbmcvfs.mkdir(directory)
 
-    def copy(self,source,dest):
+    def put(self,source,dest):
         return xbmcvfs.copy(source,dest)
-
+        
     def rmdir(self,directory):
         return xbmcvfs.rmdir(directory,True)
 
@@ -125,7 +128,7 @@ class DropboxFileSystem(Vfs):
         else:
             return False
 
-    def copy(self,source,dest):        
+    def put(self,source,dest):        
         if(self.client != None):
             f = open(source,'rb')
             try:
@@ -137,7 +140,16 @@ class DropboxFileSystem(Vfs):
                 return self.copy(source,dest)
         else:
             return False
-            
+
+    def get_file(self,source,dest):
+        if(self.client != None):
+            #write the file locally
+            out = open(dest,'wb')
+            f = self.client.get_file(source).read()
+            out.write(f)
+            out.close()
+        else:
+            return False
     def setToken(self,key,secret):
         #write the token files
         token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"),'w')

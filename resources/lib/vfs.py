@@ -74,7 +74,7 @@ class DropboxFileSystem(Vfs):
 
             #print url in log
             utils.log("Authorize URL: " + url)
-            xbmcgui.Dialog().ok(utils.getString(30010),"Check Log For Dropbox Authorize URL","Click OK When Authorized")  
+            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30056),utils.getString(30057))  
             
             #if user authorized this will work
             user_token = sess.obtain_access_token(token)

@@ -137,7 +137,7 @@ class DropboxFileSystem(Vfs):
             except:
                 #if we have an exception retry
                 retry = True
-                return self.copy(source,dest)
+                return self.put(source,dest)
         else:
             return False
 

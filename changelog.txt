@@ -1,3 +1,17 @@
+[b]Version 0.2.2[/b]
+
+fix for backup rotation sort
+
+[b]Version 0.2.1[/b]
+
+added ability to rotate backups, keeping a set number of days
+
+[b]Version 0.2.0[/b]
+
+removed the vfs.py helper library
+
+default.py file now uses xbmcvfs python library exclusively for listing directories and copy operations
+
 [b]Version 0.1.7[/b]
 
 minor bug fixes and translations updates
@@ -75,10 +89,4 @@ Added progress bar and "silent" option for running on startup or as a script
 [b]Version 0.0.2[/b]
 
 First version, should backup directories as needed
-
-
-
-
-
-
 

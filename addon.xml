@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.xbmcbackup"
-    name="XBMC Backup" version="0.1.7" provider-name="robweber">
+    name="XBMC Backup" version="0.2.2" provider-name="robweber">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
   </requires>
@@ -31,6 +31,7 @@
     <description lang="sk">Už ste niekedy poškodili konfiguráciu XBMC a priali si mať zálohu? Teraz môžete - na jeden klik. Môžete exportovať Vašu databázu, playlist, náhľady, doplnky a konfigurácie na ktorýkoľvek zdroj zapisovateľný XBMC. Zálohy môžu byť púšťané na požiadanie alebo plánovačom. </description>
     <description lang="sv">Har du någonsin tappat bort din XBMC konfiguration och önskat att du hade en backup? Nu kan du enkelt med ett klick. Du kan exportera din databas, spellista, minityrer, tillägg och andra konfigurationsdetaljer till valfri källa som är skrivbar för XBMC. Backupper kan köras på begäran eller via scheman.</description>
     <platform>all</platform>
+    <language></language>
   </extension>
 </addon>
 

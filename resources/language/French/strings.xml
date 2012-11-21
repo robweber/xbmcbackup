@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <strings>
-    <string id="30010">Sauvegarde XBMC</string>
+    <string id="30010">XBMC Backup</string>
     <string id="30011">Général</string>
     <string id="30012">Sélection des fichiers</string>
     <string id="30013">Planification</string>
+
     <string id="30016">Sauvegarde</string>
     <string id="30017">Restauration</string>
     <string id="30018">Parcourir</string>
@@ -14,12 +15,15 @@
     <string id="30023">Mode</string>
     <string id="30024">Saisir le chemin de sauvegarde</string>
     <string id="30025">Mode de saisie du chemin</string>
+	<string id="30026">Sauvegardes à conserver (0 pour tous)</string>
+	
     <string id="30030">Addons de l'utilisaeur</string>
     <string id="30031">Données des addons</string>
     <string id="30032">Base de données</string>
     <string id="30033">Playliste</string>
     <string id="30034">Miniatures / Fanart</string>
     <string id="30035">Fichiers de configuration</string>
+	
     <string id="30045">Erreur : chemin distant n'existe pas</string>
     <string id="30046">Démarrage</string>
     <string id="30047">Dossier Local</string>
@@ -29,6 +33,8 @@
     <string id="30051">Création de la liste des fichiers</string>
     <string id="30052">Ecriture du fichier</string>
     <string id="30053">Démarrage de la sauvegarde planifiée</string>
+	<string id="30054">Suppression de la sauvegarde</string>
+	
     <string id="30060">Activer le planificateur</string>
     <string id="30061">Planifier</string>
     <string id="30062">Heure</string>

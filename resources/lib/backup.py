@@ -99,6 +99,7 @@ class XbmcBackup:
     filesTotal = 1
 
     fileManager = None
+    restore_point = None
     
     def __init__(self):
         self.local_vfs = XBMCFileSystem()
@@ -120,6 +121,20 @@ class XbmcBackup:
             self.remote_vfs = DropboxFileSystem()
             self.remote_vfs.set_root('/')
 
+    def listBackups(self):
+        result = list()
+
+        #get all the folders in the current root path
+        dirs,files = self.remote_vfs.listdir(self.remote_vfs.root_path)
+        
+        for aDir in dirs:
+            result.append(aDir)
+
+        return result
+
+    def selectRestore(self,restore_point):
+        self.restore_point = restore_point
+
     def run(self,mode=-1,runSilent=False):
 
         #append backup folder name
@@ -129,11 +144,13 @@ class XbmcBackup:
             #capture base path for backup rotation
             remote_base_path = self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d") + "/")
             progressBarTitle = progressBarTitle + utils.getString(30016)
-	elif(mode == self.Restore and utils.getSetting("backup_name") != '' and self.remote_vfs.root_path != ''):
-	    self.remote_vfs.set_root(self.remote_vfs.root_path + utils.getSetting("backup_name") + "/")
+	elif(mode == self.Restore and self.restore_point != None and self.remote_vfs.root_path != ''):
+	    self.remote_vfs.set_root(self.remote_vfs.root_path + self.restore_point + "/")
 	    progressBarTitle = progressBarTitle + utils.getString(30017)
 	else:
+            #kill the program here
 	    self.remote_vfs = None
+	    return
 
         utils.log(utils.getString(30047) + ": " + self.local_vfs.root_path)
         utils.log(utils.getString(30048) + ": " + self.remote_vfs.root_path)

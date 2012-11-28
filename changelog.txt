@@ -1,3 +1,7 @@
+Version 0.1.9
+
+added GUI changes to emulate Frodo look
+
 Version 0.1.8
 
 moved eden to new branch, frodo is now master

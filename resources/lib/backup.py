@@ -87,8 +87,6 @@ class XbmcBackup:
     Restore = 1
 
     #remote file system
-    vfs = None
-    
     local_vfs = None
     remote_vfs = None
     restoreFile = None

@@ -246,6 +246,3 @@ class XbmcBackup:
             result = self.progressBar.iscanceled()
 
         return result
-
-    def isReady(self):
-        return True if self.remote_vfs != None else False

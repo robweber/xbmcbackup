@@ -8,7 +8,4 @@ mode = xbmcgui.Dialog().select(utils.getString(30010) + " - " + utils.getString(
 if(mode != -1):
     #run the profile backup
     backup = XbmcBackup()
-
-    if(backup.isReady()):
-        
-        backup.run(mode)
+    backup.run(mode)

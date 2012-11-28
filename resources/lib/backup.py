@@ -116,22 +116,22 @@ class XbmcBackup:
         utils.log(utils.getString(30046))
 
     def run(self,mode=-1,runSilent=False):
-	#check if we should use the progress bar
-        if(utils.getSetting('run_silent') == 'false' and not runSilent):
-            self.progressBar = xbmcgui.DialogProgress()
-            self.progressBar.create(utils.getString(30010),utils.getString(30049) + "......")
-
-        #determine backup mode
-        if(mode == -1):
-            mode = int(utils.getSetting('addon_mode'))
 
         #append backup folder name
+        progressBarTitle = utils.getString(30010) + " - "
         if(mode == self.Backup and self.remote_root != ''):
             self.remote_path = self.remote_root + time.strftime("%Y%m%d") + "/"
+            progressBarTitle = progressBarTitle + utils.getString(30016)
 	elif(mode == self.Restore and utils.getSetting("backup_name") != '' and self.remote_root != ''):
 	    self.remote_path = self.remote_root + utils.getSetting("backup_name") + "/"
+	    progressBarTitle = progressBarTitle + utils.getString(30017)
 	else:
 	    self.remote_path = ""
+
+        #check if we should use the progress bar
+        if(utils.getSetting('run_silent') == 'false' and not runSilent):
+            self.progressBar = xbmcgui.DialogProgress()
+            self.progressBar.create(progressBarTitle,utils.getString(30049) + "......")
 
         utils.log(utils.getString(30047) + ": " + self.local_path)
         utils.log(utils.getString(30048) + ": " + self.remote_path)

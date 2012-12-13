@@ -84,7 +84,13 @@ class DropboxFileSystem(Vfs):
             sess.set_token(user_token_key,user_token_secret)
         
         self.client = client.DropboxClient(sess)
-        utils.log(str(self.client.account_info()))
+
+        try:
+            utils.log(str(self.client.account_info()))
+        except:
+            #this didn't work, delete the token file
+            self.deleteToken()
+            
 
     def listdir(self,directory):
         if(self.client != None and self.exists(directory)):
@@ -150,6 +156,7 @@ class DropboxFileSystem(Vfs):
             out.close()
         else:
             return False
+        
     def setToken(self,key,secret):
         #write the token files
         token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"),'w')
@@ -166,6 +173,10 @@ class DropboxFileSystem(Vfs):
             return [key,secret]
         else:
             return ["",""]
+
+    def deleteToken(self):
+        if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "tokens.txt"))):
+            xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "tokens.txt"))
             
 
 

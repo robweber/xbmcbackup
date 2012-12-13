@@ -44,7 +44,15 @@ class BackupScheduler:
                     #run the job in backup mode, hiding the dialog box
                     backup = XbmcBackup()
                     backup.run(XbmcBackup.Backup,True)
-                    self.findNextRun(now,True)
+
+                    #check if we should shut the computer down
+                    if(utils.getSetting("cron_shutdown") == 'true'):
+                        #wait 10 seconds to make sure all backup processes and files are completed
+                        time.sleep(10)
+                        xbmc.executebuiltin('Quit()')
+                    else:
+                        #find the next run time like normal
+                        self.findNextRun(now,True)
                 else:
                     self.findNextRun(now)
 

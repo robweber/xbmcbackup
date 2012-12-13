@@ -54,4 +54,5 @@
 	<string id="30073">Every Week</string>
 	<string id="30074">First Day of Month</string>
 	<string id="30075">Custom Schedule</string>
+	<string id="30076">Shutdown After Backup</string>
 </strings>

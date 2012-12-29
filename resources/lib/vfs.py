@@ -5,8 +5,8 @@ import xbmcgui
 import sys
 from dropbox import client, rest, session
 
-APP_KEY = 'f5wlmek6aoriqax'
-APP_SECRET = 'b1461sje1kxgzet'
+APP_KEY = utils.getSetting('dropbox_key')
+APP_SECRET = utils.getSetting('dropbox_secret')
 
 class Vfs:
     root_path = None

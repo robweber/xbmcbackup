@@ -17,6 +17,8 @@
 	<string id="30025">Remote Path Type</string>
 	<string id="30026">Backups to keep (0 for all)</string>
 	<string id="30027">Dropbox</string>
+	<string id="30028">Dropbox Key</string>
+	<string id="30029">Dropbox Secret</string>
 	
 	<string id="30030">User Addons</string>
 	<string id="30031">Addon Data</string>

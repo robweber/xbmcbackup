@@ -64,6 +64,10 @@ class DropboxFileSystem(Vfs):
     client = None
     
     def __init__(self):
+        if(APP_KEY == '' or APP_SECRET == ''):
+            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30058),utils.getString(30059))
+            return
+        
         user_token_key,user_token_secret = self.getToken()
         
         sess = session.DropboxSession(APP_KEY,APP_SECRET,"app_folder")

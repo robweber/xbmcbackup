@@ -49,7 +49,7 @@ class BackupScheduler:
                     if(utils.getSetting("cron_shutdown") == 'true'):
                         #wait 10 seconds to make sure all backup processes and files are completed
                         time.sleep(10)
-                        xbmc.executebuiltin('Quit()')
+                        xbmc.executebuiltin('ShutDown()')
                     else:
                         #find the next run time like normal
                         self.findNextRun(now,True)
@@ -90,7 +90,6 @@ class BackupScheduler:
         hour_of_day = int(hour_of_day[0:2])
         if(schedule_type == 0):
             #every day
-           
             cron_exp = "0 " + str(hour_of_day) + " * * *"
         elif(schedule_type == 1):
             #once a week

@@ -26,6 +26,14 @@ Using Dropbox as a storage target adds a few steps the first time you wish to ru
 
 Once you have your app key and secret add them to the settings. XBMC Backup now needs to have permission to access your Dropbox account. When you see the prompt regarding the Dropbox URL Authorization DO NOT click OK. Check your XBMC log file for a line from "script.xbmcbackup" containing the authorization URL. Cut/paste this into a browser and click Allow. Once this is done you can click "OK" in XBMC and proceed as normal. XBMC Backup will cache the authorization code so you only have to do this once, or if you revoke the Dropbox permissions. 
 
+
+Scripting XBMC Backup: 
+
+If you wish to script this addon using an outside scheduler or script it can be given parameters via the Xbmc.RunScript() or JsonRPC.Addons.ExecuteAddon() methods. Parameters given are either "backup" or "restore" to launch the correct program mode. An example would be: 
+
+RunScript(script.xbmcbackup,backup)
+
+
 What this Addon Will Not Do:
 
 This is not meant as an XBMC file sync solution. If you have multiple frontends you want to keep in sync this addon may work in a "poor man's" sort of way but it is not intended for that. 

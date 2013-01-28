@@ -11,6 +11,12 @@ APP_SECRET = utils.getSetting('dropbox_secret')
 class Vfs:
     root_path = None
 
+    def __init(self):
+        pass
+    
+    def __init__(self,rootString):
+        self.set_root(rootString)
+        
     def set_root(self,rootString):
         old_root = self.root_path
         self.root_path = rootString
@@ -44,7 +50,7 @@ class Vfs:
         return True
         
 class XBMCFileSystem(Vfs):
-    
+
     def listdir(self,directory):
         return xbmcvfs.listdir(directory)
 
@@ -63,7 +69,11 @@ class XBMCFileSystem(Vfs):
 class DropboxFileSystem(Vfs):
     client = None
     
-    def __init__(self):
+    def __init__(self,rootString):
+        self.setup()
+        Vfs.__init__(rootString)
+
+    def setup(self):
         if(APP_KEY == '' or APP_SECRET == ''):
             xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30058),utils.getString(30059))
             return
@@ -94,7 +104,6 @@ class DropboxFileSystem(Vfs):
         except:
             #this didn't work, delete the token file
             self.deleteToken()
-            
 
     def listdir(self,directory):
         if(self.client != None and self.exists(directory)):

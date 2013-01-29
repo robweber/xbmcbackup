@@ -151,7 +151,22 @@ class XbmcBackup:
                 self.backupFiles(fileGroup['files'],self.xbmc_vfs,self.remote_vfs)
 
             #remove old backups
-            
+            total_backups = int(utils.getSetting('backup_rotation'))
+            if(total_backups > 0):
+                
+                dirs,files = self.remote_vfs.listdir(remote_base_path)
+                if(len(dirs) > total_backups):
+                    #remove backups to equal total wanted
+                    dirs.sort()
+                    remove_num = len(dirs) - total_backups - 1
+                    self.filesTotal = self.filesTotal + remove_num + 1
+
+                    #update the progress bar if it is available
+                    while(remove_num >= 0 and not self._checkCancel()):
+                        self._updateProgress(utils.getString(30054) + " " + dirs[remove_num])
+                        utils.log("Removing backup " + dirs[remove_num])
+                        self.remote_vfs.rmdir(remote_base_path + dirs[remove_num] + "/")
+                        remove_num = remove_num - 1
 
     def backupFiles(self,fileList,source,dest):
         utils.log("Writing files to: " + dest.root_path)

@@ -241,6 +241,9 @@ class XbmcBackup:
                 self.xbmc_vfs.set_root(fileGroup['dest'])
                 self.backupFiles(fileGroup['files'],self.remote_vfs,self.xbmc_vfs)
 
+            #call update addons to refresh everything
+            xbmc.executebuiltin('UpdateLocalAddons')
+
         if(utils.getSetting('run_silent') == 'false' and not runSilent):
             self.progressBar.close()
 

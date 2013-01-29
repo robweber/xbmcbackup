@@ -168,6 +168,82 @@ class XbmcBackup:
                         self.remote_vfs.rmdir(remote_base_path + dirs[remove_num] + "/")
                         remove_num = remove_num - 1
 
+        elif (mode == self.Restore):
+            utils.log(utils.getString(30023) + " - " + utils.getString(30017))
+
+            #for restores remote path must exist
+            if(not self.remote_vfs.exists(self.remote_vfs.root_path)):
+                xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path)
+                return
+
+            utils.log(utils.getString(30051))
+            allFiles = []
+            fileManager = FileManager(self.remote_vfs)
+         
+            #go through each of the user selected items and write them to the backup store
+            if(utils.getSetting('backup_addons') == 'true'):
+                self.xbmc_vfs.mkdir(xbmc.translatePath('special://home/addons'))
+                fileManager.walkTree(self.remote_vfs.root_path + "addons")
+
+            self.xbmc_vfs.mkdir(xbmc.translatePath('special://home/userdata'))
+
+            if(utils.getSetting('backup_addon_data') == 'true'):
+                self.xbmc_vfs.mkdir(xbmc.translatePath('special://home/userdata/addon_data'))
+                fileManager.walkTree(self.remote_vfs.root_path + "userdata/addon_data")
+
+            if(utils.getSetting('backup_database') == 'true'):
+                self.xbmc_vfs.mkdir(xbmc.translatePath('special://home/userdata/Database'))
+                fileManager.walkTree(self.remote_vfs.root_path + "userdata/Database")
+        
+            if(utils.getSetting("backup_playlists") == 'true'):
+                self.xbmc_vfs.mkdir(xbmc.translatePath('special://home/userdata/playlists'))
+                fileManager.walkTree(self.remote_vfs.root_path + "userdata/playlists")
+                
+            if(utils.getSetting("backup_thumbnails") == "true"):
+                self.xbmc_vfs.mkdir(xbmc.translatePath('special://home/userdata/Thumbnails'))
+                fileManager.walkTree(self.remote_vfs.root_path + "userdata/Thumbnails")
+	  
+            if(utils.getSetting("backup_config") == "true"):
+                self.xbmc_vfs.mkdir(xbmc.translatePath('special://home/userdata/keymaps'))
+                fileManager.walkTree(self.remote_vfs.root_path + "userdata/keymaps")
+                
+                self.xbmc_vfs.mkdir(xbmc.translatePath('special://home/userdata/peripheral_data'))
+                fileManager.walkTree(self.remote_vfs.root_path + "userdata/peripheral_data")
+            
+                #this part is an oddity
+                dirs,configFiles = self.remote_vfs.listdir(self.remote_vfs.root_path + "userdata/")
+                for aFile in configFiles:
+                    if(aFile.endswith(".xml")):
+                        fileManager.addFile(self.remote_vfs.root_path + "userdata/" + aFile)
+
+            #add to array
+            self.filesTotal = fileManager.size()
+            allFiles.append({"source":self.remote_vfs.root_path,"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()})    
+
+            #check if there are custom directories
+            if(utils.getSetting('backup_custom_dir') != ''):
+
+                self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir'))
+                if(self.remote_vfs.exists(self.remote_vfs.root_path + "custom_1_" + self._createCRC(self.xbmc_vfs.root_path))):
+                    #index files to restore
+                    self.remote_vfs.set_root(self.remote_vfs.root_path + "custom_1_" + self._createCRC(self.xbmc_vfs.root_path))
+
+                    fileManager.walkTree(self.remote_vfs.root_path)
+                    self.filesTotal = self.filesTotal + fileManager.size()
+                    allFiles.append({"source":self.remote_vfs.root_path,"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()})
+                else:
+                    xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path + "custom_1_" + self._createCRC(utils.getSetting('backup_custom_dir')))
+
+            #restore all the files
+            self.filesLeft = self.filesTotal
+            for fileGroup in allFiles:
+                self.remote_vfs.set_root(fileGroup['source'])
+                self.xbmc_vfs.set_root(fileGroup['dest'])
+                self.backupFiles(fileGroup['files'],self.remote_vfs,self.xbmc_vfs)
+
+        if(utils.getSetting('run_silent') == 'false' and not runSilent):
+            self.progressBar.close()
+
     def backupFiles(self,fileList,source,dest):
         utils.log("Writing files to: " + dest.root_path)
         utils.log("Source: " + source.root_path)

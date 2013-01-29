@@ -6,46 +6,6 @@ import os.path
 import time
 from vfs import XBMCFileSystem,DropboxFileSystem
 
-class FileManager:
-    fileArray = []
-    not_dir = ['.zip','.xsp','.rar']
-    vfs = None
-
-    def __init__(self,vfs):
-        self.vfs = vfs
-
-    def walkTree(self,directory):
-        dirs,files = self.vfs.listdir(directory)
-        
-        #create all the subdirs first
-        for aDir in dirs:
-            dirPath = xbmc.translatePath(directory + "/" + aDir)
-            file_ext = aDir.split('.')[-1]
-            self.addFile("-" + dirPath)  
-            #catch for "non directory" type files
-            if (not any(file_ext in s for s in self.not_dir)):
-                self.walkTree(dirPath)  
-            
-        #copy all the files
-        for aFile in files:
-            filePath = xbmc.translatePath(directory + "/" + aFile)
-            self.addFile(filePath)
-                    
-    def addFile(self,filename):
-        try:
-            filename = filename.decode('UTF-8')
-        except UnicodeDecodeError:
-            filename = filename.decode('ISO-8859-2')
-            
-        #write the full remote path name of this file
-        utils.log("Add File: " + filename,xbmc.LOGDEBUG)
-        self.fileArray.append(filename)
-
-    def getFiles(self):
-        result = self.fileArray
-        self.fileArray = []
-        return result
-
 class XbmcBackup:
     #constants for initiating a back or restore
     Backup = 0
@@ -119,15 +79,16 @@ class XbmcBackup:
 
         if(mode == self.Backup):
             utils.log(utils.getString(30023) + " - " + utils.getString(30016))
-            #for backups check if remote path exists
+            #check if remote path exists
             if(self.remote_vfs.exists(self.remote_vfs.root_path)):
-                #this will fail - need a disclaimer here
+                #may be data in here already
                 utils.log(utils.getString(30050))
             else:
                 #make the remote directory
                 self.remote_vfs.mkdir(self.remote_vfs.root_path)
 
             utils.log(utils.getString(30051))
+            allFiles = []
             fileManager = FileManager(self.xbmc_vfs)
          
             #go through each of the user selected items and write them to the backup store
@@ -166,12 +127,12 @@ class XbmcBackup:
                     if(aFile.endswith(".xml")):
                         fileManager.addFile(xbmc.translatePath('special://home/userdata/') + aFile)
 
-            #backup all the files
-            self.backupFiles(fileManager.getFiles(),self.xbmc_vfs,self.remote_vfs)
+            #add to array
+            self.filesTotal = fileManager.size()
+            allFiles.append({"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
 
             #check if there are custom directories
             if(utils.getSetting('backup_custom_dir') != ''):
-                self._updateProgress(utils.getString(30049) + "......")
 
                 #create a special remote path with hash                
                 self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir'))
@@ -179,14 +140,22 @@ class XbmcBackup:
                 self.remote_vfs.set_root(self.remote_vfs.root_path + "custom_1_" + self._createCRC(self.xbmc_vfs.root_path))
 
                 fileManager.walkTree(self.xbmc_vfs.root_path)
-                self.backupFiles(fileManager.getFiles(),self.xbmc_vfs,self.remote_vfs)
+                self.filesTotal = self.filesTotal + fileManager.size()
+                allFiles.append({"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
+
+            #backup all the files
+            self.filesLeft = self.filesTotal
+            for fileGroup in allFiles:
+                self.xbmc_vfs.set_root(fileGroup['source'])
+                self.remote_vfs.set_root(fileGroup['dest'])
+                self.backupFiles(fileGroup['files'],self.xbmc_vfs,self.remote_vfs)
+
+            #remove old backups
             
 
     def backupFiles(self,fileList,source,dest):
         utils.log("Writing files to: " + dest.root_path)
-        self.filesTotal = len(fileList)
-        self.filesLeft = self.filesTotal
-
+        utils.log("Source: " + source.root_path)
         for aFile in fileList:
             if(not self._checkCancel()):
                 utils.log('Writing file: ' + aFile,xbmc.LOGDEBUG)
@@ -231,3 +200,46 @@ class XbmcBackup:
             result = self.progressBar.iscanceled()
 
         return result
+
+class FileManager:
+    fileArray = []
+    not_dir = ['.zip','.xsp','.rar']
+    vfs = None
+
+    def __init__(self,vfs):
+        self.vfs = vfs
+
+    def walkTree(self,directory):
+        dirs,files = self.vfs.listdir(directory)
+        
+        #create all the subdirs first
+        for aDir in dirs:
+            dirPath = xbmc.translatePath(directory + "/" + aDir)
+            file_ext = aDir.split('.')[-1]
+            self.addFile("-" + dirPath)  
+            #catch for "non directory" type files
+            if (not any(file_ext in s for s in self.not_dir)):
+                self.walkTree(dirPath)  
+            
+        #copy all the files
+        for aFile in files:
+            filePath = xbmc.translatePath(directory + "/" + aFile)
+            self.addFile(filePath)
+                    
+    def addFile(self,filename):
+        try:
+            filename = filename.decode('UTF-8')
+        except UnicodeDecodeError:
+            filename = filename.decode('ISO-8859-2')
+            
+        #write the full remote path name of this file
+        utils.log("Add File: " + filename,xbmc.LOGDEBUG)
+        self.fileArray.append(filename)
+
+    def getFiles(self):
+        result = self.fileArray
+        self.fileArray = []
+        return result
+
+    def size(self):
+        return len(self.fileArray)

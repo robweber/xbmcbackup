@@ -1,5 +1,7 @@
 XBMC Backup
 
+DISCLAIMER: It has been well documented in the XBMC forum that not using a separate, backups only, directory can result in other non-backup files being deleted when the backup rotation clean operation runs. This is a known bug, and for now the only fix is to not mix your backup data in the same folder as other files. Once this is fixed it will cease to be a problem. Keep this in mind when setting your backup destination - you have been warned. 
+
 About: 
 I've had to recover my database, thumbnails, and source configuration enough times that I just wanted a quick easy way to back them up. That is what this addon is meant to do. 
 

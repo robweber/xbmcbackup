@@ -15,6 +15,7 @@ class XbmcBackup:
     xbmc_vfs = None
     remote_vfs = None
     restoreFile = None
+    remote_base_path = None
     
     #for the progress bar
     progressBar = None
@@ -32,21 +33,25 @@ class XbmcBackup:
 
     def configureRemote(self):
         if(utils.getSetting('remote_selection') == '1'):
+            self.remote_base_path = utils.getSetting('remote_path_2');
             self.remote_vfs = XBMCFileSystem(utils.getSetting('remote_path_2'))
 	    utils.setSetting("remote_path","")
         elif(utils.getSetting('remote_selection') == '0'):
+            self.remote_base_path = utils.getSetting('remote_path');
             self.remote_vfs = XBMCFileSystem(utils.getSetting("remote_path"))
         elif(utils.getSetting('remote_selection') == '2'):
+            self.remote_base_path = "/"
             self.remote_vfs = DropboxFileSystem("/")
 
     def listBackups(self):
-        result = list()
+        result = []
 
         #get all the folders in the current root path
-        dirs,files = self.remote_vfs.listdir(self.remote_vfs.root_path)
+        dirs,files = self.remote_vfs.listdir(self.remote_base_path)
         
         for aDir in dirs:
-            result.append(aDir)
+            if(self.remote_vfs.exists(self.remote_base_path + aDir + "/xbmcbackup.val")):
+                result.append(aDir)
 
         return result
 
@@ -55,11 +60,9 @@ class XbmcBackup:
 
     def run(self,mode=-1,runSilent=False):
         #append backup folder name
-        remote_base_path = ""
         progressBarTitle = utils.getString(30010) + " - "
         if(mode == self.Backup and self.remote_vfs.root_path != ''):
-            #capture base path for backup rotation
-            remote_base_path = self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d") + "/")
+            self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d") + "/")
             progressBarTitle = progressBarTitle + utils.getString(30016)
 	elif(mode == self.Restore and self.restore_point != None and self.remote_vfs.root_path != ''):
 	    self.remote_vfs.set_root(self.remote_vfs.root_path + self.restore_point + "/")
@@ -86,6 +89,9 @@ class XbmcBackup:
             else:
                 #make the remote directory
                 self.remote_vfs.mkdir(self.remote_vfs.root_path)
+
+            #create a validation file for backup rotation
+            self._createValidationFile()
 
             utils.log(utils.getString(30051))
             allFiles = []
@@ -163,22 +169,7 @@ class XbmcBackup:
                 self.backupFiles(fileGroup['files'],self.xbmc_vfs,self.remote_vfs)
 
             #remove old backups
-            total_backups = int(utils.getSetting('backup_rotation'))
-            if(total_backups > 0):
-                
-                dirs,files = self.remote_vfs.listdir(remote_base_path)
-                if(len(dirs) > total_backups):
-                    #remove backups to equal total wanted
-                    dirs.sort()
-                    remove_num = len(dirs) - total_backups - 1
-                    self.filesTotal = self.filesTotal + remove_num + 1
-
-                    #update the progress bar if it is available
-                    while(remove_num >= 0 and not self._checkCancel()):
-                        self._updateProgress(utils.getString(30054) + " " + dirs[remove_num])
-                        utils.log("Removing backup " + dirs[remove_num])
-                        self.remote_vfs.rmdir(remote_base_path + dirs[remove_num] + "/")
-                        remove_num = remove_num - 1
+            self._rotateBackups()
 
         elif (mode == self.Restore):
             utils.log(utils.getString(30023) + " - " + utils.getString(30017))
@@ -316,6 +307,32 @@ class XbmcBackup:
             result = self.progressBar.iscanceled()
 
         return result
+
+    def _rotateBackups(self):
+        total_backups = int(utils.getSetting('backup_rotation'))
+        if(total_backups > 0):
+            #get a list of valid backup folders
+            dirs = self.listBackups()
+
+            if(len(dirs) > total_backups):
+                #remove backups to equal total wanted
+                dirs.sort()
+                remove_num = len(dirs) - total_backups - 1
+                self.filesTotal = self.filesTotal + remove_num + 1
+
+                #update the progress bar if it is available
+                while(remove_num >= 0 and not self._checkCancel()):
+                    self._updateProgress(utils.getString(30054) + " " + dirs[remove_num])
+                    utils.log("Removing backup " + dirs[remove_num])
+                    self.remote_vfs.rmdir(self.remote_base_path + dirs[remove_num] + "/")
+                    remove_num = remove_num - 1
+
+    def _createValidationFile(self):
+        vFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"),'w')
+        vFile.write("XBMC Backup Validation File");
+        vFile.close()
+
+        self.remote_vfs.put(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"),self.remote_vfs.root_path + "xbmcbackup.val")
 
 class FileManager:
     fileArray = []

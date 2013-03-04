@@ -132,16 +132,28 @@ class XbmcBackup:
             allFiles.append({"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
 
             #check if there are custom directories
-            if(utils.getSetting('backup_custom_dir') != ''):
+            if(utils.getSetting('custom_dir_1_enable') == 'true' and utils.getSetting('backup_custom_dir_1') != ''):
 
                 #create a special remote path with hash                
-                self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir'))
-                self.remote_vfs.mkdir(self.remote_vfs.root_path + "custom_1_" + self._createCRC(self.xbmc_vfs.root_path))
-                self.remote_vfs.set_root(self.remote_vfs.root_path + "custom_1_" + self._createCRC(self.xbmc_vfs.root_path))
+                self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir_1'))
+                self.remote_vfs.mkdir(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
 
+                #walk the directory
                 fileManager.walkTree(self.xbmc_vfs.root_path)
                 self.filesTotal = self.filesTotal + fileManager.size()
-                allFiles.append({"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
+                allFiles.append({"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path),"files":fileManager.getFiles()})
+
+            if(utils.getSetting('custom_dir_2_enable') == 'true' and utils.getSetting('backup_custom_dir_2') != ''):
+
+                #create a special remote path with hash                
+                self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir_2'))
+                self.remote_vfs.mkdir(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
+
+                #walk the directory
+                fileManager.walkTree(self.xbmc_vfs.root_path)
+                self.filesTotal = self.filesTotal + fileManager.size()
+                allFiles.append({"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path),"files":fileManager.getFiles()})
+
 
             #backup all the files
             self.filesLeft = self.filesTotal
@@ -221,18 +233,28 @@ class XbmcBackup:
             allFiles.append({"source":self.remote_vfs.root_path,"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()})    
 
             #check if there are custom directories
-            if(utils.getSetting('backup_custom_dir') != ''):
+            if(utils.getSetting('custom_dir_1_enable') == 'true' and utils.getSetting('backup_custom_dir_1') != ''):
 
-                self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir'))
-                if(self.remote_vfs.exists(self.remote_vfs.root_path + "custom_1_" + self._createCRC(self.xbmc_vfs.root_path))):
+                self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir_1'))
+                if(self.remote_vfs.exists(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))):
                     #index files to restore
-                    self.remote_vfs.set_root(self.remote_vfs.root_path + "custom_1_" + self._createCRC(self.xbmc_vfs.root_path))
-
-                    fileManager.walkTree(self.remote_vfs.root_path)
+                    fileManager.walkTree(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
                     self.filesTotal = self.filesTotal + fileManager.size()
-                    allFiles.append({"source":self.remote_vfs.root_path,"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()})
+                    allFiles.append({"source":self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path),"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()})
                 else:
-                    xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path + "custom_1_" + self._createCRC(utils.getSetting('backup_custom_dir')))
+                    xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path + "custom_" + self._createCRC(utils.getSetting('backup_custom_dir_1')))
+
+            if(utils.getSetting('custom_dir_2_enable') == 'true' and utils.getSetting('backup_custom_dir_2') != ''):
+
+                self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir_2'))
+                if(self.remote_vfs.exists(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))):
+                    #index files to restore
+                    fileManager.walkTree(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
+                    self.filesTotal = self.filesTotal + fileManager.size()
+                    allFiles.append({"source":self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path),"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()})
+                else:
+                    xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path + "custom_" + self._createCRC(utils.getSetting('backup_custom_dir_2')))
+
 
             #restore all the files
             self.filesLeft = self.filesTotal

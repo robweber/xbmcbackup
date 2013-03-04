@@ -169,6 +169,7 @@ class DropboxFileSystem(Vfs):
             f = self.client.get_file(source).read()
             out.write(f)
             out.close()
+            return True
         else:
             return False
 

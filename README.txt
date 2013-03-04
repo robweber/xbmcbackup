@@ -25,8 +25,9 @@ Running the program will allow you to select Backup or Restore as a running mode
 
 Custom Directories: 
 
-You can define custom directories that are not a part of your XBMC folder structure for backup. These create a custom_1_hash folder in your backup destination. The hash for these folders is very important. During a restore if the hash of the file path in Custom 1 does not match the hash in the restore folder it will not move the files. This is to prevent files from being restored to the wrong location in the event you change file paths in the addon settings. A dialog box will let you know if file paths do not match up. 
+You can define custom directories that are not a part of your XBMC folder structure for backup. These create a custom_hash folder in your backup destination. The hash for these folders is very important. During a restore if the hash of the file path in Custom 1 does not match the hash in the restore folder it will not move the files. This is to prevent files from being restored to the wrong location in the event you change file paths in the addon settings. A dialog box will let you know if file paths do not match up. 
 
+Up to 2 Custom directories can be specified. 
 
 Using Dropbox:
 

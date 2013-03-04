@@ -2,6 +2,8 @@ Version 0.3.6
 
 added up to 2 custom directories, can be toggled on/off
 
+added a check for backup verification before rotation - no more deleting non backup related files
+
 Version 0.3.5
 
 test of custom directories - only 1 at the moment

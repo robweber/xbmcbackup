@@ -1,6 +1,6 @@
 XBMC Backup
 
-DISCLAIMER: It has been well documented in the XBMC forum that not using a separate, backups only, directory can result in other non-backup files being deleted when the backup rotation clean operation runs. This is a known bug, and for now the only fix is to not mix your backup data in the same folder as other files. Once this is fixed it will cease to be a problem. Keep this in mind when setting your backup destination - you have been warned. 
+WHEN UPDATING TO 0.3.6 OR ABOVE - To fix the very real problem of deleting non xbmc backup files during the backup rotation a simple check for an xbmcbackup.val file is done on each directory to ensure it was created by this addon. To make your old archives compatible with this feature simply create an empty xbmcbackup.val file and put it in each backup archive folder. The easiest way is to create a backup with the new addon and copy the xbmcbackup.val file to your other directories. 
 
 About: 
 I've had to recover my database, thumbnails, and source configuration enough times that I just wanted a quick easy way to back them up. That is what this addon is meant to do. 
@@ -15,7 +15,7 @@ You can also define non-XBMC directories on your device. See "Custom Directories
 
 Scheduling: 
 
-You can also schedule backups to be completed on a set interval via the scheduling area. When it is time for the backup to run it will be executed in the background. 
+You can schedule backups to be completed on a set interval via the scheduling area. When it is time for the backup to run it will be executed in the background. 
 
 When using the "Shutdown" function this will call XBMC's Shutdown method as defined in System Settings -> Power Saving -> Shutdown Function. This can be simply exiting xbmc, hibernating, or shutting down your htpc. 
 

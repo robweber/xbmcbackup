@@ -1,3 +1,9 @@
+Version 0.3.7
+
+added optional addon.xml tags
+
+update language files from Transifex
+
 Version 0.3.6
 
 added up to 2 custom directories, can be toggled on/off

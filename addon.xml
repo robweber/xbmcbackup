@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.xbmcbackup"
     name="XBMC Backup" version="0.3.7" provider-name="robweber">
-  <forum>http://forum.xbmc.org/showthread.php?tid=129499</forum>
-  <source>https://github.com/robweber/xbmcbackup</source>
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
@@ -11,6 +9,8 @@
   </extension> 
   <extension point="xbmc.service" library="scheduler.py" start="startup" />
   <extension point="xbmc.addon.metadata">
+    <forum>http://forum.xbmc.org/showthread.php?tid=129499</forum>
+    <source>https://github.com/robweber/xbmcbackup</source>
     <summary lang="ar">قم بنسخ احتياطي و استعد قاعدة بيانات XBMC الخاص بك و ملفات التكوين في حال وقوع حادث أو تلف الملفات.</summary>
     <summary lang="be">Backup and restore your XBMC database and configuration files in the event of a crash or file corruption.</summary>
     <summary lang="ca">Copiau i restaurau la vostra base de dades d'XBMC i els fitxers de configuració en cas de caiguda o corrupció de fitxers.</summary>

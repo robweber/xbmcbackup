@@ -115,7 +115,7 @@ class BackupScheduler:
             self.restore_point = rFile.read()
             rFile.close()
             xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "resume.txt"))
-            shouldContinue = xbmcgui.Dialog().yesno("Resume Restore","XBMC Backup has detected an unfinished restore","Would you like to continue?")
+            shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30042),utils.getString(30043),utils.getString(30044))
 
         return shouldContinue
         

@@ -193,7 +193,7 @@ class XbmcBackup:
                 #check for the existance of an advancedsettings file
                 if(self.remote_vfs.exists(self.remote_vfs.root_path + "userdata/advancedsettings.xml") and not self.skip_advanced):
                     #let the user know there is an advanced settings file present
-                    restartXbmc = xbmcgui.Dialog().yesno("Advanced Settings Detected","The advancedsettings file should be restored first","Select Yes to restore this file and restart XBMC", "Select No to continue")
+                    restartXbmc = xbmcgui.Dialog().yesno(utils.getString(30038),utils.getString(30039),utils.getString(30040), utils.getString(30041))
 
                     if(restartXbmc):
                         #add only this file to the file list
@@ -204,7 +204,7 @@ class XbmcBackup:
                         self._createResumeBackupFile()
 
                         #do not continue running
-                        xbmcgui.Dialog().ok("Restart XBMC","You should restart XBMC to continue")
+                        xbmcgui.Dialog().ok(utils.getString(30077),utils.getString(30078))
                         
                         return
                 

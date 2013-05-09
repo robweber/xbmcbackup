@@ -59,3 +59,7 @@ GUISETTINGS.xml is a configuration file used heavily by XBMC for remembering GUI
 5. Connect to your machine using WinSCP and copy the guisettings.xml file to the userdata folder (this is the guisettings.xml file from your backup)
 6. go back to your putty window and type rm /var/lock/xbmc.disabled
 
+Why is the Addon prompting me to restart XBMC to continue? 
+
+If you have an advancedsettings file in your restore folder the addon will ask you if you want to restore this file and restart xbmc to continue. This is because the advancedsettings file may contain path substitution information that you want to be loaded when doing the rest of your restore. By restoring this file and restarting xbmc it will be loaded and the rest of your files will go where they are supposed to. If you know your file does not contain any path substitutions you can select "no" and continue as normal. 
+

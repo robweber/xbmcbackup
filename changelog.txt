@@ -1,6 +1,7 @@
 Version 0.3.9
 
-added "just today" scheduler for one-off type backups
+added "just once" scheduler for one-off type backups
+show notification on scheduler update
 
 Version 0.3.8
 

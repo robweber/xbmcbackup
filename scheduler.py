@@ -78,7 +78,7 @@ class BackupScheduler:
 
         if(new_run_time != self.next_run):
             self.next_run = new_run_time
-            #utils.showNotification("Scheduler will run again on " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M')")
+            utils.showNotification(utils.getString(30080) + " " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
             utils.log("scheduler will run again on " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
                 
     def settingsChanged(self):

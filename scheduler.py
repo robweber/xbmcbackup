@@ -69,6 +69,9 @@ class BackupScheduler:
 
             xbmc.sleep(500)
 
+        #delete monitor to free up memory
+        del self.monitor
+
     def findNextRun(self,now):
         #find the cron expression and get the next run time
         cron_exp = self.parseSchedule()

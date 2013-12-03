@@ -1,3 +1,7 @@
+Version 0.4.3
+
+added license tag
+
 Version 0.4.2
 
 Added support for userdata/profiles folder - thanks TUSSFC

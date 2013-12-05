@@ -1,5 +1,7 @@
 Version 0.4.3
 
+added error message if remote directory is blank
+
 added license tag
 
 Version 0.4.2

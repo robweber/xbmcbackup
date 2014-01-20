@@ -14,7 +14,7 @@
     <string id="30019">Type Path</string>
     <string id="30020">Browse Remote Path</string>
     <string id="30021">Backup Folder Name</string>
-    <string id="30022">Run Silent</string>
+    <string id="30022">Progress Display</string>
     <string id="30023">Mode</string>
     <string id="30024">Type Remote Path</string>
     <string id="30025">Remote Path Type</string>
@@ -73,4 +73,7 @@
 	<string id="30079">Just Today</string>
 	<string id="30080">Profiles</string>
 	<string id="30081">Scheduler will run again on</string>
+	<string id="30082">Progress Bar</string>
+	<string id="30083">Background Progress Bar</string>
+	<string id="30084">None (Silent)</string>
 </strings>

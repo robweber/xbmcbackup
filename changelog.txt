@@ -2,6 +2,8 @@ Version 0.5.1
 
 updated for new Gotham xbmc python updates
 
+added version info to logs
+
 Version 0.5.0
 
 New Version for Gotham

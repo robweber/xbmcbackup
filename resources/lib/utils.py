@@ -1,4 +1,5 @@
 import xbmc
+import xbmcgui
 import xbmcaddon
 
 __addon_id__= 'script.xbmcbackup'
@@ -17,7 +18,7 @@ def log(message,loglevel=xbmc.LOGNOTICE):
     xbmc.log(encode(__addon_id__ + ": " + message),level=loglevel)
 
 def showNotification(message):
-    xbmc.executebuiltin("Notification(" + encode(getString(30010)) + "," + encode(message) + ",4000," + xbmc.translatePath(__Addon.getAddonInfo('path') + "/icon.png") + ")")
+    xbmcgui.Dialog().notification(encode(getString(30010)),encode(message),time=4000,icon=xbmc.translatePath(__Addon.getAddonInfo('path') + "/icon.png"))
 
 def getSetting(name):
     return __Addon.getSetting(name)

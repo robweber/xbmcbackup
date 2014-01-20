@@ -1,3 +1,7 @@
+Version 0.5.0
+
+New Version for Gotham
+
 Version 0.4.4
 
 modified the check for invalid file types

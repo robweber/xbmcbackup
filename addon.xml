@@ -2,7 +2,7 @@
 <addon id="script.xbmcbackup"
     name="XBMC Backup" version="0.5.1" provider-name="robweber">
   <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="xbmc.python" version="2.12.0"/>
   </requires>
   <extension point="xbmc.python.script" library="default.py"> 
      <provides>executable</provides> 

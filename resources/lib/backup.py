@@ -90,6 +90,10 @@ class XbmcBackup:
         self.skip_advanced = True
 
     def run(self,mode=-1,progressOverride=False):
+        #set windows setting to true
+        window = xbmcgui.Window(10000)
+        window.setProperty(utils.__addon_id__ + ".running","true")
+        
         #append backup folder name
         progressBarTitle = utils.getString(30010) + " - "
         if(mode == self.Backup and self.remote_vfs.root_path != ''):
@@ -322,6 +326,9 @@ class XbmcBackup:
 
         if(self.progressBar != None):
             self.progressBar.close()
+
+        #reset the window setting
+        window.setProperty(utils.__addon_id__ + ".running","")
 
     def backupFiles(self,fileList,source,dest):
         utils.log("Writing files to: " + dest.root_path)

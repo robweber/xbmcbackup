@@ -378,7 +378,7 @@ class XbmcBackup:
                 self.filesTotal = self.filesTotal + remove_num + 1
 
                 #update the progress bar if it is available
-                while(remove_num < total_backups and not self._checkCancel()):
+                while(remove_num < (len(dirs) - total_backups) and not self._checkCancel()):
                     self._updateProgress(utils.getString(30054) + " " + dirs[remove_num][1])
                     utils.log("Removing backup " + dirs[remove_num][0])
                     self.remote_vfs.rmdir(self.remote_base_path + dirs[remove_num][0] + "/")

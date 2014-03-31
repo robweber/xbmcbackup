@@ -2,6 +2,8 @@ Version 0.5.2
 
 added additional script and window parameters, thanks Samu-rai
 
+critical error in backup rotation
+
 Version 0.5.1
 
 updated for new Gotham xbmc python updates

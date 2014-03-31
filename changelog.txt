@@ -1,3 +1,7 @@
+Version 0.5.2
+
+added additional script and window parameters, thanks Samu-rai
+
 Version 0.5.1
 
 updated for new Gotham xbmc python updates

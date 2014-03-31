@@ -14,7 +14,7 @@
     <string id="30019">Въвеждане на път</string>
     <string id="30020">Прегледайте</string>
     <string id="30021">Име на папката за резервните копия</string>
-    <string id="30022">Изпълнявай "тихо"</string>
+    <string id="30022">Известяване за напредъка</string>
     <string id="30023">Режим</string>
     <string id="30024">Въведете отдалечения път</string>
     <string id="30025">Окажете пътя до папката с резервни копия</string>
@@ -73,4 +73,7 @@
 	<string id="30079">Само днес</string>
 	<string id="30080">Профили</string>
 	<string id="30081">Планировчика ще стартира отново на</string>
+	<string id="30082">Лента за напредъка</string>
+	<string id="30083">Лента за напредъка на заден план</string>
+	<string id="30084">Без (тих режим)</string>
 </strings>

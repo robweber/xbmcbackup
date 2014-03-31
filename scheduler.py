@@ -25,7 +25,6 @@ class BackupScheduler:
         #scheduler was turned on, find next run time
         utils.log("scheduler enabled, finding next run time")
         self.findNextRun(time.time())
-        utils.log("scheduler will run again on " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
         
     def start(self):
 
@@ -46,13 +45,18 @@ class BackupScheduler:
                 now = time.time()
 
                 if(self.next_run <= now):
-                    if(utils.getSetting('run_silent') == 'false'):
+                    progress_mode = int(utils.getSetting('progress_mode'))
+                    if(progress_mode != 2):
                         utils.showNotification(utils.getString(30053))
-                    #run the job in backup mode, hiding the dialog box
+                    
                     backup = XbmcBackup()
 
                     if(backup.remoteConfigured()):
-                        backup.run(XbmcBackup.Backup,True)
+
+                        if(int(utils.getSetting('progress_mode')) in [0,1]):
+                            backup.run(XbmcBackup.Backup,True)
+                        else:
+                            backup.run(XbmcBackup.Backup,False)
 
                         #check if this is a "one-off"
                         if(int(utils.getSetting("schedule_interval")) == 0):

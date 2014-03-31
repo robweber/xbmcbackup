@@ -1,6 +1,16 @@
-Version 0.4.7
+Version 0.5.2
 
-fixed critical error in backup rotation
+added additional script and window parameters, thanks Samu-rai
+
+critical error in backup rotation
+
+Version 0.5.1
+
+updated for new Gotham xbmc python updates
+
+Version 0.5.0
+
+New Version for Gotham
 
 Version 0.4.6
 

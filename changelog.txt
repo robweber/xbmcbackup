@@ -1,3 +1,7 @@
+Version 0.5.3
+
+updated python version
+
 Version 0.5.2
 
 added additional script and window parameters, thanks Samu-rai

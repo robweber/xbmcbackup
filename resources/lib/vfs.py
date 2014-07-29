@@ -131,6 +131,13 @@ class DropboxFileSystem(Vfs):
     def rmdir(self,directory):
         directory = self._fix_slashes(directory)
         if(self.client != None and self.exists(directory)):
+            #dropbox is stupid and will refuse to do this sometimes, need to delete recursively
+            dirs,files = self.listdir(directory)
+            
+            for aDir in dirs:
+                self.rmdir(aDir)
+
+            #finally remove the root directory
             self.client.file_delete(directory)
         else:
             return False

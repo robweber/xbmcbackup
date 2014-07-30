@@ -2,7 +2,8 @@ import utils as utils
 import xbmc
 import xbmcvfs
 import xbmcgui
-import sys
+import zipfile
+import zlib
 from dropbox import client, rest, session
 
 APP_KEY = utils.getSetting('dropbox_key')
@@ -45,6 +46,12 @@ class Vfs:
 
     def exists(self,aFile):
         return True
+    
+    def rename(self,aFile,newName):
+        return True
+    
+    def cleanup(self):
+        return True
         
 class XBMCFileSystem(Vfs):
 
@@ -60,8 +67,39 @@ class XBMCFileSystem(Vfs):
     def rmdir(self,directory):
         return xbmcvfs.rmdir(directory,True)
 
+    def rename(self,aFile,newName):
+        return xbmcvfs.rename(aFile, newName)
+
     def exists(self,aFile):
         return xbmcvfs.exists(aFile)
+
+class ZipFileSystem(Vfs):
+    zip = None
+    
+    def __init__(self,rootString,mode):
+        self.root_path = ""
+        self.zip = zipfile.ZipFile(xbmc.translatePath(utils.data_dir() + "xbmc_backup_temp.zip"),mode=mode)
+        
+        
+    def listdir(self,directory):
+        return True
+    
+    def mkdir(self,directory):
+        #self.zip.write(directory[len(self.root_path):])
+        return True
+    
+    def put(self,source,dest):
+        self.zip.write(source,dest,compress_type=zipfile.ZIP_DEFLATED)
+        return True
+    
+    def rmdir(self,directory):
+        return True
+    
+    def exists(self,aFile):
+        return True
+    
+    def cleanup(self):
+        self.zip.close()
 
 class DropboxFileSystem(Vfs):
     client = None

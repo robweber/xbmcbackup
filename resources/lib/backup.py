@@ -2,10 +2,9 @@ import xbmc
 import xbmcgui
 import xbmcvfs
 import utils as utils
-import os.path
 import time
 import json
-from vfs import XBMCFileSystem,DropboxFileSystem
+from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem
 
 def folderSort(aKey):
     result = aKey[0]
@@ -21,9 +20,11 @@ class XbmcBackup:
     Backup = 0
     Restore = 1
 
-    #remote file system
+    #file systems
     xbmc_vfs = None
     remote_vfs = None
+    saved_remote_vfs = None
+    
     restoreFile = None
     remote_base_path = None
     
@@ -98,15 +99,20 @@ class XbmcBackup:
         #append backup folder name
         progressBarTitle = utils.getString(30010) + " - "
         if(mode == self.Backup and self.remote_vfs.root_path != ''):
+            if(utils.getSetting("compress_backups") == 'true'):
+                #save the remote file system and use the zip vfs
+                self.saved_remote_vfs = self.remote_vfs
+                self.remote_vfs = ZipFileSystem("","w")
+                
             self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d%H%M") + "/")
             progressBarTitle = progressBarTitle + utils.getString(30016)
-	elif(mode == self.Restore and self.restore_point != None and self.remote_vfs.root_path != ''):
-	    self.remote_vfs.set_root(self.remote_vfs.root_path + self.restore_point + "/")
-	    progressBarTitle = progressBarTitle + utils.getString(30017)
-	else:
+        elif(mode == self.Restore and self.restore_point != None and self.remote_vfs.root_path != ''):
+            self.remote_vfs.set_root(self.remote_vfs.root_path + self.restore_point + "/")
+            progressBarTitle = progressBarTitle + utils.getString(30017)
+        else:
             #kill the program here
-	    self.remote_vfs = None
-	    return
+            self.remote_vfs = None
+            return
 
         utils.log(utils.getString(30047) + ": " + self.xbmc_vfs.root_path)
         utils.log(utils.getString(30048) + ": " + self.remote_vfs.root_path)
@@ -207,6 +213,19 @@ class XbmcBackup:
                 self.xbmc_vfs.set_root(fileGroup['source'])
                 self.remote_vfs.set_root(fileGroup['dest'])
                 self.backupFiles(fileGroup['files'],self.xbmc_vfs,self.remote_vfs)
+
+            if(utils.getSetting("compress_backups") == 'true'):
+                #send the zip file to the real remote vfs
+                self.remote_vfs.cleanup()
+                self.xbmc_vfs.rename(xbmc.translatePath(utils.data_dir() + "xbmc_backup_temp.zip"), xbmc.translatePath(utils.data_dir() + self.remote_vfs.root_path[:-1] + ".zip"))
+                fileManager.addFile(xbmc.translatePath(utils.data_dir() + self.remote_vfs.root_path[:-1] + ".zip"))
+               
+                #set root to data dir home 
+                self.xbmc_vfs.set_root(xbmc.translatePath(utils.data_dir()))
+               
+                self.remote_vfs = self.saved_remote_vfs
+                self.progressBar.updateProgress(0, "Copying Zip Archive")
+                self.backupFiles(fileManager.getFiles(),self.xbmc_vfs, self.remote_vfs)
 
             #remove old backups
             self._rotateBackups()
@@ -324,6 +343,8 @@ class XbmcBackup:
             #call update addons to refresh everything
             xbmc.executebuiltin('UpdateLocalAddons')
 
+        self.xbmc_vfs.cleanup()
+        self.remote_vfs.cleanup()
         self.progressBar.close()
 
         #reset the window setting
@@ -439,7 +460,10 @@ class FileManager:
             for aDir in dirs:
                 dirPath = xbmc.translatePath(directory + "/" + aDir)
                 file_ext = aDir.split('.')[-1]
-                self.addFile("-" + dirPath)
+                
+                #don't backup your own zip file
+                if(aDir != "xbmc_backup_temp.zip"):
+                    self.addFile("-" + dirPath)
 
                 #catch for "non directory" type files
                 shouldWalk = True
@@ -453,9 +477,10 @@ class FileManager:
             
             #copy all the files
             for aFile in files:
-                utils.log(aFile)
-                filePath = xbmc.translatePath(directory + "/" + aFile)
-                self.addFile(filePath)
+                if(aFile != 'xbmc_backup_temp.zip'):
+                    utils.log(aFile)
+                    filePath = xbmc.translatePath(directory + "/" + aFile)
+                    self.addFile(filePath)
                     
     def addFile(self,filename):
         try:

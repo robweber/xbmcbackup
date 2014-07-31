@@ -18,7 +18,7 @@ class Vfs:
     def set_root(self,rootString):
         old_root = self.root_path
         self.root_path = rootString
-
+        
         #fix slashes
         self.root_path = self.root_path.replace("\\","/")
         
@@ -78,7 +78,7 @@ class ZipFileSystem(Vfs):
     
     def __init__(self,rootString,mode):
         self.root_path = ""
-        self.zip = zipfile.ZipFile(xbmc.translatePath(utils.data_dir() + "xbmc_backup_temp.zip"),mode=mode)
+        self.zip = zipfile.ZipFile(rootString,mode=mode)
         
         
     def listdir(self,directory):

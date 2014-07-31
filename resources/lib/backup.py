@@ -117,7 +117,7 @@ class XbmcBackup:
             if(utils.getSetting("compress_backups") == 'true'):
                 #save the remote file system and use the zip vfs
                 self.saved_remote_vfs = self.remote_vfs
-                self.remote_vfs = ZipFileSystem("","w")
+                self.remote_vfs = ZipFileSystem(xbmc.translatePath(utils.data_dir() + "xbmc_backup_temp.zip"),"w")
                 
             self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d%H%M") + "/")
             progressBarTitle = progressBarTitle + utils.getString(30016)
@@ -256,12 +256,22 @@ class XbmcBackup:
             #catch for if the restore point is actually a zip file
             if(self.restore_point.split('.')[-1] == 'zip'):
                 #copy just this file from the remote vfs
-                pass
+                zipFile = []
+                zipFile.append(self.restore_point)
+               
+                #set root to data dir home 
+                self.xbmc_vfs.set_root(xbmc.translatePath(utils.data_dir()))
+               
+                self.progressBar.updateProgress(0, "Copying Zip Archive")
+                self.backupFiles(zipFile,self.remote_vfs, self.xbmc_vfs)
 
-            #for restores remote path must exist
-            if(not self.remote_vfs.exists(self.remote_vfs.root_path)):
-                xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path)
-                return
+                #set the new remote vfs
+                self.remote_vfs = ZipFileSystem(xbmc.translatePath(utils.data_dir() + self.restore_point),'r')
+            else:
+                #for restores remote path must exist
+                if(not self.remote_vfs.exists(self.remote_vfs.root_path)):
+                    xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path)
+                    return
 
             if(not self._checkValidationFile(self.remote_vfs.root_path)):
                 #don't continue

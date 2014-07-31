@@ -216,9 +216,10 @@ class XbmcBackup:
 
             if(utils.getSetting("compress_backups") == 'true'):
                 #send the zip file to the real remote vfs
+                zip_name = self.remote_vfs.root_path[:-1] + ".zip"
                 self.remote_vfs.cleanup()
-                self.xbmc_vfs.rename(xbmc.translatePath(utils.data_dir() + "xbmc_backup_temp.zip"), xbmc.translatePath(utils.data_dir() + self.remote_vfs.root_path[:-1] + ".zip"))
-                fileManager.addFile(xbmc.translatePath(utils.data_dir() + self.remote_vfs.root_path[:-1] + ".zip"))
+                self.xbmc_vfs.rename(xbmc.translatePath(utils.data_dir() + "xbmc_backup_temp.zip"), xbmc.translatePath(utils.data_dir() + zip_name))
+                fileManager.addFile(xbmc.translatePath(utils.data_dir() + zip_name))
                
                 #set root to data dir home 
                 self.xbmc_vfs.set_root(xbmc.translatePath(utils.data_dir()))
@@ -226,6 +227,9 @@ class XbmcBackup:
                 self.remote_vfs = self.saved_remote_vfs
                 self.progressBar.updateProgress(0, "Copying Zip Archive")
                 self.backupFiles(fileManager.getFiles(),self.xbmc_vfs, self.remote_vfs)
+                
+                #delete the temp zip file
+                self.xbmc_vfs.rmdir(xbmc.translatePath(utils.data_dir() + zip_name))
 
             #remove old backups
             self._rotateBackups()

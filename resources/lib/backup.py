@@ -81,6 +81,21 @@ class XbmcBackup:
 
                 result.append((aDir,folderName))
 
+        for aFile in files:
+            file_ext = aFile.split('.')[-1]
+           
+            if(file_ext == 'zip'):
+                
+                #folder may or may not contain time, older versions didn't include this
+                folderName = ''
+                if(len(aFile ) > 8):
+                    folderName = aFile [6:8] + '-' + aFile [4:6] + '-' + aFile [0:4] + " " + aFile [8:10] + ":" + aFile [10:12]
+                else:
+                    folderName = aFile [6:8] + '-' + aFile [4:6] + '-' + aFile [0:4]
+
+                result.append((aFile ,folderName))
+                
+
         result.sort(key=folderSort)
         
         return result
@@ -107,7 +122,8 @@ class XbmcBackup:
             self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d%H%M") + "/")
             progressBarTitle = progressBarTitle + utils.getString(30016)
         elif(mode == self.Restore and self.restore_point != None and self.remote_vfs.root_path != ''):
-            self.remote_vfs.set_root(self.remote_vfs.root_path + self.restore_point + "/")
+            if(self.restore_point.split('.')[-1] != 'zip'):
+                self.remote_vfs.set_root(self.remote_vfs.root_path + self.restore_point + "/")
             progressBarTitle = progressBarTitle + utils.getString(30017)
         else:
             #kill the program here
@@ -236,6 +252,11 @@ class XbmcBackup:
 
         elif (mode == self.Restore):
             utils.log(utils.getString(30023) + " - " + utils.getString(30017))
+
+            #catch for if the restore point is actually a zip file
+            if(self.restore_point.split('.')[-1] == 'zip'):
+                #copy just this file from the remote vfs
+                pass
 
             #for restores remote path must exist
             if(not self.remote_vfs.exists(self.remote_vfs.root_path)):
@@ -464,7 +485,7 @@ class FileManager:
             for aDir in dirs:
                 dirPath = xbmc.translatePath(directory + "/" + aDir)
                 file_ext = aDir.split('.')[-1]
-                
+              
                 #don't backup your own zip file
                 if(aDir != "xbmc_backup_temp.zip"):
                     self.addFile("-" + dirPath)

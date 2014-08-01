@@ -245,7 +245,7 @@ class XbmcBackup:
                 self.backupFiles(fileManager.getFiles(),self.xbmc_vfs, self.remote_vfs)
                 
                 #delete the temp zip file
-                self.xbmc_vfs.rmfile(xbmc.translatePath(utils.data_dir() + zip_name))
+                self.xbmc_vfs.rmfile(xbmc.translatePath("special://temp/" + zip_name))
 
             #remove old backups
             self._rotateBackups()
@@ -531,7 +531,6 @@ class FileManager:
             
             #copy all the files
             for aFile in files:
-                utils.log(aFile)
                 filePath = xbmc.translatePath(directory + "/" + aFile)
                 self.addFile(filePath)
                     

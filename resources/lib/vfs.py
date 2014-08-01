@@ -2,7 +2,8 @@ import utils as utils
 import xbmc
 import xbmcvfs
 import xbmcgui
-import sys
+import zipfile
+import zlib
 from dropbox import client, rest, session
 
 APP_KEY = utils.getSetting('dropbox_key')
@@ -17,7 +18,7 @@ class Vfs:
     def set_root(self,rootString):
         old_root = self.root_path
         self.root_path = rootString
-
+        
         #fix slashes
         self.root_path = self.root_path.replace("\\","/")
         
@@ -43,7 +44,16 @@ class Vfs:
     def rmdir(self,directory):
         return True
 
+    def rmfile(self,aFile):
+        return True
+
     def exists(self,aFile):
+        return True
+    
+    def rename(self,aFile,newName):
+        return True
+    
+    def cleanup(self):
         return True
         
 class XBMCFileSystem(Vfs):
@@ -60,8 +70,45 @@ class XBMCFileSystem(Vfs):
     def rmdir(self,directory):
         return xbmcvfs.rmdir(directory,True)
 
+    def rmfile(self,aFile):
+        return xbmcvfs.delete(aFile)
+
+    def rename(self,aFile,newName):
+        return xbmcvfs.rename(aFile, newName)
+
     def exists(self,aFile):
         return xbmcvfs.exists(aFile)
+
+class ZipFileSystem(Vfs):
+    zip = None
+    
+    def __init__(self,rootString,mode):
+        self.root_path = ""
+        self.zip = zipfile.ZipFile(rootString,mode=mode)
+        
+    def listdir(self,directory):
+        return [[],[]]
+    
+    def mkdir(self,directory):
+        #self.zip.write(directory[len(self.root_path):])
+        return False
+    
+    def put(self,source,dest):
+        self.zip.write(source,dest,compress_type=zipfile.ZIP_DEFLATED)
+        return True
+    
+    def rmdir(self,directory):
+        return False
+    
+    def exists(self,aFile):
+        return False
+    
+    def cleanup(self):
+        self.zip.close()
+        
+    def extract(self,path):
+        #extract zip file to path
+        self.zip.extractall(path)
 
 class DropboxFileSystem(Vfs):
     client = None
@@ -139,6 +186,16 @@ class DropboxFileSystem(Vfs):
 
             #finally remove the root directory
             self.client.file_delete(directory)
+            
+            return True
+        else:
+            return False
+
+    def rmFile(self,aFile):
+        aFile = self._fix_slashes(aFile)
+        if(self.client != None and self.exists(aFile)):
+            self.client.file_delete(aFile)
+            return True
         else:
             return False
 

@@ -255,18 +255,25 @@ class XbmcBackup:
 
             #catch for if the restore point is actually a zip file
             if(self.restore_point.split('.')[-1] == 'zip'):
-                #copy just this file from the remote vfs
-                zipFile = []
-                zipFile.append(self.restore_point)
-               
+                self.progressBar.updateProgress(0, "Copying Zip Archive")
+                utils.log("copying zip file: " + self.restore_point)
+                
                 #set root to data dir home 
                 self.xbmc_vfs.set_root(xbmc.translatePath(utils.data_dir()))
+                
+                if(not self.xbmc_vfs.exists(xbmc.translatePath(utils.data_dir() + self.restore_point))):
+                    #copy just this file from the remote vfs
+                    zipFile = []
+                    zipFile.append(self.remote_base_path + self.restore_point)
                
-                self.progressBar.updateProgress(0, "Copying Zip Archive")
-                self.backupFiles(zipFile,self.remote_vfs, self.xbmc_vfs)
-
+                    self.backupFiles(zipFile,self.remote_vfs, self.xbmc_vfs)
+                else:
+                    utils.log("zip file exists already")
+                    
                 #set the new remote vfs
                 self.remote_vfs = ZipFileSystem(xbmc.translatePath(utils.data_dir() + self.restore_point),'r')
+                self.remote_vfs.set_root(self.restore_point.split(".")[0] + "/")
+                
             else:
                 #for restores remote path must exist
                 if(not self.remote_vfs.exists(self.remote_vfs.root_path)):

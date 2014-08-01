@@ -62,6 +62,7 @@ class XBMCFileSystem(Vfs):
         return xbmcvfs.mkdir(directory)
 
     def put(self,source,dest):
+        utils.log(source + ":" + dest)
         return xbmcvfs.copy(source,dest)
         
     def rmdir(self,directory):
@@ -79,7 +80,6 @@ class ZipFileSystem(Vfs):
     def __init__(self,rootString,mode):
         self.root_path = ""
         self.zip = zipfile.ZipFile(rootString,mode=mode)
-        
         
     def listdir(self,directory):
         return True

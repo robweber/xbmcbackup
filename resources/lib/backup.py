@@ -181,7 +181,7 @@ class XbmcBackup:
             if(utils.getSetting("backup_thumbnails") == "true"):
                 fileManager.addFile("-userdata/Thumbnails")
                 fileManager.walkTree(xbmc.translatePath('special://home/userdata/Thumbnails'))
-	  
+ 
             if(utils.getSetting("backup_config") == "true"):
                 fileManager.addFile("-userdata/keymaps")
                 fileManager.walkTree(xbmc.translatePath('special://home/userdata/keymaps'))
@@ -597,7 +597,7 @@ class BackupProgressBar:
                 else:
                     self.progressBar.update(percent,message=message)
             else:
-                 self.progressBar.update(percent)
+                self.progressBar.update(percent)
 
     def checkCancel(self):
         result = False

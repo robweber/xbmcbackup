@@ -279,7 +279,8 @@ class XbmcBackup:
                 #extract the zip file
                 zip_vfs = ZipFileSystem(xbmc.translatePath("special://temp/"+ self.restore_point),'r')
                 zip_vfs.extract(xbmc.translatePath("special://temp/"))
-                      
+                zip_vfs.cleanup()
+                
                 #set the new remote vfs and fix xbmc path
                 self.remote_vfs = XBMCFileSystem(xbmc.translatePath("special://temp/" + self.restore_point.split(".")[0] + "/"))
                 self.xbmc_vfs.set_root(xbmc.translatePath("special://home"))

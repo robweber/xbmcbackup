@@ -8,6 +8,8 @@ Remote Destination/File Selection:
 
 In the addon settings you can define a remote path for the destination of your xbmc files. Each backup will create a folder named in a YYYYMMDDHHmm format so you can create multiple backups. You can keep a set number of backups by setting the integer value of the Backups to Keep setting greater than 0. 
 
+If you choose to compress your backups there are a few things you need to be aware of. Compressing takes place on the server you are trying to backup and then only the archive is copied to the remote backup location. This means you must have sufficient space available to allow for creating the archive. When restoring a zipped archive the process is the same. It is first copied to your local storage, extracted, and the contents put to their correct locations. The archive is then deleted. Zipped and non-zipped backups can be mixed in the same archive folder.  
+
 On the Backup Selection page you can select which items from your user profile folder will be sent to the backup location. By default all are turned on except the Addon Data directory. 
 
 You can also define non-XBMC directories on your device. See "Custom Directories" for more information on how these are handled. 

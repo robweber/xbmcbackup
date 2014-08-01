@@ -511,9 +511,7 @@ class FileManager:
                 dirPath = xbmc.translatePath(directory + "/" + aDir)
                 file_ext = aDir.split('.')[-1]
               
-                #don't backup your own zip file
-                if(aDir != "xbmc_backup_temp.zip"):
-                    self.addFile("-" + dirPath)
+                self.addFile("-" + dirPath)
 
                 #catch for "non directory" type files
                 shouldWalk = True
@@ -527,10 +525,9 @@ class FileManager:
             
             #copy all the files
             for aFile in files:
-                if(aFile != 'xbmc_backup_temp.zip'):
-                    utils.log(aFile)
-                    filePath = xbmc.translatePath(directory + "/" + aFile)
-                    self.addFile(filePath)
+                utils.log(aFile)
+                filePath = xbmc.translatePath(directory + "/" + aFile)
+                self.addFile(filePath)
                     
     def addFile(self,filename):
         try:

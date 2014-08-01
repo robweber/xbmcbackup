@@ -117,7 +117,7 @@ class XbmcBackup:
             if(utils.getSetting("compress_backups") == 'true'):
                 #save the remote file system and use the zip vfs
                 self.saved_remote_vfs = self.remote_vfs
-                self.remote_vfs = ZipFileSystem(xbmc.translatePath(utils.data_dir() + "xbmc_backup_temp.zip"),"w")
+                self.remote_vfs = ZipFileSystem(xbmc.translatePath("special://temp/xbmc_backup_temp.zip"),"w")
                 
             self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d%H%M") + "/")
             progressBarTitle = progressBarTitle + utils.getString(30016)
@@ -234,11 +234,11 @@ class XbmcBackup:
                 #send the zip file to the real remote vfs
                 zip_name = self.remote_vfs.root_path[:-1] + ".zip"
                 self.remote_vfs.cleanup()
-                self.xbmc_vfs.rename(xbmc.translatePath(utils.data_dir() + "xbmc_backup_temp.zip"), xbmc.translatePath(utils.data_dir() + zip_name))
-                fileManager.addFile(xbmc.translatePath(utils.data_dir() + zip_name))
+                self.xbmc_vfs.rename(xbmc.translatePath("special://temp/xbmc_backup_temp.zip"), xbmc.translatePath("special://temp/" + zip_name))
+                fileManager.addFile(xbmc.translatePath("special://temp/" + zip_name))
                
                 #set root to data dir home 
-                self.xbmc_vfs.set_root(xbmc.translatePath(utils.data_dir()))
+                self.xbmc_vfs.set_root(xbmc.translatePath("special://temp/"))
                
                 self.remote_vfs = self.saved_remote_vfs
                 self.progressBar.updateProgress(0, "Copying Zip Archive")
@@ -259,9 +259,9 @@ class XbmcBackup:
                 utils.log("copying zip file: " + self.restore_point)
                 
                 #set root to data dir home 
-                self.xbmc_vfs.set_root(xbmc.translatePath(utils.data_dir()))
+                self.xbmc_vfs.set_root(xbmc.translatePath("special://temp/"))
                 
-                if(not self.xbmc_vfs.exists(xbmc.translatePath(utils.data_dir() + self.restore_point))):
+                if(not self.xbmc_vfs.exists(xbmc.translatePath("special://temp/" + self.restore_point))):
                     #copy just this file from the remote vfs
                     zipFile = []
                     zipFile.append(self.remote_base_path + self.restore_point)
@@ -271,11 +271,11 @@ class XbmcBackup:
                     utils.log("zip file exists already")
                     
                 #extract the zip file
-                zip_vfs = ZipFileSystem(xbmc.translatePath(utils.data_dir() + self.restore_point),'r')
-                zip_vfs.extract(xbmc.translatePath(utils.data_dir()))
-                                
+                zip_vfs = ZipFileSystem(xbmc.translatePath("special://temp/"+ self.restore_point),'r')
+                zip_vfs.extract(xbmc.translatePath("special://temp/"))
+                      
                 #set the new remote vfs
-                self.remote_vfs = XBMCFileSystem(xbmc.translatePath(utils.data_dir() + self.restore_point.split(".")[0] + "/"))
+                self.remote_vfs = XBMCFileSystem(xbmc.translatePath("special://temp/" + self.restore_point.split(".")[0] + "/"))
                 
             
             #for restores remote path must exist
@@ -384,6 +384,11 @@ class XbmcBackup:
                 self.remote_vfs.set_root(fileGroup['source'])
                 self.xbmc_vfs.set_root(fileGroup['dest'])
                 self.backupFiles(fileGroup['files'],self.remote_vfs,self.xbmc_vfs)
+
+            if(self.restore_point.split('.')[-1] == 'zip'):
+                #delete the zip file and the extracted directory
+                self.xbmc_vfs.rmdir(xbmc.translatePath("special://temp/" + self.restore_point))
+                self.xbmc_vfs.rmdir(self.remote_vfs.root_path)
 
             #call update addons to refresh everything
             xbmc.executebuiltin('UpdateLocalAddons')

@@ -247,7 +247,7 @@ class XbmcBackup:
                 self.xbmc_vfs.set_root(xbmc.translatePath("special://temp/"))
                
                 self.remote_vfs = self.saved_remote_vfs
-                self.progressBar.updateProgress(98, "Copying Zip Archive")
+                self.progressBar.updateProgress(98, utils.getString(30088))
                 self.backupFiles(fileManager.getFiles(),self.xbmc_vfs, self.remote_vfs)
                 
                 #delete the temp zip file
@@ -261,7 +261,7 @@ class XbmcBackup:
 
             #catch for if the restore point is actually a zip file
             if(self.restore_point.split('.')[-1] == 'zip'):
-                self.progressBar.updateProgress(0, "Copying Zip Archive")
+                self.progressBar.updateProgress(2, utils.getString(30088))
                 utils.log("copying zip file: " + self.restore_point)
                 
                 #set root to data dir home 

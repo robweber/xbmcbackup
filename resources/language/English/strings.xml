@@ -78,4 +78,6 @@
     <string id="30084">None (Silent)</string>
     <string id="30085">Version Warning</string>
     <string id="30086">This version of XBMC is different than the one used to create the archive</string>
+    <string id="30087">Compress Archives</string>
+    <string id="30088">Copying Zip Archive</string>
 </strings>

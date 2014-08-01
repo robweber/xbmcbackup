@@ -82,24 +82,28 @@ class ZipFileSystem(Vfs):
         self.zip = zipfile.ZipFile(rootString,mode=mode)
         
     def listdir(self,directory):
-        return True
+        return [[],[]]
     
     def mkdir(self,directory):
         #self.zip.write(directory[len(self.root_path):])
-        return True
+        return False
     
     def put(self,source,dest):
         self.zip.write(source,dest,compress_type=zipfile.ZIP_DEFLATED)
         return True
     
     def rmdir(self,directory):
-        return True
+        return False
     
     def exists(self,aFile):
-        return True
+        return False
     
     def cleanup(self):
         self.zip.close()
+        
+    def extract(self,path):
+        #extract zip file to path
+        self.zip.extractall(path)
 
 class DropboxFileSystem(Vfs):
     client = None

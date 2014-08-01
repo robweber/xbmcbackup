@@ -270,15 +270,18 @@ class XbmcBackup:
                 else:
                     utils.log("zip file exists already")
                     
+                #extract the zip file
+                zip_vfs = ZipFileSystem(xbmc.translatePath(utils.data_dir() + self.restore_point),'r')
+                zip_vfs.extract(xbmc.translatePath(utils.data_dir()))
+                                
                 #set the new remote vfs
-                self.remote_vfs = ZipFileSystem(xbmc.translatePath(utils.data_dir() + self.restore_point),'r')
-                self.remote_vfs.set_root(self.restore_point.split(".")[0] + "/")
+                self.remote_vfs = XBMCFileSystem(xbmc.translatePath(utils.data_dir() + self.restore_point.split(".")[0] + "/"))
                 
-            else:
-                #for restores remote path must exist
-                if(not self.remote_vfs.exists(self.remote_vfs.root_path)):
-                    xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path)
-                    return
+            
+            #for restores remote path must exist
+            if(not self.remote_vfs.exists(self.remote_vfs.root_path)):
+                xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path)
+                return
 
             if(not self._checkValidationFile(self.remote_vfs.root_path)):
                 #don't continue

@@ -83,11 +83,11 @@ class XbmcBackup:
 
         for aFile in files:
             file_ext = aFile.split('.')[-1]
-           
-            if(file_ext == 'zip'):
+            folderName = aFile.split('.')[0]
+            
+            if(file_ext == 'zip' and (len(folderName) == 12 or len(folderName) == 8) and str.isdigit(folderName)):
                 
                 #folder may or may not contain time, older versions didn't include this
-                folderName = ''
                 if(len(aFile ) > 8):
                     folderName = aFile [6:8] + '-' + aFile [4:6] + '-' + aFile [0:4] + " " + aFile [8:10] + ":" + aFile [10:12]
                 else:

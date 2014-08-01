@@ -245,7 +245,7 @@ class XbmcBackup:
                 self.backupFiles(fileManager.getFiles(),self.xbmc_vfs, self.remote_vfs)
                 
                 #delete the temp zip file
-                self.xbmc_vfs.rmdir(xbmc.translatePath(utils.data_dir() + zip_name))
+                self.xbmc_vfs.rmfile(xbmc.translatePath(utils.data_dir() + zip_name))
 
             #remove old backups
             self._rotateBackups()
@@ -387,7 +387,7 @@ class XbmcBackup:
 
             if(self.restore_point.split('.')[-1] == 'zip'):
                 #delete the zip file and the extracted directory
-                self.xbmc_vfs.rmdir(xbmc.translatePath("special://temp/" + self.restore_point))
+                self.xbmc_vfs.rmfile(xbmc.translatePath("special://temp/" + self.restore_point))
                 self.xbmc_vfs.rmdir(self.remote_vfs.root_path)
 
             #call update addons to refresh everything
@@ -453,7 +453,13 @@ class XbmcBackup:
                 while(remove_num < (len(dirs) - total_backups) and not self.progressBar.checkCancel()):
                     self._updateProgress(utils.getString(30054) + " " + dirs[remove_num][1])
                     utils.log("Removing backup " + dirs[remove_num][0])
-                    self.remote_vfs.rmdir(self.remote_base_path + dirs[remove_num][0] + "/")
+                    
+                    if(dirs[remove_num][0].split('.')[-1] == 'zip'):
+                        #this is a file, remove it that way
+                        self.remote_vfs.rmfile(self.remote_base_path + dirs[remove_num][0])
+                    else:
+                        self.remote_vfs.rmdir(self.remote_base_path + dirs[remove_num][0] + "/")
+                        
                     remove_num = remove_num + 1
 
     def _createValidationFile(self):

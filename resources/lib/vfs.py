@@ -44,6 +44,9 @@ class Vfs:
     def rmdir(self,directory):
         return True
 
+    def rmfile(self,aFile):
+        return True
+
     def exists(self,aFile):
         return True
     
@@ -67,6 +70,9 @@ class XBMCFileSystem(Vfs):
         
     def rmdir(self,directory):
         return xbmcvfs.rmdir(directory,True)
+
+    def rmfile(self,aFile):
+        return xbmcvfs.delete(aFile)
 
     def rename(self,aFile,newName):
         return xbmcvfs.rename(aFile, newName)
@@ -181,6 +187,16 @@ class DropboxFileSystem(Vfs):
 
             #finally remove the root directory
             self.client.file_delete(directory)
+            
+            return True
+        else:
+            return False
+
+    def rmFile(self,aFile):
+        aFile = self._fix_slashes(aFile)
+        if(self.client != None and self.exists(aFile)):
+            self.client.file_delete(aFile)
+            return True
         else:
             return False
 

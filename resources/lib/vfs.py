@@ -94,7 +94,7 @@ class ZipFileSystem(Vfs):
         return False
     
     def put(self,source,dest):
-        self.zip.write(source,dest,compress_type=zipfile.ZIP_DEFLATED)
+        self.zip.write(utils.encode(source),utils.encode(dest),compress_type=zipfile.ZIP_DEFLATED)
         return True
     
     def rmdir(self,directory):

@@ -115,6 +115,10 @@ class XbmcBackup:
         progressBarTitle = utils.getString(30010) + " - "
         if(mode == self.Backup and self.remote_vfs.root_path != ''):
             if(utils.getSetting("compress_backups") == 'true'):
+                #delete old temp file
+                if(self.xbmc_vfs.exists(xbmc.translatePath('special://temp/xbmc_backup_temp.zip'))):
+                    self.xbmc_vfs.rmfile(xbmc.translatePath('special://temp/xbmc_backup_temp.zip'))
+                    
                 #save the remote file system and use the zip vfs
                 self.saved_remote_vfs = self.remote_vfs
                 self.remote_vfs = ZipFileSystem(xbmc.translatePath("special://temp/xbmc_backup_temp.zip"),"w")

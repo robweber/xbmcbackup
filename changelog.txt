@@ -1,3 +1,7 @@
+Version 0.5.8
+
+fixes path substitution errors
+
 Version 0.5.7
 
 added option to compress backups, uses local source for staging the zip before sending to remote

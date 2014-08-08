@@ -94,7 +94,11 @@ class ZipFileSystem(Vfs):
         return False
     
     def put(self,source,dest):
-        self.zip.write(source,utils.encode(dest),compress_type=zipfile.ZIP_DEFLATED)
+        
+        aFile = xbmcvfs.File(xbmc.translatePath(source),'r')
+        
+        self.zip.writestr(utils.encode(dest),aFile.read(),compress_type=zipfile.ZIP_DEFLATED)
+        
         return True
     
     def rmdir(self,directory):

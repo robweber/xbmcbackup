@@ -38,7 +38,7 @@ class XbmcBackup:
     skip_advanced = False   #if we should check for the existance of advancedsettings in the restore
     
     def __init__(self):
-        self.xbmc_vfs = XBMCFileSystem(xbmc.translatePath('special://home'))
+        self.xbmc_vfs = XBMCFileSystem('special://home')
 
         self.configureRemote()
         utils.log(utils.getString(30046))
@@ -237,7 +237,7 @@ class XbmcBackup:
                 self.backupFiles(fileGroup['files'],self.xbmc_vfs,self.remote_vfs)
             
             #reset remote and xbmc vfs
-            self.xbmc_vfs.set_root(xbmc.translatePath("special://home"))
+            self.xbmc_vfs.set_root("special://home/")
             self.remote_vfs.set_root(orig_base_path)
 
             if(utils.getSetting("compress_backups") == 'true'):
@@ -287,7 +287,7 @@ class XbmcBackup:
                 
                 #set the new remote vfs and fix xbmc path
                 self.remote_vfs = XBMCFileSystem(xbmc.translatePath("special://temp/" + self.restore_point.split(".")[0] + "/"))
-                self.xbmc_vfs.set_root(xbmc.translatePath("special://home"))
+                self.xbmc_vfs.set_root("special://home/")
                 
             
             #for restores remote path must exist

@@ -85,7 +85,7 @@ class ZipFileSystem(Vfs):
     
     def __init__(self,rootString,mode):
         self.root_path = ""
-        self.zip = zipfile.ZipFile(rootString,mode=mode)
+        self.zip = zipfile.ZipFile(rootString,mode=mode,allowZip64=True)
         
     def listdir(self,directory):
         return [[],[]]

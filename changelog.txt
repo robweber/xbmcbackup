@@ -1,3 +1,7 @@
+Version 0.5.8.1
+
+backup compression should use zip64 as sizes may be over 2GB
+
 Version 0.5.8
 
 fixes path substitution errors

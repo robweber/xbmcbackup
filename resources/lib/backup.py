@@ -38,7 +38,7 @@ class XbmcBackup:
     skip_advanced = False   #if we should check for the existance of advancedsettings in the restore
     
     def __init__(self):
-        self.xbmc_vfs = XBMCFileSystem('special://home')
+        self.xbmc_vfs = XBMCFileSystem(xbmc.translatePath('special://home'))
 
         self.configureRemote()
         utils.log(utils.getString(30046))

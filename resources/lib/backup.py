@@ -161,36 +161,36 @@ class XbmcBackup:
          
             #go through each of the user selected items and write them to the backup store
             if(utils.getSetting('backup_addons') == 'true'):
-                fileManager.addFile("-addons")
+                fileManager.addFile("-" + xbmc.translatePath('special://home/addons'))
                 fileManager.walkTree(xbmc.translatePath('special://home/addons'))
 
             fileManager.addFile("-userdata")
 
             if(utils.getSetting('backup_addon_data') == 'true'):
-                fileManager.addFile("-userdata/addon_data")
+                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/addon_data'))
                 fileManager.walkTree(xbmc.translatePath('special://home/userdata/addon_data'))
 
             if(utils.getSetting('backup_database') == 'true'):
-                fileManager.addFile("-userdata/Database")
+                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/Database'))
                 fileManager.walkTree(xbmc.translatePath('special://home/userdata/Database'))
         
             if(utils.getSetting("backup_playlists") == 'true'):
-                fileManager.addFile("-userdata/playlists")
+                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/playlists'))
                 fileManager.walkTree(xbmc.translatePath('special://home/userdata/playlists'))
 
             if(utils.getSetting('backup_profiles') == 'true'):
-                fileManager.addFile("-userdata/profiles")
+                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/profiles'))
                 fileManager.walkTree(xbmc.translatePath('special://home/userdata/profiles'))
             
             if(utils.getSetting("backup_thumbnails") == "true"):
-                fileManager.addFile("-userdata/Thumbnails")
+                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/Thumbnails'))
                 fileManager.walkTree(xbmc.translatePath('special://home/userdata/Thumbnails'))
  
             if(utils.getSetting("backup_config") == "true"):
-                fileManager.addFile("-userdata/keymaps")
+                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/keymaps'))
                 fileManager.walkTree(xbmc.translatePath('special://home/userdata/keymaps'))
                 
-                fileManager.addFile("-userdata/peripheral_data")
+                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/peripheral_data'))
                 fileManager.walkTree(xbmc.translatePath('special://home/userdata/peripheral_data'))
             
                 #this part is an oddity
@@ -287,7 +287,7 @@ class XbmcBackup:
                 
                 #set the new remote vfs and fix xbmc path
                 self.remote_vfs = XBMCFileSystem(xbmc.translatePath("special://temp/" + self.restore_point.split(".")[0] + "/"))
-                self.xbmc_vfs.set_root("special://home/")
+                self.xbmc_vfs.set_root(xbmc.translatePath("special://home/"))
                 
             
             #for restores remote path must exist
@@ -324,10 +324,10 @@ class XbmcBackup:
                         
                         return
                 
-                fileManager.addFile('-userdata/keymaps')
+                fileManager.addFile('-' + self.remove_vfs.root_path + 'userdata/keymaps')
                 fileManager.walkTree(self.remote_vfs.root_path + "userdata/keymaps")
                 
-                fileManager.addFile('-userdata/peripheral_data')
+                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/peripheral_data")
                 fileManager.walkTree(self.remote_vfs.root_path + "userdata/peripheral_data")
             
                 #this part is an oddity
@@ -337,29 +337,29 @@ class XbmcBackup:
                         fileManager.addFile(self.remote_vfs.root_path + "userdata/" + aFile)
 
             if(utils.getSetting('backup_addons') == 'true'):
-                fileManager.addFile('-addons')
+                fileManager.addFile('-' + self.remote_vfs.root_path + "addons")
                 fileManager.walkTree(self.remote_vfs.root_path + "addons")
 
             self.xbmc_vfs.mkdir(xbmc.translatePath('special://home/userdata'))
 
             if(utils.getSetting('backup_addon_data') == 'true'):
-                fileManager.addFile('-userdata/addon_data')
+                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/addon_data")
                 fileManager.walkTree(self.remote_vfs.root_path + "userdata/addon_data")
 
             if(utils.getSetting('backup_database') == 'true'):
-                fileManager.addFile('-userdata/Database')
+                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/Database")
                 fileManager.walkTree(self.remote_vfs.root_path + "userdata/Database")
         
             if(utils.getSetting("backup_playlists") == 'true'):
-                fileManager.addFile('-userdata/playlists')
+                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/playlists")
                 fileManager.walkTree(self.remote_vfs.root_path + "userdata/playlists")
 
             if(utils.getSetting('backup_profiles') == 'true'):
-                fileManager.addFile('-userdata/profiles')
+                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/profiles")
                 fileManager.walkTree(self.remote_vfs.root_path + "userdata/profiles")
                 
             if(utils.getSetting("backup_thumbnails") == "true"):
-                fileManager.addFile('-userdata/Thumbnails')
+                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/Thumbnails")
                 fileManager.walkTree(self.remote_vfs.root_path + "userdata/Thumbnails")
 
             #add to array

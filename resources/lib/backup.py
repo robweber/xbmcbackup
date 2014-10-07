@@ -164,7 +164,7 @@ class XbmcBackup:
                 fileManager.addFile("-" + xbmc.translatePath('special://home/addons'))
                 fileManager.walkTree(xbmc.translatePath('special://home/addons'))
 
-            fileManager.addFile("-userdata")
+            fileManager.addFile("-" + xbmc.translatePath('special://home/userdata'))
 
             if(utils.getSetting('backup_addon_data') == 'true'):
                 fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/addon_data'))

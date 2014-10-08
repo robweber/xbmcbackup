@@ -324,7 +324,7 @@ class XbmcBackup:
                         
                         return
                 
-                fileManager.addFile('-' + self.remove_vfs.root_path + 'userdata/keymaps')
+                fileManager.addFile('-' + self.remote_vfs.root_path + 'userdata/keymaps')
                 fileManager.walkTree(self.remote_vfs.root_path + "userdata/keymaps")
                 
                 fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/peripheral_data")

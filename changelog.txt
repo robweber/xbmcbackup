@@ -1,4 +1,4 @@
-Version 0.5.8.1
+Version 0.5.8.4
 
 backup compression should use zip64 as sizes may be over 2GB
 need to expand out path -bugfix

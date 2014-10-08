@@ -65,7 +65,6 @@ class XBMCFileSystem(Vfs):
         return xbmcvfs.mkdir(xbmc.translatePath(directory))
 
     def put(self,source,dest):
-        utils.log(dest)
         return xbmcvfs.copy(xbmc.translatePath(source),xbmc.translatePath(dest))
         
     def rmdir(self,directory):

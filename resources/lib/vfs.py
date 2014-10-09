@@ -312,7 +312,7 @@ class GoogleDriveFilesystem(Vfs):
         
         #make sure we have the folder we need
         xbmc_folder = self._getGoogleFile(self.root_path)
-        
+        print xbmc_folder
         if(xbmc_folder == None):
             self.mkdir(self.root_path)
     
@@ -350,10 +350,14 @@ class GoogleDriveFilesystem(Vfs):
         if(not directory.startswith('/')):
             directory = '/' + directory
         
+        if(directory.endswith('/')):
+            directory = directory[:-1]
+        
         #split the string by the directory separator
         pathList = os.path.split(directory)
-    
+        
         if(pathList[0] == '/'):
+            
             #we're at the root, just make the folder
             newFolder = self.drive.CreateFile({'title': pathList[1], 'parent':'root','mimeType':self.FOLDER_TYPE})
             newFolder.Upload()
@@ -362,7 +366,7 @@ class GoogleDriveFilesystem(Vfs):
             parentFolder = self._getGoogleFile(pathList[0])
         
             if(parentFolder != None):
-                newFolder = self.drive.CreateFile({'title': pathList[1], 'parent':parentFolder['id'],'mimeType':self.FOLDER_TYPE})
+                newFolder = self.drive.CreateFile({'title': pathList[1],"parents":[{'kind':'drive#fileLink','id':parentFolder['id']}],'mimeType':self.FOLDER_TYPE})
                 newFolder.Upload()
             else:
                 result = False
@@ -431,7 +435,7 @@ class GoogleDriveFilesystem(Vfs):
     
     def _getGoogleFile(self,file):
         result = None
-        utils.log(file)
+       
         #file must start with / and not end with one (even directory)
         if(not file.startswith('/')):
             file = '/' + file
@@ -439,8 +443,8 @@ class GoogleDriveFilesystem(Vfs):
         if(file.endswith('/')):
             file = file[:-1]
     
-        if(self.history[file] != None):
-            utils.log('used history')
+        if(self.history.has_key(file)):
+            
             result = self.history[file]
         else:
             pathList = os.path.split(file)
@@ -457,7 +461,7 @@ class GoogleDriveFilesystem(Vfs):
                 #recurse down the tree
                 current_file = pathList[1]
     
-                parentId = self.getGoogleFile(pathList[0])
+                parentId = self._getGoogleFile(pathList[0])
             
                 if(parentId != None):
                     self.history[pathList[0]] = parentId

@@ -309,6 +309,13 @@ class GoogleDriveFilesystem(Vfs):
     
         #create the drive object
         self.drive = GoogleDrive(gauth)
+        
+        #make sure we have the folder we need
+        xbmc_folder = self._getGoogleFile(self.root_path)
+        
+        if(xbmc_folder == None):
+            self.mkdir(self.root_path)
+    
     
     def listdir(self,directory):
         files = []

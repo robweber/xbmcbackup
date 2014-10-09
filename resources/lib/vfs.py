@@ -4,10 +4,10 @@ import xbmcvfs
 import xbmcgui
 import zipfile
 import zlib
+import os
 from dropbox import client, rest, session
-
-APP_KEY = utils.getSetting('dropbox_key')
-APP_SECRET = utils.getSetting('dropbox_secret')
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
 
 class Vfs:
     root_path = None
@@ -38,9 +38,6 @@ class Vfs:
     def put(self,source,dest):
         return True
 
-    def getFile(self,source):
-        return True
-    
     def rmdir(self,directory):
         return True
 
@@ -116,19 +113,25 @@ class ZipFileSystem(Vfs):
 
 class DropboxFileSystem(Vfs):
     client = None
+    APP_KEY = ''
+    APP_SECRET = ''
     
     def __init__(self,rootString):
         self.set_root(rootString)
+        
+        self.APP_KEY = utils.getSetting('dropbox_key')
+        self.APP_SECRET = utils.getSetting('dropbox_secret')
+
         self.setup()
 
     def setup(self):
-        if(APP_KEY == '' or APP_SECRET == ''):
+        if(self.APP_KEY == '' or self.APP_SECRET == ''):
             xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30058),utils.getString(30059))
             return
         
         user_token_key,user_token_secret = self.getToken()
         
-        sess = session.DropboxSession(APP_KEY,APP_SECRET,"app_folder")
+        sess = session.DropboxSession(self.APP_KEY,self.APP_SECRET,"app_folder")
 
         if(user_token_key == '' and user_token_secret == ''):
             token = sess.obtain_request_token()
@@ -269,6 +272,196 @@ class DropboxFileSystem(Vfs):
             xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "tokens.txt"))
             
 
+class GoogleDriveFilesystem(Vfs):
+    drive = None
+    history = {}
+    CLIENT_ID = ''
+    CLIENT_SECRET = ''
+    FOLDER_TYPE = 'application/vnd.google-apps.folder'
+    
+    def __init__(self,rootString):
+        self.set_root(rootString)
+        
+        self.CLIENT_ID = utils.getSetting('google_drive_id')
+        self.CLIENT_SECRET = utils.getSetting('google_drive_secret')
 
+        self.setup()
+    
+    def setup(self):
+        #create authorization helper and load default settings
+        gauth = GoogleAuth(xbmc.validatePath(xbmc.translatePath(utils.addon_dir() + '/resources/lib/pydrive/settings.yaml')))
+        gauth.LoadClientConfigSettings()
+        
+        #check if this user is already authorized
+        if(not xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "google_drive.dat"))):
+            settings = {"client_id":self.CLIENT_ID,'client_secret':self.CLIENT_SECRET}
+    
+            drive_url = gauth.GetAuthUrl(settings)
+    
+            utils.log("Google Drive Authorize URL: " + drive_url)
 
+            code = xbmcgui.Dialog().input('Google Drive Validation Code','Input the Validation code after authorizing this app')
+
+            gauth.Auth(code)
+            gauth.SaveCredentialsFile(xbmc.validatePath(xbmc.translatePath(utils.data_dir() + 'google_drive.dat')))
+        else:
+            gauth.LoadCredentialsFile(xbmc.validatePath(xbmc.translatePath(utils.data_dir() + 'google_drive.dat')))
+    
+        #create the drive object
+        self.drive = GoogleDrive(gauth)
+    
+    def listdir(self,directory):
+        files = []
+        dirs = []
+    
+        if(not directory.startswith('/')):
+            directory = '/' + directory
+        
+        #get the id of this folder
+        parentFolder = self._getGoogleFile(directory)
+    
+        #need to do this after
+        if(not directory.endswith('/')):
+                directory = directory + '/'
+    
+        if(parentFolder != None):
+        
+            fileList = self.drive.ListFile({'q':"'" + parentFolder['id'] + "' in parents and trashed = false"}).GetList()
+       
+            for aFile in fileList:
+                if(aFile['mimeType'] == self.FOLDER_TYPE):
+                    dirs.append(directory + aFile['title'])
+                else:
+                    files.append(directory + aFile['title'])
+                
+    
+        return [dirs,files]    
+
+    def mkdir(self,directory):
+        result = True
+        
+        if(not directory.startswith('/')):
+            directory = '/' + directory
+        
+        #split the string by the directory separator
+        pathList = os.path.split(directory)
+    
+        if(pathList[0] == '/'):
+            #we're at the root, just make the folder
+            newFolder = self.drive.CreateFile({'title': pathList[1], 'parent':'root','mimeType':self.FOLDER_TYPE})
+            newFolder.Upload()
+        else:
+            #get the id of the parent folder
+            parentFolder = self._getGoogleFile(pathList[0])
+        
+            if(parentFolder != None):
+                newFolder = self.drive.CreateFile({'title': pathList[1], 'parent':parentFolder['id'],'mimeType':self.FOLDER_TYPE})
+                newFolder.Upload()
+            else:
+                result = False
+        
+        return result
+
+    def put(self,source,dest):
+        result = True
+        
+        #make the name separate from the path
+        if(not dest.startswith('/')):
+            dest = '/' + dest
+    
+        pathList = os.path.split(dest)
+    
+        #get the parent location
+        parentFolder = self._getGoogleFile(pathList[0])
+    
+        if(parentFolder != None):
+            #create a new file in this folder
+            newFile = self.drive.CreateFile({"title":pathList[1],"parents":[{'kind':'drive#fileLink','id':parentFolder['id']}]})
+            newFile.SetContentFile(source)
+            newFile.Upload()
+        else:
+            result = False
             
+        return result
+
+    def get_file(self,source, dest):
+    
+        #get the id of this file
+        file = self._getGoogleFile(source)
+    
+        if(file != None):
+            file.GetContentFile(dest)
+    
+    def rmdir(self,directory):
+        result = True
+        
+        #check that the folder exists
+        folder = self._getGoogleFile(directory)
+    
+        if(folder != None):
+            #delete the folder
+            folder.Delete()
+        else:
+            result = False
+            
+        return result
+
+    def rmfile(self,aFile):
+        #really just the same as the remove directory function
+        return self.rmdir(aFile)
+
+    def exists(self,aFile):
+        #attempt to get this file
+        foundFile = self._getGoogleFile(aFile)
+        
+        if(foundFile != None):
+            return True
+        else:
+            return False
+    
+    def rename(self,aFile,newName):
+        return True
+    
+    def _getGoogleFile(self,file):
+        result = None
+        utils.log(file)
+        #file must start with / and not end with one (even directory)
+        if(not file.startswith('/')):
+            file = '/' + file
+        
+        if(file.endswith('/')):
+            file = file[:-1]
+    
+        if(self.history[file] != None):
+            utils.log('used history')
+            result = self.history[file]
+        else:
+            pathList = os.path.split(file)
+        
+            #end of recurision, we got the root
+            if(pathList[0] == '/'):
+                #get the id of this file (if it exists)
+                file_list = self.drive.ListFile({'q':"title='" + pathList[1] + "' and 'root' in parents and trashed=false"}).GetList()
+        
+                if(len(file_list) > 0):
+                    result = file_list[0]
+                    self.history[pathList[1]] = result
+            else:
+                #recurse down the tree
+                current_file = pathList[1]
+    
+                parentId = self.getGoogleFile(pathList[0])
+            
+                if(parentId != None):
+                    self.history[pathList[0]] = parentId
+                    
+                    #attempt to get the id of this file, with this parent
+                    file_list = file_list = self.drive.ListFile({'q':"title='" + current_file + "' and '" + parentId['id'] + "' in parents and trashed=false"}).GetList()
+                
+                    if(len(file_list) > 0):
+                        result = file_list[0]
+                        self.history[file] = result
+                        
+
+        return result
+

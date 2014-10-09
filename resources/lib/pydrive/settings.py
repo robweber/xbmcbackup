@@ -59,11 +59,13 @@ SETTINGS_STRUCT = {
         'struct': {
             'client_id': {
                 'type': str,
-                'required': True
+                'required': True,
+                'default':'blank'
             },
             'client_secret': {
                 'type': str,
-                'required': True
+                'required': True,
+                'default':'blank'
             },
             'auth_uri': {
                 'type': str,
@@ -119,6 +121,7 @@ def LoadSettingsFile(filename=SETTINGS_FILE):
     stream = file(filename, 'r')
     data = load(stream, Loader=Loader)
   except (YAMLError, IOError), e:
+    print e
     raise SettingsError(e)
   return data
 

@@ -4,7 +4,7 @@ import xbmcvfs
 import utils as utils
 import time
 import json
-from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem
+from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
 
 def folderSort(aKey):
     result = aKey[0]
@@ -54,6 +54,9 @@ class XbmcBackup:
         elif(utils.getSetting('remote_selection') == '2'):
             self.remote_base_path = "/"
             self.remote_vfs = DropboxFileSystem("/")
+        elif(utils.getSetting('remote_selection') == '3'):
+            self.remote_base_path = '/'
+            self.remote_vfs = GoogleDriveFilesystem('/')
 
     def remoteConfigured(self):
         result = True
@@ -423,8 +426,8 @@ class XbmcBackup:
                     dest.mkdir(dest.root_path + aFile[len(source.root_path) + 1:])
                 else:
                     self._updateProgress()
-                    if(isinstance(source,DropboxFileSystem)):
-                        #if copying from dropbox we need the file handle, use get_file
+                    if(isinstance(source,DropboxFileSystem) or isinstance(source,GoogleDriveFilesystem)):
+                        #if copying from cloud storage we need the file handle, use get_file
                         source.get_file(aFile,dest.root_path + aFile[len(source.root_path):])
                     else:
                         #copy using normal method

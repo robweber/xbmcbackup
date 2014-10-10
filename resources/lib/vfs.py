@@ -164,9 +164,9 @@ class DropboxFileSystem(Vfs):
 
             for aFile in metadata['contents']:
                 if(aFile['is_dir']):
-                    dirs.append(aFile['path'][len(directory):])
+                    dirs.append(utils.encode(aFile['path'][len(directory):]))
                 else:
-                    files.append(aFile['path'][len(directory):])
+                    files.append(utils.encode(aFile['path'][len(directory):]))
 
             return [dirs,files]
         else:
@@ -337,9 +337,9 @@ class GoogleDriveFilesystem(Vfs):
        
             for aFile in fileList:
                 if(aFile['mimeType'] == self.FOLDER_TYPE):
-                    dirs.append(directory + aFile['title'])
+                    dirs.append(utils.encode(aFile['title']))
                 else:
-                    files.append(directory + aFile['title'])
+                    files.append(utils.encode(aFile['title']))
                 
     
         return [dirs,files]    

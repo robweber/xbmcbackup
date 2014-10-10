@@ -71,7 +71,7 @@ class XbmcBackup:
 
         #get all the folders in the current root path
         dirs,files = self.remote_vfs.listdir(self.remote_base_path)
-       
+    
         for aDir in dirs:
             if(self.remote_vfs.exists(self.remote_base_path + aDir + "/xbmcbackup.val")):
 
@@ -458,8 +458,9 @@ class XbmcBackup:
         if(total_backups > 0):
             #get a list of valid backup folders
             dirs = self.listBackups()
-
+           
             if(len(dirs) > total_backups):
+                
                 #remove backups to equal total wanted
                 remove_num = 0
                 self.filesTotal = self.filesTotal + remove_num + 1

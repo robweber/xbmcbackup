@@ -38,7 +38,7 @@ Once you have your app key and secret add them to the settings. XBMC Backup now 
 
 Using Google Drive: 
 
-Using the Google Drive target is very similiar to the Dropbox one. You must create a Google API project and authenticate your account via the id and secret. Instructions for creating the Google API for Google Drive can be found here. You'll need the client id and client secret generated for the addon settings (https://developers.google.com/drive/web/quickstart/quickstart-python). You only need to follow Step 1. 
+Using the Google Drive target is very similar to the Dropbox one. You must create a Google API project and authenticate your account via the id and secret. Instructions for creating the Google API for Google Drive can be found here. You'll need the client id and client secret generated for the addon settings (https://developers.google.com/drive/web/quickstart/quickstart-python). You only need to follow Step 1. 
 
 Once you have the client ID and Secret add them to the addon settings and run a backup. You'll get a notification that you need to enter your authorization code. Check your XBMC log file for a line from "script.xbmcbackup" containing the authorization URL. Cut/paste this into a browser and click Allow. Once this is done put the code from your browser into the pop-up dialog. The addon will cache these credentials so it should be a one-time authenication. From there the backup should start to run. 
 

@@ -1,3 +1,7 @@
+Version 0.5.8.5
+
+added custom library nodes to config backup options - thanks Ned Scott
+
 Version 0.5.8.4
 
 backup compression should use zip64 as sizes may be over 2GB

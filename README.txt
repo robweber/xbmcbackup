@@ -83,10 +83,9 @@ GUISETTINGS.xml is a configuration file used heavily by XBMC for remembering GUI
 
 1. Run the restore of your backup
 2. SSH using putty to the IP Address of your media centre username: root Password openelec
-3. Type touch /var/lock/xbmc.disabled and then press enter
-4. Type kill all -9 xbmc.bin and then press enter - Your media center machine should now go blank
-5. Connect to your machine using WinSCP and copy the guisettings.xml file to the userdata folder (this is the guisettings.xml file from your backup)
-6. go back to your putty window and type rm /var/lock/xbmc.disabled
+3. Type "systemctl stop xbmc.service" - Your media center machine should now go blank
+5. Connect to your machine using WinSCP and copy the guisettings.xml file to the userdata folder (this is the guisettings.xml file from your backup), alternatively you can copy this file directly to an SMB share and use putty to move it to the right spot. 
+6. go back to your putty window and type "systemctl start xbmc.service"
 
 Why is the Addon prompting me to restart XBMC to continue? 
 

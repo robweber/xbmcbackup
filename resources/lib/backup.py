@@ -196,6 +196,9 @@ class XbmcBackup:
                 fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/peripheral_data'))
                 fileManager.walkTree(xbmc.translatePath('special://home/userdata/peripheral_data'))
             
+                fileManager.addFile('-' + xbmc.translatePath('special://home/userdata/library'))
+                fileManager.walkTree(xbmc.translatePath('special://home/userdata/library'))
+            
                 #this part is an oddity
                 dirs,configFiles = self.xbmc_vfs.listdir(xbmc.translatePath('special://home/userdata/'))
                 for aFile in configFiles:
@@ -332,6 +335,9 @@ class XbmcBackup:
                 
                 fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/peripheral_data")
                 fileManager.walkTree(self.remote_vfs.root_path + "userdata/peripheral_data")
+            
+                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/library")
+                fileManager.walkTree(self.remote_vfs.root_path + "userdata/library")
             
                 #this part is an oddity
                 dirs,configFiles = self.remote_vfs.listdir(self.remote_vfs.root_path + "userdata/")

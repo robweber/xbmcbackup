@@ -153,7 +153,14 @@ class XbmcBackup:
                 self.remote_vfs.mkdir(self.remote_vfs.root_path)
 
             #create a validation file for backup rotation
-            self._createValidationFile()
+            writeCheck = self._createValidationFile()
+            
+            if(not writeCheck):
+                #we may not be able to write to this destination for some reason
+                shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30089),utils.getString(30090), utils.getString(30044),autoclose=25000)
+                
+                if(not shouldContinue):
+                    return
 
             utils.log(utils.getString(30051))
             allFiles = []
@@ -255,8 +262,12 @@ class XbmcBackup:
                
                 self.remote_vfs = self.saved_remote_vfs
                 self.progressBar.updateProgress(98, utils.getString(30088))
-                self.backupFiles(fileManager.getFiles(),self.xbmc_vfs, self.remote_vfs)
+                fileCopied = self.backupFiles(fileManager.getFiles(),self.xbmc_vfs, self.remote_vfs)
                 
+                if(not fileCopied):
+                    #zip archive copy filed, inform the user
+                    shouldContinue = xbmcgui.Dialog().ok(utils.getString(30089),utils.getString(30090), utils.getString(30091))
+                    
                 #delete the temp zip file
                 self.xbmc_vfs.rmfile(xbmc.translatePath("special://temp/" + zip_name))
 
@@ -419,6 +430,8 @@ class XbmcBackup:
         window.setProperty(utils.__addon_id__ + ".running","")
 
     def backupFiles(self,fileList,source,dest):
+        result = True
+        
         utils.log("Writing files to: " + dest.root_path)
         utils.log("Source: " + source.root_path)
         for aFile in fileList:
@@ -429,12 +442,20 @@ class XbmcBackup:
                     dest.mkdir(dest.root_path + aFile[len(source.root_path) + 1:])
                 else:
                     self._updateProgress()
+                    wroteFile = True
                     if(isinstance(source,DropboxFileSystem)):
                         #if copying from dropbox we need the file handle, use get_file
-                        source.get_file(aFile,dest.root_path + aFile[len(source.root_path):])
+                        wroteFile = source.get_file(aFile,dest.root_path + aFile[len(source.root_path):])
                     else:
                         #copy using normal method
-                        dest.put(aFile,dest.root_path + aFile[len(source.root_path):])
+                        wroteFile = dest.put(aFile,dest.root_path + aFile[len(source.root_path):])
+                    
+                    #if result is still true but this file failed
+                    if(not wroteFile and result):
+                        result = False
+                        
+                        
+        return result
 
     def _createCRC(self,string):
         #create hash from string
@@ -486,7 +507,9 @@ class XbmcBackup:
         vFile.write("")
         vFile.close()
 
-        self.remote_vfs.put(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"),self.remote_vfs.root_path + "xbmcbackup.val")
+        success = self.remote_vfs.put(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"),self.remote_vfs.root_path + "xbmcbackup.val")
+        
+        return success
 
     def _checkValidationFile(self,path):
         result = False

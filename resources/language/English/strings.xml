@@ -83,4 +83,5 @@
     <string id="30089">Write Error Detected</string>
     <string id="30090">The destination may not be writeable</string>
     <string id="30091">Zip archive could not be copied</string>
+    <string id="30092">Not all files were copied</string>
 </strings>

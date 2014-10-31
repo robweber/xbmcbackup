@@ -244,7 +244,11 @@ class XbmcBackup:
             for fileGroup in allFiles:
                 self.xbmc_vfs.set_root(fileGroup['source'])
                 self.remote_vfs.set_root(fileGroup['dest'])
-                self.backupFiles(fileGroup['files'],self.xbmc_vfs,self.remote_vfs)
+                filesCopied = self.backupFiles(fileGroup['files'],self.xbmc_vfs,self.remote_vfs)
+                
+                if(not filesCopied):
+                    utils.showNotification(utils.getString(30092))
+                    utils.log(utils.getString(30092))
             
             #reset remote and xbmc vfs
             self.xbmc_vfs.set_root("special://home/")

@@ -1,5 +1,6 @@
 Version 0.5.8.6
 
+show notification if some files failed
 check if destination is writeable - thanks war59312
 
 Version 0.5.8.5

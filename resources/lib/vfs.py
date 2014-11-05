@@ -396,12 +396,17 @@ class GoogleDriveFilesystem(Vfs):
         return result
 
     def get_file(self,source, dest):
-    
+        result = True
+        
         #get the id of this file
         file = self._getGoogleFile(source)
     
         if(file != None):
             file.GetContentFile(dest)
+        else:
+            result = False
+            
+        return result
     
     def rmdir(self,directory):
         result = True

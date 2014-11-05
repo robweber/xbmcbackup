@@ -456,8 +456,8 @@ class XbmcBackup:
                 else:
                     self._updateProgress()
                     wroteFile = True
-                    if(isinstance(source,DropboxFileSystem)):
-                        #if copying from dropbox we need the file handle, use get_file
+                    if(isinstance(source,DropboxFileSystem) or isinstance(source,GoogleDriveFilesystem)):
+                        #if copying from cloud storage we need the file handle, use get_file
                         wroteFile = source.get_file(aFile,dest.root_path + aFile[len(source.root_path):])
                     else:
                         #copy using normal method

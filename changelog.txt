@@ -1,3 +1,12 @@
+Version 0.5.8.7
+
+allow limited updating of guisettings file through json
+
+Version 0.5.8.6
+
+show notification if some files failed
+check if destination is writeable - thanks war59312
+
 Version 0.5.8.5
 
 added custom library nodes to config backup options - thanks Ned Scott

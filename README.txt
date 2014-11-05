@@ -14,6 +14,17 @@ On the Backup Selection page you can select which items from your user profile f
 
 You can also define non-XBMC directories on your device. See "Custom Directories" for more information on how these are handled. 
 
+Restores:
+
+During the restore process there are a few checks and post-run procedures to know about. 
+
+The first is a version check. If you are restoring to a different version of XBMC than the one used to create the backup archive you'll get a warning. In most cases it is OK to proceed, just know that some specific items like addons and database files may not work correctly.
+
+The next check is for an advancedsettings.xml file. If you've created this file and it exists in your restore archive you'll be asked to reboot XBMC. This is so that the file can be loaded and used for any special settings, mainly path substitutions, you may have had that would affect the rest of the restore. XBMC Backup will prompt you to continue the restore process when you reboot the program. 
+
+The last bit of post-processing is done after all the backup files have been restored. If you have restored your configuration files the addon will attempt to restore any system specific settings that it can from the guisettings.xml file. This is done by comparing the restored file with settings via the JSONPRC Settings.SetSettingValue method. Only system specific settings can be restored so you will get any custom views or skin specific settings back. See the FAQ for how to restore these.  
+
+
 Scheduling: 
 
 You can schedule backups to be completed on a set interval via the scheduling area. When it is time for the backup to run it will be executed in the background. 
@@ -84,7 +95,7 @@ If you've created restore points with an older version of the addon (pre 0.3.6) 
 
 Several settings aren't being restored, this includes views, weather, etc. How do I get these back? 
 
-GUISETTINGS.xml is a configuration file used heavily by XBMC for remembering GUI specific settings. Due to the fact that XBMC reads this file on startup, and writes from memory to this file on shutdown; it is not possible to restore this file while XBMC is running. You must manually move this file from your backup archives if you wish to restore it. User SouthMark has posted the following steps for restoring in the OpenELEC system where this is more difficult: 
+GUISETTINGS.xml is a configuration file used heavily by XBMC for remembering GUI specific settings. Due to the fact that XBMC reads this file on startup, and writes from memory to this file on shutdown; it is not possible to restore this file while XBMC is running. This addon attempts to restore what settings it can via the JSONRPC interface, however you will still most likely be missing your specific skin settings and view settings. To get these back you must manually move this file from your backup archives if you wish to restore it. User SouthMark has posted the following steps for restoring in the OpenELEC system where this is more difficult: 
 
 1. Run the restore of your backup
 2. SSH using putty to the IP Address of your media centre username: root Password openelec

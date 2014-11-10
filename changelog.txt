@@ -1,5 +1,6 @@
 Version 0.5.9
 
+fixed dropbox unicode error
 create restored version of guisettings for easy local restoration
 
 Version 0.5.8.7

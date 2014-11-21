@@ -56,8 +56,8 @@ class XbmcBackup:
             self.remote_base_path = "/"
             self.remote_vfs = DropboxFileSystem("/")
         elif(utils.getSetting('remote_selection') == '3'):
-            self.remote_base_path = '/XBMC Backup/'
-            self.remote_vfs = GoogleDriveFilesystem('/XBMC Backup/')
+            self.remote_base_path = '/Kodi Backup/'
+            self.remote_vfs = GoogleDriveFilesystem('/Kodi Backup/')
 
     def remoteConfigured(self):
         result = True

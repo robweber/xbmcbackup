@@ -560,7 +560,7 @@ class FileManager:
 
     def walkTree(self,directory):
        
-        if(self.vfs.exists(directory)):
+        if(self.vfs.exists(directory + "/")):
             dirs,files = self.vfs.listdir(directory)
         
             #create all the subdirs first

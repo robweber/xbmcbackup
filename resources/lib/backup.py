@@ -498,7 +498,6 @@ class XbmcBackup:
             dirs = self.listBackups()
             
             if(len(dirs) > total_backups):
-                
                 #remove backups to equal total wanted
                 remove_num = 0
                 self.filesTotal = self.filesTotal + remove_num + 1

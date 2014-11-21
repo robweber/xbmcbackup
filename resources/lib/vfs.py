@@ -195,8 +195,9 @@ class DropboxFileSystem(Vfs):
         else:
             return False
 
-    def rmFile(self,aFile):
+    def rmfile(self,aFile):
         aFile = self._fix_slashes(aFile)
+        
         if(self.client != None and self.exists(aFile)):
             self.client.file_delete(aFile)
             return True

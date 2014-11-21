@@ -4,7 +4,7 @@ import xbmcvfs
 import utils as utils
 import time
 import json
-from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem
+from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
 from resources.lib.guisettings import GuiSettingsManager
 
 def folderSort(aKey):
@@ -55,6 +55,9 @@ class XbmcBackup:
         elif(utils.getSetting('remote_selection') == '2'):
             self.remote_base_path = "/"
             self.remote_vfs = DropboxFileSystem("/")
+        elif(utils.getSetting('remote_selection') == '3'):
+            self.remote_base_path = '/XBMC Backup/'
+            self.remote_vfs = GoogleDriveFilesystem('/XBMC Backup/')
 
     def remoteConfigured(self):
         result = True
@@ -69,7 +72,7 @@ class XbmcBackup:
 
         #get all the folders in the current root path
         dirs,files = self.remote_vfs.listdir(self.remote_base_path)
-       
+    
         for aDir in dirs:
             if(self.remote_vfs.exists(self.remote_base_path + aDir + "/xbmcbackup.val")):
 
@@ -453,8 +456,8 @@ class XbmcBackup:
                 else:
                     self._updateProgress()
                     wroteFile = True
-                    if(isinstance(source,DropboxFileSystem)):
-                        #if copying from dropbox we need the file handle, use get_file
+                    if(isinstance(source,DropboxFileSystem) or isinstance(source,GoogleDriveFilesystem)):
+                        #if copying from cloud storage we need the file handle, use get_file
                         wroteFile = source.get_file(aFile,dest.root_path + aFile[len(source.root_path):])
                     else:
                         #copy using normal method
@@ -495,6 +498,7 @@ class XbmcBackup:
             dirs = self.listBackups()
             
             if(len(dirs) > total_backups):
+                
                 #remove backups to equal total wanted
                 remove_num = 0
                 self.filesTotal = self.filesTotal + remove_num + 1

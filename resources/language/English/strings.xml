@@ -4,7 +4,7 @@
 <!-- Report language file syntax bugs at: alanwww1@xbmc.org -->
 
 <strings>
-    <string id="30010">XBMC Backup</string>
+    <string id="30010">Backup</string>
     <string id="30011">General</string>
     <string id="30012">File Selection</string>
     <string id="30013">Scheduling</string>
@@ -32,10 +32,10 @@
     <string id="30037">Custom Directory 2</string>
     <string id="30038">Advanced Settings Detected</string>
     <string id="30039">The advancedsettings file should be restored first</string>
-    <string id="30040">Select Yes to restore this file and restart XBMC</string>
+    <string id="30040">Select Yes to restore this file and restart Kodi</string>
     <string id="30041">Select No to continue</string>
     <string id="30042">Resume Restore</string>
-    <string id="30043">XBMC Backup has detected an unfinished restore</string>
+    <string id="30043">The Backup addon has detected an unfinished restore</string>
     <string id="30044">Would you like to continue?</string>
     <string id="30045">Error: Remote path doesn't exist</string>
     <string id="30046">Starting</string>
@@ -68,8 +68,8 @@
     <string id="30074">First Day of Month</string>
     <string id="30075">Custom Schedule</string>
     <string id="30076">Shutdown After Backup</string>
-    <string id="30077">Restart XBMC</string>
-    <string id="30078">You should restart XBMC to continue</string>
+    <string id="30077">Restart Kodi</string>
+    <string id="30078">You should restart Kodi to continue</string>
     <string id="30079">Just Today</string>
     <string id="30080">Profiles</string>
     <string id="30081">Scheduler will run again on</string>
@@ -77,7 +77,7 @@
     <string id="30083">Background Progress Bar</string>
     <string id="30084">None (Silent)</string>
     <string id="30085">Version Warning</string>
-    <string id="30086">This version of XBMC is different than the one used to create the archive</string>
+    <string id="30086">This version of Kodi is different than the one used to create the archive</string>
     <string id="30087">Compress Archives</string>
     <string id="30088">Copying Zip Archive</string>
     <string id="30089">Write Error Detected</string>

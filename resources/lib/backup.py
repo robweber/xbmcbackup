@@ -125,11 +125,11 @@ class XbmcBackup:
                 self.remote_vfs = ZipFileSystem(xbmc.translatePath("special://temp/xbmc_backup_temp.zip"),"w")
                 
             self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d%H%M") + "/")
-            progressBarTitle = progressBarTitle + utils.getString(30016)
+            progressBarTitle = progressBarTitle + utils.getString(30023) + ": " + utils.getString(30016)
         elif(mode == self.Restore and self.restore_point != None and self.remote_vfs.root_path != ''):
             if(self.restore_point.split('.')[-1] != 'zip'):
                 self.remote_vfs.set_root(self.remote_vfs.root_path + self.restore_point + "/")
-            progressBarTitle = progressBarTitle + utils.getString(30017)
+            progressBarTitle = progressBarTitle + utils.getString(30023) + ": " + utils.getString(30017)
         else:
             #kill the program here
             self.remote_vfs = None
@@ -489,10 +489,11 @@ class XbmcBackup:
 
     def _rotateBackups(self):
         total_backups = int(utils.getSetting('backup_rotation'))
+        
         if(total_backups > 0):
             #get a list of valid backup folders
             dirs = self.listBackups()
-
+            
             if(len(dirs) > total_backups):
                 #remove backups to equal total wanted
                 remove_num = 0

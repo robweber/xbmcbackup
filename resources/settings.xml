@@ -8,6 +8,7 @@
 		<setting id="dropbox_secret" type="text" label="30029" visible="eq(-4,2)" default="" />
 		<setting id="google_drive_id" type="text" label="Client ID" visible="eq(-5,3)" default="" />
 		<setting id="google_drive_secret" type="text" label="Client Secret" visible="eq(-6,3)" default="" />
+		<setting id="remove_auth_button" type="action" label="30096" action="RunScript(special://home/addons/script.xbmcbackup/remove_auth.py)" visible="gt(-7,1)"/>
 		<setting id="compress_backups" type="bool" label="30087" default="false" />
 		<setting id="backup_rotation" type="number" label="30026" default="0" />
 		<setting id="progress_mode" type="enum" label="30022" lvalues="30082|30083|30084" default="0" />

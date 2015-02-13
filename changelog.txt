@@ -1,3 +1,7 @@
+Version 1.0.3
+
+added "delete auth" dialog to delete oauth files in settings
+
 Version 1.0.2
 
 updated xbmc.python version to 2.19.0 - should be helix only

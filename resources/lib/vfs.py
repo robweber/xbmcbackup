@@ -84,7 +84,7 @@ class ZipFileSystem(Vfs):
     
     def __init__(self,rootString,mode):
         self.root_path = ""
-        self.zip = zipfile.ZipFile(rootString,mode=mode,allowZip64=True)
+        self.zip = zipfile.ZipFile(rootString,mode=mode,compression=zipfile.ZIP_DEFLATED,allowZip64=True)
         
     def listdir(self,directory):
         return [[],[]]
@@ -97,7 +97,7 @@ class ZipFileSystem(Vfs):
         
         aFile = xbmcvfs.File(xbmc.translatePath(source),'r')
         
-        self.zip.writestr(utils.encode(dest),aFile.read(),compress_type=zipfile.ZIP_DEFLATED)
+        self.zip.writestr(utils.encode(dest),aFile.read())
         
         return True
     

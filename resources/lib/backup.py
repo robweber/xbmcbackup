@@ -121,7 +121,10 @@ class XbmcBackup:
             if(utils.getSetting("compress_backups") == 'true'):
                 #delete old temp file
                 if(self.xbmc_vfs.exists(xbmc.translatePath('special://temp/xbmc_backup_temp.zip'))):
-                    self.xbmc_vfs.rmfile(xbmc.translatePath('special://temp/xbmc_backup_temp.zip'))
+                    if(not self.xbmc_vfs.rmfile(xbmc.translatePath('special://temp/xbmc_backup_temp.zip'))):
+                        #we had some kind of error deleting the old file
+                        xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30096),utils.getString(30097))
+                        return
                     
                 #save the remote file system and use the zip vfs
                 self.saved_remote_vfs = self.remote_vfs

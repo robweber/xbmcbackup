@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
 	<category id="general" label="30011">
-		<setting id="remote_selection" type="enum" lvalues="30018|30019|30027|30096" default="0" label="30025"/>
+		<setting id="remote_selection" type="enum" lvalues="30018|30019|30027|30098" default="0" label="30025"/>
 		<setting id="remote_path_2" type="text" label="30024" default="" visible="eq(-1,1)" />
 		<setting id="remote_path" type="folder" label="30020" visible="eq(-2,0)" />
 		<setting id="dropbox_key" type="text" label="30028" visible="eq(-3,2)" default="" />

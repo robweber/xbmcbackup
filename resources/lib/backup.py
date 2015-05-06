@@ -551,12 +551,11 @@ class XbmcBackup:
         rFile.close()
 
 class FileManager:
-    fileArray = []
     not_dir = ['.zip','.xsp','.rar']
-    vfs = None
 
     def __init__(self,vfs):
         self.vfs = vfs
+        self.fileArray = []
 
     def walkTree(self,directory):
        

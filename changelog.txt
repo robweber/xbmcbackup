@@ -1,5 +1,9 @@
 Version 0.6.0
 
+fix for growing backups - thanks brokeh
+
+Version 0.6.0
+
 fixed typo in Dropbox rmfile command
 
 Version 0.5.9

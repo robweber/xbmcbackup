@@ -313,7 +313,6 @@ class XbmcBackup:
                 #set the new remote vfs and fix xbmc path
                 self.remote_vfs = XBMCFileSystem(xbmc.translatePath("special://temp/" + self.restore_point.split(".")[0] + "/"))
                 self.xbmc_vfs.set_root(xbmc.translatePath("special://home/"))
-                
             
             #for restores remote path must exist
             if(not self.remote_vfs.exists(self.remote_vfs.root_path)):
@@ -535,11 +534,14 @@ class XbmcBackup:
         result = False
         
         #copy the file and open it
-        self.xbmc_vfs.put(path + "xbmcbackup.val",xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"))
+        self.xbmc_vfs.put(path + "xbmcbackup.val",xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
 
-        vFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"),'r')
+        vFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"),'r')
         jsonString = vFile.read()
         vFile.close()
+
+        #delete after checking
+        xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
 
         try:
             json_dict = json.loads(jsonString)
@@ -568,6 +570,9 @@ class FileManager:
         self.fileArray = []
 
     def walkTree(self,directory):
+        
+        if(directory[-1:] == '/'):
+            directory = directory[:-1]
        
         if(self.vfs.exists(directory + "/")):
             dirs,files = self.vfs.listdir(directory)

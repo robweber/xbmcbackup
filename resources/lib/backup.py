@@ -526,6 +526,9 @@ class XbmcBackup:
 
         success = self.remote_vfs.put(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"),self.remote_vfs.root_path + "xbmcbackup.val")
         
+        #remove the validation file
+        xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"))
+        
         return success
 
     def _checkValidationFile(self,path):

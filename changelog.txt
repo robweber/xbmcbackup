@@ -1,3 +1,7 @@
+Version 1.0.7
+
+updated google client api version
+
 Version 1.0.6
 
 fix for custom directories not working recursively

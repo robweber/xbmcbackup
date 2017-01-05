@@ -135,7 +135,7 @@ class DropboxFileSystem(Vfs):
         user_token_key,user_token_secret = self.getToken()
         
         sess = session.DropboxSession(self.APP_KEY,self.APP_SECRET,"app_folder")
-
+        utils.log("token:" + user_token_key + ":" + user_token_secret)
         if(user_token_key == '' and user_token_secret == ''):
             token = sess.obtain_request_token()
             url = sess.build_authorize_url(token)

@@ -2,7 +2,8 @@
 <addon id="script.xbmcbackup"
     name="Backup" version="1.0.8" provider-name="robweber">
   <requires>
-    <import addon="xbmc.python" version="2.19.0"/>
+	<!-- jarvis -->
+    <import addon="xbmc.python" version="2.24.0"/>
     <import addon="script.module.httplib2" version="0.8.0" />
     <import addon="script.module.oauth2client" version="1.4.7" />
     <import addon="script.module.uritemplate" version="0.6" />

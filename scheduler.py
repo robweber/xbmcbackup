@@ -81,6 +81,8 @@ class BackupScheduler:
         del self.monitor
 
     def findNextRun(self,now):
+        progress_mode = int(utils.getSetting('progress_mode'))
+        
         #find the cron expression and get the next run time
         cron_exp = self.parseSchedule()
 
@@ -89,8 +91,11 @@ class BackupScheduler:
 
         if(new_run_time != self.next_run):
             self.next_run = new_run_time
-            utils.showNotification(utils.getString(30081) + " " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
             utils.log("scheduler will run again on " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
+
+            #only show when not in silent mode
+            if(progress_mode != 2):                        
+                utils.showNotification(utils.getString(30081) + " " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
                 
     def settingsChanged(self):
         current_enabled = utils.getSetting("enable_scheduler")

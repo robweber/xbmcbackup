@@ -1,6 +1,6 @@
 #Backup Addon
 
-##About: 
+##About
 I've had to recover my database, thumbnails, and source configuration enough times that I just wanted a quick easy way to back them up. That is what this addon is meant to do. 
 
 ##Configuration
@@ -13,7 +13,7 @@ On the Backup Selection page you can select which items from your user profile f
 
 You can also define non-Kodi directories on your device. See "Custom Directories" for more information on how these are handled. 
 
-###File Selection Options: 
+###File Selection Options
 
 Here is a breakdown of the file selection options available in the settings. More information about Kodi file paths can be found on [the wiki](http://kodi.wiki/view/Special_protocol)
 
@@ -25,17 +25,17 @@ Here is a breakdown of the file selection options available in the settings. Mor
 * Thumbnails/Fanart - the folder where all thumbnails and fanart is stored. The path is special://home/userdata/Thumbnails
 * Config Files - config files refer to a collection of files that Kodi uses for information. This includes the keymaps and peripheral_data, and library directories in the userdata folder. It also includes all the XML files in the root of the userdata directory such as sources.xml, guisettings.xml, favorites.xml, advancedsettings.xml and others. For a full list of files in this directory see the [UserData folder wiki page](http://kodi.wiki/view/The_UserData_Folder)
 
-###Custom Directories: 
+###Custom Directories
 
 You can define custom directories that are not a part of your Kodi folder structure for backup. These create a "custom_hash" folder in your backup destination. The hash for these folders is very important. During a restore if the hash of the file path in Custom 1 does not match the hash in the restore folder it will not move the files. This is to prevent files from being restored to the wrong location in the event you change file paths in the addon settings. A dialog box will let you know if file paths do not match up. 
 
 Up to 2 Custom directories can be specified. 
 
-##Running the Program:
+##Running the Program
 
 Running the program will allow you to select Backup or Restore as a running mode. Selecting Backup will push files to your remote store using the addon settings you defined. Selecting Restore will give you a list of restore points currently in your remote destination. Selecting one will pull the files matching your selection criteria from the restore point to your local Kodi folders. 
 
-###Restores:
+###Restores
 
 During the restore process there are a few checks and post-run procedures to know about. 
 
@@ -45,25 +45,25 @@ The next check is for an advancedsettings.xml file. If you've created this file 
 
 The last bit of post-processing is done after all the backup files have been restored. If you have restored your configuration files the addon will attempt to restore any system specific settings that it can from the guisettings.xml file. This is done by comparing the restored file with settings via the JSONPRC Settings.SetSettingValue method. Only system specific settings can be restored so you will get any custom views or skin specific settings back. See the FAQ for how to restore these.  
 
-##Scheduling: 
+##Scheduling 
 
 You can schedule backups to be completed on a set interval via the scheduling area. When it is time for the backup to run it will be executed in the background. 
 
 When using the "Shutdown" function this will call Kodi's Shutdown method as defined in System Settings -> Power Saving -> Shutdown Function. This can be simply exiting Kodi, hibernating, or shutting down your htpc. 
 
-##Using Dropbox:
+##Using Dropbox
 
 Using Dropbox as a storage target adds a few steps the first time you wish to run a backup. First you will need to sign-up for you own developer app key and secret by visiting https://www.dropbox.com/developers. Name your app whatever you want, and make it an "App Folder" type application. Your app can run in developer mode and you should never need to apply for production status. This is to get around Dropbox's rule not allow distribution of production key/secret pairs. 
 
 Once you have your app key and secret add them to the settings. Kodi Backup now needs to have permission to access your Dropbox account. When you see the prompt regarding the Dropbox URL Authorization DO NOT click OK. Check your Kodi log file for a line from "script.xbmcbackup" containing the authorization URL. Cut/paste this into a browser and click Allow. Once this is done you can click "OK" in Kodi and proceed as normal. Kodi Backup will cache the authorization code so you only have to do this once, or if you revoke the Dropbox permissions. 
 
-##Using Google Drive: 
+##Using Google Drive
 
 Using the Google Drive target is very similar to the Dropbox one. You must create a Google API project and authenticate your account via the id and secret. Instructions for enable the Google API for Google Drive can be found here (https://developers.google.com/drive/web/quickstart/quickstart-python). You'll need the client id and client secret generated for the addon settings. You only need to follow Step 1. 
 
 Once you have the client ID and Secret add them to the addon settings and run a backup. You'll get a notification that you need to enter your authorization code. Check your Kodi log file for a line from "script.xbmcbackup" containing the authorization URL. Cut/paste this into a browser and click Allow. Once this is done put the code from your browser into the pop-up dialog. The addon will cache these credentials so it should be a one-time authentication. From there the backup should start to run. 
 
-##Scripting A Backup: 
+##Scripting A Backup 
 
 If you wish to script this addon using an outside scheduler or script it can be given parameters via the xbmc.RunScript() or JsonRPC.Addons.ExecuteAddon() methods. Parameters given are either "backup" or "restore" to launch the correct program mode. If mode is "restore", an additional "archive" parameter can be given to set the restore point to be used instead of prompting via the GUI. An example would be: 
 
@@ -97,7 +97,7 @@ while (window.getProperty('script.xbmcbackup.running') == 'true'):
 
 #backup is now done, continue with script
 -------------------------------------------
-##FAQ: 
+##FAQ
 
 I can't see any restore points when choosing "Restore", what is the problem? 
 

@@ -70,7 +70,7 @@ If you wish to script this addon using an outside scheduler or script it can be 
 Python code: 
 ```python
 RunScript(script.xbmcbackup,mode=backup)
-``
+```
 
 or
 

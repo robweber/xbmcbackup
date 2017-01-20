@@ -68,21 +68,20 @@ Once you have the client ID and Secret add them to the addon settings and run a 
 If you wish to script this addon using an outside scheduler or script it can be given parameters via the xbmc.RunScript() or JsonRPC.Addons.ExecuteAddon() methods. Parameters given are either "backup" or "restore" to launch the correct program mode. If mode is "restore", an additional "archive" parameter can be given to set the restore point to be used instead of prompting via the GUI. An example would be: 
 
 Python code: 
--------------------------------------------
+```python
 RunScript(script.xbmcbackup,mode=backup)
--------------------------------------------
+``
 
 or
 
 JSON Request: 
--------------------------------------------
+```
 { "jsonrpc": "2.0", "method": "Addons.ExecuteAddon","params":{"addonid":"script.xbmcbackup","params":{"mode":"restore","archive":"000000000000"}}, "id": 1 }
--------------------------------------------
+```
 
 There is also a windows parameter that can be used to check if Kodi Backup is running within a skin or from another program. It is attached to the home window, an example of using it would be the following: 
 
-Python code:
--------------------------------------------
+```python
 #kick off the Kodi backup
 xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "method": "Addons.ExecuteAddon","params":{"addonid":"script.xbmcbackup","params":{"mode":"backup"}}, "id": 1 }')
 
@@ -96,7 +95,8 @@ while (window.getProperty('script.xbmcbackup.running') == 'true'):
      xbmc.sleep(5000)
 
 #backup is now done, continue with script
--------------------------------------------
+```
+
 ##FAQ
 
 I can't see any restore points when choosing "Restore", what is the problem? 

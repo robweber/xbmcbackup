@@ -35,6 +35,18 @@ Running the Program:
 
 Running the program will allow you to select Backup or Restore as a running mode. Selecting Backup will push files to your remote store using the addon settings you defined. Selecting Restore will give you a list of restore points currently in your remote destination. Selecting one will pull the files matching your selection criteria from the restore point to your local Kodi folders. 
 
+File Selection Options: 
+
+Here is a breakdown of the file selection options available in the settings. More information about Kodi file paths can be found on the wiki (http://kodi.wiki/view/Special_protocol)
+
+a) User Addons - these are all the addon files located in the main Kodi addons folder. The path is special://home/addons
+b) Addon Data - this is data saved by addons when changing their settings. The path is special://home/userdata/addon_data
+c) Database - these are the local Kodi SQLlite databases. Even if using the SQL database there are other DB files such as Addons.db that you would want in this folder. The path is special://home/userdata/Database
+d) Playlist - Playlists that are created in Kodi. The path is special://home/userdata/playlists
+e) Profiles - Any files in the profiles folder. Keep in mind this currently includes all database, thumnail and config files in here. The path is special://home/userdata/profiles
+f) Thumbnails/Fanart - the folder where all thumbnails and fanart is stored. The path is special://home/userdata/Thumbnails
+g) Config Files - config files refer to a collection of files that Kodi uses for information. This includes the keymaps and peripheral_data, and library directories in the userdata folder. It also includes all the XML files in the root of the userdata directory such as sources.xml, guisettings.xml, favorites.xml, advancedsettings.xml and others. For a full list of files in this directory see the UserData folder wiki page (http://kodi.wiki/view/The_UserData_Folder)
+
 Custom Directories: 
 
 You can define custom directories that are not a part of your Kodi folder structure for backup. These create a "custom_hash" folder in your backup destination. The hash for these folders is very important. During a restore if the hash of the file path in Custom 1 does not match the hash in the restore folder it will not move the files. This is to prevent files from being restored to the wrong location in the event you change file paths in the addon settings. A dialog box will let you know if file paths do not match up. 

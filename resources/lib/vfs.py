@@ -1,4 +1,5 @@
 import utils as utils
+import tinyurl as tinyurl
 import xbmc
 import xbmcvfs
 import xbmcgui
@@ -135,14 +136,14 @@ class DropboxFileSystem(Vfs):
         user_token_key,user_token_secret = self.getToken()
         
         sess = session.DropboxSession(self.APP_KEY,self.APP_SECRET,"app_folder")
-        utils.log("token:" + user_token_key + ":" + user_token_secret)
+        
         if(user_token_key == '' and user_token_secret == ''):
             token = sess.obtain_request_token()
             url = sess.build_authorize_url(token)
 
             #print url in log
             utils.log("Authorize URL: " + url)
-            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30056),utils.getString(30057))  
+            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30056),utils.getString(30057),tinyurl.shorten(url))
             
             #if user authorized this will work
             user_token = sess.obtain_access_token(token)
@@ -304,7 +305,8 @@ class GoogleDriveFilesystem(Vfs):
     
             utils.log("Google Drive Authorize URL: " + drive_url)
 
-            code = xbmcgui.Dialog().input('Google Drive Validation Code','Input the Validation code after authorizing this app')
+            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30056),utils.getString(30102),tinyurl.shorten(drive_url))
+            code = xbmcgui.Dialog().input(utils.getString(30103))
 
             gauth.Auth(code)
             gauth.SaveCredentialsFile(xbmc.validatePath(xbmc.translatePath(utils.data_dir() + 'google_drive.dat')))

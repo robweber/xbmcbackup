@@ -316,7 +316,7 @@ class XbmcBackup:
                     zip_vfs.cleanup()
                     self.xbmc_vfs.rmfile(xbmc.translatePath("special://temp/" + self.restore_point))
                     
-                    xbmcgui.Dialog.ok(utils.getString(30010),utils.getString(30101))
+                    xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30101))
                     return
                     
                 zip_vfs.cleanup()

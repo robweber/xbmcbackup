@@ -130,7 +130,7 @@ class DropboxFileSystem(Vfs):
             self.client = authorizer.getClient()
         else:
             #tell the user to go back and run the authorizer
-            xbmcgui.Dialog().ok(utils.getString(30010),"Authorize this remote service in the settings first")
+            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30105))
             sys.exit()
 
     def listdir(self,directory):
@@ -243,7 +243,7 @@ class GoogleDriveFilesystem(Vfs):
             self.drive = authorizer.getClient()
         else:
             #tell the user to go back and run the authorizer
-            xbmcgui.Dialog().ok(utils.getString(30010),"Authorize this remote service in the settings first")
+            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30105))
             sys.exit()
 
         #make sure we have the folder we need

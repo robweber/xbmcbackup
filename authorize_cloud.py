@@ -9,15 +9,15 @@ if(utils.getSetting('remote_selection') == '2'):
     authorizer = DropboxAuthorizer()
 
     if(authorizer.authorize()):
-        xbmcgui.Dialog().ok("Backup","Dropbox is authorized")
+        xbmcgui.Dialog().ok("Backup",utils.getString(30027) + ' ' + utils.getString(30106))
     else:
-        xbmcgui.Dialog().ok("Backup","Error Authorizing Dropbox")
+        xbmcgui.Dialog().ok("Backup",utils.getString(30107) + ' ' + utils.getString(30027))
 
 #google drive
 elif(utils.getSetting('remote_selection') == '3'):
     authorizer = GoogleDriveAuthorizer()
 
     if(authorizer.authorize()):
-        xbmcgui.Dialog().ok("Backup","Google Drive is authorized")
+        xbmcgui.Dialog().ok("Backup",utils.getString(30098) + ' ' + utils.getString(30106))
     else:
-        xbmcgui.Dialog().ok("Backup","Error Authorizing Google Drive")
+        xbmcgui.Dialog().ok("Backup",utils.getString(30107) + ' ' + utils.getString(30098))

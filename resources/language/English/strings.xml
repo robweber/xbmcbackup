@@ -96,4 +96,7 @@
 	<string id="30102">Click OK to enter code</string>
 	<string id="30103">Google Drive Validation Code</string>
 	<string id="30104">Authorize Now</string>
+	<string id="30105">Authorize this remote service in the settings first</string>
+	<string id="30106">is authorized</string>
+	<string id="30107">error authorizing</string>
 </strings>

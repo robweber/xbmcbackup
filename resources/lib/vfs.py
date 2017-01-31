@@ -6,9 +6,10 @@ import xbmcgui
 import zipfile
 import zlib
 import os
-from dropbox import client, rest, session
-from pydrive.auth import GoogleAuth
+import sys
+from dropbox import client
 from pydrive.drive import GoogleDrive
+from authorizers import DropboxAuthorizer,GoogleDriveAuthorizer
 
 class Vfs:
     root_path = None
@@ -122,43 +123,15 @@ class DropboxFileSystem(Vfs):
     
     def __init__(self,rootString):
         self.set_root(rootString)
-        
-        self.APP_KEY = utils.getSetting('dropbox_key')
-        self.APP_SECRET = utils.getSetting('dropbox_secret')
 
-        self.setup()
+        authorizer = DropboxAuthorizer()
 
-    def setup(self):
-        if(self.APP_KEY == '' or self.APP_SECRET == ''):
-            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30058),utils.getString(30059))
-            return
-        
-        user_token_key,user_token_secret = self.getToken()
-        
-        sess = session.DropboxSession(self.APP_KEY,self.APP_SECRET,"app_folder")
-        
-        if(user_token_key == '' and user_token_secret == ''):
-            token = sess.obtain_request_token()
-            url = sess.build_authorize_url(token)
-
-            #print url in log
-            utils.log("Authorize URL: " + url)
-            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30056),utils.getString(30057),tinyurl.shorten(url))
-            
-            #if user authorized this will work
-            user_token = sess.obtain_access_token(token)
-            self.setToken(user_token.key,user_token.secret)
-            
+        if(authorizer.isAuthorized()):
+            self.client = authorizer.getClient()
         else:
-            sess.set_token(user_token_key,user_token_secret)
-        
-        self.client = client.DropboxClient(sess)
-
-        try:
-            utils.log(str(self.client.account_info()))
-        except:
-            #this didn't work, delete the token file
-            self.deleteToken()
+            #tell the user to go back and run the authorizer
+            xbmcgui.Dialog().ok(utils.getString(30010),"Authorize this remote service in the settings first")
+            sys.exit()
 
     def listdir(self,directory):
         if(self.client != None and self.exists(directory)):
@@ -254,75 +227,30 @@ class DropboxFileSystem(Vfs):
 
     def _fix_slashes(self,filename):
         return filename.replace('\\','/')
-    
-    def setToken(self,key,secret):
-        #write the token files
-        token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"),'w')
-        token_file.write("%s|%s" % (key,secret))
-        token_file.close()
-
-    def getToken(self):
-        #get tokens, if they exist
-        if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "tokens.txt"))):
-            token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"))
-            key,secret = token_file.read().split('|')
-            token_file.close()
-
-            return [key,secret]
-        else:
-            return ["",""]
-
-    def deleteToken(self):
-        if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "tokens.txt"))):
-            xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "tokens.txt"))
             
 
 class GoogleDriveFilesystem(Vfs):
     drive = None
     history = {}
-    CLIENT_ID = ''
-    CLIENT_SECRET = ''
     FOLDER_TYPE = 'application/vnd.google-apps.folder'
     
     def __init__(self,rootString):
         self.set_root(rootString)
-        
-        self.CLIENT_ID = utils.getSetting('google_drive_id')
-        self.CLIENT_SECRET = utils.getSetting('google_drive_secret')
 
-        self.setup()
-    
-    def setup(self):
-        #create authorization helper and load default settings
-        gauth = GoogleAuth(xbmc.validatePath(xbmc.translatePath(utils.addon_dir() + '/resources/lib/pydrive/settings.yaml')))
-        gauth.LoadClientConfigSettings()
-        
-        #check if this user is already authorized
-        if(not xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "google_drive.dat"))):
-            settings = {"client_id":self.CLIENT_ID,'client_secret':self.CLIENT_SECRET}
-    
-            drive_url = gauth.GetAuthUrl(settings)
-    
-            utils.log("Google Drive Authorize URL: " + drive_url)
+        authorizer = GoogleDriveAuthorizer()
 
-            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30056),utils.getString(30102),tinyurl.shorten(drive_url))
-            code = xbmcgui.Dialog().input(utils.getString(30103))
-
-            gauth.Auth(code)
-            gauth.SaveCredentialsFile(xbmc.validatePath(xbmc.translatePath(utils.data_dir() + 'google_drive.dat')))
+        if(authorizer.isAuthorized()):
+            self.drive = authorizer.getClient()
         else:
-            gauth.LoadCredentialsFile(xbmc.validatePath(xbmc.translatePath(utils.data_dir() + 'google_drive.dat')))
-    
-        #create the drive object
-        self.drive = GoogleDrive(gauth)
-        
+            #tell the user to go back and run the authorizer
+            xbmcgui.Dialog().ok(utils.getString(30010),"Authorize this remote service in the settings first")
+            sys.exit()
+
         #make sure we have the folder we need
         xbmc_folder = self._getGoogleFile(self.root_path)
-        print xbmc_folder
         if(xbmc_folder == None):
             self.mkdir(self.root_path)
-    
-    
+            
     def listdir(self,directory):
         files = []
         dirs = []

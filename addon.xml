@@ -3,7 +3,7 @@
     name="Backup" version="1.1.0" provider-name="robweber">
   <requires>
 	<!-- jarvis -->
-    <import addon="xbmc.python" version="2.24.0"/>
+    <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.httplib2" version="0.8.0" />
     <import addon="script.module.oauth2client" version="1.4.7" />
     <import addon="script.module.uritemplate" version="0.6" />
@@ -16,6 +16,14 @@
   </extension> 
   <extension point="xbmc.service" library="scheduler.py" start="startup" />
   <extension point="xbmc.addon.metadata">
+	<assets>
+		<icon>resources/images/icon.png</icon>
+	</assets>
+	<news>
+added tinyurl for oauth urls
+moved authorize to settings area for cloud storage
+bug fixes
+	</news>
     <summary lang="ar">إنسخ إحتياطياً قاعده بيانات إكس بى إم سى وملفات اﻹعدادات فى حاله وقوع إنهيار مع إمكانيه اﻹسترجاع</summary>
     <summary lang="be">Backup and restore your XBMC database and configuration files in the event of a crash or file corruption.</summary>
     <summary lang="bg">Добавката може да създава резервно копие на XBMC и възстановява (след това) Вашата база от данни и настройки, в случай на необходимост.</summary>

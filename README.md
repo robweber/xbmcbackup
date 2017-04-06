@@ -80,32 +80,32 @@ Once you have the client ID and Secret add them to the addon settings and click 
 
 ## Scripting A Backup 
 
-If you wish to script this addon using an outside scheduler or script it can be given parameters via the xbmc.RunScript() or JsonRPC.Addons.ExecuteAddon() methods. Parameters given are either "backup" or "restore" to launch the correct program mode. If mode is "restore", an additional "archive" parameter can be given to set the restore point to be used instead of prompting via the GUI. An example would be: 
+If you wish to script this addon using an outside scheduler or script it can be given parameters via the Kodi.RunScript() or JsonRPC.Addons.ExecuteAddon() methods. Parameters given are either "backup" or "restore" to launch the correct program mode. If mode is "restore", an additional "archive" parameter can be given to set the restore point to be used instead of prompting via the GUI. An example would be: 
 
 Python code: 
 ```python
-RunScript(script.xbmcbackup,mode=backup)
+RunScript(script.Kodibackup,mode=backup)
 ```
 
 JSON Request: 
 ```
-{ "jsonrpc": "2.0", "method": "Addons.ExecuteAddon","params":{"addonid":"script.xbmcbackup","params":{"mode":"restore","archive":"000000000000"}}, "id": 1 }
+{ "jsonrpc": "2.0", "method": "Addons.ExecuteAddon","params":{"addonid":"script.Kodibackup","params":{"mode":"restore","archive":"000000000000"}}, "id": 1 }
 ```
 
 There is also a windows parameter that can be used to check if Kodi Backup is running within a skin or from another program. It is attached to the home window, an example of using it would be the following: 
 
 ```python
 #kick off the Kodi backup
-xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "method": "Addons.ExecuteAddon","params":{"addonid":"script.xbmcbackup","params":{"mode":"backup"}}, "id": 1 }')
+Kodi.executeJSONRPC('{ "jsonrpc": "2.0", "method": "Addons.ExecuteAddon","params":{"addonid":"script.Kodibackup","params":{"mode":"backup"}}, "id": 1 }')
 
 #sleep for a few seconds to give it time to kick off
-xbmc.sleep(10000)
+Kodi.sleep(10000)
 
-window = xbmcgui.Window(10000)
+window = Kodigui.Window(10000)
 
-while (window.getProperty('script.xbmcbackup.running') == 'true'):
+while (window.getProperty('script.Kodibackup.running') == 'true'):
      #do something here, probably just sleep for a few seconds
-     xbmc.sleep(5000)
+     Kodi.sleep(5000)
 
 #backup is now done, continue with script
 ```
@@ -116,16 +116,16 @@ while (window.getProperty('script.xbmcbackup.running') == 'true'):
 
 	If you've created restore points with an older version of the addon (pre 0.3.6) you may see this issue. New versions of the addon look for a file called xbmcbackup.val to validate that a folder is a valid restore archive. Your older restore folders may not have this file. All you need to do is create a blank text file and rename it to xbmcbackup.val. Then put this file inside the archive directory. Your restore points should show up after selecting "Restore" in the addon again.
 
-	Several settings aren't being restored, this includes views, weather, etc. How do I get these back?
-
-	GUISETTINGS.xml is a configuration file used heavily by Kodi for remembering GUI specific settings. Due to the fact that Kodi reads this file on startup, and writes from memory to this file on shutdown; it is not possible to restore this file while Kodi is running. This addon attempts to restore what settings it can via the JSONRPC interface, however you will still most likely be missing your specific skin settings and view settings. To get these back you must manually move this file from your backup archives if you wish to restore it. User SouthMark has posted the following steps for restoring in the OpenELEC system where this is more difficult:
-
-	1. Run the restore of your backup
-	2. SSH using putty to the IP Address of your media centre username: root Password openelec
-	3. Type "systemctl stop xbmc.service" - Your media center machine should now go blank
-	5. Connect to your machine using WinSCP and copy the guisettings.xml file to the userdata folder (this is the guisettings.xml file from your backup), alternatively you can copy this file directly to an SMB share and use putty to move it to the right spot. 
-	6. go back to your putty window and type "systemctl start xbmc.service"
-
 2. Why is the Addon prompting me to restart Kodi to continue? 
 
 	If you have an advancedsettings file in your restore folder the addon will ask you if you want to restore this file and restart Kodi to continue. This is because the advancedsettings file may contain path substitution information that you want to be loaded when doing the rest of your restore. By restoring this file and restarting Kodi it will be loaded and the rest of your files will go where they are supposed to. If you know your file does not contain any path substitutions you can select "no" and continue as normal.
+	
+3. I've re-installed a newer version of Kodi from scratch and tried to restore my data from an older version. Why isn't it working?
+
+	It is working, just not how you are expecting. When re-installing Kodi it is usually easier to install the version you had and do an in-place upgrade by installing the newer version of the top. Kodi will take care of upgrading your content, addons, and databases itself after running it for the first time. By doing a backup of your current, wiping your data, and installing a newer version you're not allowing these processes to take place. What ends up happening is that your old databases and other files get restored, Kodi just doesn't care to use them anymore. In the case of addons this could really mess things up by restoring now non-working addons from an older version of Kodi. 
+
+	If you want to get your databases back after doing this there is something you can do. Kodi will perform a check on startup for the most current database version. If one is not found it will look for an older one and upgrade it. So you can do your restore process, then quit Kodi. Find the database files under userdata/Databases and delete the ones with the highest DB number. Then start Kodi again. It should take your old database and  upgrade it to the most current version - creating a new database file in the process. Please note this only works for the SQLite database. 
+	
+4. Compressing my backups isn't working, why?
+
+	The most common reason for this is going to be drive space. Non-compressed backups write files directly from your local folders to the remote directory. When compressing the archive the files are first staged locally and then only the compressed folder copied over the remote directory. This means for both backup and restore operations you need to have enough space on your local drive for creation/extraction of the compressed archive. Depending on the folders you are selecting - especially for custom directories - this could be a lot of extra drive space, or very little.

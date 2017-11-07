@@ -110,7 +110,7 @@ class GoogleDriveAuthorizer:
         if(self.CLIENT_ID == '' and self.CLIENT_SECRET == ''):
             #we can't go any farther, need these for sure
             xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30098) + ' ' + utils.getString(30058),utils.getString(30108))
-        result = False
+            result = False
 
         return result
         

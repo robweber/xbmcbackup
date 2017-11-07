@@ -49,7 +49,7 @@
     <string id="30054">Removing backup</string>
     <string id="30056">Go to this URL to authorize</string>
     <string id="30057">Click OK AFTER completion</string>
-    <string id="30058">Dropbox Developer Code Needed</string>
+    <string id="30058">Developer Code Needed</string>
     <string id="30059">Visit https://www.dropbox.com/developers</string>
     <string id="30060">Enable Scheduler</string>
     <string id="30061">Schedule</string>
@@ -99,4 +99,5 @@
 	<string id="30105">Authorize this remote service in the settings first</string>
 	<string id="30106">is authorized</string>
 	<string id="30107">error authorizing</string>
+	<string id="30108">Visit https://console.developers.google.com/</string>
 </strings>

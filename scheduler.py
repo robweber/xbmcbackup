@@ -34,8 +34,8 @@ class BackupScheduler:
 
                 fh.close()
 
-            #ADD A CHECK HERE FOR IF THE USER EVEN WANTS THIS
-            if(0 < nr <= time.time()):
+            #if we missed and the user wants to play catch-up
+            if(0 < nr <= time.time() and utils.getSetting('schedule_miss') == 'true'):
                 utils.log("scheduled backup was missed, doing it now...")
                 progress_mode = int(utils.getSetting('progress_mode'))
                 

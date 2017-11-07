@@ -100,4 +100,5 @@
 	<string id="30106">is authorized</string>
 	<string id="30107">error authorizing</string>
 	<string id="30108">Visit https://console.developers.google.com/</string>
+	<string id="30109">Run on startup if missed</string>
 </strings>

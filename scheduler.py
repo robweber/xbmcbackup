@@ -18,23 +18,32 @@ class BackupScheduler:
     def __init__(self):
         self.monitor = UpdateMonitor(update_method = self.settingsChanged)
         self.enabled = utils.getSetting("enable_scheduler")
-        self.next_run_path = os.path.join(xbmc.translatePath(utils.data_dir()),'next_run') 
+        self.next_run_path = xbmc.translatePath(utils.data_dir()) + 'next_run.txt'
 
         if(self.enabled == "true"):
-            try:
-                fh = open(self.next_run_path, 'r')
-                fc = fh.read()
-                fh.close()
-                nr = float(fc)
-            except:
+
+            if(xbmcvfs.exists(self.next_run_path)):
+
                 nr = 0
+                fh = xbmcvfs.File(self.next_run_path)
+                try:
+                    #check if we saved a run time from the last run
+                    nr = float(fh.read())
+                except ValueError:
+                    nr = 0
+
+                fh.close()
+
+            #ADD A CHECK HERE FOR IF THE USER EVEN WANTS THIS
             if(0 < nr <= time.time()):
                 utils.log("scheduled backup was missed, doing it now...")
                 progress_mode = int(utils.getSetting('progress_mode'))
+                
                 if(progress_mode == 0):
                     progress_mode = 1 # Kodi just started, don't block it with a foreground progress bar
+
                 self.doScheduledBackup(progress_mode)
-                utils.log("...completed!")
+                
             self.setup()
 
     def setup(self):
@@ -111,11 +120,11 @@ class BackupScheduler:
         if(new_run_time != self.next_run):
             self.next_run = new_run_time
             utils.log("scheduler will run again on " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
-            try:
-                fh = open(self.next_run_path, 'w')
-                fh.write(str(self.next_run))
-                fh.close()
-            except: pass
+
+            #write the next time to a file
+            fh = xbmcvfs.File(self.next_run_path, 'w')
+            fh.write(str(self.next_run))
+            fh.close()
 
             #only show when not in silent mode
             if(progress_mode != 2):                        

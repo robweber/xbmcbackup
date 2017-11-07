@@ -12,13 +12,29 @@ class BackupScheduler:
     monitor = None
     enabled = "false"
     next_run = 0
+    next_run_path = None
     restore_point = None
     
     def __init__(self):
         self.monitor = UpdateMonitor(update_method = self.settingsChanged)
         self.enabled = utils.getSetting("enable_scheduler")
+        self.next_run_path = os.path.join(xbmc.translatePath(utils.data_dir()),'next_run') 
 
         if(self.enabled == "true"):
+            try:
+                fh = open(self.next_run_path, 'r')
+                fc = fh.read()
+                fh.close()
+                nr = float(fc)
+            except:
+                nr = 0
+            if(0 < nr <= time.time()):
+                utils.log("scheduled backup was missed, doing it now...")
+                progress_mode = int(utils.getSetting('progress_mode'))
+                if(progress_mode == 0):
+                    progress_mode = 1 # Kodi just started, don't block it with a foreground progress bar
+                self.doScheduledBackup(progress_mode)
+                utils.log("...completed!")
             self.setup()
 
     def setup(self):
@@ -46,26 +62,8 @@ class BackupScheduler:
 
                 if(self.next_run <= now):
                     progress_mode = int(utils.getSetting('progress_mode'))
-                    if(progress_mode != 2):
-                        utils.showNotification(utils.getString(30053))
-                    
-                    backup = XbmcBackup()
+                    self.doScheduledBackup(progress_mode)
 
-                    if(backup.remoteConfigured()):
-
-                        if(int(utils.getSetting('progress_mode')) in [0,1]):
-                            backup.run(XbmcBackup.Backup,True)
-                        else:
-                            backup.run(XbmcBackup.Backup,False)
-
-                        #check if this is a "one-off"
-                        if(int(utils.getSetting("schedule_interval")) == 0):
-                            #disable the scheduler after this run
-                            self.enabled = "false"
-                            utils.setSetting('enable_scheduler','false')
-                    else:
-                        utils.showNotification(utils.getString(30045))
-                        
                     #check if we should shut the computer down
                     if(utils.getSetting("cron_shutdown") == 'true'):
                         #wait 10 seconds to make sure all backup processes and files are completed
@@ -80,6 +78,27 @@ class BackupScheduler:
         #delete monitor to free up memory
         del self.monitor
 
+    def doScheduledBackup(self,progress_mode):
+        if(progress_mode != 2):
+            utils.showNotification(utils.getString(30053))
+        
+        backup = XbmcBackup()
+        
+        if(backup.remoteConfigured()):
+            
+            if(int(utils.getSetting('progress_mode')) in [0,1]):
+                backup.run(XbmcBackup.Backup,True)
+            else:
+                backup.run(XbmcBackup.Backup,False)
+            
+            #check if this is a "one-off"
+            if(int(utils.getSetting("schedule_interval")) == 0):
+                #disable the scheduler after this run
+                self.enabled = "false"
+                utils.setSetting('enable_scheduler','false')
+        else:
+            utils.showNotification(utils.getString(30045))
+
     def findNextRun(self,now):
         progress_mode = int(utils.getSetting('progress_mode'))
         
@@ -92,6 +111,11 @@ class BackupScheduler:
         if(new_run_time != self.next_run):
             self.next_run = new_run_time
             utils.log("scheduler will run again on " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
+            try:
+                fh = open(self.next_run_path, 'w')
+                fh.write(str(self.next_run))
+                fh.close()
+            except: pass
 
             #only show when not in silent mode
             if(progress_mode != 2):                        

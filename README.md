@@ -74,7 +74,7 @@ Once you have your app key and secret add them to the settings. Kodi Backup now 
 
 ## Using Google Drive
 
-Using the Google Drive target is very similar to the Dropbox one. You must create a Google API project and authenticate your account via the id and secret. Instructions for enable the Google API for Google Drive can be found here (https://developers.google.com/drive/web/quickstart/quickstart-python). You'll need the client id and client secret generated for the addon settings. You only need to follow Step 1. 
+Using the Google Drive target is very similar to the Dropbox one. You must create a Google API project and authenticate your account via the id and secret. Instructions for enable the Google API for Google Drive can be found here (https://developers.google.com/api-client-library/python/start/get_started). You'll need the client id and client secret generated for the addon settings. You only need to follow Step 1. 
 
 Once you have the client ID and Secret add them to the addon settings and click _Authorize_. You'll get a popup with a TinyURL to enter in a browser on your phone, tablet, or computer. Click OK and you'll see a notification to enter your authorization code. You'll get this code after authorizing the app via your browser. Put the code from your browser into the pop-up dialog. The addon will cache these credentials so it should be a one-time authentication unless you revoke Google Drive permissions. 
 

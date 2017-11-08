@@ -15,13 +15,16 @@ class DropboxAuthorizer:
         self.APP_KEY = utils.getSetting('dropbox_key')
         self.APP_SECRET = utils.getSetting('dropbox_secret')
 
-        self.setup()
-
     def setup(self):
+        result = True
+        
         if(self.APP_KEY == '' and self.APP_SECRET == ''):
             #we can't go any farther, need these for sure
-            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30058),utils.getString(30059))
-            return       
+            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30027) + ' ' + utils.getString(30058),utils.getString(30059))
+
+            result = False
+            
+        return result    
 
     def isAuthorized(self):
         user_token_key,user_token_secret = self._getToken()
@@ -30,6 +33,10 @@ class DropboxAuthorizer:
 
     def authorize(self):
         result = True
+
+        if(not self.setup()):
+            return False
+        
         if(self.isAuthorized()):
             #delete the token to start over
             self._deleteToken()
@@ -97,19 +104,24 @@ class GoogleDriveAuthorizer:
         self.CLIENT_ID = utils.getSetting('google_drive_id')
         self.CLIENT_SECRET = utils.getSetting('google_drive_secret')
 
-        self.setup()
-
     def setup(self):
+        result = True
+        
         if(self.CLIENT_ID == '' and self.CLIENT_SECRET == ''):
             #we can't go any farther, need these for sure
-            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30058),utils.getString(30059))
-            return
+            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30098) + ' ' + utils.getString(30058),utils.getString(30108))
+            result = False
+
+        return result
         
     def isAuthorized(self):
         return xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "google_drive.dat"))
     
     def authorize(self):
         result = True
+
+        if(not self.setup()):
+            return False
 
         #create authorization helper and load default settings
         gauth = GoogleAuth(xbmc.validatePath(xbmc.translatePath(utils.addon_dir() + '/resources/lib/pydrive/settings.yaml')))

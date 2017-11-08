@@ -3,9 +3,7 @@ import xbmcgui
 import xbmcvfs
 import resources.lib.tinyurl as tinyurl
 import resources.lib.utils as utils
-from resources.lib.dropbox import client, rest, session
-from resources.lib.pydrive.auth import GoogleAuth
-from resources.lib.pydrive.drive import GoogleDrive
+import dropbox
 
 class DropboxAuthorizer:
     APP_KEY = ""
@@ -27,9 +25,9 @@ class DropboxAuthorizer:
         return result    
 
     def isAuthorized(self):
-        user_token_key,user_token_secret = self._getToken()
+        user_token = self._getToken()
 
-        return user_token_key != '' and user_token_secret != ''        
+        return user_token != ''        
 
     def authorize(self):
         result = True
@@ -41,19 +39,27 @@ class DropboxAuthorizer:
             #delete the token to start over
             self._deleteToken()
 
-        sess = session.DropboxSession(self.APP_KEY,self.APP_SECRET,"app_folder")
+        #copied flow from http://dropbox-sdk-python.readthedocs.io/en/latest/moduledoc.html#dropbox.oauth.DropboxOAuth2FlowNoRedirect
+        flow = dropbox.oauth.DropboxOAuth2FlowNoRedirect(self.APP_KEY,self.APP_SECRET)
 
-        token = sess.obtain_request_token()
-        url = sess.build_authorize_url(token)
+        url = flow.start()
 
         #print url in log
         utils.log("Authorize URL: " + url)
         xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30056),utils.getString(30057),tinyurl.shorten(url))
-            
-        #if user authorized this will work
-        user_token = sess.obtain_access_token(token)
-        self._setToken(user_token.key,user_token.secret)
 
+        #get the auth code
+        code = xbmcgui.Dialog().input(utils.getString(30027) + ' ' + utils.getString(30103))
+        
+        #if user authorized this will work
+
+        try:
+            user_token = flow.finish(code)
+            self._setToken(user_token.access_token)
+        except Exception,e:
+            utils.log("Error: %s" % (e,))
+            result = False
+            
         return result;
 
     #return the DropboxClient, or None if can't be created
@@ -75,22 +81,22 @@ class DropboxAuthorizer:
                 
         return result
 
-    def _setToken(self,key,secret):
+    def _setToken(self,token):
         #write the token files
         token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"),'w')
-        token_file.write("%s|%s" % (key,secret))
+        token_file.write(token)
         token_file.close()
 
     def _getToken(self):
-        #get tokens, if they exist
+        #get token, if it exists
         if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "tokens.txt"))):
             token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"))
-            key,secret = token_file.read().split('|')
+            token = token_file.read().trim()
             token_file.close()
 
-            return [key,secret]
+            return token
         else:
-            return ["",""]
+            return ""
         
     def _deleteToken(self):
         if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "tokens.txt"))):
@@ -134,7 +140,7 @@ class GoogleDriveAuthorizer:
         utils.log("Google Drive Authorize URL: " + drive_url)
 
         xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30056),utils.getString(30102),tinyurl.shorten(drive_url))
-        code = xbmcgui.Dialog().input(utils.getString(30103))
+        code = xbmcgui.Dialog().input(utils.getString(30098) + ' ' + utils.getString(30103))
 
         gauth.Auth(code)
         gauth.SaveCredentialsFile(xbmc.validatePath(xbmc.translatePath(utils.data_dir() + 'google_drive.dat')))

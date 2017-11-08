@@ -65,19 +65,19 @@ class DropboxAuthorizer:
     #return the DropboxClient, or None if can't be created
     def getClient(self):
         result = None
-        sess = session.DropboxSession(self.APP_KEY,self.APP_SECRET,"app_folder")
-        user_token_key,user_token_secret = self._getToken()
 
-        if(user_token_key != '' and user_token_secret != ''):
+        user_token = self._getToken()
+
+        if(user_token != ''):
             #create the client
-            sess.set_token(user_token_key,user_token_secret)
-            result = client.DropboxClient(sess)
+            result = dropbox.Dropbox(user_token)
 
             try:
-                utils.log(str(result.account_info()))
+                result.users_get_current_account()
             except:
                 #this didn't work, delete the token file
                 self._deleteToken()
+                result = None
                 
         return result
 
@@ -91,7 +91,7 @@ class DropboxAuthorizer:
         #get token, if it exists
         if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "tokens.txt"))):
             token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"))
-            token = token_file.read().trim()
+            token = token_file.read()
             token_file.close()
 
             return token

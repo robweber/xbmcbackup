@@ -14,7 +14,7 @@ def addon_dir():
 def openSettings():
     __Addon.openSettings()
 
-def log(message,loglevel=xbmc.LOGNOTICE):
+def log(message,loglevel=xbmc.LOGDEBUG):
     xbmc.log(encode(__addon_id__ + "-" + __Addon.getAddonInfo('version') +  ": " + message),level=loglevel)
 
 def showNotification(message):

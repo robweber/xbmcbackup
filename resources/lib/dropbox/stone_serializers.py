@@ -879,10 +879,18 @@ def _make_stone_friendly(
 
     Validation by ``alias_validators`` is performed even if ``validate`` is
     false.
+
+    fix found at: 
+    https://www.dropboxforum.com/t5/API-support/Upload-Error-with-v2-migration-from-v1/td-p/244561
     """
     if isinstance(data_type, bv.Timestamp):
         try:
             ret = datetime.datetime.strptime(val, data_type.format)
+        except:
+            #print("datetime.datetime.strptime(val, data_type.format) returned NoneType. Trying alterntive")
+            pass
+        try:
+            ret = datetime.datetime(*(time.strptime(val, data_type.format)[0:6]))
         except (TypeError, ValueError) as e:
             raise bv.ValidationError(e.args[0])
     elif isinstance(data_type, bv.Bytes):

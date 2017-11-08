@@ -5,7 +5,7 @@
 	<!-- jarvis -->
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.httplib2" version="0.8.0" />
-    <import addon="script.module.oauth2client" version="1.4.7" />
+    <import addon="script.module.oauth2client" version="1.4.11" />
     <import addon="script.module.uritemplate" version="0.6" />
     <import addon="script.module.yaml" version="3.11"/>
     <import addon="script.module.googleapi" version="1.4.2" />

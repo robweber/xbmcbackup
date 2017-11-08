@@ -18,17 +18,14 @@
 		<setting id="remove_auth_button" type="action" label="30093" action="RunScript(special://home/addons/script.xbmcbackup/remove_auth.py)" visible="gt(-9,1)"/>
 	</category>
 	<category id="selection" label="30012">
-		<setting id="backup_addons" type="bool" label="30030" default="true" />
-		<setting id="backup_addon_data" type="bool" label="30031" default="false" />
-		<setting id="backup_database" type="bool" label="30032" default="true" />
-		<setting id="backup_playlists" type="bool" label="30033" default="true" />
-		<setting id="backup_profiles" type="bool" label="30080" default="false" />
-		<setting id="backup_thumbnails" type="bool" label="30034" default="true" />
-		<setting id="backup_config" type="bool" label="30035" default="true" />
-		<setting id="custom_dir_1_enable" type="bool" label="30036" default="false" />
-		<setting id="backup_custom_dir_1" type="folder" label="30018" default="" visible="eq(-1,true)"/>
-		<setting id="custom_dir_2_enable" type="bool" label="30037" default="false" />
-		<setting id="backup_custom_dir_2" type="folder" label="30018" default="" visible="eq(-1,true)"/>
+		<setting id="backup_selection_type" type="enum" lvalues="Simple|Advanced" default="0" label="File Selection Type" />
+		<setting id="backup_addons" type="bool" label="30030" default="true" visible="eq(-1,0)" />
+		<setting id="backup_addon_data" type="bool" label="30031" default="false" visible="eq(-2,0)"/>
+		<setting id="backup_database" type="bool" label="30032" default="true" visible="eq(-3,0)"/>
+		<setting id="backup_playlists" type="bool" label="30033" default="true" visible="eq(-4,0)"/>
+		<setting id="backup_profiles" type="bool" label="30080" default="false" visible="eq(-5,0)"/>
+		<setting id="backup_thumbnails" type="bool" label="30034" default="true" visible="eq(-6,0)"/>
+		<setting id="backup_config" type="bool" label="30035" default="true" visible="eq(-7,0)"/>
 	</category>
 	<category id="scheduling" label="30013">
 		<setting id="enable_scheduler" type="bool" label="30060" default="false" />

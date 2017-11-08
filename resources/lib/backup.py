@@ -161,8 +161,65 @@ class XbmcBackup:
                 #make the remote directory
                 self.remote_vfs.mkdir(self.remote_vfs.root_path)
 
+            #read in a list of the directories to backup
+            selectedDirs = self._readBackupConfig(utils.addon_dir() + "/resources/data/default_files.json")
+
+            utils.log(utils.getString(30051))
+            allFiles = []
+            fileManager = FileManager(self.xbmc_vfs)
+         
+            #go through each of the user selected items and write them to the backup store
+            if(utils.getSetting('backup_addons') == 'true'):
+                self.xbmc_vfs.set_root(xbmc.translatePath(selectedDirs['addons']['root']))
+                for aDir in selectedDirs['addons']['dirs']:
+                    fileManager.addDir(aDir)
+                self.filesTotal = self.filesTotal + fileManager.size()
+                allFiles.append({"name":"addons","source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
+
+            if(utils.getSetting('backup_addon_data') == 'true'):
+                self.xbmc_vfs.set_root(xbmc.translatePath(selectedDirs['addon_data']['root']))
+                for aDir in selectedDirs['addon_data']['dirs']:
+                    fileManager.addDir(aDir)
+                self.filesTotal = self.filesTotal + fileManager.size()
+                allFiles.append({"name":"addon_data","source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
+
+            if(utils.getSetting('backup_database') == 'true'):
+                self.xbmc_vfs.set_root(xbmc.translatePath(selectedDirs['database']['root']))
+                for aDir in selectedDirs['database']['dirs']:
+                    fileManager.addDir(aDir)
+                self.filesTotal = self.filesTotal + fileManager.size()
+                allFiles.append({"name":"database","source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
+        
+            if(utils.getSetting("backup_playlists") == 'true'):
+                self.xbmc_vfs.set_root(xbmc.translatePath(selectedDirs['playlists']['root']))
+                for aDir in selectedDirs['playlists']['dirs']:
+                    fileManager.addDir(aDir)
+                self.filesTotal = self.filesTotal + fileManager.size()
+                allFiles.append({"name":"playlists","source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
+
+            if(utils.getSetting('backup_profiles') == 'true'):
+                self.xbmc_vfs.set_root(xbmc.translatePath(selectedDirs['profiles']['root']))
+                for aDir in selectedDirs['profiles']['dirs']:
+                    fileManager.addDir(aDir)
+                self.filesTotal = self.filesTotal + fileManager.size()
+                allFiles.append({"name":"profiles","source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
+            
+            if(utils.getSetting("backup_thumbnails") == "true"):
+                self.xbmc_vfs.set_root(xbmc.translatePath(selectedDirs['thumbnails']['root']))
+                for aDir in selectedDirs['thumbnails']['dirs']:
+                    fileManager.addDir(aDir)
+                self.filesTotal = self.filesTotal + fileManager.size()
+                allFiles.append({"name":"thumbnails","source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
+ 
+            if(utils.getSetting("backup_config") == "true"):
+                self.xbmc_vfs.set_root(xbmc.translatePath(selectedDirs['config']['root']))
+                for aDir in selectedDirs['config']['dirs']:
+                    fileManager.addDir(aDir)
+                self.filesTotal = self.filesTotal + fileManager.size()
+                allFiles.append({"name":"config","source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
+
             #create a validation file for backup rotation
-            writeCheck = self._createValidationFile()
+            writeCheck = self._createValidationFile(allFiles)
             
             if(not writeCheck):
                 #we may not be able to write to this destination for some reason
@@ -171,89 +228,13 @@ class XbmcBackup:
                 if(not shouldContinue):
                     return
 
-            utils.log(utils.getString(30051))
-            allFiles = []
-            fileManager = FileManager(self.xbmc_vfs)
-         
-            #go through each of the user selected items and write them to the backup store
-            if(utils.getSetting('backup_addons') == 'true'):
-                fileManager.addFile("-" + xbmc.translatePath('special://home/addons'))
-                fileManager.excludeFile(xbmc.translatePath('special://home/addons/packages'))
-                fileManager.walkTree(xbmc.translatePath('special://home/addons'))
-
-            fileManager.addFile("-" + xbmc.translatePath('special://home/userdata'))
-
-            if(utils.getSetting('backup_addon_data') == 'true'):
-                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/addon_data'))
-                fileManager.walkTree(xbmc.translatePath('special://home/userdata/addon_data'))
-
-            if(utils.getSetting('backup_database') == 'true'):
-                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/Database'))
-                fileManager.walkTree(xbmc.translatePath('special://home/userdata/Database'))
-        
-            if(utils.getSetting("backup_playlists") == 'true'):
-                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/playlists'))
-                fileManager.walkTree(xbmc.translatePath('special://home/userdata/playlists'))
-
-            if(utils.getSetting('backup_profiles') == 'true'):
-                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/profiles'))
-                fileManager.walkTree(xbmc.translatePath('special://home/userdata/profiles'))
-            
-            if(utils.getSetting("backup_thumbnails") == "true"):
-                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/Thumbnails'))
-                fileManager.walkTree(xbmc.translatePath('special://home/userdata/Thumbnails'))
- 
-            if(utils.getSetting("backup_config") == "true"):
-                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/keymaps'))
-                fileManager.walkTree(xbmc.translatePath('special://home/userdata/keymaps'))
-                
-                fileManager.addFile("-" + xbmc.translatePath('special://home/userdata/peripheral_data'))
-                fileManager.walkTree(xbmc.translatePath('special://home/userdata/peripheral_data'))
-            
-                fileManager.addFile('-' + xbmc.translatePath('special://home/userdata/library'))
-                fileManager.walkTree(xbmc.translatePath('special://home/userdata/library'))
-            
-                #this part is an oddity
-                dirs,configFiles = self.xbmc_vfs.listdir(xbmc.translatePath('special://home/userdata/'))
-                for aFile in configFiles:
-                    if(aFile.endswith(".xml")):
-                        fileManager.addFile(xbmc.translatePath('special://home/userdata/') + aFile)
-
-            #add to array
-            self.filesTotal = fileManager.size()
-            allFiles.append({"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()})
-
             orig_base_path = self.remote_vfs.root_path
             
-            #check if there are custom directories
-            if(utils.getSetting('custom_dir_1_enable') == 'true' and utils.getSetting('backup_custom_dir_1') != ''):
-
-                #create a special remote path with hash                
-                self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir_1'))
-                fileManager.addFile("-custom_" + self._createCRC(self.xbmc_vfs.root_path))
-
-                #walk the directory
-                fileManager.walkTree(self.xbmc_vfs.root_path)
-                self.filesTotal = self.filesTotal + fileManager.size()
-                allFiles.append({"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path),"files":fileManager.getFiles()})
-
-            if(utils.getSetting('custom_dir_2_enable') == 'true' and utils.getSetting('backup_custom_dir_2') != ''):
-
-                #create a special remote path with hash                
-                self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir_2'))
-                fileManager.addFile("-custom_" + self._createCRC(self.xbmc_vfs.root_path))
-
-                #walk the directory
-                fileManager.walkTree(self.xbmc_vfs.root_path)
-                self.filesTotal = self.filesTotal + fileManager.size()
-                allFiles.append({"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path),"files":fileManager.getFiles()})
-
-
             #backup all the files
             self.filesLeft = self.filesTotal
             for fileGroup in allFiles:
                 self.xbmc_vfs.set_root(fileGroup['source'])
-                self.remote_vfs.set_root(fileGroup['dest'])
+                self.remote_vfs.set_root(fileGroup['dest'] + fileGroup['name'])
                 filesCopied = self.backupFiles(fileGroup['files'],self.xbmc_vfs,self.remote_vfs)
                 
                 if(not filesCopied):
@@ -332,7 +313,8 @@ class XbmcBackup:
                 xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path)
                 return
 
-            if(not self._checkValidationFile(self.remote_vfs.root_path)):
+            valFile = self._checkValidationFile(self.remote_vfs.root_path)
+            if(valFile == None):
                 #don't continue
                 return
 
@@ -340,97 +322,35 @@ class XbmcBackup:
             allFiles = []
             fileManager = FileManager(self.remote_vfs)
          
-            #go through each of the user selected items and write them to the backup store
-
-            if(utils.getSetting("backup_config") == "true"):
-                #check for the existance of an advancedsettings file
-                if(self.remote_vfs.exists(self.remote_vfs.root_path + "userdata/advancedsettings.xml") and not self.skip_advanced):
-                    #let the user know there is an advanced settings file present
-                    restartXbmc = xbmcgui.Dialog().yesno(utils.getString(30038),utils.getString(30039),utils.getString(30040), utils.getString(30041))
-
-                    if(restartXbmc):
-                        #add only this file to the file list
-                        fileManager.addFile(self.remote_vfs.root_path + "userdata/advancedsettings.xml")
-                        self.backupFiles(fileManager.getFiles(),self.remote_vfs,self.xbmc_vfs)
-
-                        #let the service know to resume this backup on startup
-                        self._createResumeBackupFile()
-
-                        #do not continue running
-                        xbmcgui.Dialog().ok(utils.getString(30077),utils.getString(30078))
-                        
-                        return
-                
-                fileManager.addFile('-' + self.remote_vfs.root_path + 'userdata/keymaps')
-                fileManager.walkTree(self.remote_vfs.root_path + "userdata/keymaps")
-                
-                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/peripheral_data")
-                fileManager.walkTree(self.remote_vfs.root_path + "userdata/peripheral_data")
             
-                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/library")
-                fileManager.walkTree(self.remote_vfs.root_path + "userdata/library")
-            
-                #this part is an oddity
-                dirs,configFiles = self.remote_vfs.listdir(self.remote_vfs.root_path + "userdata/")
-                for aFile in configFiles:
-                    if(aFile.endswith(".xml")):
-                        fileManager.addFile(self.remote_vfs.root_path + "userdata/" + aFile)
+            #check for the existance of an advancedsettings file
+            if(self.remote_vfs.exists(self.remote_vfs.root_path + "config/advancedsettings.xml") and not self.skip_advanced):
+                #let the user know there is an advanced settings file present
+                restartXbmc = xbmcgui.Dialog().yesno(utils.getString(30038),utils.getString(30039),utils.getString(30040), utils.getString(30041))
 
-            if(utils.getSetting('backup_addons') == 'true'):
-                fileManager.addFile('-' + self.remote_vfs.root_path + "addons")
-                fileManager.walkTree(self.remote_vfs.root_path + "addons")
+                if(restartXbmc):
+                    #add only this file to the file list
+                    fileManager.addFile(self.remote_vfs.root_path + "config/advancedsettings.xml")
+                    self.backupFiles(fileManager.getFiles(),self.remote_vfs,self.xbmc_vfs)
 
-            self.xbmc_vfs.mkdir(xbmc.translatePath('special://home/userdata'))
+                    #let the service know to resume this backup on startup
+                    self._createResumeBackupFile()
 
-            if(utils.getSetting('backup_addon_data') == 'true'):
-                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/addon_data")
-                fileManager.walkTree(self.remote_vfs.root_path + "userdata/addon_data")
+                    #do not continue running
+                    xbmcgui.Dialog().ok(utils.getString(30077),utils.getString(30078)) 
+                    return
 
-            if(utils.getSetting('backup_database') == 'true'):
-                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/Database")
-                fileManager.walkTree(self.remote_vfs.root_path + "userdata/Database")
-        
-            if(utils.getSetting("backup_playlists") == 'true'):
-                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/playlists")
-                fileManager.walkTree(self.remote_vfs.root_path + "userdata/playlists")
-
-            if(utils.getSetting('backup_profiles') == 'true'):
-                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/profiles")
-                fileManager.walkTree(self.remote_vfs.root_path + "userdata/profiles")
-                
-            if(utils.getSetting("backup_thumbnails") == "true"):
-                fileManager.addFile('-' + self.remote_vfs.root_path + "userdata/Thumbnails")
-                fileManager.walkTree(self.remote_vfs.root_path + "userdata/Thumbnails")
-
-            #add to array
-            self.filesTotal = fileManager.size()
-            allFiles.append({"source":self.remote_vfs.root_path,"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()})    
-
-            #check if there are custom directories
-            if(utils.getSetting('custom_dir_1_enable') == 'true' and utils.getSetting('backup_custom_dir_1') != ''):
-
-                self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir_1'))
-                if(self.remote_vfs.exists(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path) + "/")):
-                    #index files to restore
-                    fileManager.walkTree(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
+            #go through each of the directories in the backup and write them to the correct location
+            for aDir in valFile['directories']:
+                self.xbmc_vfs.set_root(aDir['path'])
+                if(self.remote_vfs.exists(self.remote_vfs.root_path + aDir['name'] + '/')):
+                    #walk the directory
+                    fileManager.walkTree(self.remote_vfs.root_path + aDir['name'] + '/')
                     self.filesTotal = self.filesTotal + fileManager.size()
-                    allFiles.append({"source":self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path),"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()})
+                    allFiles.append({"source":self.remote_vfs.root_path + aDir['name'],"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()}) 
                 else:
-                    utils.log("error path not found: " + self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
-                    xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path + "custom_" + self._createCRC(utils.getSetting('backup_custom_dir_1')))
-
-            if(utils.getSetting('custom_dir_2_enable') == 'true' and utils.getSetting('backup_custom_dir_2') != ''):
-
-                self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir_2'))
-                if(self.remote_vfs.exists(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path) + "/")):
-                    #index files to restore
-                    fileManager.walkTree(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
-                    self.filesTotal = self.filesTotal + fileManager.size()
-                    allFiles.append({"source":self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path),"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()})
-                else:
-                    utils.log("error path not found: " + self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
-                    xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path + "custom_" + self._createCRC(utils.getSetting('backup_custom_dir_2')))
-
+                    utils.log("error path not found: " + self.remote_vfs.root_path + aDir['name'])
+                    xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path + aDir['name'])
 
             #restore all the files
             self.filesLeft = self.filesTotal
@@ -534,9 +454,16 @@ class XbmcBackup:
                         
                     remove_num = remove_num + 1
 
-    def _createValidationFile(self):
+    def _createValidationFile(self,dirList):
+        valInfo = {"name":"XBMC Backup Validation File","xbmc_version":xbmc.getInfoLabel('System.BuildVersion'),"type":0}
+        valDirs = []
+        
+        for aDir in dirList:
+            valDirs.append({"name":aDir['name'],"path":aDir['source']})
+        valInfo['directories'] = valDirs
+        
         vFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"),'w')
-        vFile.write(json.dumps({"name":"XBMC Backup Validation File","xbmc_version":xbmc.getInfoLabel('System.BuildVersion')}))
+        vFile.write(json.dumps(valInfo))
         vFile.write("")
         vFile.close()
 
@@ -548,7 +475,7 @@ class XbmcBackup:
         return success
 
     def _checkValidationFile(self,path):
-        result = False
+        result = None
         
         #copy the file and open it
         self.xbmc_vfs.put(path + "xbmcbackup.val",xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
@@ -561,16 +488,17 @@ class XbmcBackup:
         xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
 
         try:
-            json_dict = json.loads(jsonString)
+            result = json.loads(jsonString)
 
-            if(xbmc.getInfoLabel('System.BuildVersion') == json_dict['xbmc_version']):
-                result = True
-            else:
-                result = xbmcgui.Dialog().yesno(utils.getString(30085),utils.getString(30086),utils.getString(30044))
+            if(xbmc.getInfoLabel('System.BuildVersion') != result['xbmc_version']):
+                shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30085),utils.getString(30086),utils.getString(30044))
+
+                if(not shouldContinue):
+                    result = None
                 
         except ValueError:
             #may fail on older archives
-            result = True
+            result = None
 
         return result
 
@@ -578,6 +506,12 @@ class XbmcBackup:
         rFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "resume.txt"),'w')
         rFile.write(self.restore_point)
         rFile.close()
+
+    def _readBackupConfig(self,aFile):
+        jFile = xbmcvfs.File(xbmc.translatePath(aFile),'r')
+        jsonString = jFile.read()
+        jFile.close()
+        return json.loads(jsonString)
 
 class FileManager:
     not_dir = ['.zip','.xsp','.rar']
@@ -587,38 +521,46 @@ class FileManager:
         self.vfs = vfs
         self.fileArray = []
 
-    def walkTree(self,directory):
+    def walkTree(self,directory,recurse=True):
         
-        if(directory[-1:] == '/'):
+        if(directory[-1:] == '/' or directory[-1:] == '\\'):
             directory = directory[:-1]
        
         if(self.vfs.exists(directory + "/")):
             dirs,files = self.vfs.listdir(directory)
-        
-            #create all the subdirs first
-            for aDir in dirs:
-                dirPath = xbmc.validatePath(xbmc.translatePath(directory + "/" + aDir))
-                file_ext = aDir.split('.')[-1]
 
-                if(not dirPath in self.exclude_dir):
+            if(recurse):
+                #create all the subdirs first
+                for aDir in dirs:
+                    dirPath = xbmc.validatePath(xbmc.translatePath(directory + "/" + aDir))
+                    file_ext = aDir.split('.')[-1]
+
+                    if(not dirPath in self.exclude_dir):
                     
-                    self.addFile("-" + dirPath)
+                        self.addFile("-" + dirPath)
 
-                    #catch for "non directory" type files
-                    shouldWalk = True
+                        #catch for "non directory" type files
+                        shouldWalk = True
 
-                    for s in file_ext:
-                        if(s in self.not_dir):
-                            shouldWalk = False
+                        for s in file_ext:
+                            if(s in self.not_dir):
+                                shouldWalk = False
                 
-                    if(shouldWalk):
-                        self.walkTree(dirPath)  
+                        if(shouldWalk):
+                            self.walkTree(dirPath)  
             
             #copy all the files
             for aFile in files:
                 filePath = xbmc.translatePath(directory + "/" + aFile)
                 self.addFile(filePath)
-                    
+
+    def addDir(self,dirMeta):
+        if(dirMeta['type'] == 'include'):
+            self.addFile('-' + xbmc.translatePath(dirMeta['path']))
+            self.walkTree(xbmc.translatePath(dirMeta['path']),dirMeta['recurse'])
+        else:
+            self.excludeFile('-' + xbmc.translatePath(dirMeta['path']))
+            
     def addFile(self,filename):
         try:
             filename = filename.decode('UTF-8')

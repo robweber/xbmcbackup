@@ -18,11 +18,14 @@
   <extension point="xbmc.addon.metadata">
 	<assets>
 		<icon>resources/images/icon.png</icon>
+		<screenshot>resources/images/screenshot1.png</screenshot>
+		<screenshot>resources/images/screenshot2.png</screenshot>
+		<screenshot>resources/images/screenshot3.png</screenshot>
+		<screenshot>resources/images/screenshot4.png</screenshot>
 	</assets>
 	<news>
-added tinyurl for oauth urls
-moved authorize to settings area for cloud storage
-bug fixes
+fixed error on authorizers (missing secret/key)
+added ability to "catchup" on missed scheduled backup
 	</news>
     <summary lang="ar">إنسخ إحتياطياً قاعده بيانات إكس بى إم سى وملفات اﻹعدادات فى حاله وقوع إنهيار مع إمكانيه اﻹسترجاع</summary>
     <summary lang="be">Backup and restore your XBMC database and configuration files in the event of a crash or file corruption.</summary>

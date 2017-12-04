@@ -394,8 +394,8 @@ msgid "Click OK to enter code"
 msgstr "Click OK to enter code"
 
 msgctxt "#30103"
-msgid "Google Drive Validation Code"
-msgstr "Google Drive Validation Code"
+msgid "Validation Code"
+msgstr "Validation Code"
 
 msgctxt "#30104"
 msgid "Authorize Now"

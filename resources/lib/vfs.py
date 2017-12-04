@@ -7,7 +7,8 @@ import zipfile
 import zlib
 import os
 import sys
-from dropbox import client
+import dropbox
+from dropbox.files import WriteMode
 from pydrive.drive import GoogleDrive
 from authorizers import DropboxAuthorizer,GoogleDriveAuthorizer
 
@@ -134,16 +135,18 @@ class DropboxFileSystem(Vfs):
             sys.exit()
 
     def listdir(self,directory):
+        directory = self._fix_slashes(directory)
+        
         if(self.client != None and self.exists(directory)):
             files = []
             dirs = []
-            metadata = self.client.metadata(directory)
+            metadata = self.client.files_list_folder(directory)
 
-            for aFile in metadata['contents']:
-                if(aFile['is_dir']):
-                    dirs.append(utils.encode(aFile['path'][len(directory):]))
+            for aFile in metadata.entries:
+                if(isinstance(aFile,dropbox.files.FolderMetadata)):
+                    dirs.append(utils.encode(aFile.name))
                 else:
-                    files.append(utils.encode(aFile['path'][len(directory):]))
+                    files.append(utils.encode(aFile.name))
 
             return [dirs,files]
         else:
@@ -153,8 +156,7 @@ class DropboxFileSystem(Vfs):
     def mkdir(self,directory):
         directory = self._fix_slashes(directory)
         if(self.client != None):
-            if(not self.exists(directory)):
-                self.client.file_create_folder(directory)
+            #sort of odd but always return true, folder create is implicit with file upload
             return True
         else:
             return False
@@ -169,7 +171,7 @@ class DropboxFileSystem(Vfs):
                 self.rmdir(aDir)
 
             #finally remove the root directory
-            self.client.file_delete(directory)
+            self.client.files_delete(directory)
             
             return True
         else:
@@ -179,16 +181,21 @@ class DropboxFileSystem(Vfs):
         aFile = self._fix_slashes(aFile)
         
         if(self.client != None and self.exists(aFile)):
-            self.client.file_delete(aFile)
+            self.client.files_delete(aFile)
             return True
         else:
             return False
 
     def exists(self,aFile):
         aFile = self._fix_slashes(aFile)
+    
         if(self.client != None):
+            #can't list root metadata
+            if(aFile == ''):
+                return True
+            
             try:
-                meta_data = self.client.metadata(aFile)
+                meta_data = self.client.files_get_metadata(aFile)
                 #if we make it here the file does exist
                 return True
             except:
@@ -202,7 +209,7 @@ class DropboxFileSystem(Vfs):
         if(self.client != None):
             f = open(source,'rb')
             try:
-                response = self.client.put_file(dest,f,True)
+                response = self.client.files_upload(f.read(),dest,mode=WriteMode('overwrite'))
                 return True
             except:
                 #if we have an exception retry
@@ -217,16 +224,18 @@ class DropboxFileSystem(Vfs):
     def get_file(self,source,dest):
         if(self.client != None):
             #write the file locally
-            out = open(dest,'wb')
-            f = self.client.get_file(source).read()
-            out.write(f)
-            out.close()
+            f = self.client.files_download_to_file(dest,source)
             return True
         else:
             return False
 
     def _fix_slashes(self,filename):
-        return filename.replace('\\','/')
+        result = filename.replace('\\','/')
+
+        if(result == '/'):
+            result = ""
+
+        return result
             
 
 class GoogleDriveFilesystem(Vfs):

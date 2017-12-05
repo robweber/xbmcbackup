@@ -8,6 +8,7 @@ from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesy
 from progressbar import BackupProgressBar
 from resources.lib.guisettings import GuiSettingsManager
 from resources.lib.extractor import ZipExtractor
+from resources.lib.advanced_editor import BackupSetManager
 
 def folderSort(aKey):
     result = aKey[0]
@@ -171,13 +172,25 @@ class XbmcBackup:
             allFiles = []
             fileManager = FileManager(self.xbmc_vfs)
 
-            #get file listings for all enabled directories
-            for aDir in self.simple_directory_list:
-                #if this dir enabled
-                if(utils.getSetting('backup_' + aDir) == 'true'):
-                    #get a file listing and append it to the allfiles array
-                    allFiles.append(self._addBackupDir(aDir,xbmc.translatePath(selectedDirs[aDir]['root']),selectedDirs[aDir]['dirs']))
+            if(utils.getSetting('backup_selection_type') == 0):
+                #simple mode - get file listings for all enabled directories
+                for aDir in self.simple_directory_list:
+                    #if this dir enabled
+                    if(utils.getSetting('backup_' + aDir) == 'true'):
+                        #get a file listing and append it to the allfiles array
+                        allFiles.append(self._addBackupDir(aDir,xbmc.translatePath(selectedDirs[aDir]['root']),selectedDirs[aDir]['dirs']))
+            else:
+                #advanced mode - open custom editor
+                setManager = BackupSetManager()
 
+                #go through the custom sets
+                for index in range(0,len(setManager.getSets())):
+                    #get the set
+                    aSet = setManager.getSet(index)
+                    utils.log(str(aSet))
+                    #get file listing and append
+                    allFiles.append(self._addBackupDir(aSet['name'],xbmc.translatePath(aSet['set']['root']),aSet['set']['dirs']))
+                
             #create a validation file for backup rotation
             writeCheck = self._createValidationFile(allFiles)
             

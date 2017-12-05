@@ -130,11 +130,11 @@ msgstr "Config Files"
 
 msgctxt "#30036"
 msgid ""
-msgstr ""
+msgstr "Disclaimer"
 
 msgctxt "#30037"
 msgid ""
-msgstr ""
+msgstr "Canceling this menu will close and save changes"
 
 msgctxt "#30038"
 msgid "Advanced Settings Detected"
@@ -420,3 +420,87 @@ msgstr "Visit https://console.developers.google.com/"
 msgctxt "#30109"
 msgid "Run on startup if missed"
 msgstr "Run on startup if missed"
+
+msgctxt "#30110"
+msgid "Set Name"
+msgstr ""
+
+msgctxt "#30111"
+msgid "Root folder selection"
+msgstr ""
+
+msgctxt "#30112"
+msgid "Browse Folder"
+msgstr ""
+
+msgctxt "#30113"
+msgid "Enter Own"
+msgstr ""
+
+msgctxt "#30114"
+msgid "starts in Kodi home"
+msgstr ""
+
+msgctxt "#30115"
+msgid "enter path to start there"
+msgstr ""
+
+msgctxt "#30116"
+msgid "Enter root path"
+msgstr ""
+
+msgctxt "#30117"
+msgid "Path Error"
+msgstr ""
+
+msgctxt "#30118"
+msgid "Path does not exist"
+msgstr ""
+
+msgctxt "#30119"
+msgid "Select root"
+msgstr ""
+
+msgctxt "#30120"
+msgid "Add Exclusion"
+msgstr ""
+
+msgctxt "#30121"
+msgid "Root Folder"
+msgstr ""
+
+msgctxt "#30122"
+msgid "Edit"
+msgstr ""
+
+msgctxt "#30123"
+msgid "Delete"
+msgstr ""
+
+msgctxt "#30124"
+msgid "Choose Action"
+msgstr ""
+
+msgctxt "#30125"
+msgid "Advanced Editor"
+msgstr ""
+
+msgctxt "#30126"
+msgid "Add Set"
+msgstr ""
+
+msgctxt "#30127"
+msgid "Delete Set"
+msgstr ""
+
+msgctxt "#30128"
+msgid "Are you sure you want to delete?"
+msgstr ""
+
+msgctxt "#30129"
+msgid "Exclude"
+msgstr ""
+
+msgctxt "#30130"
+msgid "The root folder cannot be changed"
+msgstr ""

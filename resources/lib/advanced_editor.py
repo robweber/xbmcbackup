@@ -78,23 +78,23 @@ class AdvancedBackupEditor:
     def createSet(self):
         backupSet = None
     
-        name = self.dialog.input("Set Name",defaultt='Backup Set')
+        name = self.dialog.input(utils.getString(30110),defaultt='Backup Set')
 
-        if(name != ''):
+        if(name != None):
 
             #give a choice to start in home or enter a root path
-            enterHome = self.dialog.yesno('Root folder selection',line1='Browse Folder - starts in Kodi home',line2='Enter Own - enter path to start there',nolabel='Browse Folder',yeslabel='Enter Own')
+            enterHome = self.dialog.yesno(utils.getString(30111),line1=utils.getString(30112) + " - " + utils.getString(30114),line2=utils.getString(30113) + " - " + utils.getString(30115),nolabel=utils.getString(30112),yeslabel=utils.getString(30113))
 
             rootFolder = 'special://home'
             if(enterHome):
-                rootFolder = self.dialog.input('Enter root path',defaultt=rootFolder)
+                rootFolder = self.dialog.input(utils.getString(30116),defaultt=rootFolder)
 
                 #check that this path even exists
                 if(not xbmcvfs.exists(xbmc.translatePath(rootFolder))):
-                    self.dialog.ok('Path Error','Path does not exist',rootFolder)
+                    self.dialog.ok(utils.getString(30117),utils.getString(30118),rootFolder)
             else:
                 #select path to start set
-                rootFolder = self.dialog.browse(type=0,heading="Select Root",shares='files',defaultt=rootFolder)
+                rootFolder = self.dialog.browse(type=0,heading=utils.getString(30119),shares='files',defaultt=rootFolder)
 
             backupSet = {'name':name,'root':rootFolder}
     
@@ -104,23 +104,23 @@ class AdvancedBackupEditor:
         optionSelected = ''
     
         while(optionSelected != -1):
-            options = ['Add Exclusion','Root: ' + backupSet['root']]
+            options = [utils.getString(30120),utils.getString(30121) + ": " + backupSet['root']]
 
             for aDir in backupSet['dirs']:
                 if(aDir['type'] == 'exclude'):
-                    options.append('Exclude: ' + aDir['path'])
+                    options.append(utils.getString(30129) + ': ' + aDir['path'])
 
-            optionSelected = self.dialog.select('Edit ' + name,options)
+            optionSelected = self.dialog.select(utils.getString(30122) + ' ' +  name,options)
 
             if(optionSelected == 0):
                 #add an exclusion
-                excludeFolder = self.dialog.browse(type=0,heading="Add Exclusion",shares='files',defaultt=backupSet['root'])
+                excludeFolder = self.dialog.browse(type=0,heading=utils.getString(30120),shares='files',defaultt=backupSet['root'])
 
                 #will equal root if cancel is hit
                 if(excludeFolder != backupSet['root']):
                     backupSet['dirs'].append({"path":excludeFolder,"type":"exclude"})
             elif(optionSelected == 1):
-                self.dialog.ok('Root Folder','The root folder cannot be changed',backupSet['root'])
+                self.dialog.ok(utils.getString(30121),utils.getString(30130),backupSet['root'])
             elif(optionSelected > 1):
                 #remove exclusion folder
                 del backupSet['dirs'][optionSelected - 2]
@@ -133,17 +133,17 @@ class AdvancedBackupEditor:
         customPaths = BackupSetManager()
 
         #show this every time
-        self.dialog.ok('Disclaimer','Canceling this menu will close and save changes')
+        self.dialog.ok(utils.getString(30036),utils.getString(30037))
  
         while(exitCondition != -1):
             #load the custom paths
-            options = ['Add Set']
+            options = [utils.getString(30126)]
         
             for aPath in customPaths.getSets():
                 options.append(aPath)
             
             #show the gui
-            exitCondition = self.dialog.select('Advanced Editor',options)
+            exitCondition = self.dialog.select(utils.getString(30125),options)
         
             if(exitCondition >= 0):
                 if(exitCondition == 0):
@@ -152,7 +152,7 @@ class AdvancedBackupEditor:
                     customPaths.addSet(newSet)
                 else:
                     #bring up a context menu
-                    menuOption = self.dialog.select(heading="Choose Action",list=['Edit','Delete'],preselect=0)
+                    menuOption = self.dialog.select(heading=utils.getString(30124),list=[utils.getString(30122),utils.getString(30123)],preselect=0)
 
                     if(menuOption == 0):
                         #get the set
@@ -165,7 +165,7 @@ class AdvancedBackupEditor:
                         customPaths.updateSet(aSet['name'],updatedSet)
                     
                     elif(menuOption == 1):
-                        if(self.dialog.yesno(heading="Delete Set",line1="Are you sure you want to delete?")):
+                        if(self.dialog.yesno(heading=utils.getString(30127),line1=utils.getString(30128))):
                             #delete this path - subtract one because of "add" item
                             customPaths.deleteSet(exitCondition -1)
               

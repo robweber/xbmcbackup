@@ -4,6 +4,7 @@ import xbmcvfs
 import utils as utils
 import time
 import json
+import re
 from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
 from progressbar import BackupProgressBar
 from resources.lib.guisettings import GuiSettingsManager
@@ -390,6 +391,9 @@ class XbmcBackup:
         for aDir in dirList:
             fileManager.addDir(aDir)
 
+        #walk all the root trees
+        fileManager.walk()
+        #update total files
         self.filesTotal = self.filesTotal + fileManager.size()
 
         return {"name":folder_name,"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()}
@@ -502,10 +506,16 @@ class XbmcBackup:
 class FileManager:
     not_dir = ['.zip','.xsp','.rar']
     exclude_dir = []
+    root_dirs = []
     
     def __init__(self,vfs):
         self.vfs = vfs
         self.fileArray = []
+
+    def walk(self):
+        for aDir in self.root_dirs:
+            self.addFile('-' + xbmc.translatePath(aDir['path']))
+            self.walkTree(xbmc.translatePath(aDir['path']),aDir['recurse'])
 
     def walkTree(self,directory,recurse=True):
         
@@ -521,7 +531,11 @@ class FileManager:
                     dirPath = xbmc.validatePath(xbmc.translatePath(directory + "/" + aDir))
                     file_ext = aDir.split('.')[-1]
 
-                    if(not dirPath in self.exclude_dir):
+                    #check if directory is excluded
+                    regex = re.compile(".*(" + aDir + ").*")
+                    excludedCheck = [m.group(0) for l in self.exclude_dir for m in [regex.search(l)] if m]
+                    
+                    if(len(excludedCheck) == 0):
                     
                         self.addFile("-" + dirPath)
 
@@ -542,10 +556,9 @@ class FileManager:
 
     def addDir(self,dirMeta):
         if(dirMeta['type'] == 'include'):
-            self.addFile('-' + xbmc.translatePath(dirMeta['path']))
-            self.walkTree(xbmc.translatePath(dirMeta['path']),dirMeta['recurse'])
+            self.root_dirs.append({'path':dirMeta['path'],'recurse':dirMeta['recurse']})
         else:
-            self.excludeFile('-' + xbmc.translatePath(dirMeta['path']))
+            self.excludeFile(xbmc.translatePath(dirMeta['path']))
             
     def addFile(self,filename):
         try:
@@ -564,12 +577,15 @@ class FileManager:
             filename = filename.decode('ISO-8859-2')
             
         #write the full remote path name of this file
-        utils.log("Exclude File: " + filename,xbmc.LOGDEBUG)
+        utils.log("Exclude File: " + filename)
         self.exclude_dir.append(filename)
 
     def getFiles(self):
         result = self.fileArray
         self.fileArray = []
+        self.root_paths = []
+        self.exclude_dir = []
+                                  
         return result
 
     def size(self):

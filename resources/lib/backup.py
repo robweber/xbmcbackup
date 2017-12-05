@@ -8,7 +8,6 @@ from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesy
 from progressbar import BackupProgressBar
 from resources.lib.guisettings import GuiSettingsManager
 from resources.lib.extractor import ZipExtractor
-from resources.lib.advanced_editor import BackupSetManager
 
 def folderSort(aKey):
     result = aKey[0]
@@ -165,14 +164,14 @@ class XbmcBackup:
                 #make the remote directory
                 self.remote_vfs.mkdir(self.remote_vfs.root_path)
 
-            #read in a list of the directories to backup
-            selectedDirs = self._readBackupConfig(utils.addon_dir() + "/resources/data/default_files.json")
-
             utils.log(utils.getString(30051))
             allFiles = []
             fileManager = FileManager(self.xbmc_vfs)
 
             if(utils.getSetting('backup_selection_type') == 0):
+                #read in a list of the directories to backup
+                selectedDirs = self._readBackupConfig(utils.addon_dir() + "/resources/data/default_files.json")
+                
                 #simple mode - get file listings for all enabled directories
                 for aDir in self.simple_directory_list:
                     #if this dir enabled
@@ -180,16 +179,19 @@ class XbmcBackup:
                         #get a file listing and append it to the allfiles array
                         allFiles.append(self._addBackupDir(aDir,xbmc.translatePath(selectedDirs[aDir]['root']),selectedDirs[aDir]['dirs']))
             else:
-                #advanced mode - open custom editor
-                setManager = BackupSetManager()
+                #advanced mode - load custom paths
+                selectedDirs = self._readBackupConfig(utils.data_dir() + "/custom_paths.json")
 
+                #get the set names
+                keys = selectedDirs.keys()
+                utils.log(str(keys))
                 #go through the custom sets
-                for index in range(0,len(setManager.getSets())):
+                for aKey in keys:
                     #get the set
-                    aSet = setManager.getSet(index)
-                    utils.log(str(aSet))
+                    aSet = selectedDirs[aKey]
+                    
                     #get file listing and append
-                    allFiles.append(self._addBackupDir(aSet['name'],xbmc.translatePath(aSet['set']['root']),aSet['set']['dirs']))
+                    allFiles.append(self._addBackupDir(aKey,xbmc.translatePath(aSet['root']),aSet['dirs']))
                 
             #create a validation file for backup rotation
             writeCheck = self._createValidationFile(allFiles)

@@ -317,7 +317,7 @@ class XbmcBackup:
                     return
 
             restoreSets = [n['name'] for n in valFile['directories']]
-            selectedSets = xbmcgui.Dialog().multiselect('Choose Sets to Restore',restoreSets)
+            selectedSets = xbmcgui.Dialog().multiselect(utils.getString(30131),restoreSets)
 
 
             if(selectedSets != None):

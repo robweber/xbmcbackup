@@ -40,7 +40,6 @@ class XbmcBackup:
     filesLeft = 0
     filesTotal = 1
 
-    fileManager = None
     restore_point = None
     skip_advanced = False   #if we should check for the existance of advancedsettings in the restore
     
@@ -166,10 +165,10 @@ class XbmcBackup:
                 self.remote_vfs.mkdir(self.remote_vfs.root_path)
 
             utils.log(utils.getString(30051))
+            utils.log('File Selection Type: ' + str(utils.getSetting('backup_selection_type')))
             allFiles = []
-            fileManager = FileManager(self.xbmc_vfs)
 
-            if(utils.getSetting('backup_selection_type') == 0):
+            if(int(utils.getSetting('backup_selection_type')) == 0):
                 #read in a list of the directories to backup
                 selectedDirs = self._readBackupConfig(utils.addon_dir() + "/resources/data/default_files.json")
                 
@@ -222,6 +221,8 @@ class XbmcBackup:
             self.remote_vfs.set_root(orig_base_path)
 
             if(utils.getSetting("compress_backups") == 'true'):
+                fileManager = FileManager(self.xbmc_vfs)
+                
                 #send the zip file to the real remote vfs
                 zip_name = self.remote_vfs.root_path[:-1] + ".zip"
                 self.remote_vfs.cleanup()
@@ -315,24 +316,33 @@ class XbmcBackup:
                     xbmcgui.Dialog().ok(utils.getString(30077),utils.getString(30078)) 
                     return
 
-            #go through each of the directories in the backup and write them to the correct location
-            for aDir in valFile['directories']:
-                self.xbmc_vfs.set_root(aDir['path'])
-                if(self.remote_vfs.exists(self.remote_vfs.root_path + aDir['name'] + '/')):
-                    #walk the directory
-                    fileManager.walkTree(self.remote_vfs.root_path + aDir['name'] + '/')
-                    self.filesTotal = self.filesTotal + fileManager.size()
-                    allFiles.append({"source":self.remote_vfs.root_path + aDir['name'],"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()}) 
-                else:
-                    utils.log("error path not found: " + self.remote_vfs.root_path + aDir['name'])
-                    xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path + aDir['name'])
+            restoreSets = [n['name'] for n in valFile['directories']]
+            selectedSets = xbmcgui.Dialog().multiselect('Choose Sets to Restore',restoreSets)
 
-            #restore all the files
-            self.filesLeft = self.filesTotal
-            for fileGroup in allFiles:
-                self.remote_vfs.set_root(fileGroup['source'])
-                self.xbmc_vfs.set_root(fileGroup['dest'])
-                self.backupFiles(fileGroup['files'],self.remote_vfs,self.xbmc_vfs)
+
+            if(selectedSets != None):
+                #go through each of the directories in the backup and write them to the correct location
+                for index in selectedSets:
+
+                    #add this directory
+                    aDir = valFile['directories'][index]
+                
+                    self.xbmc_vfs.set_root(aDir['path'])
+                    if(self.remote_vfs.exists(self.remote_vfs.root_path + aDir['name'] + '/')):
+                        #walk the directory
+                        fileManager.walkTree(self.remote_vfs.root_path + aDir['name'] + '/')
+                        self.filesTotal = self.filesTotal + fileManager.size()
+                        allFiles.append({"source":self.remote_vfs.root_path + aDir['name'],"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()}) 
+                    else:
+                        utils.log("error path not found: " + self.remote_vfs.root_path + aDir['name'])
+                        xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path + aDir['name'])
+
+                #restore all the files
+                self.filesLeft = self.filesTotal
+                for fileGroup in allFiles:
+                    self.remote_vfs.set_root(fileGroup['source'])
+                    self.xbmc_vfs.set_root(fileGroup['dest'])
+                    self.backupFiles(fileGroup['files'],self.remote_vfs,self.xbmc_vfs)
 
             self.progressBar.updateProgress(99,"Clean up operations .....")
 
@@ -358,9 +368,9 @@ class XbmcBackup:
 
     def backupFiles(self,fileList,source,dest):
         result = True
-        
-        utils.log("Writing files to: " + dest.root_path)
+
         utils.log("Source: " + source.root_path)
+        utils.log("Desintation: " + dest.root_path)
         for aFile in fileList:
             if(not self.progressBar.checkCancel()):
                 utils.log('Writing file: ' + aFile,xbmc.LOGDEBUG)
@@ -385,6 +395,7 @@ class XbmcBackup:
         return result
 
     def _addBackupDir(self,folder_name,root_path,dirList):
+        utils.log('Backup set: ' + folder_name)
         fileManager = FileManager(self.xbmc_vfs)
   
         self.xbmc_vfs.set_root(root_path)
@@ -395,7 +406,7 @@ class XbmcBackup:
         fileManager.walk()
         #update total files
         self.filesTotal = self.filesTotal + fileManager.size()
-
+        
         return {"name":folder_name,"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()}
             
 
@@ -511,14 +522,17 @@ class FileManager:
     def __init__(self,vfs):
         self.vfs = vfs
         self.fileArray = []
+        self.exclude_dir = []
+        self.root_dirs = []
 
     def walk(self):
+        
         for aDir in self.root_dirs:
             self.addFile('-' + xbmc.translatePath(aDir['path']))
             self.walkTree(xbmc.translatePath(aDir['path']),aDir['recurse'])
 
     def walkTree(self,directory,recurse=True):
-        
+        utils.log('walking ' + directory + ', recurse: ' + str(recurse))
         if(directory[-1:] == '/' or directory[-1:] == '\\'):
             directory = directory[:-1]
        
@@ -583,7 +597,7 @@ class FileManager:
     def getFiles(self):
         result = self.fileArray
         self.fileArray = []
-        self.root_paths = []
+        self.root_dirs = []
         self.exclude_dir = []
                                   
         return result

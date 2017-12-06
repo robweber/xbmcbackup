@@ -89,9 +89,14 @@ class AdvancedBackupEditor:
             if(enterHome):
                 rootFolder = self.dialog.input(utils.getString(30116),defaultt=rootFolder)
 
+                #direcotry has to end in slash
+                if(rootFolder[:-1] != '/'):
+                    rootFolder = rootFolder + '/'
+
                 #check that this path even exists
                 if(not xbmcvfs.exists(xbmc.translatePath(rootFolder))):
                     self.dialog.ok(utils.getString(30117),utils.getString(30118),rootFolder)
+                    return None
             else:
                 #select path to start set
                 rootFolder = self.dialog.browse(type=0,heading=utils.getString(30119),shares='files',defaultt=rootFolder)

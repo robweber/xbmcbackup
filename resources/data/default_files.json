@@ -1,6 +1,6 @@
 {
 	"addons":{
-		"root":"",
+		"root":"special://home/addons",
 		"dirs":[
 			{
 				"type":"include",
@@ -10,6 +10,10 @@
 			{
 				"type":"exclude",
 				"path":"special://home/addons/packages"
+			},
+			{
+				"type":"exclude",
+				"path":"special://home/addons/temp"
 			}
 		]
 	},

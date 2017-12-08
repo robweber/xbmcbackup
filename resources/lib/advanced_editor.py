@@ -142,13 +142,14 @@ class AdvancedBackupEditor:
  
         while(exitCondition != -1):
             #load the custom paths
-            options = [utils.getString(30126)]
+            options = [xbmcgui.ListItem(utils.getString(30126),'',utils.addon_dir() + '/resources/images/plus-icon.png')]
         
-            for aPath in customPaths.getSets():
-                options.append(aPath)
+            for index in range(0,len(customPaths.getSets())):
+                aSet = customPaths.getSet(index)
+                options.append(xbmcgui.ListItem(aSet['name'],utils.getString(30121) + ': ' + aSet['set']['root'],utils.addon_dir() + '/resources/images/folder-icon.png'))
             
             #show the gui
-            exitCondition = self.dialog.select(utils.getString(30125),options)
+            exitCondition = self.dialog.select(utils.getString(30125),options,useDetails=True)
         
             if(exitCondition >= 0):
                 if(exitCondition == 0):

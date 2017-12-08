@@ -17,6 +17,11 @@ For more specific information please check out the [wiki on Github](https://gith
 * [FAQ](https://github.com/robweber/xbmcbackup/wiki/FAQ) 
 
 
+## Attributions
+
+Icon files from Open Iconic — www.useiconic.com/open
+
+
 
 
 

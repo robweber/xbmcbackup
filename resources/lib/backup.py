@@ -177,21 +177,21 @@ class XbmcBackup:
                     #if this dir enabled
                     if(utils.getSetting('backup_' + aDir) == 'true'):
                         #get a file listing and append it to the allfiles array
-                        allFiles.append(self._addBackupDir(aDir,xbmc.translatePath(selectedDirs[aDir]['root']),selectedDirs[aDir]['dirs']))
+                        allFiles.append(self._addBackupDir(aDir,selectedDirs[aDir]['root'],selectedDirs[aDir]['dirs']))
             else:
                 #advanced mode - load custom paths
                 selectedDirs = self._readBackupConfig(utils.data_dir() + "/custom_paths.json")
 
                 #get the set names
                 keys = selectedDirs.keys()
-                utils.log(str(keys))
+                
                 #go through the custom sets
                 for aKey in keys:
                     #get the set
                     aSet = selectedDirs[aKey]
                     
                     #get file listing and append
-                    allFiles.append(self._addBackupDir(aKey,xbmc.translatePath(aSet['root']),aSet['dirs']))
+                    allFiles.append(self._addBackupDir(aKey,aSet['root'],aSet['dirs']))
                 
             #create a validation file for backup rotation
             writeCheck = self._createValidationFile(allFiles)
@@ -208,7 +208,7 @@ class XbmcBackup:
             #backup all the files
             self.filesLeft = self.filesTotal
             for fileGroup in allFiles:
-                self.xbmc_vfs.set_root(fileGroup['source'])
+                self.xbmc_vfs.set_root(xbmc.translatePath(fileGroup['source']))
                 self.remote_vfs.set_root(fileGroup['dest'] + fileGroup['name'])
                 filesCopied = self.backupFiles(fileGroup['files'],self.xbmc_vfs,self.remote_vfs)
                 
@@ -316,9 +316,9 @@ class XbmcBackup:
                     xbmcgui.Dialog().ok(utils.getString(30077),utils.getString(30078)) 
                     return
 
+            #use a multiselect dialog to select sets to restore
             restoreSets = [n['name'] for n in valFile['directories']]
             selectedSets = xbmcgui.Dialog().multiselect(utils.getString(30131),restoreSets)
-
 
             if(selectedSets != None):
                 #go through each of the directories in the backup and write them to the correct location
@@ -327,7 +327,7 @@ class XbmcBackup:
                     #add this directory
                     aDir = valFile['directories'][index]
                 
-                    self.xbmc_vfs.set_root(aDir['path'])
+                    self.xbmc_vfs.set_root(xbmc.translatePath(aDir['path']))
                     if(self.remote_vfs.exists(self.remote_vfs.root_path + aDir['name'] + '/')):
                         #walk the directory
                         fileManager.walkTree(self.remote_vfs.root_path + aDir['name'] + '/')
@@ -398,7 +398,7 @@ class XbmcBackup:
         utils.log('Backup set: ' + folder_name)
         fileManager = FileManager(self.xbmc_vfs)
   
-        self.xbmc_vfs.set_root(root_path)
+        self.xbmc_vfs.set_root(xbmc.translatePath(root_path))
         for aDir in dirList:
             fileManager.addDir(aDir)
 
@@ -407,7 +407,7 @@ class XbmcBackup:
         #update total files
         self.filesTotal = self.filesTotal + fileManager.size()
         
-        return {"name":folder_name,"source":self.xbmc_vfs.root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()}
+        return {"name":folder_name,"source":root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()}
             
 
     def _createCRC(self,string):

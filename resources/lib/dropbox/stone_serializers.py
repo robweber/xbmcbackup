@@ -237,11 +237,12 @@ class StoneToPythonPrimitiveSerializer(StoneSerializerBase):
     def encode_map(self, validator, value):
         validated_value = validator.validate(value)
 
-        return {
-            self.encode_sub(validator.key_validator, key):
-                self.encode_sub(validator.value_validator, value) for
-            key, value in validated_value.items()
-        }
+        #fix for python 2.6
+        result = {}
+        for key, value in validated_value.items():
+            result[self.encode_sub(validator.key_validator,key)] = self.encode_sub(validator.value_validator, value)
+
+        return result
 
     def encode_nullable(self, validator, value):
         if value is None:

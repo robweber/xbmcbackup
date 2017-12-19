@@ -831,11 +831,12 @@ def _decode_list(
     if not isinstance(obj, list):
         raise bv.ValidationError(
             'expected list, got %s' % bv.generic_type_name(obj))
-    return [
-        _json_compat_obj_decode_helper(
-            data_type.item_validator, item, alias_validators, strict,
-            old_style, for_msgpack)
-        for item in obj]
+
+    result = []
+    for item in obj:
+        result.append(_json_compat_obj_decode_helper(data_type.item_validator, item, alias_validators, strict,old_style, for_msgpack))
+    
+    return result
 
 
 def _decode_map(
@@ -847,15 +848,12 @@ def _decode_map(
     if not isinstance(obj, dict):
         raise bv.ValidationError(
             'expected dict, got %s' % bv.generic_type_name(obj))
-    return {
-        _json_compat_obj_decode_helper(
-            data_type.key_validator, key, alias_validators, strict,
-            old_style, for_msgpack):
-        _json_compat_obj_decode_helper(
-            data_type.value_validator, value, alias_validators, strict,
-            old_style, for_msgpack)
-        for key, value in obj.items()
-    }
+
+    result = {}
+    for key, value in obj.items():
+        result[_json_compat_obj_decode_helper(data_type.key_validator, key, alias_validators, strict,old_style, for_msgpack)] = _json_compat_obj_decode_helper(data_type.value_validator, value, alias_validators, strict,old_style, for_msgpack)
+
+    return result
 
 
 def _decode_nullable(

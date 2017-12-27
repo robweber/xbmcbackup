@@ -188,7 +188,7 @@ class DropboxFileSystem(Vfs):
 
     def exists(self,aFile):
         aFile = self._fix_slashes(aFile)
-        utils.log('check exists:' + aFile)
+        
         if(self.client != None):
             #can't list root metadata
             if(aFile == ''):

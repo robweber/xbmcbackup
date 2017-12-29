@@ -119,7 +119,7 @@ class ZipFileSystem(Vfs):
         return self.zip.infolist()
 
 class DropboxFileSystem(Vfs):
-    MAX_CHUNK = 25 * 1000 * 1000 #dropbox uses 150, reduced to 25 for small mem systems
+    MAX_CHUNK = 50 * 1000 * 1000 #dropbox uses 150, reduced to 50 for small mem systems
     client = None
     APP_KEY = ''
     APP_SECRET = ''

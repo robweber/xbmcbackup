@@ -237,12 +237,11 @@ class StoneToPythonPrimitiveSerializer(StoneSerializerBase):
     def encode_map(self, validator, value):
         validated_value = validator.validate(value)
 
-        #fix for python 2.6
-        result = {}
-        for key, value in validated_value.items():
-            result[self.encode_sub(validator.key_validator,key)] = self.encode_sub(validator.value_validator, value)
-
-        return result
+        return {
+            self.encode_sub(validator.key_validator, key):
+                self.encode_sub(validator.value_validator, value) for
+            key, value in validated_value.items()
+        }
 
     def encode_nullable(self, validator, value):
         if value is None:
@@ -831,12 +830,11 @@ def _decode_list(
     if not isinstance(obj, list):
         raise bv.ValidationError(
             'expected list, got %s' % bv.generic_type_name(obj))
-
-    result = []
-    for item in obj:
-        result.append(_json_compat_obj_decode_helper(data_type.item_validator, item, alias_validators, strict,old_style, for_msgpack))
-    
-    return result
+    return [
+        _json_compat_obj_decode_helper(
+            data_type.item_validator, item, alias_validators, strict,
+            old_style, for_msgpack)
+        for item in obj]
 
 
 def _decode_map(
@@ -848,12 +846,15 @@ def _decode_map(
     if not isinstance(obj, dict):
         raise bv.ValidationError(
             'expected dict, got %s' % bv.generic_type_name(obj))
-
-    result = {}
-    for key, value in obj.items():
-        result[_json_compat_obj_decode_helper(data_type.key_validator, key, alias_validators, strict,old_style, for_msgpack)] = _json_compat_obj_decode_helper(data_type.value_validator, value, alias_validators, strict,old_style, for_msgpack)
-
-    return result
+    return {
+        _json_compat_obj_decode_helper(
+            data_type.key_validator, key, alias_validators, strict,
+            old_style, for_msgpack):
+        _json_compat_obj_decode_helper(
+            data_type.value_validator, value, alias_validators, strict,
+            old_style, for_msgpack)
+        for key, value in obj.items()
+    }
 
 
 def _decode_nullable(

@@ -27,6 +27,7 @@
 		<setting id="backup_thumbnails" type="bool" label="30034" default="true" visible="eq(-6,0)"/>
 		<setting id="backup_config" type="bool" label="30035" default="true" visible="eq(-7,0)"/>
 		<setting id="advanced_button" type="action" label="Select Files" visible="eq(-8,1)" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=advanced_editor)" />
+		<setting id="advanced_defaults" type="action" label="Copy Simple Config" visible="eq(-9,1)" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=advanced_copy_config)" />
 	</category>
 	<category id="scheduling" label="30013">
 		<setting id="enable_scheduler" type="bool" label="30060" default="false" />

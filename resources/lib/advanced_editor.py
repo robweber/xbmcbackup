@@ -174,5 +174,13 @@ class AdvancedBackupEditor:
                         if(self.dialog.yesno(heading=utils.getString(30127),line1=utils.getString(30128))):
                             #delete this path - subtract one because of "add" item
                             customPaths.deleteSet(exitCondition -1)
+
+    def copySimpleConfig(self):
+        #disclaimer in case the user hit this on accident
+        shouldContinue = self.dialog.yesno('Copy Config','This will copy the current Simple file selection to the Advanced Editor','This will erase any current Advanced Editor settings')
+
+        if(shouldContinue):
+            
+
               
 

@@ -59,3 +59,6 @@ elif(params['action'] == 'remove_auth'):
 elif(params['action'] == 'advanced_editor'):
     editor = AdvancedBackupEditor()
     editor.showMainScreen()
+elif(params['action'] == 'advanced_copy_config'):
+    editor = AdvancedBackupEditor()
+    editor.copySimpleConfig()

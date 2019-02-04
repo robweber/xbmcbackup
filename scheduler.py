@@ -8,6 +8,8 @@ import resources.lib.utils as utils
 from resources.lib.croniter import croniter
 from resources.lib.backup import XbmcBackup
 
+UPGRADE_INT = 1  #to keep track of any upgrade notifications
+
 class BackupScheduler:
     monitor = None
     enabled = "false"
@@ -52,6 +54,11 @@ class BackupScheduler:
         self.findNextRun(time.time())
         
     def start(self):
+
+        #display upgrade messages if they exist
+        if(int(utils.getSetting('upgrade_notes')) < UPGRADE_INT):
+            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30132))
+            utils.setSetting('upgrade_notes',str(UPGRADE_INT))
 
         #check if a backup should be resumed
         resumeRestore = self._resumeCheck()

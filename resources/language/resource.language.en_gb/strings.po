@@ -48,6 +48,14 @@ msgctxt "#30013"
 msgid "Scheduling"
 msgstr "Scheduling"
 
+msgctxt "#30014"
+msgid "Simple"
+msgstr "Simple"
+
+msgctxt "#30015"
+msgid "Advanced"
+msgstr "Advanced"
+
 msgctxt "#30016"
 msgid "Backup"
 msgstr "Backup"
@@ -129,11 +137,11 @@ msgid "Config Files"
 msgstr "Config Files"
 
 msgctxt "#30036"
-msgid ""
+msgid "Disclaimer"
 msgstr "Disclaimer"
 
 msgctxt "#30037"
-msgid ""
+msgid "Canceling this menu will close and save changes"
 msgstr "Canceling this menu will close and save changes"
 
 msgctxt "#30038"

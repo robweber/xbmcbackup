@@ -18,7 +18,7 @@
 		<setting id="remove_auth_button" type="action" label="30093" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=remove_auth)" visible="gt(-9,1)"/>
 	</category>
 	<category id="selection" label="30012">
-		<setting id="backup_selection_type" type="enum" lvalues="Simple|Advanced" default="0" label="File Selection Type" />
+		<setting id="backup_selection_type" type="enum" lvalues="30014|30015" default="0" label="30023" />
 		<setting id="backup_addons" type="bool" label="30030" default="true" visible="eq(-1,0)" />
 		<setting id="backup_addon_data" type="bool" label="30031" default="false" visible="eq(-2,0)"/>
 		<setting id="backup_database" type="bool" label="30032" default="true" visible="eq(-3,0)"/>

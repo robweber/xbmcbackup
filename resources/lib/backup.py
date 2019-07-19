@@ -283,7 +283,7 @@ class XbmcBackup:
                     shouldContinue = xbmcgui.Dialog().ok(utils.getString(30089),utils.getString(30090), utils.getString(30091))
                     
                 #delete the temp zip file
-                self.xbmc_vfs.rmfile(xbmc.translatePath("special://temp/" + zip_name))
+                #self.xbmc_vfs.rmfile(xbmc.translatePath("special://temp/" + zip_name))
 
             #remove old backups
             self._rotateBackups()

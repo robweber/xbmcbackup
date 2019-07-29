@@ -1,4 +1,4 @@
-import urlparse
+import sys, urlparse
 import xbmcgui
 import resources.lib.utils as utils
 from resources.lib.backup import XbmcBackup
@@ -70,7 +70,9 @@ if(mode != -1):
             if(selectedRestore != -1):
                 backup.selectRestore(restorePoints[selectedRestore][0])
                     
-        backup.run(mode)
+            backup.restore()
+        else:
+            backup.backup()
     else:
         #can't go any further
         xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045))

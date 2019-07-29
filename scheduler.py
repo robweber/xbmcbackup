@@ -68,7 +68,7 @@ class BackupScheduler:
             restore.selectRestore(self.restore_point)
             #skip the advanced settings check
             restore.skipAdvanced()
-            restore.run(XbmcBackup.Restore)
+            restore.restore()
         
         while(not xbmc.abortRequested):
             
@@ -103,9 +103,9 @@ class BackupScheduler:
         if(backup.remoteConfigured()):
             
             if(int(utils.getSetting('progress_mode')) in [0,1]):
-                backup.run(XbmcBackup.Backup,True)
+                backup.backup(True)
             else:
-                backup.run(XbmcBackup.Backup,False)
+                backup.backup(False)
             
             #check if this is a "one-off"
             if(int(utils.getSetting("schedule_interval")) == 0):

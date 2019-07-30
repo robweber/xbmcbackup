@@ -69,8 +69,11 @@ if(mode != -1):
 
             if(selectedRestore != -1):
                 backup.selectRestore(restorePoints[selectedRestore][0])
-                    
-            backup.restore()
+            
+            if('sets' in params):
+                backup.restore(selectedSets=params['sets'].split('|'))
+            else:
+                backup.restore()
         else:
             backup.backup()
     else:

@@ -213,7 +213,7 @@ class XbmcBackup:
             #close any files
             self._closeVFS()
 
-    def restore(self,progressOverride=False):
+    def restore(self,progressOverride=False,selectedSets=None):
         shouldContinue = self._setupVFS(self.Restore, progressOverride)
         
         if(shouldContinue):
@@ -288,8 +288,13 @@ class XbmcBackup:
 
             #use a multiselect dialog to select sets to restore
             restoreSets = [n['name'] for n in valFile['directories']]
-            selectedSets = xbmcgui.Dialog().multiselect(utils.getString(30131),restoreSets)
 
+            #if passed in list, skip selection
+            if(selectedSets == None):
+                selectedSets = xbmcgui.Dialog().multiselect(utils.getString(30131),restoreSets)
+            else:
+                selectedSets = [restoreSets.index(n) for n in selectedSets if n in restoreSets] #if set name not found just skip it
+                
             if(selectedSets != None):
                 #go through each of the directories in the backup and write them to the correct location
                 for index in selectedSets:

@@ -26,7 +26,6 @@ class BackupScheduler:
 
             #sleep for 2 minutes so Kodi can start and time can update correctly
             xbmc.sleep(1000 * 120)
-            utils.log("TESTING!")
             
             nr = 0
             if(xbmcvfs.exists(self.next_run_path)):

@@ -520,3 +520,7 @@ msgstr ""
 msgctxt "#30132"
 msgid "Version 1.1.4 requires you to setup your file selections again - this is a breaking change"
 msgstr ""
+
+msgctxt "#30133"
+msgid "Game Saves"
+msgstr ""

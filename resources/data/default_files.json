@@ -37,6 +37,16 @@
 			}
 		]
 	},
+	"game_saves":{
+			"root":"special://home/userdata/Savestates",
+			"dirs":[
+			{
+				"type":"include",
+				"path":"special://home/userdata/Savestates",
+				"recurse":true
+			}
+		]
+	},
 	"playlists":{
 			"root":"special://home/userdata/playlists",
 			"dirs":[

@@ -25,7 +25,7 @@ class XbmcBackup:
     Restore = 1
 
     #list of dirs for the "simple" file selection
-    simple_directory_list = ['addons','addon_data','database','playlists','profiles','thumbnails','config']
+    simple_directory_list = ['addons','addon_data','database','game_saves','playlists','profiles','thumbnails','config']
 
     #file systems
     xbmc_vfs = None

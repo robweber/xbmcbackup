@@ -105,7 +105,7 @@ class XbmcBackup:
                 result.append((aFile ,folderName))
                 
 
-        result.sort(key=folderSort)
+        result.sort(key=folderSort,reverse=True)
         
         return result
 

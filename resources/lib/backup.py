@@ -81,12 +81,7 @@ class XbmcBackup:
         for aDir in dirs:
             if(self.remote_vfs.exists(self.remote_base_path + aDir + "/xbmcbackup.val")):
 
-                #folder may or may not contain time, older versions didn't include this
-                folderName = ''
-                if(len(aDir) > 8):
-                    folderName = aDir[6:8] + '-' + aDir[4:6] + '-' + aDir[0:4] + " " + aDir[8:10] + ":" + aDir[10:12]
-                else:
-                    folderName = aDir[6:8] + '-' + aDir[4:6] + '-' + aDir[0:4]
+                folderName = aDir[6:8] + '-' + aDir[4:6] + '-' + aDir[0:4] + " " + aDir[8:10] + ":" + aDir[10:12]
 
                 result.append((aDir,folderName))
 
@@ -94,13 +89,9 @@ class XbmcBackup:
             file_ext = aFile.split('.')[-1]
             folderName = utils.encode(aFile.split('.')[0])
             
-            if(file_ext == 'zip' and (len(folderName) == 12 or len(folderName) == 8) and str.isdigit(folderName)):
+            if(file_ext == 'zip' and len(folderName) == 12 and str.isdigit(folderName)):
                 
-                #folder may or may not contain time, older versions didn't include this
-                if(len(aFile ) > 8):
-                    folderName = aFile [6:8] + '-' + aFile [4:6] + '-' + aFile [0:4] + " " + aFile [8:10] + ":" + aFile [10:12]
-                else:
-                    folderName = aFile [6:8] + '-' + aFile [4:6] + '-' + aFile [0:4]
+                folderName = aFile [6:8] + '-' + aFile [4:6] + '-' + aFile [0:4] + " " + aFile [8:10] + ":" + aFile [10:12]
 
                 result.append((aFile ,folderName))
                 

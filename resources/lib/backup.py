@@ -5,6 +5,7 @@ import utils as utils
 import time
 import json
 import re
+from datetime import datetime
 from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
 from progressbar import BackupProgressBar
 from resources.lib.guisettings import GuiSettingsManager
@@ -72,7 +73,8 @@ class XbmcBackup:
 
         return result
 
-    def listBackups(self):
+    #reverse - should reverse the resulting, default is true - newest to oldest
+    def listBackups(self,reverse=True):
         result = []
 
         #get all the folders in the current root path
@@ -80,8 +82,9 @@ class XbmcBackup:
     
         for aDir in dirs:
             if(self.remote_vfs.exists(self.remote_base_path + aDir + "/xbmcbackup.val")):
-
-                folderName = aDir[6:8] + '-' + aDir[4:6] + '-' + aDir[0:4] + " " + aDir[8:10] + ":" + aDir[10:12]
+                
+                #format the name according to regional settings
+                folderName = self._dateFormat(aDir)
 
                 result.append((aDir,folderName))
 
@@ -91,12 +94,13 @@ class XbmcBackup:
             
             if(file_ext == 'zip' and len(folderName) == 12 and str.isdigit(folderName)):
                 
-                folderName = aFile [6:8] + '-' + aFile [4:6] + '-' + aFile [0:4] + " " + aFile [8:10] + ":" + aFile [10:12]
+                #format the name according to regional settings
+                folderName = self._dateFormat(folderName)
 
                 result.append((aFile ,folderName))
                 
 
-        result.sort(key=folderSort,reverse=True)
+        result.sort(key=folderSort,reverse=reverse)
         
         return result
 
@@ -436,6 +440,15 @@ class XbmcBackup:
         
         return '%08x' % crc
 
+    def _dateFormat(self,dirName):
+        #create date_time object from foldername YYYYMMDDHHmm
+        date_time = datetime(int(dirName[0:4]),int(dirName[4:6]),int(dirName[6:8]),int(dirName[8:10]),int(dirName[10:12]))
+        
+        #format the string based on region settings
+        result = "%s %s" % (date_time.strftime(xbmc.getRegion('dateshort')),date_time.strftime(xbmc.getRegion('time')))
+        
+        return result
+
     def _updateProgress(self,message=None):
         self.filesLeft = self.filesLeft - 1
         self.progressBar.updateProgress(int((float(self.filesTotal - self.filesLeft)/float(self.filesTotal)) * 100),message)
@@ -445,7 +458,7 @@ class XbmcBackup:
         
         if(total_backups > 0):
             #get a list of valid backup folders
-            dirs = self.listBackups()
+            dirs = self.listBackups(reverse=False)
             
             if(len(dirs) > total_backups):
                 #remove backups to equal total wanted

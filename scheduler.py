@@ -3,7 +3,6 @@ import xbmcvfs
 import xbmcgui
 import datetime
 import time
-import os
 import resources.lib.utils as utils
 from resources.lib.croniter import croniter
 from resources.lib.backup import XbmcBackup
@@ -66,7 +65,7 @@ class BackupScheduler:
             restore.skipAdvanced()
             restore.run(XbmcBackup.Restore)
         
-        while(not xbmc.abortRequested):
+        while(not self.monitor.abortRequested()):
             
             if(self.enabled == "true"):
                 #scheduler is still on

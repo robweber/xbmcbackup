@@ -422,23 +422,6 @@ class XbmcBackup:
         self.filesTotal = self.filesTotal + fileManager.size()
         
         return {"name":folder_name,"source":root_path,"dest":self.remote_vfs.root_path,"files":fileManager.getFiles()}
-            
-
-    def _createCRC(self,string):
-        #create hash from string
-        string = string.lower()        
-        bytes = bytearray(string.encode())
-        crc = 0xffffffff;
-        for b in bytes:
-            crc = crc ^ (b << 24)          
-            for i in range(8):
-                if (crc & 0x80000000 ):                 
-                    crc = (crc << 1) ^ 0x04C11DB7                
-                else:
-                    crc = crc << 1;                        
-                    crc = crc & 0xFFFFFFFF
-        
-        return '%08x' % crc
 
     def _dateFormat(self,dirName):
         #create date_time object from foldername YYYYMMDDHHmm

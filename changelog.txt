@@ -2,6 +2,7 @@ Version 1.1.3
 
 added file chunk support for dropbox uploads
 fixed settings duplicate ids, thanks aster-anto
+added scheduler delay to assist with time sync (rpi mostly)
 
 Version 1.1.2
 

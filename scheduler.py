@@ -3,7 +3,6 @@ import xbmcvfs
 import xbmcgui
 import datetime
 import time
-import os
 import resources.lib.utils as utils
 from resources.lib.croniter import croniter
 from resources.lib.backup import XbmcBackup
@@ -26,7 +25,7 @@ class BackupScheduler:
 
             #sleep for 2 minutes so Kodi can start and time can update correctly
             xbmc.Monitor().waitForAbort(120)
-            
+
             nr = 0
             if(xbmcvfs.exists(self.next_run_path)):
 
@@ -73,7 +72,7 @@ class BackupScheduler:
             restore.skipAdvanced()
             restore.restore()
         
-        while(not xbmc.abortRequested):
+        while(not self.monitor.abortRequested()):
             
             if(self.enabled == "true"):
                 #scheduler is still on

@@ -89,7 +89,11 @@
     <source>https://github.com/robweber/xbmcbackup</source>
     <email></email>
     <assets>
-    		<icon>resources/media/icon.png</icon>
+    	<icon>resources/images/icon.png</icon>
+		<screenshot>resources/images/screenshot1.png</screenshot>
+		<screenshot>resources/images/screenshot2.png</screenshot>
+		<screenshot>resources/images/screenshot3.png</screenshot>
+		<screenshot>resources/images/screenshot4.png</screenshot>
     </assets>
     <news>Version 1.1.4
 - added file chunk support for dropbox uploads

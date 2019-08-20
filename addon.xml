@@ -87,10 +87,6 @@
     <license>The MIT License</license>
     <forum>https://forum.kodi.tv/showthread.php?tid=129499</forum>
     <source>https://github.com/robweber/xbmcbackup</source>
-    <email></email>
-    <assets>
-    		<icon>resources/media/icon.png</icon>
-    </assets>
     <news>Version 1.1.4
 - added file chunk support for dropbox uploads
 - fixed settings duplicate ids, thanks aster-anto

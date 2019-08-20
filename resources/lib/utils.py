@@ -29,6 +29,14 @@ def setSetting(name,value):
 def getString(string_id):
     return __Addon.getLocalizedString(string_id)
 
+def getRegionalTimestamp(date_time,dateformat=['dateshort']):
+    result = ''
+    
+    for aFormat in dateformat:
+        result = result + ("%s " % date_time.strftime(xbmc.getRegion(aFormat)))
+        
+    return result.strip()
+
 def encode(string):
     result = ''
 

@@ -428,7 +428,7 @@ class XbmcBackup:
         date_time = datetime(int(dirName[0:4]),int(dirName[4:6]),int(dirName[6:8]),int(dirName[8:10]),int(dirName[10:12]))
         
         #format the string based on region settings
-        result = "%s %s" % (date_time.strftime(xbmc.getRegion('dateshort')),date_time.strftime(xbmc.getRegion('time')))
+        result = utils.getRegionalTimestamp(date_time, ['dateshort','time'])
         
         return result
 

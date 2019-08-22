@@ -529,10 +529,29 @@ msgctxt "#30134"
 msgid "Include"
 msgstr ""
 
-msgctxt "#30135"
 msgid "Add Include Folder"
 msgstr ""
 
 msgctxt "#30136"
 msgid "Path must be within root folder"
+msgstr ""
+
+msgctxt "#30137"
+msgid "This path is part of a rule already"
+msgstr ""
+
+msgctxt "#30138"
+msgid "Set Name exists already"
+msgstr ""
+
+msgctxt "#30139"
+msgid "Copy Simple Config"
+msgstr ""
+
+msgctxt "#30140"
+msgid "This will copy the default Simple file selection to the Advanced Editor"
+msgstr ""
+
+msgctxt "#30141"
+msgid "This will erase any current Advanced Editor settings"
 msgstr ""

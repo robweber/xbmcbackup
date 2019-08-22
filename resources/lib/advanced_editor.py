@@ -207,7 +207,7 @@ class AdvancedBackupEditor:
 
     def copySimpleConfig(self):
         #disclaimer in case the user hit this on accident
-        shouldContinue = self.dialog.yesno('Copy Config','This will copy the default Simple file selection to the Advanced Editor','This will erase any current Advanced Editor settings')
+        shouldContinue = self.dialog.yesno(utils.getString(30139),utils.getString(30140),utils.getString(30141))
 
         if(shouldContinue):
             source = xbmc.translatePath(utils.addon_dir() + "/resources/data/default_files.json")

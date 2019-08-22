@@ -49,6 +49,9 @@ class BackupSetManager:
         #return the set at this index
         return {'name':keys[index],'set':self.paths[keys[index]]}
 
+    def validateSetName(self,name):
+        return (name not in self.getSets())
+
     def _writeFile(self):
         #create the custom file
         aFile = xbmcvfs.File(self.jsonFile,'w')
@@ -131,12 +134,17 @@ class AdvancedBackupEditor:
                 addFolder = self.dialog.browse(type=0,heading=utils.getString(30120),shares='files',defaultt=backupSet['root'])
                 
                 if(addFolder.startswith(rootPath)):
-                    #cannot add root as an exclusion
-                    if(optionSelected == 0 and addFolder != backupSet['root']):
-                        backupSet['dirs'].append({"path":addFolder,"type":"exclude"})
-                    elif(optionSelected == 1):
-                        #can add root as inclusion
-                        backupSet['dirs'].append({"path":addFolder,"type":"include","recurse":True})
+                    
+                    if(not any(addFolder == aDir['path'] for aDir in backupSet['dirs'])):
+                        #cannot add root as an exclusion
+                        if(optionSelected == 0 and addFolder != backupSet['root']):
+                            backupSet['dirs'].append({"path":addFolder,"type":"exclude"})
+                        elif(optionSelected == 1):
+                            #can add root as inclusion
+                            backupSet['dirs'].append({"path":addFolder,"type":"include","recurse":True})
+                    else:
+                        #this path is already part of another include/exclude rule
+                        self.dialog.ok(utils.getString(30117),utils.getString(30137),addFolder)
                 else:
                     #folder must be under root folder
                     self.dialog.ok(utils.getString(30117), utils.getString(30136),rootPath)
@@ -173,7 +181,11 @@ class AdvancedBackupEditor:
                 if(exitCondition == 0):
                     newSet = self.createSet()
 
-                    customPaths.addSet(newSet)
+                    #check that the name is unique
+                    if(customPaths.validateSetName(newSet['name'])):
+                        customPaths.addSet(newSet)
+                    else:
+                        self.dialog.ok(utils.getString(30117), utils.getString(30138),newSet['name'])
                 else:
                     #bring up a context menu
                     menuOption = self.dialog.select(heading=utils.getString(30124),list=[utils.getString(30122),utils.getString(30123)],preselect=0)

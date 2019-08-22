@@ -109,26 +109,34 @@ class AdvancedBackupEditor:
         optionSelected = ''
     
         while(optionSelected != -1):
-            options = [utils.getString(30120),utils.getString(30121) + ": " + backupSet['root']]
+            options = [utils.getString(30120),utils.getString(30135),utils.getString(30121) + ": " + backupSet['root']]
 
             for aDir in backupSet['dirs']:
                 if(aDir['type'] == 'exclude'):
                     options.append(utils.getString(30129) + ': ' + aDir['path'])
+                elif(aDir['type'] == 'include'):
+                    options.append(utils.getString(30134) + ': ' + aDir['path'])
 
             optionSelected = self.dialog.select(utils.getString(30122) + ' ' +  name,options)
 
-            if(optionSelected == 0):
-                #add an exclusion
-                excludeFolder = self.dialog.browse(type=0,heading=utils.getString(30120),shares='files',defaultt=backupSet['root'])
-
-                #will equal root if cancel is hit
-                if(excludeFolder != backupSet['root']):
-                    backupSet['dirs'].append({"path":excludeFolder,"type":"exclude"})
-            elif(optionSelected == 1):
+            if(optionSelected == 0 or optionSelected == 1):
+                #add a folder, will equal root if cancel is hit
+                addFolder = self.dialog.browse(type=0,heading=utils.getString(30120),shares='files',defaultt=backupSet['root'])
+                
+                #cannot add root as an exclusion
+                if(optionSelected == 0 and addFolder != backupSet['root']):
+                    backupSet['dirs'].append({"path":addFolder,"type":"exclude"})
+                elif(optionSelected == 1):
+                    #can add root as inclusion
+                    backupSet['dirs'].append({"path":addFolder,"type":"include","recurse":True})
+                        
+            elif(optionSelected == 2):
                 self.dialog.ok(utils.getString(30121),utils.getString(30130),backupSet['root'])
-            elif(optionSelected > 1):
-                #remove exclusion folder
-                del backupSet['dirs'][optionSelected - 2]
+            elif(optionSelected > 2):
+                
+                if(self.dialog.yesno(heading=utils.getString(30123),line1=utils.getString(30128))):
+                    #remove folder
+                    del backupSet['dirs'][optionSelected - 3]
 
         return backupSet
     
@@ -161,9 +169,6 @@ class AdvancedBackupEditor:
                     menuOption = self.dialog.select(heading=utils.getString(30124),list=[utils.getString(30122),utils.getString(30123)],preselect=0)
 
                     if(menuOption == 0):
-                        #get the set
-                        aSet = customPaths.getSet(exitCondition -1)
-
                         #edit the set
                         updatedSet = self.editSet(aSet['name'],aSet['set'])
 

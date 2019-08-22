@@ -470,7 +470,7 @@ msgid "Select root"
 msgstr ""
 
 msgctxt "#30120"
-msgid "Add Exclusion"
+msgid "Add Exclude Folder"
 msgstr ""
 
 msgctxt "#30121"
@@ -523,4 +523,12 @@ msgstr ""
 
 msgctxt "#30133"
 msgid "Game Saves"
+msgstr ""
+
+msgctxt "#30134"
+msgid "Include"
+msgstr ""
+
+msgctxt "#30135"
+msgid "Add Include Folder"
 msgstr ""

@@ -75,6 +75,9 @@ class AdvancedBackupEditor:
     def __init__(self):
         self.dialog = xbmcgui.Dialog()
 
+    def _cleanPath(self,root,path):
+        return path[len(root)-1:]
+
     def createSet(self):
         backupSet = None
     
@@ -107,15 +110,16 @@ class AdvancedBackupEditor:
 
     def editSet(self,name,backupSet):
         optionSelected = ''
-    
+        rootPath = backupSet['root']
+        utils.log(rootPath)
         while(optionSelected != -1):
-            options = [utils.getString(30120),utils.getString(30135),utils.getString(30121) + ": " + backupSet['root']]
+            options = [utils.getString(30120),utils.getString(30135),utils.getString(30121) + ": " + rootPath]
 
             for aDir in backupSet['dirs']:
                 if(aDir['type'] == 'exclude'):
-                    options.append(utils.getString(30129) + ': ' + aDir['path'])
+                    options.append(utils.getString(30129) + ': ' + self._cleanPath(rootPath,aDir['path']))
                 elif(aDir['type'] == 'include'):
-                    options.append(utils.getString(30134) + ': ' + aDir['path'])
+                    options.append(utils.getString(30134) + ': ' + self._cleanPath(rootPath,aDir['path']))
 
             optionSelected = self.dialog.select(utils.getString(30122) + ' ' +  name,options)
 
@@ -169,6 +173,9 @@ class AdvancedBackupEditor:
                     menuOption = self.dialog.select(heading=utils.getString(30124),list=[utils.getString(30122),utils.getString(30123)],preselect=0)
 
                     if(menuOption == 0):
+                        #get the set
+                        aSet = customPaths.getSet(exitCondition -1)
+                        
                         #edit the set
                         updatedSet = self.editSet(aSet['name'],aSet['set'])
 

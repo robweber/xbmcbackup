@@ -78,6 +78,9 @@ class AdvancedBackupEditor:
     def _cleanPath(self,root,path):
         return path[len(root)-1:]
 
+    def _validatePath(self,root,path):
+        return path.startswith(root)
+
     def createSet(self):
         backupSet = None
     
@@ -127,13 +130,16 @@ class AdvancedBackupEditor:
                 #add a folder, will equal root if cancel is hit
                 addFolder = self.dialog.browse(type=0,heading=utils.getString(30120),shares='files',defaultt=backupSet['root'])
                 
-                #cannot add root as an exclusion
-                if(optionSelected == 0 and addFolder != backupSet['root']):
-                    backupSet['dirs'].append({"path":addFolder,"type":"exclude"})
-                elif(optionSelected == 1):
-                    #can add root as inclusion
-                    backupSet['dirs'].append({"path":addFolder,"type":"include","recurse":True})
-                        
+                if(addFolder.startswith(rootPath)):
+                    #cannot add root as an exclusion
+                    if(optionSelected == 0 and addFolder != backupSet['root']):
+                        backupSet['dirs'].append({"path":addFolder,"type":"exclude"})
+                    elif(optionSelected == 1):
+                        #can add root as inclusion
+                        backupSet['dirs'].append({"path":addFolder,"type":"include","recurse":True})
+                else:
+                    #folder must be under root folder
+                    self.dialog.ok(utils.getString(30117), utils.getString(30136),rootPath)
             elif(optionSelected == 2):
                 self.dialog.ok(utils.getString(30121),utils.getString(30130),backupSet['root'])
             elif(optionSelected > 2):

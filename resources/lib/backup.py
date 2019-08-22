@@ -10,6 +10,7 @@ from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesy
 from progressbar import BackupProgressBar
 from resources.lib.guisettings import GuiSettingsManager
 from resources.lib.extractor import ZipExtractor
+from __builtin__ import file
 
 def folderSort(aKey):
     result = aKey[0]
@@ -560,10 +561,7 @@ class FileManager:
                     file_ext = aDir.split('.')[-1]
 
                     #check if directory is excluded
-                    regex = re.compile(".*(" + aDir + ").*")
-                    excludedCheck = [m.group(0) for l in self.exclude_dir for m in [regex.search(l)] if m]
-                    
-                    if(len(excludedCheck) == 0):
+                    if(not any(dirPath.startswith(exDir) for exDir in self.exclude_dir)):
                     
                         self.addFile("-" + dirPath)
 
@@ -603,7 +601,11 @@ class FileManager:
             filename = filename.decode('UTF-8')
         except UnicodeDecodeError:
             filename = filename.decode('ISO-8859-2')
-            
+        
+        #remove trailing slash
+        if(filename[-1] == '/' or filename[-1] == '\\'):
+            filename = filename[:-1]
+        
         #write the full remote path name of this file
         utils.log("Exclude File: " + filename)
         self.exclude_dir.append(filename)

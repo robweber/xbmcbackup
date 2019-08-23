@@ -188,7 +188,7 @@ class AdvancedBackupEditor:
                         self.dialog.ok(utils.getString(30117), utils.getString(30138),newSet['name'])
                 else:
                     #bring up a context menu
-                    menuOption = self.dialog.select(heading=utils.getString(30124),list=[utils.getString(30122),utils.getString(30123)],preselect=0)
+                    menuOption = self.dialog.contextmenu([utils.getString(30122),utils.getString(30123)])
 
                     if(menuOption == 0):
                         #get the set

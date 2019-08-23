@@ -119,15 +119,15 @@ class AdvancedBackupEditor:
         rootPath = backupSet['root']
         utils.log(rootPath)
         while(optionSelected != -1):
-            options = [utils.getString(30120),utils.getString(30135),utils.getString(30121) + ": " + rootPath]
+            options = [xbmcgui.ListItem(utils.getString(30120),"Exclude a specific folder from this backup set"),xbmcgui.ListItem(utils.getString(30135),"Include a specific folder to this backup set"),xbmcgui.ListItem(rootPath,utils.getString(30121))]
 
             for aDir in backupSet['dirs']:
                 if(aDir['type'] == 'exclude'):
-                    options.append(utils.getString(30129) + ': ' + self._cleanPath(rootPath,aDir['path']))
+                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath,aDir['path']),"%s: %s" % ("Type",utils.getString(30129))))
                 elif(aDir['type'] == 'include'):
-                    options.append(utils.getString(30134) + ': ' + self._cleanPath(rootPath,aDir['path']))
+                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath,aDir['path']),"%s: %s | %s: %s" % ("Type",utils.getString(30134),"Recursive",str(aDir['recurse']))))
 
-            optionSelected = self.dialog.select(utils.getString(30122) + ' ' +  name,options)
+            optionSelected = self.dialog.select(utils.getString(30122) + ' ' +  name,options,useDetails=True)
 
             if(optionSelected == 0 or optionSelected == 1):
                 #add a folder, will equal root if cancel is hit

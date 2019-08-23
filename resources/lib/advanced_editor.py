@@ -125,7 +125,7 @@ class AdvancedBackupEditor:
                 if(aDir['type'] == 'exclude'):
                     options.append(xbmcgui.ListItem(self._cleanPath(rootPath,aDir['path']),"%s: %s" % ("Type",utils.getString(30129))))
                 elif(aDir['type'] == 'include'):
-                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath,aDir['path']),"%s: %s | %s: %s" % ("Type",utils.getString(30134),"Recursive",str(aDir['recurse']))))
+                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath,aDir['path']),"%s: %s | %s: %s" % ("Type",utils.getString(30134),"Include Sub Folders",str(aDir['recurse']))))
 
             optionSelected = self.dialog.select(utils.getString(30122) + ' ' +  name,options,useDetails=True)
 
@@ -152,9 +152,19 @@ class AdvancedBackupEditor:
                 self.dialog.ok(utils.getString(30121),utils.getString(30130),backupSet['root'])
             elif(optionSelected > 2):
                 
-                if(self.dialog.yesno(heading=utils.getString(30123),line1=utils.getString(30128))):
-                    #remove folder
-                    del backupSet['dirs'][optionSelected - 3]
+                cOptions = ['Delete']
+                if(backupSet['dirs'][optionSelected - 3]['type'] == 'include'):
+                    cOptions.append('Toggle Sub Folders')
+                    
+                contextOption = self.dialog.contextmenu(cOptions)
+                
+                if(contextOption == 0):
+                    if(self.dialog.yesno(heading=utils.getString(30123),line1=utils.getString(30128))):
+                        #remove folder
+                        del backupSet['dirs'][optionSelected - 3]
+                elif(contextOption == 1 and backupSet['dirs'][optionSelected - 3]['type'] == 'include'):
+                    #toggle if this folder should be recursive
+                    backupSet['dirs'][optionSelected - 3]['recurse'] = not backupSet['dirs'][optionSelected - 3]['recurse']
 
         return backupSet
     

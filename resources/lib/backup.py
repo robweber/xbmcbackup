@@ -386,6 +386,11 @@ class XbmcBackup:
 
         utils.log("Source: " + source.root_path)
         utils.log("Desintation: " + dest.root_path)
+        
+        #make sure the dest folder exists - can cause write errors if the full path doesn't exist
+        if(not dest.exists(dest.root_path)):
+            dest.mkdir(dest.root_path)
+        
         for aFile in fileList:
             if(not self.progressBar.checkCancel()):
                 utils.log('Writing file: ' + aFile,xbmc.LOGDEBUG)

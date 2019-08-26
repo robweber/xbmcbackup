@@ -129,14 +129,6 @@ msgctxt "#30035"
 msgid "Config Files"
 msgstr "Config Files"
 
-msgctxt "#30036"
-msgid "Custom Directory 1"
-msgstr "Custom Directory 1"
-
-msgctxt "#30037"
-msgid "Custom Directory 2"
-msgstr "Custom Directory 2"
-
 msgctxt "#30038"
 msgid "Advanced Settings Detected"
 msgstr "Advanced Settings Detected"

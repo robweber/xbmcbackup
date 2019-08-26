@@ -422,13 +422,10 @@ class Map(Composite):
     def validate(self, val):
         if not isinstance(val, dict):
             raise ValidationError('%r is not a valid dict' % val)
-
-        #fix for python 2.6
-        result = {}
-        for key, value in val.items():
-            result[self.key_validator.validate(key)] = self.value_validator.validate(value)
-        
-        return result
+        return {
+            self.key_validator.validate(key):
+                self.value_validator.validate(value) for key, value in val.items()
+        }
 
 
 class Struct(Composite):

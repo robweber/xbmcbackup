@@ -1,5 +1,5 @@
-import urlparse
-import xbmcgui
+import sys, urlparse
+import xbmc, xbmcgui
 import resources.lib.utils as utils
 from resources.lib.backup import XbmcBackup
 
@@ -28,8 +28,15 @@ if("mode" in params):
 
 #if mode wasn't passed in as arg, get from user
 if(mode == -1):
+    #by default, Backup,Restore,Open Settings
+    options = [utils.getString(30016),utils.getString(30017),utils.getString(30099)]
+    
+    #find out if we're using the advanced editor
+    if(int(utils.getSetting('backup_selection_type')) == 1):
+        options.append(utils.getString(30125))
+
     #figure out if this is a backup or a restore from the user
-    mode = xbmcgui.Dialog().select(utils.getString(30010) + " - " + utils.getString(30023),[utils.getString(30016),utils.getString(30017),utils.getString(30099)])
+    mode = xbmcgui.Dialog().select(utils.getString(30010) + " - " + utils.getString(30023),options)
 
 #check if program should be run
 if(mode != -1):
@@ -39,7 +46,9 @@ if(mode != -1):
     if(mode == 2):
         #open the settings dialog
         utils.openSettings()
-
+    elif(mode == 3 and int(utils.getSetting('backup_selection_type')) == 1):
+        #open the advanced editor
+        xbmc.executebuiltin('RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=advanced_editor)')
     elif(backup.remoteConfigured()):
 
         if(mode == backup.Restore):
@@ -69,8 +78,13 @@ if(mode != -1):
 
             if(selectedRestore != -1):
                 backup.selectRestore(restorePoints[selectedRestore][0])
-                    
-        backup.run(mode)
+            
+            if('sets' in params):
+                backup.restore(selectedSets=params['sets'].split('|'))
+            else:
+                backup.restore()
+        else:
+            backup.backup()
     else:
         #can't go any further
         xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045))

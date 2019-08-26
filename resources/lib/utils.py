@@ -14,11 +14,11 @@ def addon_dir():
 def openSettings():
     __Addon.openSettings()
 
-def log(message,loglevel=xbmc.LOGNOTICE):
+def log(message,loglevel=xbmc.LOGDEBUG):
     xbmc.log(encode(__addon_id__ + "-" + __Addon.getAddonInfo('version') +  ": " + message),level=loglevel)
 
 def showNotification(message):
-    xbmcgui.Dialog().notification(encode(getString(30010)),encode(message),time=4000,icon=xbmc.translatePath(__Addon.getAddonInfo('path') + "/resources/media/icon.png"))
+    xbmcgui.Dialog().notification(encode(getString(30010)),encode(message),time=4000,icon=xbmc.translatePath(__Addon.getAddonInfo('path') + "/resources/images/icon.png"))
 
 def getSetting(name):
     return __Addon.getSetting(name)
@@ -28,6 +28,14 @@ def setSetting(name,value):
     
 def getString(string_id):
     return __Addon.getLocalizedString(string_id)
+
+def getRegionalTimestamp(date_time,dateformat=['dateshort']):
+    result = ''
+    
+    for aFormat in dateformat:
+        result = result + ("%s " % date_time.strftime(xbmc.getRegion(aFormat)))
+        
+    return result.strip()
 
 def encode(string):
     result = ''

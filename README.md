@@ -1,5 +1,7 @@
 # Backup Addon
 
+__Kodi Version Compatibility:__ Kodi 17.x (Krypton) and greater
+
 ## About
 
 I've had to recover my database, thumbnails, and source configuration enough times that I just wanted a quick easy way to back them up. That is what this addon is meant to do. 
@@ -15,6 +17,11 @@ For more specific information please check out the [wiki on Github](https://gith
 * [Scheduling](https://github.com/robweber/xbmcbackup/wiki/Scheduling)
 * [Scripting](https://github.com/robweber/xbmcbackup/wiki/Scripting)
 * [FAQ](https://github.com/robweber/xbmcbackup/wiki/FAQ) 
+
+
+## Attributions
+
+Icon files from Open Iconic — www.useiconic.com/open
 
 
 

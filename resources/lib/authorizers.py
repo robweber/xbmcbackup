@@ -3,9 +3,18 @@ import xbmcgui
 import xbmcvfs
 import resources.lib.tinyurl as tinyurl
 import resources.lib.utils as utils
-import dropbox
-from resources.lib.pydrive.auth import GoogleAuth
-from resources.lib.pydrive.drive import GoogleDrive
+
+#don't die on import error yet, these might not even get used
+try:
+    import dropbox
+except ImportError:
+    pass
+
+try:
+    from resources.lib.pydrive.auth import GoogleAuth
+    from resources.lib.pydrive.drive import GoogleDrive
+except ImportError:
+    pass
 
 class DropboxAuthorizer:
     APP_KEY = ""

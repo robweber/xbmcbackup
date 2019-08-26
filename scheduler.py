@@ -7,7 +7,7 @@ import resources.lib.utils as utils
 from resources.lib.croniter import croniter
 from resources.lib.backup import XbmcBackup
 
-UPGRADE_INT = 1  #to keep track of any upgrade notifications
+UPGRADE_INT = 2  #to keep track of any upgrade notifications
 
 class BackupScheduler:
     monitor = None

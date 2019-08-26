@@ -4,7 +4,7 @@
 		<setting id="compress_backups" type="bool" label="30087" default="false" />
 		<setting id="backup_rotation" type="number" label="30026" default="0" />
 		<setting id="progress_mode" type="enum" label="30022" lvalues="30082|30083|30084" default="0" />
-		<setting id="upgrade_notes" type="number" label="upgrade_notes" visible="false" default="0" />
+		<setting id="upgrade_notes" type="number" label="upgrade_notes" visible="false" default="1" />
 	</category>
 	<category id="backup_path" label="30048">
 		<setting id="remote_selection" type="enum" lvalues="30018|30019|30027|30098" default="0" label="30025"/>

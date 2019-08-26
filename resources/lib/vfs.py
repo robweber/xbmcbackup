@@ -1,16 +1,12 @@
 import utils as utils
-import tinyurl as tinyurl
 import xbmc
 import xbmcvfs
 import xbmcgui
 import zipfile
-import zlib
-import os
 import os.path
 import sys
 import dropbox
 from dropbox.files import WriteMode,CommitInfo,UploadSessionCursor
-from pydrive.drive import GoogleDrive
 from authorizers import DropboxAuthorizer,GoogleDriveAuthorizer
 
 class Vfs:
@@ -232,7 +228,7 @@ class DropboxFileSystem(Vfs):
                             self.client.files_upload_session_append_v2(f.read(self.MAX_CHUNK),upload_cursor)
                             upload_cursor.offset = f.tell()
                     
-                 #if no errors we're good!   
+                #if no errors we're good!   
                 return True
             except Exception as anError:
                 utils.log(str(anError))

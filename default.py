@@ -1,4 +1,5 @@
-import sys, urlparse
+import sys
+from future.moves.urllib.request import urlparse
 from kodi_six import xbmc, xbmcgui
 import resources.lib.utils as utils
 from resources.lib.backup import XbmcBackup

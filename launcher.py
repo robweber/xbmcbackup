@@ -1,5 +1,5 @@
 import sys
-import urlparse
+from future.moves.urllib.request import urlparse
 from kodi_six import xbmc, xbmcgui, xbmcvfs
 import resources.lib.utils as utils
 from resources.lib.authorizers import DropboxAuthorizer,GoogleDriveAuthorizer

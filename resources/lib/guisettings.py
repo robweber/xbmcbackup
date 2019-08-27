@@ -1,8 +1,8 @@
-import utils as utils
-from xml.dom import minidom
-from xml.parsers.expat import ExpatError
 import json
 import xbmc,xbmcvfs
+from . import utils as utils
+from xml.dom import minidom
+from xml.parsers.expat import ExpatError
 
 
 class GuiSettingsManager:

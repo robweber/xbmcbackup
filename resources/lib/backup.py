@@ -1,15 +1,14 @@
 import xbmc
 import xbmcgui
 import xbmcvfs
-import utils as utils
 import time
 import json
+from . import utils as utils
 from datetime import datetime
-from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
-from progressbar import BackupProgressBar
+from . vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
+from . progressbar import BackupProgressBar
 from resources.lib.guisettings import GuiSettingsManager
 from resources.lib.extractor import ZipExtractor
-from __builtin__ import file
 
 def folderSort(aKey):
     result = aKey[0]

@@ -1,13 +1,13 @@
-import utils as utils
 import xbmc
 import xbmcvfs
 import xbmcgui
 import zipfile
 import os.path
 import sys
-import dropbox
-from dropbox.files import WriteMode,CommitInfo,UploadSessionCursor
-from authorizers import DropboxAuthorizer,GoogleDriveAuthorizer
+from . import dropbox
+from . import utils as utils
+from . dropbox.files import WriteMode,CommitInfo,UploadSessionCursor
+from . authorizers import DropboxAuthorizer,GoogleDriveAuthorizer
 
 class Vfs:
     root_path = None

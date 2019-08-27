@@ -15,10 +15,10 @@ def openSettings():
     __Addon.openSettings()
 
 def log(message,loglevel=xbmc.LOGDEBUG):
-    xbmc.log(encode(__addon_id__ + "-" + __Addon.getAddonInfo('version') +  ": " + message),level=loglevel)
+    xbmc.log(__addon_id__ + "-" + __Addon.getAddonInfo('version') +  ": " + message,level=loglevel)
 
 def showNotification(message):
-    xbmcgui.Dialog().notification(encode(getString(30010)),encode(message),time=4000,icon=xbmc.translatePath(__Addon.getAddonInfo('path') + "/resources/images/icon.png"))
+    xbmcgui.Dialog().notification(getString(30010),message,time=4000,icon=xbmc.translatePath(__Addon.getAddonInfo('path') + "/resources/images/icon.png"))
 
 def getSetting(name):
     return __Addon.getSetting(name)
@@ -37,12 +37,3 @@ def getRegionalTimestamp(date_time,dateformat=['dateshort']):
         
     return result.strip()
 
-def encode(string):
-    result = ''
-
-    try:
-        result = string.encode('UTF-8','replace')
-    except UnicodeDecodeError:
-        result = 'Unicode Error'
-    
-    return result

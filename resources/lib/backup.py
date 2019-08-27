@@ -1,8 +1,6 @@
-import xbmc
-import xbmcgui
-import xbmcvfs
 import time
 import json
+from kodi_six import xbmc, xbmcgui, xbmcvfs
 from . import utils as utils
 from datetime import datetime
 from . vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem

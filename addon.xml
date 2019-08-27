@@ -4,6 +4,7 @@
   <requires>
 	<!-- jarvis -->
     <import addon="xbmc.python" version="2.26.0"/>
+    <import addon="script.module.kodi-six" version="0.1.0"/>
     <import addon="script.module.httplib2" version="0.8.0" />
     <import addon="script.module.oauth2client" version="4.1.2" />
     <import addon="script.module.uritemplate" version="0.6" />

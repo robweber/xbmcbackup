@@ -1,5 +1,5 @@
 import sys, urlparse
-import xbmc, xbmcgui
+from kodi_six import xbmc, xbmcgui
 import resources.lib.utils as utils
 from resources.lib.backup import XbmcBackup
 

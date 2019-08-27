@@ -1,9 +1,7 @@
-import xbmc
-import xbmcvfs
-import xbmcgui
 import zipfile
 import os.path
 import sys
+from kodi_six import xbmc, xbmcvfs, xbmcgui
 from . import dropbox
 from . import utils as utils
 from . dropbox.files import WriteMode,CommitInfo,UploadSessionCursor

@@ -1,6 +1,4 @@
-import xbmc
-import xbmcgui
-import xbmcaddon
+from kodi_six import xbmc, xbmcgui, xbmcaddon
 
 __addon_id__= 'script.xbmcbackup'
 __Addon = xbmcaddon.Addon(__addon_id__)

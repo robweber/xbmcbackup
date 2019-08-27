@@ -1,6 +1,4 @@
-import xbmc
-import xbmcgui
-import xbmcvfs
+from kodi_six import xbmc, xbmcgui, xbmcvfs
 import resources.lib.tinyurl as tinyurl
 import resources.lib.utils as utils
 

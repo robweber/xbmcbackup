@@ -1,4 +1,4 @@
-import xbmcgui
+from kodi_six import xbmcgui
 from . import utils as utils
 
 class BackupProgressBar:

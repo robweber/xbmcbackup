@@ -1,19 +1,21 @@
 import sys
-from future.moves.urllib.request import urlparse
 from kodi_six import xbmc, xbmcgui
 import resources.lib.utils as utils
 from resources.lib.backup import XbmcBackup
 
 def get_params():
     param = {}
-    
-    if(len(sys.argv) > 1):
+    try:
         for i in sys.argv:
             args = i
-            if(args.startswith('?')):
-                args = args[1:]
-            param.update(dict(urlparse.parse_qsl(args)))
-            
+            if('=' in args):
+                if(args.startswith('?')):
+                    args = args[1:] #legacy in case of url params
+                splitString = args.split('=')
+                param[splitString[0]] = splitString[1]
+    except:
+        pass
+
     return param
 
 #the program mode

@@ -10,4 +10,4 @@ before_script:
 
 # command to run our tests
 script:
-  - kodi-addon-checker --branch=krypton --allow-folder-id-mismatch
+  - kodi-addon-checker --branch=leia --allow-folder-id-mismatch

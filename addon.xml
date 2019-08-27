@@ -14,7 +14,7 @@
   <extension point="xbmc.python.script" library="default.py"> 
      <provides>executable</provides> 
   </extension> 
-  <extension point="xbmc.service" library="scheduler.py" start="startup" />
+  <extension point="xbmc.service" library="scheduler.py" />
   <extension point="xbmc.addon.metadata">
     <summary lang="ar_SA">إنسخ إحتياطياً قاعده بيانات إكس بى إم سى وملفات اﻹعدادات فى حاله وقوع إنهيار مع إمكانيه اﻹسترجاع</summary>
     <summary lang="be_BY">Backup and restore your Kodi database and configuration files in the event of a crash or file corruption.</summary>

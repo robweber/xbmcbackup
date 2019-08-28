@@ -1,10 +1,10 @@
-import pkg_resources
+from . import pkg_resources
 import os
 import ssl
 
 import requests
 from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.poolmanager import PoolManager
+from urllib3.poolmanager import PoolManager
 
 API_DOMAIN = os.environ.get('DROPBOX_API_DOMAIN',
     os.environ.get('DROPBOX_DOMAIN', '.dropboxapi.com'))

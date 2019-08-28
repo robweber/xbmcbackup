@@ -588,20 +588,11 @@ class FileManager:
             self.excludeFile(xbmc.translatePath(dirMeta['path']))
             
     def addFile(self,filename):
-        try:
-            filename = filename.decode('UTF-8')
-        except UnicodeDecodeError:
-            filename = filename.decode('ISO-8859-2')
-            
         #write the full remote path name of this file
-        utils.log("Add File: " + filename,xbmc.LOGDEBUG)
+        utils.log("Add File: " + filename)
         self.fileArray.append(filename)
 
     def excludeFile(self,filename):
-        try:
-            filename = filename.decode('UTF-8')
-        except UnicodeDecodeError:
-            filename = filename.decode('ISO-8859-2')
         
         #remove trailing slash
         if(filename[-1] == '/' or filename[-1] == '\\'):

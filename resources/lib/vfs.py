@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import zipfile
 import os.path
 import sys
@@ -92,7 +93,7 @@ class ZipFileSystem(Vfs):
         
         aFile = xbmcvfs.File(xbmc.translatePath(source),'r')
         
-        self.zip.writestr(utils.encode(dest),aFile.read())
+        self.zip.writestr(dest,aFile.readBytes())
         
         return True
     
@@ -140,9 +141,9 @@ class DropboxFileSystem(Vfs):
 
             for aFile in metadata.entries:
                 if(isinstance(aFile,dropbox.files.FolderMetadata)):
-                    dirs.append(utils.encode(aFile.name))
+                    dirs.append(aFile.name)
                 else:
-                    files.append(utils.encode(aFile.name))
+                    files.append(aFile.name)
 
             return [dirs,files]
         else:
@@ -304,9 +305,9 @@ class GoogleDriveFilesystem(Vfs):
        
             for aFile in fileList:
                 if(aFile['mimeType'] == self.FOLDER_TYPE):
-                    dirs.append(utils.encode(aFile['title']))
+                    dirs.append(aFile['title'])
                 else:
-                    files.append(utils.encode(aFile['title']))
+                    files.append(aFile['title'])
                 
     
         return [dirs,files]    

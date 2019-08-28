@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import time
 import json
 from kodi_six import xbmc, xbmcgui, xbmcvfs
@@ -87,7 +88,7 @@ class XbmcBackup:
 
         for aFile in files:
             file_ext = aFile.split('.')[-1]
-            folderName = utils.encode(aFile.split('.')[0])
+            folderName = aFile.split('.')[0]
             
             if(file_ext == 'zip' and len(folderName) == 12 and str.isdigit(folderName)):
                 

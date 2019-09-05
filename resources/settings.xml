@@ -7,7 +7,7 @@
 		<setting id="upgrade_notes" type="number" label="upgrade_notes" visible="false" default="1" />
 	</category>
 	<category id="backup_path" label="30048">
-		<setting id="remote_selection" type="enum" lvalues="30018|30019|30027|30098" default="0" label="30025"/>
+		<setting id="remote_selection" type="enum" lvalues="30018|30019|30027" default="0" label="30025"/>
 		<setting id="remote_path_2" type="text" label="30024" default="" visible="eq(-1,1)" />
 		<setting id="remote_path" type="folder" label="30020" visible="eq(-2,0)" />
 		<setting id="dropbox_key" type="text" label="30028" visible="eq(-3,2)" default="" />

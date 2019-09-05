@@ -8,12 +8,6 @@ try:
 except ImportError:
     pass
 
-try:
-    from resources.lib.pydrive.auth import GoogleAuth
-    from resources.lib.pydrive.drive import GoogleDrive
-except ImportError:
-    pass
-
 class DropboxAuthorizer:
     APP_KEY = ""
     APP_SECRET = ""
@@ -110,62 +104,3 @@ class DropboxAuthorizer:
     def _deleteToken(self):
         if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "tokens.txt"))):
             xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "tokens.txt"))
-
-class GoogleDriveAuthorizer:
-    CLIENT_ID = ''
-    CLIENT_SECRET = ''
-    
-    def __init__(self):
-        self.CLIENT_ID = utils.getSetting('google_drive_id')
-        self.CLIENT_SECRET = utils.getSetting('google_drive_secret')
-
-    def setup(self):
-        result = True
-        
-        if(self.CLIENT_ID == '' and self.CLIENT_SECRET == ''):
-            #we can't go any farther, need these for sure
-            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30098) + ' ' + utils.getString(30058),utils.getString(30108))
-            result = False
-
-        return result
-        
-    def isAuthorized(self):
-        return xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "google_drive.dat"))
-    
-    def authorize(self):
-        result = True
-
-        if(not self.setup()):
-            return False
-
-        #create authorization helper and load default settings
-        gauth = GoogleAuth(xbmc.validatePath(xbmc.translatePath(utils.addon_dir() + '/resources/lib/pydrive/settings.yaml')))
-        gauth.LoadClientConfigSettings()
-
-        settings = {"client_id":self.CLIENT_ID,'client_secret':self.CLIENT_SECRET}
-    
-        drive_url = gauth.GetAuthUrl(settings)
-    
-        utils.log("Google Drive Authorize URL: " + drive_url)
-
-        xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30056),utils.getString(30102),tinyurl.shorten(drive_url))
-        code = xbmcgui.Dialog().input(utils.getString(30098) + ' ' + utils.getString(30103))
-
-        gauth.Auth(code)
-        gauth.SaveCredentialsFile(xbmc.validatePath(xbmc.translatePath(utils.data_dir() + 'google_drive.dat')))
-
-        return result
-
-    def getClient(self):
-        #create authorization helper and load default settings
-        gauth = GoogleAuth(xbmc.validatePath(xbmc.translatePath(utils.addon_dir() + '/resources/lib/pydrive/settings.yaml')))
-        gauth.LoadClientConfigSettings()
-
-        gauth.LoadCredentialsFile(xbmc.validatePath(xbmc.translatePath(utils.data_dir() + 'google_drive.dat')))
-
-        result = GoogleDrive(gauth)
-
-        return result
-
-
-    

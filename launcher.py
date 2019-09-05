@@ -1,7 +1,7 @@
 import sys
 from kodi_six import xbmc, xbmcgui, xbmcvfs
 import resources.lib.utils as utils
-from resources.lib.authorizers import DropboxAuthorizer,GoogleDriveAuthorizer
+from resources.lib.authorizers import DropboxAuthorizer
 from resources.lib.advanced_editor import AdvancedBackupEditor
 
 
@@ -16,15 +16,6 @@ def authorize_cloud(cloudProvider):
             xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30027) + ' ' + utils.getString(30106))
         else:
             xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30107) + ' ' + utils.getString(30027))
-
-    #google drive
-    elif(cloudProvider == 'google_drive'):
-        authorizer = GoogleDriveAuthorizer()
-
-        if(authorizer.authorize()):
-            xbmcgui.Dialog().ok("Backup",utils.getString(30098) + ' ' + utils.getString(30106))
-        else:
-            xbmcgui.Dialog().ok("Backup",utils.getString(30107) + ' ' + utils.getString(30098))
 
 def remove_auth():
     #triggered from settings.xml - asks if user wants to delete OAuth token information

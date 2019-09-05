@@ -4,7 +4,7 @@ import json
 from kodi_six import xbmc, xbmcgui, xbmcvfs
 from . import utils as utils
 from datetime import datetime
-from . vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
+from . vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem
 from . progressbar import BackupProgressBar
 from resources.lib.guisettings import GuiSettingsManager
 from resources.lib.extractor import ZipExtractor
@@ -59,9 +59,6 @@ class XbmcBackup:
         elif(utils.getSetting('remote_selection') == '2'):
             self.remote_base_path = "/"
             self.remote_vfs = DropboxFileSystem("/")
-        elif(utils.getSetting('remote_selection') == '3'):
-            self.remote_base_path = '/Kodi Backup/'
-            self.remote_vfs = GoogleDriveFilesystem('/Kodi Backup/')
 
     def remoteConfigured(self):
         result = True
@@ -397,7 +394,7 @@ class XbmcBackup:
                 else:
                     self._updateProgress()
                     wroteFile = True
-                    if(isinstance(source,DropboxFileSystem) or isinstance(source,GoogleDriveFilesystem)):
+                    if(isinstance(source,DropboxFileSystem)):
                         #if copying from cloud storage we need the file handle, use get_file
                         wroteFile = source.get_file(aFile,dest.root_path + aFile[len(source.root_path):])
                     else:

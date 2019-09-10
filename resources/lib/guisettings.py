@@ -8,8 +8,6 @@ import xbmc,xbmcvfs
 class GuiSettingsManager:
     settingsFile = None
     doc = None
-    settings_allowed = list()
-    found_settings = list()
     
     def __init__(self,settingsFile):
         self._readFile(xbmc.translatePath(settingsFile))
@@ -19,32 +17,24 @@ class GuiSettingsManager:
         json_response = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.GetSettings","params":{"level":"advanced"}}'))
         
         settings = json_response['result']['settings']
-           
-        for aSetting in settings:
-            self.settings_allowed.append(aSetting['id'])
-            
-        #parse the existing xml file and get all the settings
-        root_nodes = self.__parseNodes(self.doc.documentElement)
+        settingsAllowed = []
         
-        for aNode in root_nodes:
-            secondary_list = self.__parseNodes(self.doc.getElementsByTagName(aNode.name)[0])
+        for aSetting in settings:
+            settingsAllowed.append(aSetting['id'])
             
-            for secondNode in secondary_list:
-                #if the node does not have children and is not default
-                if(not secondNode.hasChildren and not secondNode.isDefault):
-                    
-                    if(secondNode.json_name() in self.settings_allowed):
-                        self.found_settings.append(secondNode)
-                    
+        #parse the existing xml file and get all the settings we need to update
+        updateSettings = self.__parseNodes(self.doc.getElementsByTagName('setting'))
+        
         #go through all the found settings and update them
-        for aSetting in self.found_settings:
-            utils.log("updating: " + aSetting.json_name() + ", value: " + aSetting.value)
+        for aSetting in updateSettings:
+            if(aSetting.name in settingsAllowed):
+                utils.log("updating: " + aSetting.name + ", value: " + aSetting.value)
             
-            #check for boolean and numeric values
-            if(aSetting.value.isdigit() or (aSetting.value == 'true' or aSetting.value == 'false')):
-                xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.SetSettingValue","params":{"setting":"' + aSetting.json_name() + '","value":' + aSetting.value + '}}')
-            else:
-                xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.SetSettingValue","params":{"setting":"' + aSetting.json_name() + '","value":"' + utils.encode(aSetting.value) + '"}}')
+                #check for boolean and numeric values
+                if(aSetting.value.isdigit() or (aSetting.value == 'true' or aSetting.value == 'false')):
+                    xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.SetSettingValue","params":{"setting":"' + aSetting.name + '","value":' + aSetting.value + '}}')
+                else:
+                    xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.SetSettingValue","params":{"setting":"' + aSetting.name + '","value":"' + utils.encode(aSetting.value) + '"}}')
                 
         #make a copy of the guisettings file to make user based restores easier
         xbmcvfs.copy(self.settingsFile, xbmc.translatePath("special://home/userdata/guisettings.xml.restored"))
@@ -52,27 +42,15 @@ class GuiSettingsManager:
     def __parseNodes(self,nodeList):
         result = []
 
-        for node in nodeList.childNodes:
-            if(node.nodeType == self.doc.ELEMENT_NODE):
-                aSetting = SettingNode(node.nodeName)
+        for node in nodeList:
+            #only add if it's not a default setting
+            if('default' not in node.attributes.keys()):
+                aSetting = SettingNode(node.getAttribute('id'),node.firstChild.nodeValue)
+                aSetting.isDefault = False
 
-                #detect if there are any element nodes
-                if(len(node.childNodes) > 0):
-                    for child_node in node.childNodes:
-                        if(child_node.nodeType == self.doc.ELEMENT_NODE):
-                            aSetting.hasChildren = True
-
-                if(not aSetting.hasChildren and len(node.childNodes) > 0):
-                    aSetting.value = node.firstChild.nodeValue
-                    
-                    if('default' not in node.attributes.keys()):
-                        aSetting.isDefault = False
-                        
-                aSetting.parent = node.parentNode.nodeName
-                
                 result.append(aSetting)
+            
         return result
-    
     
     def _readFile(self,fileLoc):
         
@@ -86,14 +64,16 @@ class GuiSettingsManager:
 class SettingNode:
     name = ''
     value = ''
-    hasChildren = False
     isDefault = True
-    parent = ''
     
-    def __init__(self,name):
+    def __init__(self,name,value):
         self.name = name
+        self.value= value
         
-    def json_name(self):
-        return self.parent + "." + self.name
+    def __str__(self):
+        return "%s : %s" % (self.name,self.value)
+    
+    def __repr__(self):
+        return self.__str__()
                 
         

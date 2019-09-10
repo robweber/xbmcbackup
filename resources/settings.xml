@@ -4,7 +4,7 @@
 		<setting id="compress_backups" type="bool" label="30087" default="false" />
 		<setting id="backup_rotation" type="number" label="30026" default="0" />
 		<setting id="progress_mode" type="enum" label="30022" lvalues="30082|30083|30084" default="0" />
-		<setting id="upgrade_notes" type="number" label="upgrade_notes" visible="false" default="0" />
+		<setting id="upgrade_notes" type="number" label="upgrade_notes" visible="false" default="1" />
 	</category>
 	<category id="backup_path" label="30048">
 		<setting id="remote_selection" type="enum" lvalues="30018|30019|30027|30098" default="0" label="30025"/>
@@ -14,8 +14,8 @@
 		<setting id="dropbox_secret" type="text" label="30029" visible="eq(-4,2)" default="" />
 		<setting id="google_drive_id" type="text" label="Client ID" visible="eq(-5,3)" default="" />
 		<setting id="google_drive_secret" type="text" label="Client Secret" visible="eq(-6,3)" default="" />
-		<setting id="auth_dropbox_button" type="action" label="30104" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=authorize_cloud&provider=dropbox)" visible="eq(-7,2)"/>
-		<setting id="auth_google_button" type="action" label="30104" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=authorize_cloud&provider=google_drive)" visible="eq(-8,3)"/>
+		<setting id="auth_dropbox_button" type="action" label="30104" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=authorize_cloud,provider=dropbox)" visible="eq(-7,2)"/>
+		<setting id="auth_google_button" type="action" label="30104" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=authorize_cloud,provider=google_drive)" visible="eq(-8,3)"/>
 		<setting id="remove_auth_button" type="action" label="30093" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=remove_auth)" visible="gt(-9,1)"/>
 	</category>
 	<category id="selection" label="30012">

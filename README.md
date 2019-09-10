@@ -1,4 +1,7 @@
 # Backup Addon
+[![Build Status](https://travis-ci.org/robweber/xbmcbackup.svg?branch=master)](https://travis-ci.org/robweber/xbmcbackup)
+
+__Kodi Version Compatibility:__ Kodi 17.x (Krypton) and greater
 
 __Kodi Version Compatibility:__ Kodi 17.x (Krypton) and greater
 

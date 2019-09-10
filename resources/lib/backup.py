@@ -321,10 +321,10 @@ class XbmcBackup:
                 self.xbmc_vfs.rmfile(xbmc.translatePath("special://temp/" + self.restore_point))
                 self.xbmc_vfs.rmdir(self.remote_vfs.root_path)
 
-            if(utils.getSetting("backup_config") == "true"):
-                #update the guisettings information (or what we can from it)
-                gui_settings = GuiSettingsManager('special://home/userdata/guisettings.xml')
-                gui_settings.run()
+            
+            #update the guisettings information (or what we can from it)
+            gui_settings = GuiSettingsManager('special://home/userdata/guisettings.xml')
+            gui_settings.run()
 
             #call update addons to refresh everything
             xbmc.executebuiltin('UpdateLocalAddons')

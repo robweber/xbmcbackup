@@ -4,12 +4,12 @@ import xbmcvfs
 import utils as utils
 import time
 import json
+import os
 from datetime import datetime
 from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
 from progressbar import BackupProgressBar
 from resources.lib.guisettings import GuiSettingsManager
 from resources.lib.extractor import ZipExtractor
-from __builtin__ import file
 
 def folderSort(aKey):
     result = aKey[0]
@@ -398,13 +398,15 @@ class XbmcBackup:
                     dest.mkdir(dest.root_path + aFile[len(source.root_path) + 1:])
                 else:
                     self._updateProgress()
+                    
                     wroteFile = True
+                    destFile = dest.root_path + aFile[len(source.root_path):]
                     if(isinstance(source,DropboxFileSystem) or isinstance(source,GoogleDriveFilesystem)):
                         #if copying from cloud storage we need the file handle, use get_file
-                        wroteFile = source.get_file(aFile,dest.root_path + aFile[len(source.root_path):])
+                        wroteFile = source.get_file(aFile,destFile)
                     else:
                         #copy using normal method
-                        wroteFile = dest.put(aFile,dest.root_path + aFile[len(source.root_path):])
+                        wroteFile = dest.put(aFile,destFile)
                     
                     #if result is still true but this file failed
                     if(not wroteFile and result):
@@ -555,13 +557,13 @@ class FileManager:
         if(directory[-1:] == '/' or directory[-1:] == '\\'):
             directory = directory[:-1]
        
-        if(self.vfs.exists(directory + "/")):
+        if(self.vfs.exists(directory + os.path.sep)):
             dirs,files = self.vfs.listdir(directory)
 
             if(recurse):
                 #create all the subdirs first
                 for aDir in dirs:
-                    dirPath = xbmc.validatePath(xbmc.translatePath(directory + "/" + aDir))
+                    dirPath = xbmc.validatePath(xbmc.translatePath(directory + os.path.sep + aDir))
                     file_ext = aDir.split('.')[-1]
 
                     #check if directory is excluded
@@ -581,7 +583,7 @@ class FileManager:
             
             #copy all the files
             for aFile in files:
-                filePath = xbmc.translatePath(directory + "/" + aFile)
+                filePath = xbmc.translatePath(directory + os.path.sep + aFile)
                 self.addFile(filePath)
 
     def addDir(self,dirMeta):

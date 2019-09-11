@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.xbmcbackup"
-    name="Backup" version="1.5.1~beta1" provider-name="robweber">
+    name="Backup" version="1.6.0~beta1" provider-name="robweber">
   <requires>
     <import addon="xbmc.python" version="2.26.0"/>
     <import addon="script.module.kodi-six" version="0.1.0"/>
@@ -92,10 +92,8 @@
 		<screenshot>resources/images/screenshot3.png</screenshot>
 		<screenshot>resources/images/screenshot4.png</screenshot>
     </assets>
-    <news>Version 1.1.4
-- added file chunk support for dropbox uploads
-- fixed settings duplicate ids, thanks aster-anto
-- added scheduler delay to assist with time sync (rpi mostly)
+    <news>Version 1.5.1
+- fix guisettings restores not working - thanks Bluerayx
    	</news>
   </extension>
 </addon>

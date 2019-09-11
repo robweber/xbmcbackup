@@ -323,7 +323,7 @@ class XbmcBackup:
 
             
             #update the guisettings information (or what we can from it)
-            gui_settings = GuiSettingsManager('special://home/userdata/guisettings.xml')
+            gui_settings = GuiSettingsManager()
             gui_settings.run()
 
             #call update addons to refresh everything

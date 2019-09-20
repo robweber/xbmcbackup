@@ -10,12 +10,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
  - Updated Changelog format to the one suggested by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Version 1.5.1]
+## [Version 1.5.1] - 2019-09-10
 
 ### Changed
  - Fixed guisettings restores not working - thanks Bluerayx
 
-## [Version 1.5.0] 
+## [Version 1.5.0] - 2019-08-26
 
 ### Added
 - Added new Advanced file editor and file selection based on a .json 
@@ -23,7 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Removed
 - File backups and restores will not work with old version - breaking change with previous versions PR117
 
-## [Version 1.1.3]
+## [Version 1.1.3] - 2017-12-29
 
 ### Added
  - added file chunk support for Dropbox uploads

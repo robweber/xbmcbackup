@@ -48,6 +48,14 @@ msgctxt "#30013"
 msgid "Scheduling"
 msgstr "Scheduling"
 
+msgctxt "#30014"
+msgid "Simple"
+msgstr "Simple"
+
+msgctxt "#30015"
+msgid "Advanced"
+msgstr "Advanced"
+
 msgctxt "#30016"
 msgid "Backup"
 msgstr "Backup"
@@ -129,12 +137,12 @@ msgid "Config Files"
 msgstr "Config Files"
 
 msgctxt "#30036"
-msgid "Custom Directory 1"
-msgstr "Custom Directory 1"
+msgid "Disclaimer"
+msgstr "Disclaimer"
 
 msgctxt "#30037"
-msgid "Custom Directory 2"
-msgstr "Custom Directory 2"
+msgid "Canceling this menu will close and save changes"
+msgstr "Canceling this menu will close and save changes"
 
 msgctxt "#30038"
 msgid "Advanced Settings Detected"
@@ -420,3 +428,131 @@ msgstr "Visit https://console.developers.google.com/"
 msgctxt "#30109"
 msgid "Run on startup if missed"
 msgstr "Run on startup if missed"
+
+msgctxt "#30110"
+msgid "Set Name"
+msgstr ""
+
+msgctxt "#30111"
+msgid "Root folder selection"
+msgstr ""
+
+msgctxt "#30112"
+msgid "Browse Folder"
+msgstr ""
+
+msgctxt "#30113"
+msgid "Enter Own"
+msgstr ""
+
+msgctxt "#30114"
+msgid "starts in Kodi home"
+msgstr ""
+
+msgctxt "#30115"
+msgid "enter path to start there"
+msgstr ""
+
+msgctxt "#30116"
+msgid "Enter root path"
+msgstr ""
+
+msgctxt "#30117"
+msgid "Path Error"
+msgstr ""
+
+msgctxt "#30118"
+msgid "Path does not exist"
+msgstr ""
+
+msgctxt "#30119"
+msgid "Select root"
+msgstr ""
+
+msgctxt "#30120"
+msgid "Add Exclude Folder"
+msgstr ""
+
+msgctxt "#30121"
+msgid "Root Folder"
+msgstr ""
+
+msgctxt "#30122"
+msgid "Edit"
+msgstr ""
+
+msgctxt "#30123"
+msgid "Delete"
+msgstr ""
+
+msgctxt "#30124"
+msgid "Choose Action"
+msgstr ""
+
+msgctxt "#30125"
+msgid "Advanced Editor"
+msgstr ""
+
+msgctxt "#30126"
+msgid "Add Set"
+msgstr ""
+
+msgctxt "#30127"
+msgid "Delete Set"
+msgstr ""
+
+msgctxt "#30128"
+msgid "Are you sure you want to delete?"
+msgstr ""
+
+msgctxt "#30129"
+msgid "Exclude"
+msgstr ""
+
+msgctxt "#30130"
+msgid "The root folder cannot be changed"
+msgstr ""
+
+msgctxt "#30131"
+msgid "Choose Sets to Restore"
+msgstr ""
+
+msgctxt "#30132"
+msgid "Version 1.5.0 requires you to setup your file selections again - this is a breaking change"
+msgstr ""
+
+msgctxt "#30133"
+msgid "Game Saves"
+msgstr ""
+
+msgctxt "#30134"
+msgid "Include"
+msgstr ""
+
+msgctxt "#30135"
+msgid "Add Include Folder"
+msgstr ""
+
+msgctxt "#30136"
+msgid "Path must be within root folder"
+msgstr ""
+
+msgctxt "#30137"
+msgid "This path is part of a rule already"
+msgstr ""
+
+msgctxt "#30138"
+msgid "Set Name exists already"
+msgstr ""
+
+msgctxt "#30139"
+msgid "Copy Simple Config"
+msgstr ""
+
+msgctxt "#30140"
+msgid "This will copy the default Simple file selection to the Advanced Editor"
+msgstr ""
+
+msgctxt "#30141"
+msgid "This will erase any current Advanced Editor settings"
+msgstr ""

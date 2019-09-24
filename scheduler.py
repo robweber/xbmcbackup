@@ -1,12 +1,13 @@
 import xbmc
 import xbmcvfs
 import xbmcgui
-import datetime
+from datetime import datetime
 import time
-import os
 import resources.lib.utils as utils
 from resources.lib.croniter import croniter
 from resources.lib.backup import XbmcBackup
+
+UPGRADE_INT = 2  #to keep track of any upgrade notifications
 
 class BackupScheduler:
     monitor = None
@@ -56,6 +57,11 @@ class BackupScheduler:
         
     def start(self):
 
+        #display upgrade messages if they exist
+        if(int(utils.getSetting('upgrade_notes')) < UPGRADE_INT):
+            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30132))
+            utils.setSetting('upgrade_notes',str(UPGRADE_INT))
+
         #check if a backup should be resumed
         resumeRestore = self._resumeCheck()
 
@@ -64,9 +70,9 @@ class BackupScheduler:
             restore.selectRestore(self.restore_point)
             #skip the advanced settings check
             restore.skipAdvanced()
-            restore.run(XbmcBackup.Restore)
+            restore.restore()
         
-        while(not xbmc.abortRequested):
+        while(not self.monitor.abortRequested()):
             
             if(self.enabled == "true"):
                 #scheduler is still on
@@ -99,9 +105,9 @@ class BackupScheduler:
         if(backup.remoteConfigured()):
             
             if(int(utils.getSetting('progress_mode')) in [0,1]):
-                backup.run(XbmcBackup.Backup,True)
+                backup.backup(True)
             else:
-                backup.run(XbmcBackup.Backup,False)
+                backup.backup(False)
             
             #check if this is a "one-off"
             if(int(utils.getSetting("schedule_interval")) == 0):
@@ -117,12 +123,12 @@ class BackupScheduler:
         #find the cron expression and get the next run time
         cron_exp = self.parseSchedule()
 
-        cron_ob = croniter(cron_exp,datetime.datetime.fromtimestamp(now))
+        cron_ob = croniter(cron_exp,datetime.fromtimestamp(now))
         new_run_time = cron_ob.get_next(float)
 
         if(new_run_time != self.next_run):
             self.next_run = new_run_time
-            utils.log("scheduler will run again on " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
+            utils.log("scheduler will run again on " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run),['dateshort','time']))
 
             #write the next time to a file
             fh = xbmcvfs.File(self.next_run_path, 'w')
@@ -131,7 +137,7 @@ class BackupScheduler:
 
             #only show when not in silent mode
             if(progress_mode != 2):                        
-                utils.showNotification(utils.getString(30081) + " " + datetime.datetime.fromtimestamp(self.next_run).strftime('%m-%d-%Y %H:%M'))
+                utils.showNotification(utils.getString(30081) + " " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run),['dateshort','time']))
                 
     def settingsChanged(self):
         current_enabled = utils.getSetting("enable_scheduler")

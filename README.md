@@ -1,4 +1,7 @@
 # Backup Addon
+[![Build Status](https://travis-ci.org/robweber/xbmcbackup.svg?branch=master)](https://travis-ci.org/robweber/xbmcbackup)
+
+__Kodi Version Compatibility:__ Kodi 17.x (Krypton) and greater
 
 ## About
 
@@ -15,6 +18,11 @@ For more specific information please check out the [wiki on Github](https://gith
 * [Scheduling](https://github.com/robweber/xbmcbackup/wiki/Scheduling)
 * [Scripting](https://github.com/robweber/xbmcbackup/wiki/Scripting)
 * [FAQ](https://github.com/robweber/xbmcbackup/wiki/FAQ) 
+
+
+## Attributions
+
+Icon files from Open Iconic — www.useiconic.com/open
 
 
 

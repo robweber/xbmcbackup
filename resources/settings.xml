@@ -4,6 +4,7 @@
 		<setting id="compress_backups" type="bool" label="30087" default="false" />
 		<setting id="backup_rotation" type="number" label="30026" default="0" />
 		<setting id="progress_mode" type="enum" label="30022" lvalues="30082|30083|30084" default="0" />
+		<setting id="upgrade_notes" type="number" label="upgrade_notes" visible="false" default="1" />
 	</category>
 	<category id="backup_path" label="30048">
 		<setting id="remote_selection" type="enum" lvalues="30018|30019|30027|30098" default="0" label="30025"/>
@@ -13,22 +14,22 @@
 		<setting id="dropbox_secret" type="text" label="30029" visible="eq(-4,2)" default="" />
 		<setting id="google_drive_id" type="text" label="Client ID" visible="eq(-5,3)" default="" />
 		<setting id="google_drive_secret" type="text" label="Client Secret" visible="eq(-6,3)" default="" />
-		<setting id="auth_dropbox_button" type="action" label="30104" action="RunScript(special://home/addons/script.xbmcbackup/authorize_cloud.py,type=dropbox)" visible="eq(-7,2)"/>
-		<setting id="auth_google_button" type="action" label="30104" action="RunScript(special://home/addons/script.xbmcbackup/authorize_cloud.py,type=google_drive)" visible="eq(-8,3)"/>
-		<setting id="remove_auth_button" type="action" label="30093" action="RunScript(special://home/addons/script.xbmcbackup/remove_auth.py)" visible="gt(-9,1)"/>
+		<setting id="auth_dropbox_button" type="action" label="30104" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=authorize_cloud,provider=dropbox)" visible="eq(-7,2)"/>
+		<setting id="auth_google_button" type="action" label="30104" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=authorize_cloud,provider=google_drive)" visible="eq(-8,3)"/>
+		<setting id="remove_auth_button" type="action" label="30093" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=remove_auth)" visible="gt(-9,1)"/>
 	</category>
 	<category id="selection" label="30012">
-		<setting id="backup_addons" type="bool" label="30030" default="true" />
-		<setting id="backup_addon_data" type="bool" label="30031" default="false" />
-		<setting id="backup_database" type="bool" label="30032" default="true" />
-		<setting id="backup_playlists" type="bool" label="30033" default="true" />
-		<setting id="backup_profiles" type="bool" label="30080" default="false" />
-		<setting id="backup_thumbnails" type="bool" label="30034" default="true" />
-		<setting id="backup_config" type="bool" label="30035" default="true" />
-		<setting id="custom_dir_1_enable" type="bool" label="30036" default="false" />
-		<setting id="backup_custom_dir_1" type="folder" label="30018" default="" visible="eq(-1,true)"/>
-		<setting id="custom_dir_2_enable" type="bool" label="30037" default="false" />
-		<setting id="backup_custom_dir_2" type="folder" label="30018" default="" visible="eq(-1,true)"/>
+		<setting id="backup_selection_type" type="enum" lvalues="30014|30015" default="0" label="30023" />
+		<setting id="backup_addon_data" type="bool" label="30031" default="false" visible="eq(-1,0)"/>
+		<setting id="backup_config" type="bool" label="30035" default="true" visible="eq(-2,0)"/>
+		<setting id="backup_database" type="bool" label="30032" default="true" visible="eq(-3,0)"/>
+		<setting id="backup_game_saves" type="bool" label="30133" default="false" visible="eq(-4,0)" />
+		<setting id="backup_playlists" type="bool" label="30033" default="true" visible="eq(-5,0)"/>
+		<setting id="backup_profiles" type="bool" label="30080" default="false" visible="eq(-6,0)"/>
+		<setting id="backup_thumbnails" type="bool" label="30034" default="true" visible="eq(-7,0)"/>
+		<setting id="backup_addons" type="bool" label="30030" default="true" visible="eq(-8,0)" />
+		<setting id="advanced_button" type="action" label="30125" visible="eq(-9,1)" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=advanced_editor)" />
+		<setting id="advanced_defaults" type="action" label="30139" visible="eq(-10,1)" action="RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=advanced_copy_config)" />
 	</category>
 	<category id="scheduling" label="30013">
 		<setting id="enable_scheduler" type="bool" label="30060" default="false" />

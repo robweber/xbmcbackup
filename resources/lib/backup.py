@@ -4,7 +4,6 @@ import xbmcvfs
 import utils as utils
 import time
 import json
-import os
 from datetime import datetime
 from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
 from progressbar import BackupProgressBar

@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
-## [Version 1.5.2](https://github.com/robweber/xbmclibraryautoupdate/compare/krypton-1.5.1...robweber:krypton-1.5.2) - 2019-09-30
+## [Version 1.5.2](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.1...robweber:krypton-1.5.2) - 2019-09-30
 
 ### Added
 

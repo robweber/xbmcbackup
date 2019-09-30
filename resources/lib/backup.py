@@ -542,6 +542,7 @@ class FileManager:
     not_dir = ['.zip','.xsp','.rar']
     exclude_dir = []
     root_dirs = []
+    pathSep = '/'
     
     def __init__(self,vfs):
         self.vfs = vfs
@@ -560,13 +561,13 @@ class FileManager:
         if(directory[-1:] == '/' or directory[-1:] == '\\'):
             directory = directory[:-1]
        
-        if(self.vfs.exists(directory + os.path.sep)):
+        if(self.vfs.exists(directory + self.pathSep)):
             dirs,files = self.vfs.listdir(directory)
 
             if(recurse):
                 #create all the subdirs first
                 for aDir in dirs:
-                    dirPath = xbmc.validatePath(xbmc.translatePath(directory + os.path.sep + aDir))
+                    dirPath = xbmc.validatePath(xbmc.translatePath(directory + self.pathSep + aDir))
                     file_ext = aDir.split('.')[-1]
 
                     #check if directory is excluded
@@ -586,7 +587,7 @@ class FileManager:
             
             #copy all the files
             for aFile in files:
-                filePath = xbmc.translatePath(directory + os.path.sep + aFile)
+                filePath = xbmc.translatePath(directory + self.pathSep + aFile)
                 self.addFile(filePath)
 
     def addDir(self,dirMeta):

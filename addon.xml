@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.xbmcbackup"
-    name="Backup" version="1.5.1" provider-name="robweber">
+    name="Backup" version="1.5.2" provider-name="robweber">
   <requires>
 	<!-- jarvis -->
     <import addon="xbmc.python" version="2.25.0"/>
@@ -95,8 +95,10 @@
 		<screenshot>resources/images/screenshot3.png</screenshot>
 		<screenshot>resources/images/screenshot4.png</screenshot>
     </assets>
-    <news>Version 1.5.1
-- fix guisettings restores not working - thanks Bluerayx
+    <news>Version 1.5.2
+- Added script.module.dropbox import as a dependency for Dropbox filesystem
+- Fixed issue getting xbmcbackup.val file from non-zipped remote directories. Was being copied as though it was a local file so it was failing. 
+- Use linux path separator (/) all the time, Kodi will interpret this correctly on windows. Was causing issues with remote file systems since os.path.sep 
    	</news>
   </extension>
 </addon>

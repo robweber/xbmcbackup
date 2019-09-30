@@ -6,14 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [Version 1.5.2](https://github.com/robweber/xbmclibraryautoupdate/compare/krypton-1.5.1...robweber:krypton-1.5.2) - 2019-09-30
+
 ### Added
 
  - Updated Changelog format to the one suggested by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+ - Added script.module.dropbox import as a dependency for Dropbox filesystem
  
 ### Changed
 
  - Fixed issue getting xbmcbackup.val file from non-zipped remote directories. Was being copied as though it was a local file so it was failing. 
- - Use linux path separator (/) all the time, Kodi will interpret this correctly on windows. Was causing issues with remote file systems since os.path.sep 
+ - Use linux path separator (/) all the time, Kodi will interpret this correctly on windows. Was causing issues with remote file systems since os.path.sep
+ - Fixed minor python code style changes based on kodi-addon-checker output 
+ 
+### Removed
+
+ - files releated to dropbox library, using script.module.dropbox import now 
 
 ## Version 1.5.1 - 2019-09-10
 

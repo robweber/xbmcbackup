@@ -500,7 +500,10 @@ class XbmcBackup:
         result = None
         
         #copy the file and open it
-        self.xbmc_vfs.put(path + "xbmcbackup.val",xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
+        if(isinstance(self.remote_vfs,DropboxFileSystem) or isinstance(self.remote_vfs,GoogleDriveFilesystem)):
+            self.remote_vfs.get_file(path + "xbmcbackup.val", xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
+        else:
+            self.xbmc_vfs.put(path + "xbmcbackup.val",xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
 
         vFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"),'r')
         jsonString = vFile.read()

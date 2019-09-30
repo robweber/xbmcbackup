@@ -88,7 +88,7 @@ class XbmcBackup:
             file_ext = aFile.split('.')[-1]
             folderName = aFile.split('.')[0]
             
-            if(file_ext == 'zip' and len(folderName) == 12 and str.isdigit(folderName)):
+            if(file_ext == 'zip' and len(folderName) == 12 and folderName.isdigit()):
                 
                 #format the name according to regional settings
                 folderName = self._dateFormat(folderName)
@@ -496,7 +496,7 @@ class XbmcBackup:
         result = None
         
         #copy the file and open it
-        if(isinstance(self.remote_vfs,DropboxFileSystem) or isinstance(self.remote_vfs,GoogleDriveFilesystem)):
+        if(isinstance(self.remote_vfs,DropboxFileSystem)):
             self.remote_vfs.get_file(path + "xbmcbackup.val", xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
         else:
             self.xbmc_vfs.put(path + "xbmcbackup.val",xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))

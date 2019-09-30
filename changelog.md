@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+### Added
+
+ - use kodi-six for Kodi library imports, will make transition to python 3 easiser
+
+### Changed
+
+ - addon.xml updated to use Leia specific syntax and library imports
+ - removed specific encode() calls per Python2/3 compatibility
+ - call isdigit() method on the string directly instead of str.isdigit() (results in unicode error)
+
+### Removed
+
+ - removed need for urlparse library
+ - Removed GoogleDrive support - issues with python 3 compatibility
+
 ## [Version 1.5.2](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.1...robweber:krypton-1.5.2) - 2019-09-30
 
 ### Added

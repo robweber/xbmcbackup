@@ -3,9 +3,9 @@ import zipfile
 import os.path
 import sys
 from kodi_six import xbmc, xbmcvfs, xbmcgui
-from . import dropbox
+import dropbox
 from . import utils as utils
-from . dropbox.files import WriteMode,CommitInfo,UploadSessionCursor
+from dropbox.files import WriteMode,CommitInfo,UploadSessionCursor
 from . authorizers import DropboxAuthorizer
 
 class Vfs:

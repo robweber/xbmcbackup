@@ -6,7 +6,7 @@
     <import addon="script.module.kodi-six" version="0.1.0"/>
     <import addon="script.module.future" version="0.16.0.4"/>
     <import addon="script.module.six" version="1.11.0"/>
-	<import addon="script.module.requests" version="2.9.1" />
+	<import addon="script.module.dropbox" version="8.4.2"/>
   </requires>
   <extension point="xbmc.python.script" library="default.py"> 
      <provides>executable</provides> 
@@ -92,8 +92,10 @@
 		<screenshot>resources/images/screenshot3.png</screenshot>
 		<screenshot>resources/images/screenshot4.png</screenshot>
     </assets>
-    <news>Version 1.5.1
-- fix guisettings restores not working - thanks Bluerayx
+    <news>Version 1.5.2
+- Added script.module.dropbox import as a dependency for Dropbox filesystem
+- Fixed issue getting xbmcbackup.val file from non-zipped remote directories. Was being copied as though it was a local file so it was failing. 
+- Use linux path separator (/) all the time, Kodi will interpret this correctly on windows. Was causing issues with remote file systems since os.path.sep 
    	</news>
   </extension>
 </addon>

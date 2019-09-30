@@ -30,11 +30,11 @@ class GuiSettingsManager:
         restoreSettings = self.__parseNodes(self.doc.getElementsByTagName('setting'))
         
         #get a list where the restore setting value != the current value
-        updateSettings = {k: v for k, v in restoreSettings.items() if (k in currentSettings and currentSettings[k] != v)}
+        updateSettings = {k: v for k, v in list(restoreSettings.items()) if (k in currentSettings and currentSettings[k] != v)}
         
         #go through all the found settings and update them
         jsonObj = {"jsonrpc":"2.0","id":1,"method":"Settings.SetSettingValue","params":{"setting":"","value":""}}
-        for anId, aValue in updateSettings.items():
+        for anId, aValue in list(updateSettings.items()):
             utils.log("updating: " + anId + ", value: " + str(aValue))
         
             jsonObj['params']['setting'] = anId

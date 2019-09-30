@@ -9,7 +9,7 @@
     <import addon="script.module.uritemplate" version="0.6" />
     <import addon="script.module.yaml" version="3.11"/>
     <import addon="script.module.googleapi" version="1.6.4" />
-	<import addon="script.module.dropbox" version="8.4.1"/>
+	<import addon="script.module.dropbox" version="8.4.2"/>
   </requires>
   <extension point="xbmc.python.script" library="default.py"> 
      <provides>executable</provides> 

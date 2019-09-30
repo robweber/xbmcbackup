@@ -1,8 +1,8 @@
 import json
-import utils as utils
 import xbmcvfs
 import xbmc
 import xbmcgui
+from . import utils as utils
 
 class BackupSetManager:
     jsonFile = xbmc.translatePath(utils.data_dir() + "custom_paths.json")
@@ -38,7 +38,7 @@ class BackupSetManager:
     
     def getSets(self):
         #list all current sets by name
-        keys = self.paths.keys()
+        keys = list(self.paths.keys())
         keys.sort()
 
         return keys

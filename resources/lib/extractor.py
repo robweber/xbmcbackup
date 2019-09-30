@@ -1,4 +1,4 @@
-import utils as utils
+from . import utils as utils
 
 class ZipExtractor:
     

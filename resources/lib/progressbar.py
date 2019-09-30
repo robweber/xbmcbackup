@@ -1,5 +1,5 @@
-import utils as utils
 import xbmcgui
+from . import utils as utils
 
 class BackupProgressBar:
     NONE = 2

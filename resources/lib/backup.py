@@ -1,12 +1,12 @@
 import xbmc
 import xbmcgui
 import xbmcvfs
-import utils as utils
 import time
 import json
+from . import utils as utils
 from datetime import datetime
-from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
-from progressbar import BackupProgressBar
+from .vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
+from .progressbar import BackupProgressBar
 from resources.lib.guisettings import GuiSettingsManager
 from resources.lib.extractor import ZipExtractor
 
@@ -141,7 +141,7 @@ class XbmcBackup:
                 selectedDirs = self._readBackupConfig(utils.data_dir() + "/custom_paths.json")
 
                 #get the set names
-                keys = selectedDirs.keys()
+                keys = list(selectedDirs.keys())
                 
                 #go through the custom sets
                 for aKey in keys:

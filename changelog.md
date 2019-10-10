@@ -8,10 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Added
 
-- added new badges for Kodi Version, TravisCI and license information from shields.io
-
-### Added
-
+ - added new badges for Kodi Version, TravisCI and license information from shields.io
  - use kodi-six for Kodi library imports, will make transition to python 3 easiser
 
 ### Changed
@@ -19,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
  - addon.xml updated to use Leia specific syntax and library imports
  - removed specific encode() calls per Python2/3 compatibility
  - call isdigit() method on the string directly instead of str.isdigit() (results in unicode error)
+ - added flake8 testing to travis-ci 
 
 ### Removed
 

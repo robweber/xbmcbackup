@@ -1,7 +1,5 @@
 # Backup Addon
-[![Build Status](https://travis-ci.org/robweber/xbmcbackup.svg?branch=leia)](https://travis-ci.org/robweber/xbmcbackup)
-
-__Kodi Version Compatibility:__ Kodi 18.x (Leia) and greater
+![Kodi Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Frobweber%2Fxbmcbackup%2Fmaster%2Ftrue%2Ftrue) [![Build Status](https://img.shields.io/travis/robweber/xbmcbackup/master)](https://travis-ci.org/robweber/xbmcbackup) [![License](https://img.shields.io/github/license/robweber/xbmcbackup)](https://github.com/robweber/xbmcbackup/blob/master/LICENSE.txt)
 
 ## About
 

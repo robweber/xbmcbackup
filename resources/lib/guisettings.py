@@ -1,5 +1,5 @@
 import json
-from kodi_six import xbmc, xbmcvfs
+import xbmc, xbmcvfs
 from . import utils as utils
 from xml.dom import minidom
 from xml.parsers.expat import ExpatError

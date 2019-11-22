@@ -1,9 +1,8 @@
 from __future__ import unicode_literals
 import time
 import json
-from kodi_six import xbmc, xbmcgui, xbmcvfs
+import xbmc, xbmcgui, xbmcvfs
 from . import utils as utils
-import os
 from datetime import datetime
 from . vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem
 from . progressbar import BackupProgressBar

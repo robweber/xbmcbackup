@@ -1,5 +1,5 @@
 import sys
-from kodi_six import xbmc, xbmcgui, xbmcvfs
+import xbmc, xbmcgui, xbmcvfs
 import resources.lib.utils as utils
 from resources.lib.authorizers import DropboxAuthorizer
 from resources.lib.advanced_editor import AdvancedBackupEditor

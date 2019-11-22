@@ -1,5 +1,5 @@
 import json
-from kodi_six import xbmc, xbmcgui, xbmcvfs
+import xbmc, xbmcgui, xbmcvfs
 from . import utils as utils
 
 class BackupSetManager:

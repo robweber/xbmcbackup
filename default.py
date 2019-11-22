@@ -1,5 +1,5 @@
 import sys
-from kodi_six import xbmc, xbmcgui
+import xbmc, xbmcgui
 import resources.lib.utils as utils
 from resources.lib.backup import XbmcBackup
 

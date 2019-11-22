@@ -1,6 +1,6 @@
 import time
 from datetime import datetime
-from kodi_six import xbmc, xbmcvfs, xbmcgui
+import xbmc, xbmcvfs, xbmcgui
 import resources.lib.utils as utils
 from resources.lib.croniter import croniter
 from resources.lib.backup import XbmcBackup

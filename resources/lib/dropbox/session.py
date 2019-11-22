@@ -1,4 +1,4 @@
-import pkg_resources
+from . import pkg_resources
 import os
 import ssl
 

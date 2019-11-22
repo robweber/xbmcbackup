@@ -4,7 +4,7 @@ import resources.lib.utils as utils
 
 #don't die on import error yet, these might not even get used
 try:
-    import dropbox
+    from . import dropbox
 except ImportError:
     pass
 

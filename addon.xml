@@ -3,10 +3,10 @@
     name="Backup" version="1.6.0~beta1" provider-name="robweber">
   <requires>
     <import addon="xbmc.python" version="2.26.0"/>
-    <import addon="script.module.kodi-six" version="0.1.0"/>
     <import addon="script.module.future" version="0.16.0.4"/>
-    <import addon="script.module.six" version="1.11.0"/>
+    <!-- for dropbox -->
     <import addon="script.module.requests" version="2.18.4"/>
+    <import addon="script.module.six" version="1.11.0"/>
   </requires>
   <extension point="xbmc.python.script" library="default.py"> 
      <provides>executable</provides> 

@@ -18,14 +18,14 @@ class Vfs:
         old_root = self.root_path
         self.root_path = rootString
         
-        #fix slashes
+        # fix slashes
         self.root_path = self.root_path.replace("\\","/")
         
-        #check if trailing slash is included
+        # check if trailing slash is included
         if(self.root_path[-1:] != "/"):
             self.root_path = self.root_path + "/"
 
-        #return the old root
+        # return the old root
         return old_root
         
     def listdir(self,directory):
@@ -86,7 +86,7 @@ class ZipFileSystem(Vfs):
         return [[],[]]
     
     def mkdir(self,directory):
-        #self.zip.write(directory[len(self.root_path):])
+        # self.zip.write(directory[len(self.root_path):])
         return False
     
     def put(self,source,dest):
@@ -107,14 +107,14 @@ class ZipFileSystem(Vfs):
         self.zip.close()
         
     def extract(self,aFile,path):
-        #extract zip file to path
+        # extract zip file to path
         self.zip.extract(aFile,path)
     
     def listFiles(self):
         return self.zip.infolist()
 
 class DropboxFileSystem(Vfs):
-    MAX_CHUNK = 50 * 1000 * 1000 #dropbox uses 150, reduced to 50 for small mem systems
+    MAX_CHUNK = 50 * 1000 * 1000 # dropbox uses 150, reduced to 50 for small mem systems
     client = None
     APP_KEY = ''
     APP_SECRET = ''
@@ -127,7 +127,7 @@ class DropboxFileSystem(Vfs):
         if(authorizer.isAuthorized()):
             self.client = authorizer.getClient()
         else:
-            #tell the user to go back and run the authorizer
+            # tell the user to go back and run the authorizer
             xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30105))
             sys.exit()
 
@@ -153,7 +153,7 @@ class DropboxFileSystem(Vfs):
     def mkdir(self,directory):
         directory = self._fix_slashes(directory)
         if(self.client != None):
-            #sort of odd but always return true, folder create is implicit with file upload
+            # sort of odd but always return true, folder create is implicit with file upload
             return True
         else:
             return False
@@ -161,13 +161,13 @@ class DropboxFileSystem(Vfs):
     def rmdir(self,directory):
         directory = self._fix_slashes(directory)
         if(self.client != None and self.exists(directory)):
-            #dropbox is stupid and will refuse to do this sometimes, need to delete recursively
+            # dropbox is stupid and will refuse to do this sometimes, need to delete recursively
             dirs,files = self.listdir(directory)
             
             for aDir in dirs:
                 self.rmdir(aDir)
 
-            #finally remove the root directory
+            # finally remove the root directory
             self.client.files_delete(directory)
             
             return True
@@ -187,13 +187,13 @@ class DropboxFileSystem(Vfs):
         aFile = self._fix_slashes(aFile)
         
         if(self.client != None):
-            #can't list root metadata
+            # can't list root metadata
             if(aFile == ''):
                 return True
             
             try:
                 meta_data = self.client.files_get_metadata(aFile)
-                #if we make it here the file does exist
+                # if we make it here the file does exist
                 return True
             except:
                 return False
@@ -204,46 +204,46 @@ class DropboxFileSystem(Vfs):
         dest = self._fix_slashes(dest)
         
         if(self.client != None):
-            #open the file and get its size
+            # open the file and get its size
             f = open(source,'rb')
             f_size = os.path.getsize(source)
             
             try:
                 if(f_size < self.MAX_CHUNK):
-                    #use the regular upload
+                    # use the regular upload
                     response = self.client.files_upload(f.read(),dest,mode=WriteMode('overwrite'))
                 else:
-                    #start the upload session
+                    # start the upload session
                     upload_session = self.client.files_upload_session_start(f.read(self.MAX_CHUNK))
                     upload_cursor = UploadSessionCursor(upload_session.session_id,f.tell())
                     
                     while(f.tell() < f_size):
-                        #check if we should finish the upload
+                        # check if we should finish the upload
                         if((f_size - f.tell()) <= self.MAX_CHUNK):
-                            #upload and close
+                            # upload and close
                             self.client.files_upload_session_finish(f.read(self.MAX_CHUNK),upload_cursor,CommitInfo(dest,mode=WriteMode('overwrite')))
                         else:
-                            #upload a part and store the offset
+                            # upload a part and store the offset
                             self.client.files_upload_session_append_v2(f.read(self.MAX_CHUNK),upload_cursor)
                             upload_cursor.offset = f.tell()
                     
-                #if no errors we're good!   
+                # if no errors we're good!   
                 return True
             except Exception as anError:
                 utils.log(str(anError))
                 
-                #if we have an exception retry
+                # if we have an exception retry
                 if(retry):
                     return self.put(source,dest,False)
                 else:
-                    #tried once already, just quit
+                    # tried once already, just quit
                     return False
         else:
             return False
 
     def get_file(self,source,dest):
         if(self.client != None):
-            #write the file locally
+            # write the file locally
             f = self.client.files_download_to_file(dest,source)
             return True
         else:
@@ -252,11 +252,11 @@ class DropboxFileSystem(Vfs):
     def _fix_slashes(self,filename):
         result = filename.replace('\\','/')
 
-        #root needs to be a blank string
+        # root needs to be a blank string
         if(result == '/'):
             result = ""
 
-        #if dir ends in slash, remove it
+        # if dir ends in slash, remove it
         if(result[-1:] == "/"):
             result = result[:-1]
 

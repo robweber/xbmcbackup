@@ -5,7 +5,7 @@ import resources.lib.utils as utils
 from resources.lib.croniter import croniter
 from resources.lib.backup import XbmcBackup
 
-UPGRADE_INT = 2  #to keep track of any upgrade notifications
+UPGRADE_INT = 2  # to keep track of any upgrade notifications
 
 class BackupScheduler:
     monitor = None
@@ -21,7 +21,7 @@ class BackupScheduler:
 
         if(self.enabled == "true"):
 
-            #sleep for 2 minutes so Kodi can start and time can update correctly
+            # sleep for 2 minutes so Kodi can start and time can update correctly
             xbmc.Monitor().waitForAbort(120)
 
             nr = 0
@@ -29,14 +29,14 @@ class BackupScheduler:
 
                 fh = xbmcvfs.File(self.next_run_path)
                 try:
-                    #check if we saved a run time from the last run
+                    # check if we saved a run time from the last run
                     nr = float(fh.read())
                 except ValueError:
                     nr = 0
 
                 fh.close()
 
-            #if we missed and the user wants to play catch-up
+            # if we missed and the user wants to play catch-up
             if(0 < nr <= time.time() and utils.getSetting('schedule_miss') == 'true'):
                 utils.log("scheduled backup was missed, doing it now...")
                 progress_mode = int(utils.getSetting('progress_mode'))
@@ -49,49 +49,49 @@ class BackupScheduler:
             self.setup()
 
     def setup(self):
-        #scheduler was turned on, find next run time
+        # scheduler was turned on, find next run time
         utils.log("scheduler enabled, finding next run time")
         self.findNextRun(time.time())
         
     def start(self):
 
-        #display upgrade messages if they exist
+        # display upgrade messages if they exist
         if(int(utils.getSetting('upgrade_notes')) < UPGRADE_INT):
             xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30132))
             utils.setSetting('upgrade_notes',str(UPGRADE_INT))
 
-        #check if a backup should be resumed
+        # check if a backup should be resumed
         resumeRestore = self._resumeCheck()
 
         if(resumeRestore):
             restore = XbmcBackup()
             restore.selectRestore(self.restore_point)
-            #skip the advanced settings check
+            # skip the advanced settings check
             restore.skipAdvanced()
             restore.restore()
         
         while(not self.monitor.abortRequested()):
             
             if(self.enabled == "true"):
-                #scheduler is still on
+                # scheduler is still on
                 now = time.time()
 
                 if(self.next_run <= now):
                     progress_mode = int(utils.getSetting('progress_mode'))
                     self.doScheduledBackup(progress_mode)
 
-                    #check if we should shut the computer down
+                    # check if we should shut the computer down
                     if(utils.getSetting("cron_shutdown") == 'true'):
-                        #wait 10 seconds to make sure all backup processes and files are completed
+                        # wait 10 seconds to make sure all backup processes and files are completed
                         time.sleep(10)
                         xbmc.executebuiltin('ShutDown()')
                     else:
-                        #find the next run time like normal
+                        # find the next run time like normal
                         self.findNextRun(now)
 
             xbmc.sleep(500)
 
-        #delete monitor to free up memory
+        # delete monitor to free up memory
         del self.monitor
 
     def doScheduledBackup(self,progress_mode):
@@ -107,9 +107,9 @@ class BackupScheduler:
             else:
                 backup.backup(False)
             
-            #check if this is a "one-off"
+            # check if this is a "one-off"
             if(int(utils.getSetting("schedule_interval")) == 0):
-                #disable the scheduler after this run
+                # disable the scheduler after this run
                 self.enabled = "false"
                 utils.setSetting('enable_scheduler','false')
         else:
@@ -118,7 +118,7 @@ class BackupScheduler:
     def findNextRun(self,now):
         progress_mode = int(utils.getSetting('progress_mode'))
         
-        #find the cron expression and get the next run time
+        # find the cron expression and get the next run time
         cron_exp = self.parseSchedule()
 
         cron_ob = croniter(cron_exp,datetime.fromtimestamp(now))
@@ -128,12 +128,12 @@ class BackupScheduler:
             self.next_run = new_run_time
             utils.log("scheduler will run again on " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run),['dateshort','time']))
 
-            #write the next time to a file
+            # write the next time to a file
             fh = xbmcvfs.File(self.next_run_path, 'w')
             fh.write(str(self.next_run))
             fh.close()
 
-            #only show when not in silent mode
+            # only show when not in silent mode
             if(progress_mode != 2):                        
                 utils.showNotification(utils.getString(30081) + " " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run),['dateshort','time']))
                 
@@ -141,15 +141,15 @@ class BackupScheduler:
         current_enabled = utils.getSetting("enable_scheduler")
         
         if(current_enabled == "true" and self.enabled == "false"):
-            #scheduler was just turned on
+            # scheduler was just turned on
             self.enabled = current_enabled
             self.setup()
         elif (current_enabled == "false" and self.enabled == "true"):
-            #schedule was turn off
+            # schedule was turn off
             self.enabled = current_enabled
 
         if(self.enabled == "true"):
-            #always recheck the next run time after an update
+            # always recheck the next run time after an update
             self.findNextRun(time.time())
 
     def parseSchedule(self):
@@ -159,14 +159,14 @@ class BackupScheduler:
         hour_of_day = utils.getSetting("schedule_time")
         hour_of_day = int(hour_of_day[0:2])
         if(schedule_type == 0 or schedule_type == 1):
-            #every day
+            # every day
             cron_exp = "0 " + str(hour_of_day) + " * * *"
         elif(schedule_type == 2):
-            #once a week
+            # once a week
             day_of_week = utils.getSetting("day_of_week")
             cron_exp = "0 " + str(hour_of_day) + " * * " + day_of_week
         elif(schedule_type == 3):
-            #first day of month
+            # first day of month
             cron_exp = "0 " + str(hour_of_day) + " 1 * *"
 
         return cron_exp

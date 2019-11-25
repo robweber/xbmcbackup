@@ -9,33 +9,33 @@ class BackupSetManager:
     def __init__(self):
         self.paths = {}
         
-        #try and read in the custom file
+        # try and read in the custom file
         self._readFile()
 
     def addSet(self,aSet):
         self.paths[aSet['name']] = {'root':aSet['root'],'dirs':[{"type":"include","path":aSet['root'],'recurse':True}]}
 
-        #save the file
+        # save the file
         self._writeFile()
 
     def updateSet(self,name,aSet):
         self.paths[name] = aSet
 
-        #save the file
+        # save the file
         self._writeFile()
 
     def deleteSet(self,index):
-        #match the index to a key
+        # match the index to a key
         keys = self.getSets()
 
-        #delete this set
+        # delete this set
         del self.paths[keys[index]]
 
         #save the file
         self._writeFile()
     
     def getSets(self):
-        #list all current sets by name
+        # list all current sets by name
         keys = list(self.paths.keys())
         keys.sort()
 
@@ -44,14 +44,14 @@ class BackupSetManager:
     def getSet(self,index):
         keys = self.getSets();
 
-        #return the set at this index
+        # return the set at this index
         return {'name':keys[index],'set':self.paths[keys[index]]}
 
     def validateSetName(self,name):
         return (name not in self.getSets())
 
     def _writeFile(self):
-        #create the custom file
+        # create the custom file
         aFile = xbmcvfs.File(self.jsonFile,'w')
         aFile.write(json.dumps(self.paths))
         aFile.close()
@@ -60,14 +60,14 @@ class BackupSetManager:
         
         if(xbmcvfs.exists(self.jsonFile)):
 
-            #read in the custom file
+            # read in the custom file
             aFile = xbmcvfs.File(self.jsonFile)
 
-            #load custom dirs
+            # load custom dirs
             self.paths = json.loads(aFile.read())
             aFile.close()
         else:
-            #write a blank file
+            # write a blank file
             self._writeFile()
 
 class AdvancedBackupEditor:
@@ -89,23 +89,23 @@ class AdvancedBackupEditor:
 
         if(name != None):
 
-            #give a choice to start in home or enter a root path
+            # give a choice to start in home or enter a root path
             enterHome = self.dialog.yesno(utils.getString(30111),line1=utils.getString(30112) + " - " + utils.getString(30114),line2=utils.getString(30113) + " - " + utils.getString(30115),nolabel=utils.getString(30112),yeslabel=utils.getString(30113))
 
             rootFolder = 'special://home'
             if(enterHome):
                 rootFolder = self.dialog.input(utils.getString(30116),defaultt=rootFolder)
 
-                #direcotry has to end in slash
+                # direcotry has to end in slash
                 if(rootFolder[:-1] != '/'):
                     rootFolder = rootFolder + '/'
 
-                #check that this path even exists
+                # check that this path even exists
                 if(not xbmcvfs.exists(xbmc.translatePath(rootFolder))):
                     self.dialog.ok(utils.getString(30117),utils.getString(30118),rootFolder)
                     return None
             else:
-                #select path to start set
+                # select path to start set
                 rootFolder = self.dialog.browse(type=0,heading=utils.getString(30119),shares='files',defaultt=rootFolder)
 
             backupSet = {'name':name,'root':rootFolder}
@@ -128,23 +128,23 @@ class AdvancedBackupEditor:
             optionSelected = self.dialog.select(utils.getString(30122) + ' ' +  name,options,useDetails=True)
 
             if(optionSelected == 0 or optionSelected == 1):
-                #add a folder, will equal root if cancel is hit
+                # add a folder, will equal root if cancel is hit
                 addFolder = self.dialog.browse(type=0,heading=utils.getString(30120),shares='files',defaultt=backupSet['root'])
                 
                 if(addFolder.startswith(rootPath)):
                     
                     if(not any(addFolder == aDir['path'] for aDir in backupSet['dirs'])):
-                        #cannot add root as an exclusion
+                        # cannot add root as an exclusion
                         if(optionSelected == 0 and addFolder != backupSet['root']):
                             backupSet['dirs'].append({"path":addFolder,"type":"exclude"})
                         elif(optionSelected == 1):
-                            #can add root as inclusion
+                            # can add root as inclusion
                             backupSet['dirs'].append({"path":addFolder,"type":"include","recurse":True})
                     else:
-                        #this path is already part of another include/exclude rule
+                        # this path is already part of another include/exclude rule
                         self.dialog.ok(utils.getString(30117),utils.getString(30137),addFolder)
                 else:
-                    #folder must be under root folder
+                    # folder must be under root folder
                     self.dialog.ok(utils.getString(30117), utils.getString(30136),rootPath)
             elif(optionSelected == 2):
                 self.dialog.ok(utils.getString(30121),utils.getString(30130),backupSet['root'])
@@ -158,10 +158,10 @@ class AdvancedBackupEditor:
                 
                 if(contextOption == 0):
                     if(self.dialog.yesno(heading=utils.getString(30123),line1=utils.getString(30128))):
-                        #remove folder
+                        # remove folder
                         del backupSet['dirs'][optionSelected - 3]
                 elif(contextOption == 1 and backupSet['dirs'][optionSelected - 3]['type'] == 'include'):
-                    #toggle if this folder should be recursive
+                    # toggle if this folder should be recursive
                     backupSet['dirs'][optionSelected - 3]['recurse'] = not backupSet['dirs'][optionSelected - 3]['recurse']
 
         return backupSet
@@ -171,50 +171,50 @@ class AdvancedBackupEditor:
         exitCondition = ""
         customPaths = BackupSetManager()
 
-        #show this every time
+        # show this every time
         self.dialog.ok(utils.getString(30036),utils.getString(30037))
  
         while(exitCondition != -1):
-            #load the custom paths
+            # load the custom paths
             options = [xbmcgui.ListItem(utils.getString(30126),'',utils.addon_dir() + '/resources/images/plus-icon.png')]
         
             for index in range(0,len(customPaths.getSets())):
                 aSet = customPaths.getSet(index)
                 options.append(xbmcgui.ListItem(aSet['name'],utils.getString(30121) + ': ' + aSet['set']['root'],utils.addon_dir() + '/resources/images/folder-icon.png'))
             
-            #show the gui
+            # show the gui
             exitCondition = self.dialog.select(utils.getString(30125),options,useDetails=True)
         
             if(exitCondition >= 0):
                 if(exitCondition == 0):
                     newSet = self.createSet()
 
-                    #check that the name is unique
+                    # check that the name is unique
                     if(customPaths.validateSetName(newSet['name'])):
                         customPaths.addSet(newSet)
                     else:
                         self.dialog.ok(utils.getString(30117), utils.getString(30138),newSet['name'])
                 else:
-                    #bring up a context menu
+                    # bring up a context menu
                     menuOption = self.dialog.contextmenu([utils.getString(30122),utils.getString(30123)])
 
                     if(menuOption == 0):
-                        #get the set
+                        # get the set
                         aSet = customPaths.getSet(exitCondition -1)
                         
-                        #edit the set
+                        # edit the set
                         updatedSet = self.editSet(aSet['name'],aSet['set'])
 
-                        #save it
+                        # save it
                         customPaths.updateSet(aSet['name'],updatedSet)
                     
                     elif(menuOption == 1):
                         if(self.dialog.yesno(heading=utils.getString(30127),line1=utils.getString(30128))):
-                            #delete this path - subtract one because of "add" item
+                            # delete this path - subtract one because of "add" item
                             customPaths.deleteSet(exitCondition -1)
 
     def copySimpleConfig(self):
-        #disclaimer in case the user hit this on accident
+        # disclaimer in case the user hit this on accident
         shouldContinue = self.dialog.yesno(utils.getString(30139),utils.getString(30140),utils.getString(30141))
 
         if(shouldContinue):

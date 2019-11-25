@@ -2,7 +2,7 @@ import xbmc, xbmcgui, xbmcvfs
 import resources.lib.tinyurl as tinyurl
 import resources.lib.utils as utils
 
-#don't die on import error yet, these might not even get used
+# don't die on import error yet, these might not even get used
 try:
     from . import dropbox
 except ImportError:
@@ -20,7 +20,7 @@ class DropboxAuthorizer:
         result = True
         
         if(self.APP_KEY == '' and self.APP_SECRET == ''):
-            #we can't go any farther, need these for sure
+            # we can't go any farther, need these for sure
             xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30027) + ' ' + utils.getString(30058),utils.getString(30059))
 
             result = False
@@ -39,19 +39,19 @@ class DropboxAuthorizer:
             return False
         
         if(self.isAuthorized()):
-            #delete the token to start over
+            # delete the token to start over
             self._deleteToken()
 
-        #copied flow from http://dropbox-sdk-python.readthedocs.io/en/latest/moduledoc.html#dropbox.oauth.DropboxOAuth2FlowNoRedirect
+        # copied flow from http://dropbox-sdk-python.readthedocs.io/en/latest/moduledoc.html#dropbox.oauth.DropboxOAuth2FlowNoRedirect
         flow = dropbox.oauth.DropboxOAuth2FlowNoRedirect(self.APP_KEY,self.APP_SECRET)
 
         url = flow.start()
 
-        #print url in log
+        # print url in log
         utils.log("Authorize URL: " + url)
         xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30056),utils.getString(30057),tinyurl.shorten(url))
 
-        #get the auth code
+        # get the auth code
         code = xbmcgui.Dialog().input(utils.getString(30027) + ' ' + utils.getString(30103))
         
         #if user authorized this will work
@@ -65,7 +65,7 @@ class DropboxAuthorizer:
             
         return result;
 
-    #return the DropboxClient, or None if can't be created
+    # return the DropboxClient, or None if can't be created
     def getClient(self):
         result = None
 
@@ -85,13 +85,13 @@ class DropboxAuthorizer:
         return result
 
     def _setToken(self,token):
-        #write the token files
+        # write the token files
         token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"),'w')
         token_file.write(token)
         token_file.close()
 
     def _getToken(self):
-        #get token, if it exists
+        # get token, if it exists
         if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "tokens.txt"))):
             token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"))
             token = token_file.read()

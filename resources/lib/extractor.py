@@ -8,7 +8,7 @@ class ZipExtractor:
         result = True # result is true unless we fail
 
         # update the progress bar
-        progressBar.updateProgress(0,utils.getString(30100))
+        progressBar.updateProgress(0, utils.getString(30100))
 
         # list the files
         fileCount = float(len(zipFile.listFiles()))

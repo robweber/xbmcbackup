@@ -57,8 +57,8 @@ class BackupScheduler:
 
         # display upgrade messages if they exist
         if(int(utils.getSetting('upgrade_notes')) < UPGRADE_INT):
-            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30132))
-            utils.setSetting('upgrade_notes',str(UPGRADE_INT))
+            xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30132))
+            utils.setSetting('upgrade_notes', str(UPGRADE_INT))
 
         # check if a backup should be resumed
         resumeRestore = self._resumeCheck()
@@ -94,7 +94,7 @@ class BackupScheduler:
         # delete monitor to free up memory
         del self.monitor
 
-    def doScheduledBackup(self,progress_mode):
+    def doScheduledBackup(self, progress_mode):
         if(progress_mode != 2):
             utils.showNotification(utils.getString(30053))
 
@@ -111,22 +111,22 @@ class BackupScheduler:
             if(int(utils.getSetting("schedule_interval")) == 0):
                 # disable the scheduler after this run
                 self.enabled = "false"
-                utils.setSetting('enable_scheduler','false')
+                utils.setSetting('enable_scheduler', 'false')
         else:
             utils.showNotification(utils.getString(30045))
 
-    def findNextRun(self,now):
+    def findNextRun(self, now):
         progress_mode = int(utils.getSetting('progress_mode'))
 
         # find the cron expression and get the next run time
         cron_exp = self.parseSchedule()
 
-        cron_ob = croniter(cron_exp,datetime.fromtimestamp(now))
+        cron_ob = croniter(cron_exp, datetime.fromtimestamp(now))
         new_run_time = cron_ob.get_next(float)
 
         if(new_run_time != self.next_run):
             self.next_run = new_run_time
-            utils.log("scheduler will run again on " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run),['dateshort','time']))
+            utils.log("scheduler will run again on " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run), ['dateshort', 'time']))
 
             # write the next time to a file
             fh = xbmcvfs.File(self.next_run_path, 'w')
@@ -135,7 +135,7 @@ class BackupScheduler:
 
             # only show when not in silent mode
             if(progress_mode != 2):                        
-                utils.showNotification(utils.getString(30081) + " " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run),['dateshort','time']))
+                utils.showNotification(utils.getString(30081) + " " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run), ['dateshort', 'time']))
 
     def settingsChanged(self):
         current_enabled = utils.getSetting("enable_scheduler")
@@ -174,18 +174,18 @@ class BackupScheduler:
     def _resumeCheck(self):
         shouldContinue = False
         if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "resume.txt"))):
-            rFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "resume.txt"),'r')
+            rFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "resume.txt"), 'r')
             self.restore_point = rFile.read()
             rFile.close()
             xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "resume.txt"))
-            shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30042),utils.getString(30043),utils.getString(30044))
+            shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30042), utils.getString(30043), utils.getString(30044))
 
         return shouldContinue
 
 class UpdateMonitor(xbmc.Monitor):
     update_method = None
 
-    def __init__(self,*args, **kwargs):
+    def __init__(self, *args, **kwargs):
         xbmc.Monitor.__init__(self)
         self.update_method = kwargs['update_method']
 

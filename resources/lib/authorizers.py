@@ -21,7 +21,7 @@ class DropboxAuthorizer:
 
         if(self.APP_KEY == '' and self.APP_SECRET == ''):
             # we can't go any farther, need these for sure
-            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30027) + ' ' + utils.getString(30058),utils.getString(30059))
+            xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30027) + ' ' + utils.getString(30058), utils.getString(30059))
 
             result = False
 
@@ -43,13 +43,13 @@ class DropboxAuthorizer:
             self._deleteToken()
 
         # copied flow from http://dropbox-sdk-python.readthedocs.io/en/latest/moduledoc.html#dropbox.oauth.DropboxOAuth2FlowNoRedirect
-        flow = dropbox.oauth.DropboxOAuth2FlowNoRedirect(self.APP_KEY,self.APP_SECRET)
+        flow = dropbox.oauth.DropboxOAuth2FlowNoRedirect(self.APP_KEY, self.APP_SECRET)
 
         url = flow.start()
 
         # print url in log
         utils.log("Authorize URL: " + url)
-        xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30056),utils.getString(30057),tinyurl.shorten(url))
+        xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30056), utils.getString(30057), tinyurl.shorten(url))
 
         # get the auth code
         code = xbmcgui.Dialog().input(utils.getString(30027) + ' ' + utils.getString(30103))
@@ -84,9 +84,9 @@ class DropboxAuthorizer:
 
         return result
 
-    def _setToken(self,token):
+    def _setToken(self, token):
         # write the token files
-        token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"),'w')
+        token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"), 'w')
         token_file.write(token)
         token_file.close()
 

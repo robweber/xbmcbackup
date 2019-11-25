@@ -32,14 +32,14 @@ if("mode" in params):
 # if mode wasn't passed in as arg, get from user
 if(mode == -1):
     # by default, Backup,Restore,Open Settings
-    options = [utils.getString(30016),utils.getString(30017),utils.getString(30099)]
+    options = [utils.getString(30016), utils.getString(30017), utils.getString(30099)]
 
     # find out if we're using the advanced editor
     if(int(utils.getSetting('backup_selection_type')) == 1):
         options.append(utils.getString(30125))
 
     # figure out if this is a backup or a restore from the user
-    mode = xbmcgui.Dialog().select(utils.getString(30010) + " - " + utils.getString(30023),options)
+    mode = xbmcgui.Dialog().select(utils.getString(30010) + " - " + utils.getString(30023), options)
 
 # check if program should be run
 if(mode != -1):
@@ -51,7 +51,7 @@ if(mode != -1):
         utils.openSettings()
     elif(mode == 3 and int(utils.getSetting('backup_selection_type')) == 1):
         # open the advanced editor
-        xbmc.executebuiltin('RunScript(special://home/addons/script.xbmcbackup/launcher.py,action=advanced_editor)')
+        xbmc.executebuiltin('RunScript(special://home/addons/script.xbmcbackup/launcher.py, action=advanced_editor)')
     elif(backup.remoteConfigured()):
 
         if(mode == backup.Restore):
@@ -77,7 +77,7 @@ if(mode != -1):
                     utils.log(params['archive'] + ' is not a valid restore point')
             else:
                 # allow user to select the backup to restore from
-                selectedRestore = xbmcgui.Dialog().select(utils.getString(30010) + " - " + utils.getString(30021),pointNames)
+                selectedRestore = xbmcgui.Dialog().select(utils.getString(30010) + " - " + utils.getString(30021), pointNames)
 
             if(selectedRestore != -1):
                 backup.selectRestore(restorePoints[selectedRestore][0])
@@ -90,5 +90,5 @@ if(mode != -1):
             backup.backup()
     else:
         # can't go any further
-        xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045))
+        xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30045))
         utils.openSettings()

@@ -12,13 +12,13 @@ def authorize_cloud(cloudProvider):
         authorizer = DropboxAuthorizer()
 
         if(authorizer.authorize()):
-            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30027) + ' ' + utils.getString(30106))
+            xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30027) + ' ' + utils.getString(30106))
         else:
-            xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30107) + ' ' + utils.getString(30027))
+            xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30107) + ' ' + utils.getString(30027))
 
 def remove_auth():
     # triggered from settings.xml - asks if user wants to delete OAuth token information
-    shouldDelete = xbmcgui.Dialog().yesno(utils.getString(30093),utils.getString(30094),utils.getString(30095),autoclose=7000)
+    shouldDelete = xbmcgui.Dialog().yesno(utils.getString(30093), utils.getString(30094), utils.getString(30095), autoclose=7000)
 
     if(shouldDelete):
         # delete any of the known token file types

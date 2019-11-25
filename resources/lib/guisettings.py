@@ -33,7 +33,7 @@ class GuiSettingsManager:
         updateSettings = {k: v for k, v in list(restoreSettings.items()) if (k in currentSettings and currentSettings[k] != v)}
 
         # go through all the found settings and update them
-        jsonObj = {"jsonrpc":"2.0","id":1,"method":"Settings.SetSettingValue","params":{"setting":"","value":""}}
+        jsonObj = {"jsonrpc":"2.0", "id":1, "method":"Settings.SetSettingValue", "params":{"setting":"", "value":""}}
         for anId, aValue in list(updateSettings.items()):
             utils.log("updating: " + anId + ", value: " + str(aValue))
 
@@ -42,7 +42,7 @@ class GuiSettingsManager:
 
             xbmc.executeJSONRPC(json.dumps(jsonObj))
 
-    def __parseNodes(self,nodeList):
+    def __parseNodes(self, nodeList):
         result = {}
 
         for node in nodeList:
@@ -62,7 +62,7 @@ class GuiSettingsManager:
             
         return result
 
-    def _readFile(self,fileLoc):
+    def _readFile(self, fileLoc):
 
         if(xbmcvfs.exists(fileLoc)):
             try:

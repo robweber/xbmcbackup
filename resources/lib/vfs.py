@@ -2,7 +2,9 @@ from __future__ import unicode_literals
 import zipfile
 import os.path
 import sys
-import xbmc, xbmcvfs, xbmcgui
+import xbmc
+import xbmcvfs
+import xbmcgui
 from . import dropbox
 from . import utils as utils
 from .dropbox.files import WriteMode, CommitInfo, UploadSessionCursor

@@ -1,4 +1,6 @@
-import xbmc, xbmcgui, xbmcaddon
+import xbmc
+import xbmcgui
+import xbmcaddon
 
 __addon_id__= 'script.xbmcbackup'
 __Addon = xbmcaddon.Addon(__addon_id__)

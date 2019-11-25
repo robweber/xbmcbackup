@@ -1,4 +1,6 @@
-import xbmc, xbmcgui, xbmcvfs
+import xbmc
+import xbmcgui
+import xbmcvfs
 import resources.lib.tinyurl as tinyurl
 import resources.lib.utils as utils
 

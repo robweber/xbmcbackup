@@ -1,5 +1,6 @@
 import sys
-import xbmc, xbmcgui
+import xbmc
+import xbmcgui
 import resources.lib.utils as utils
 from resources.lib.backup import XbmcBackup
 

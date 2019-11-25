@@ -1,5 +1,6 @@
 import json
-import xbmc, xbmcvfs
+import xbmc
+import xbmcvfs
 from . import utils as utils
 from xml.dom import minidom
 from xml.parsers.expat import ExpatError

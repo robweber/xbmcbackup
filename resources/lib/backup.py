@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 import time
 import json
-import xbmc, xbmcgui, xbmcvfs
+import xbmc
+import xbmcgui
+import xbmcvfs
 from . import utils as utils
 from datetime import datetime
 from . vfs import XBMCFileSystem, DropboxFileSystem, ZipFileSystem

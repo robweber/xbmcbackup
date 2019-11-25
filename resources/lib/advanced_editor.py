@@ -1,5 +1,7 @@
 import json
-import xbmc, xbmcgui, xbmcvfs
+import xbmc
+import xbmcgui
+import xbmcvfs
 from . import utils as utils
 
 class BackupSetManager:

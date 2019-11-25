@@ -29,9 +29,9 @@ def getString(string_id):
 
 def getRegionalTimestamp(date_time,dateformat=['dateshort']):
     result = ''
-    
+
     for aFormat in dateformat:
         result = result + ("%s " % date_time.strftime(xbmc.getRegion(aFormat)))
-        
+
     return result.strip()
 

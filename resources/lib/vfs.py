@@ -13,21 +13,21 @@ class Vfs:
 
     def __init__(self,rootString):
         self.set_root(rootString)
-        
+
     def set_root(self,rootString):
         old_root = self.root_path
         self.root_path = rootString
-        
+
         # fix slashes
         self.root_path = self.root_path.replace("\\","/")
-        
+
         # check if trailing slash is included
         if(self.root_path[-1:] != "/"):
             self.root_path = self.root_path + "/"
 
         # return the old root
         return old_root
-        
+
     def listdir(self,directory):
         return {}
 
@@ -45,13 +45,13 @@ class Vfs:
 
     def exists(self,aFile):
         return True
-    
+
     def rename(self,aFile,newName):
         return True
-    
+
     def cleanup(self):
         return True
-        
+
 class XBMCFileSystem(Vfs):
 
     def listdir(self,directory):
@@ -62,7 +62,7 @@ class XBMCFileSystem(Vfs):
 
     def put(self,source,dest):
         return xbmcvfs.copy(xbmc.translatePath(source),xbmc.translatePath(dest))
-        
+
     def rmdir(self,directory):
         return xbmcvfs.rmdir(directory,True)
 
@@ -77,39 +77,39 @@ class XBMCFileSystem(Vfs):
 
 class ZipFileSystem(Vfs):
     zip = None
-    
+
     def __init__(self,rootString,mode):
         self.root_path = ""
         self.zip = zipfile.ZipFile(rootString,mode=mode,compression=zipfile.ZIP_DEFLATED,allowZip64=True)
-        
+
     def listdir(self,directory):
         return [[],[]]
-    
+
     def mkdir(self,directory):
         # self.zip.write(directory[len(self.root_path):])
         return False
-    
+
     def put(self,source,dest):
-        
+
         aFile = xbmcvfs.File(xbmc.translatePath(source),'r')
-        
+
         self.zip.writestr(dest,aFile.readBytes())
-        
+
         return True
-    
+
     def rmdir(self,directory):
         return False
-    
+
     def exists(self,aFile):
         return False
-    
+
     def cleanup(self):
         self.zip.close()
-        
+
     def extract(self,aFile,path):
         # extract zip file to path
         self.zip.extract(aFile,path)
-    
+
     def listFiles(self):
         return self.zip.infolist()
 
@@ -118,7 +118,7 @@ class DropboxFileSystem(Vfs):
     client = None
     APP_KEY = ''
     APP_SECRET = ''
-    
+
     def __init__(self,rootString):
         self.set_root(rootString)
 
@@ -133,7 +133,7 @@ class DropboxFileSystem(Vfs):
 
     def listdir(self,directory):
         directory = self._fix_slashes(directory)
-        
+
         if(self.client != None and self.exists(directory)):
             files = []
             dirs = []
@@ -148,7 +148,6 @@ class DropboxFileSystem(Vfs):
             return [dirs,files]
         else:
             return [[],[]]
-            
 
     def mkdir(self,directory):
         directory = self._fix_slashes(directory)
@@ -163,20 +162,20 @@ class DropboxFileSystem(Vfs):
         if(self.client != None and self.exists(directory)):
             # dropbox is stupid and will refuse to do this sometimes, need to delete recursively
             dirs,files = self.listdir(directory)
-            
+
             for aDir in dirs:
                 self.rmdir(aDir)
 
             # finally remove the root directory
             self.client.files_delete(directory)
-            
+
             return True
         else:
             return False
 
     def rmfile(self,aFile):
         aFile = self._fix_slashes(aFile)
-        
+
         if(self.client != None and self.exists(aFile)):
             self.client.files_delete(aFile)
             return True
@@ -185,12 +184,12 @@ class DropboxFileSystem(Vfs):
 
     def exists(self,aFile):
         aFile = self._fix_slashes(aFile)
-        
+
         if(self.client != None):
             # can't list root metadata
             if(aFile == ''):
                 return True
-            
+
             try:
                 meta_data = self.client.files_get_metadata(aFile)
                 # if we make it here the file does exist
@@ -202,12 +201,12 @@ class DropboxFileSystem(Vfs):
 
     def put(self,source,dest,retry=True):
         dest = self._fix_slashes(dest)
-        
+
         if(self.client != None):
             # open the file and get its size
             f = open(source,'rb')
             f_size = os.path.getsize(source)
-            
+
             try:
                 if(f_size < self.MAX_CHUNK):
                     # use the regular upload
@@ -216,7 +215,7 @@ class DropboxFileSystem(Vfs):
                     # start the upload session
                     upload_session = self.client.files_upload_session_start(f.read(self.MAX_CHUNK))
                     upload_cursor = UploadSessionCursor(upload_session.session_id,f.tell())
-                    
+
                     while(f.tell() < f_size):
                         # check if we should finish the upload
                         if((f_size - f.tell()) <= self.MAX_CHUNK):
@@ -226,12 +225,12 @@ class DropboxFileSystem(Vfs):
                             # upload a part and store the offset
                             self.client.files_upload_session_append_v2(f.read(self.MAX_CHUNK),upload_cursor)
                             upload_cursor.offset = f.tell()
-                    
+
                 # if no errors we're good!   
                 return True
             except Exception as anError:
                 utils.log(str(anError))
-                
+
                 # if we have an exception retry
                 if(retry):
                     return self.put(source,dest,False)

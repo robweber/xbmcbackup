@@ -4,7 +4,6 @@ import resources.lib.utils as utils
 from resources.lib.authorizers import DropboxAuthorizer
 from resources.lib.advanced_editor import AdvancedBackupEditor
 
-
 # launcher for various helpful functions found in the settings.xml area
 
 def authorize_cloud(cloudProvider):

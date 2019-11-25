@@ -9,10 +9,10 @@ class BackupProgressBar:
     mode = 2
     progressBar = None
     override = False
-    
+
     def __init__(self,progressOverride):
         self.override = progressOverride
-        
+
         # check if we should use the progress bar
         if(int(utils.getSetting('progress_mode')) != 2):
             # check if background or normal
@@ -28,7 +28,7 @@ class BackupProgressBar:
             self.progressBar.create(heading,message)
 
     def updateProgress(self,percent,message=None):
-        
+
         # update the progress bar
         if(self.mode != self.NONE):
             if(message != None):

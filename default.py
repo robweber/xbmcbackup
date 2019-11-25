@@ -33,7 +33,7 @@ if("mode" in params):
 if(mode == -1):
     # by default, Backup,Restore,Open Settings
     options = [utils.getString(30016),utils.getString(30017),utils.getString(30099)]
-    
+
     # find out if we're using the advanced editor
     if(int(utils.getSetting('backup_selection_type')) == 1):
         options.append(utils.getString(30125))
@@ -59,7 +59,7 @@ if(mode != -1):
             restorePoints = backup.listBackups()
             pointNames = []
             folderNames = []
-            
+
             for aDir in restorePoints:
                 pointNames.append(aDir[1])
                 folderNames.append(aDir[0])
@@ -81,7 +81,7 @@ if(mode != -1):
 
             if(selectedRestore != -1):
                 backup.selectRestore(restorePoints[selectedRestore][0])
-            
+
             if('sets' in params):
                 backup.restore(selectedSets=params['sets'].split('|'))
             else:

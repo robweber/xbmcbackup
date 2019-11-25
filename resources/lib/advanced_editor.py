@@ -5,10 +5,10 @@ from . import utils as utils
 class BackupSetManager:
     jsonFile = xbmc.translatePath(utils.data_dir() + "custom_paths.json")
     paths = None
-    
+
     def __init__(self):
         self.paths = {}
-        
+
         # try and read in the custom file
         self._readFile()
 
@@ -33,7 +33,7 @@ class BackupSetManager:
 
         #save the file
         self._writeFile()
-    
+
     def getSets(self):
         # list all current sets by name
         keys = list(self.paths.keys())
@@ -55,7 +55,7 @@ class BackupSetManager:
         aFile = xbmcvfs.File(self.jsonFile,'w')
         aFile.write(json.dumps(self.paths))
         aFile.close()
-    
+
     def _readFile(self):
         
         if(xbmcvfs.exists(self.jsonFile)):
@@ -84,7 +84,7 @@ class AdvancedBackupEditor:
 
     def createSet(self):
         backupSet = None
-    
+
         name = self.dialog.input(utils.getString(30110),defaultt='Backup Set')
 
         if(name != None):
@@ -109,7 +109,7 @@ class AdvancedBackupEditor:
                 rootFolder = self.dialog.browse(type=0,heading=utils.getString(30119),shares='files',defaultt=rootFolder)
 
             backupSet = {'name':name,'root':rootFolder}
-    
+
         return backupSet
 
     def editSet(self,name,backupSet):
@@ -130,9 +130,9 @@ class AdvancedBackupEditor:
             if(optionSelected == 0 or optionSelected == 1):
                 # add a folder, will equal root if cancel is hit
                 addFolder = self.dialog.browse(type=0,heading=utils.getString(30120),shares='files',defaultt=backupSet['root'])
-                
+
                 if(addFolder.startswith(rootPath)):
-                    
+
                     if(not any(addFolder == aDir['path'] for aDir in backupSet['dirs'])):
                         # cannot add root as an exclusion
                         if(optionSelected == 0 and addFolder != backupSet['root']):
@@ -149,13 +149,13 @@ class AdvancedBackupEditor:
             elif(optionSelected == 2):
                 self.dialog.ok(utils.getString(30121),utils.getString(30130),backupSet['root'])
             elif(optionSelected > 2):
-                
+
                 cOptions = ['Delete']
                 if(backupSet['dirs'][optionSelected - 3]['type'] == 'include'):
                     cOptions.append('Toggle Sub Folders')
-                    
+
                 contextOption = self.dialog.contextmenu(cOptions)
-                
+
                 if(contextOption == 0):
                     if(self.dialog.yesno(heading=utils.getString(30123),line1=utils.getString(30128))):
                         # remove folder
@@ -165,7 +165,6 @@ class AdvancedBackupEditor:
                     backupSet['dirs'][optionSelected - 3]['recurse'] = not backupSet['dirs'][optionSelected - 3]['recurse']
 
         return backupSet
-    
 
     def showMainScreen(self):
         exitCondition = ""
@@ -177,14 +176,14 @@ class AdvancedBackupEditor:
         while(exitCondition != -1):
             # load the custom paths
             options = [xbmcgui.ListItem(utils.getString(30126),'',utils.addon_dir() + '/resources/images/plus-icon.png')]
-        
+
             for index in range(0,len(customPaths.getSets())):
                 aSet = customPaths.getSet(index)
                 options.append(xbmcgui.ListItem(aSet['name'],utils.getString(30121) + ': ' + aSet['set']['root'],utils.addon_dir() + '/resources/images/folder-icon.png'))
-            
+
             # show the gui
             exitCondition = self.dialog.select(utils.getString(30125),options,useDetails=True)
-        
+
             if(exitCondition >= 0):
                 if(exitCondition == 0):
                     newSet = self.createSet()
@@ -201,13 +200,13 @@ class AdvancedBackupEditor:
                     if(menuOption == 0):
                         # get the set
                         aSet = customPaths.getSet(exitCondition -1)
-                        
+
                         # edit the set
                         updatedSet = self.editSet(aSet['name'],aSet['set'])
 
                         # save it
                         customPaths.updateSet(aSet['name'],updatedSet)
-                    
+
                     elif(menuOption == 1):
                         if(self.dialog.yesno(heading=utils.getString(30127),line1=utils.getString(30128))):
                             # delete this path - subtract one because of "add" item
@@ -223,5 +222,4 @@ class AdvancedBackupEditor:
 
             xbmcvfs.copy(source,dest)
 
-              
 

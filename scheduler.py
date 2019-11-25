@@ -13,7 +13,7 @@ class BackupScheduler:
     next_run = 0
     next_run_path = None
     restore_point = None
-    
+
     def __init__(self):
         self.monitor = UpdateMonitor(update_method = self.settingsChanged)
         self.enabled = utils.getSetting("enable_scheduler")
@@ -52,7 +52,7 @@ class BackupScheduler:
         # scheduler was turned on, find next run time
         utils.log("scheduler enabled, finding next run time")
         self.findNextRun(time.time())
-        
+
     def start(self):
 
         # display upgrade messages if they exist
@@ -69,9 +69,9 @@ class BackupScheduler:
             # skip the advanced settings check
             restore.skipAdvanced()
             restore.restore()
-        
+
         while(not self.monitor.abortRequested()):
-            
+
             if(self.enabled == "true"):
                 # scheduler is still on
                 now = time.time()
@@ -97,16 +97,16 @@ class BackupScheduler:
     def doScheduledBackup(self,progress_mode):
         if(progress_mode != 2):
             utils.showNotification(utils.getString(30053))
-        
+
         backup = XbmcBackup()
-        
+
         if(backup.remoteConfigured()):
-            
+
             if(int(utils.getSetting('progress_mode')) in [0,1]):
                 backup.backup(True)
             else:
                 backup.backup(False)
-            
+
             # check if this is a "one-off"
             if(int(utils.getSetting("schedule_interval")) == 0):
                 # disable the scheduler after this run
@@ -117,7 +117,7 @@ class BackupScheduler:
 
     def findNextRun(self,now):
         progress_mode = int(utils.getSetting('progress_mode'))
-        
+
         # find the cron expression and get the next run time
         cron_exp = self.parseSchedule()
 
@@ -136,10 +136,10 @@ class BackupScheduler:
             # only show when not in silent mode
             if(progress_mode != 2):                        
                 utils.showNotification(utils.getString(30081) + " " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run),['dateshort','time']))
-                
+
     def settingsChanged(self):
         current_enabled = utils.getSetting("enable_scheduler")
-        
+
         if(current_enabled == "true" and self.enabled == "false"):
             # scheduler was just turned on
             self.enabled = current_enabled
@@ -181,7 +181,6 @@ class BackupScheduler:
             shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30042),utils.getString(30043),utils.getString(30044))
 
         return shouldContinue
-        
 
 class UpdateMonitor(xbmc.Monitor):
     update_method = None
@@ -192,5 +191,5 @@ class UpdateMonitor(xbmc.Monitor):
 
     def onSettingsChanged(self):
         self.update_method()
-        
+
 BackupScheduler().start()

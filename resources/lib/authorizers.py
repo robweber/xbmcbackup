@@ -18,14 +18,14 @@ class DropboxAuthorizer:
 
     def setup(self):
         result = True
-        
+
         if(self.APP_KEY == '' and self.APP_SECRET == ''):
             # we can't go any farther, need these for sure
             xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30027) + ' ' + utils.getString(30058),utils.getString(30059))
 
             result = False
-            
-        return result    
+
+        return result
 
     def isAuthorized(self):
         user_token = self._getToken()
@@ -37,7 +37,7 @@ class DropboxAuthorizer:
 
         if(not self.setup()):
             return False
-        
+
         if(self.isAuthorized()):
             # delete the token to start over
             self._deleteToken()
@@ -53,7 +53,7 @@ class DropboxAuthorizer:
 
         # get the auth code
         code = xbmcgui.Dialog().input(utils.getString(30027) + ' ' + utils.getString(30103))
-        
+
         #if user authorized this will work
 
         try:
@@ -62,7 +62,7 @@ class DropboxAuthorizer:
         except Exception as e:
             utils.log("Error: %s" % (e,))
             result = False
-            
+
         return result;
 
     # return the DropboxClient, or None if can't be created
@@ -81,7 +81,7 @@ class DropboxAuthorizer:
                 #this didn't work, delete the token file
                 self._deleteToken()
                 result = None
-                
+
         return result
 
     def _setToken(self,token):
@@ -100,7 +100,7 @@ class DropboxAuthorizer:
             return token
         else:
             return ""
-        
+
     def _deleteToken(self):
         if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "tokens.txt"))):
             xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "tokens.txt"))

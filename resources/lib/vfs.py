@@ -10,6 +10,7 @@ from . import utils as utils
 from .dropbox.files import WriteMode, CommitInfo, UploadSessionCursor
 from . authorizers import DropboxAuthorizer
 
+
 class Vfs:
     root_path = None
 
@@ -54,6 +55,7 @@ class Vfs:
     def cleanup(self):
         return True
 
+
 class XBMCFileSystem(Vfs):
 
     def listdir(self, directory):
@@ -76,6 +78,7 @@ class XBMCFileSystem(Vfs):
 
     def exists(self, aFile):
         return xbmcvfs.exists(aFile)
+
 
 class ZipFileSystem(Vfs):
     zip = None
@@ -115,8 +118,9 @@ class ZipFileSystem(Vfs):
     def listFiles(self):
         return self.zip.infolist()
 
+
 class DropboxFileSystem(Vfs):
-    MAX_CHUNK = 50 * 1000 * 1000 # dropbox uses 150, reduced to 50 for small mem systems
+    MAX_CHUNK = 50 * 1000 * 1000  # dropbox uses 150, reduced to 50 for small mem systems
     client = None
     APP_KEY = ''
     APP_SECRET = ''
@@ -136,7 +140,7 @@ class DropboxFileSystem(Vfs):
     def listdir(self, directory):
         directory = self._fix_slashes(directory)
 
-        if(self.client != None and self.exists(directory)):
+        if(self.client is not None and self.exists(directory)):
             files = []
             dirs = []
             metadata = self.client.files_list_folder(directory)
@@ -153,7 +157,7 @@ class DropboxFileSystem(Vfs):
 
     def mkdir(self, directory):
         directory = self._fix_slashes(directory)
-        if(self.client != None):
+        if(self.client is not None):
             # sort of odd but always return true, folder create is implicit with file upload
             return True
         else:
@@ -161,7 +165,7 @@ class DropboxFileSystem(Vfs):
 
     def rmdir(self, directory):
         directory = self._fix_slashes(directory)
-        if(self.client != None and self.exists(directory)):
+        if(self.client is not None and self.exists(directory)):
             # dropbox is stupid and will refuse to do this sometimes, need to delete recursively
             dirs, files = self.listdir(directory)
 
@@ -178,7 +182,7 @@ class DropboxFileSystem(Vfs):
     def rmfile(self, aFile):
         aFile = self._fix_slashes(aFile)
 
-        if(self.client != None and self.exists(aFile)):
+        if(self.client is not None and self.exists(aFile)):
             self.client.files_delete(aFile)
             return True
         else:
@@ -187,13 +191,13 @@ class DropboxFileSystem(Vfs):
     def exists(self, aFile):
         aFile = self._fix_slashes(aFile)
 
-        if(self.client != None):
+        if(self.client is not None):
             # can't list root metadata
             if(aFile == ''):
                 return True
 
             try:
-                meta_data = self.client.files_get_metadata(aFile)
+                self.client.files_get_metadata(aFile)
                 # if we make it here the file does exist
                 return True
             except:
@@ -204,7 +208,7 @@ class DropboxFileSystem(Vfs):
     def put(self, source, dest, retry=True):
         dest = self._fix_slashes(dest)
 
-        if(self.client != None):
+        if(self.client is not None):
             # open the file and get its size
             f = open(source, 'rb')
             f_size = os.path.getsize(source)
@@ -212,7 +216,7 @@ class DropboxFileSystem(Vfs):
             try:
                 if(f_size < self.MAX_CHUNK):
                     # use the regular upload
-                    response = self.client.files_upload(f.read(), dest, mode=WriteMode('overwrite'))
+                    self.client.files_upload(f.read(), dest, mode=WriteMode('overwrite'))
                 else:
                     # start the upload session
                     upload_session = self.client.files_upload_session_start(f.read(self.MAX_CHUNK))
@@ -228,7 +232,7 @@ class DropboxFileSystem(Vfs):
                             self.client.files_upload_session_append_v2(f.read(self.MAX_CHUNK), upload_cursor)
                             upload_cursor.offset = f.tell()
 
-                # if no errors we're good!   
+                # if no errors we're good!
                 return True
             except Exception as anError:
                 utils.log(str(anError))
@@ -243,9 +247,9 @@ class DropboxFileSystem(Vfs):
             return False
 
     def get_file(self, source, dest):
-        if(self.client != None):
+        if(self.client is not None):
             # write the file locally
-            f = self.client.files_download_to_file(dest, source)
+            self.client.files_download_to_file(dest, source)
             return True
         else:
             return False

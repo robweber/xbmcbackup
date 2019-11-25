@@ -1,11 +1,12 @@
 from . import utils as utils
 
+
 class ZipExtractor:
 
     def extract(self, zipFile, outLoc, progressBar):
         utils.log("extracting zip archive")
 
-        result = True # result is true unless we fail
+        result = True  # result is true unless we fail
 
         # update the progress bar
         progressBar.updateProgress(0, utils.getString(30100))

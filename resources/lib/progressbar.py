@@ -1,6 +1,7 @@
 import xbmcgui
 from . import utils as utils
 
+
 class BackupProgressBar:
     NONE = 2
     DIALOG = 0
@@ -31,7 +32,7 @@ class BackupProgressBar:
 
         # update the progress bar
         if(self.mode != self.NONE):
-            if(message != None):
+            if(message is not None):
                 # need different calls for dialog and background bars
                 if(self.mode == self.DIALOG):
                     self.progressBar.update(percent, message)

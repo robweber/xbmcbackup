@@ -9,6 +9,7 @@ from resources.lib.backup import XbmcBackup
 
 UPGRADE_INT = 2  # to keep track of any upgrade notifications
 
+
 class BackupScheduler:
     monitor = None
     enabled = "false"
@@ -17,7 +18,7 @@ class BackupScheduler:
     restore_point = None
 
     def __init__(self):
-        self.monitor = UpdateMonitor(update_method = self.settingsChanged)
+        self.monitor = UpdateMonitor(update_method=self.settingsChanged)
         self.enabled = utils.getSetting("enable_scheduler")
         self.next_run_path = xbmc.translatePath(utils.data_dir()) + 'next_run.txt'
 
@@ -42,12 +43,12 @@ class BackupScheduler:
             if(0 < nr <= time.time() and utils.getSetting('schedule_miss') == 'true'):
                 utils.log("scheduled backup was missed, doing it now...")
                 progress_mode = int(utils.getSetting('progress_mode'))
-                
+
                 if(progress_mode == 0):
-                    progress_mode = 1 # Kodi just started, don't block it with a foreground progress bar
+                    progress_mode = 1  # Kodi just started, don't block it with a foreground progress bar
 
                 self.doScheduledBackup(progress_mode)
-                
+
             self.setup()
 
     def setup(self):
@@ -104,7 +105,7 @@ class BackupScheduler:
 
         if(backup.remoteConfigured()):
 
-            if(int(utils.getSetting('progress_mode')) in [0,1]):
+            if(int(utils.getSetting('progress_mode')) in [0, 1]):
                 backup.backup(True)
             else:
                 backup.backup(False)
@@ -136,7 +137,7 @@ class BackupScheduler:
             fh.close()
 
             # only show when not in silent mode
-            if(progress_mode != 2):                        
+            if(progress_mode != 2):    
                 utils.showNotification(utils.getString(30081) + " " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run), ['dateshort', 'time']))
 
     def settingsChanged(self):
@@ -184,6 +185,7 @@ class BackupScheduler:
 
         return shouldContinue
 
+
 class UpdateMonitor(xbmc.Monitor):
     update_method = None
 
@@ -193,5 +195,6 @@ class UpdateMonitor(xbmc.Monitor):
 
     def onSettingsChanged(self):
         self.update_method()
+
 
 BackupScheduler().start()

@@ -1,3 +1,4 @@
+# launcher for various helpful functions found in the settings.xml area
 import sys
 import xbmc
 import xbmcgui
@@ -6,7 +7,6 @@ import resources.lib.utils as utils
 from resources.lib.authorizers import DropboxAuthorizer
 from resources.lib.advanced_editor import AdvancedBackupEditor
 
-# launcher for various helpful functions found in the settings.xml area
 
 def authorize_cloud(cloudProvider):
     # drobpox
@@ -18,15 +18,17 @@ def authorize_cloud(cloudProvider):
         else:
             xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30107) + ' ' + utils.getString(30027))
 
+
 def remove_auth():
     # triggered from settings.xml - asks if user wants to delete OAuth token information
     shouldDelete = xbmcgui.Dialog().yesno(utils.getString(30093), utils.getString(30094), utils.getString(30095), autoclose=7000)
 
     if(shouldDelete):
         # delete any of the known token file types
-        xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "tokens.txt")) # dropbox
-        xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "google_drive.dat")) # google drive
-    
+        xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "tokens.txt"))  # dropbox
+        xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "google_drive.dat"))  # google drive
+
+
 def get_params():
     param = {}
     try:
@@ -34,13 +36,14 @@ def get_params():
             args = i
             if('=' in args):
                 if(args.startswith('?')):
-                    args = args[1:] # legacy in case of url params
+                    args = args[1:]  # legacy in case of url params
                 splitString = args.split('=')
                 param[splitString[0]] = splitString[1]
     except:
         pass
 
     return param
+
 
 params = get_params()
 

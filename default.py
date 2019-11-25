@@ -4,6 +4,7 @@ import xbmcgui
 import resources.lib.utils as utils
 from resources.lib.backup import XbmcBackup
 
+
 def get_params():
     param = {}
     try:
@@ -19,6 +20,7 @@ def get_params():
 
     return param
 
+
 # the program mode
 mode = -1
 params = get_params()
@@ -29,6 +31,7 @@ if("mode" in params):
         mode = 0
     elif(params['mode'] == 'restore'):
         mode = 1
+
 
 # if mode wasn't passed in as arg, get from user
 if(mode == -1):

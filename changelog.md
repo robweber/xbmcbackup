@@ -4,12 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.2...HEAD)
+## [Version 1.6.0](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.2...robweber:matrix-1.6.0) - 2019-11-26
 
 ### Added
 
  - added new badges for Kodi Version, TravisCI and license information from shields.io
  - dependency on script.module.dateutil for relativedelta.py class
+ - add Dropbox library back in v 9.4.0, for Python 3 compatibility
 
 ### Changed
 

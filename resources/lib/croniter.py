@@ -3,8 +3,8 @@
 
 import re
 from time import time, mktime
-from datetime import datetime, date
-from .relativedelta import relativedelta
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 search_re = re.compile(r'^([^-]+)-([^-/]+)(/(.*))?$')
 only_int_re = re.compile(r'^\d+$')

@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 
  - added new badges for Kodi Version, TravisCI and license information from shields.io
+ - dependency on script.module.dateutil for relativedelta.py class
 
 ### Changed
 
@@ -24,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
  - removed need for urlparse library
  - Removed GoogleDrive support - issues with python 3 compatibility
  - removed script.module.dropbox dependency, need version 9+ and it isn't in the Kodi repo yet
+ - removed relativedelta.py, use the dateutil module for this
 
 ## [Version 1.5.2](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.1...robweber:krypton-1.5.2) - 2019-09-30
 

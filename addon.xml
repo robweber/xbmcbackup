@@ -3,6 +3,7 @@
     name="Backup" version="1.6.0~beta1" provider-name="robweber">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
+    <import addon="script.module.dateutil" version="2.8.0" />
     <import addon="script.module.future" version="0.16.0.4"/>
     <!-- for dropbox -->
     <import addon="script.module.requests" version="2.18.4"/>

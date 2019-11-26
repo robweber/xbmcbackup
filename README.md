@@ -1,5 +1,5 @@
 # Backup Addon
-![Kodi Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Frobweber%2Fxbmcbackup%2Fmaster%2Ftrue%2Ftrue) [![Build Status](https://img.shields.io/travis/robweber/xbmcbackup/master)](https://travis-ci.org/robweber/xbmcbackup) [![License](https://img.shields.io/github/license/robweber/xbmcbackup)](https://github.com/robweber/xbmcbackup/blob/master/LICENSE.txt)
+![Kodi Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Frobweber%2Fxbmcbackup%2Fmaster%2Ftrue%2Ftrue) [![Build Status](https://img.shields.io/travis/robweber/xbmcbackup/master)](https://travis-ci.org/robweber/xbmcbackup) [![License](https://img.shields.io/github/license/robweber/xbmcbackup)](https://github.com/robweber/xbmcbackup/blob/master/LICENSE.txt) [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 ## About
 

@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
  - call isdigit() method on the string directly instead of str.isdigit() (results in unicode error)
  - added flake8 testing to travis-ci 
  - updated code to make python3 compatible
+ - updated code for pep9 styling
 
 ### Removed
 

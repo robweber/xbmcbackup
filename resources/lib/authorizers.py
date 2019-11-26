@@ -33,7 +33,7 @@ class DropboxAuthorizer:
     def isAuthorized(self):
         user_token = self._getToken()
 
-        return user_token != ''  
+        return user_token != ''
 
     def authorize(self):
         result = True
@@ -66,7 +66,7 @@ class DropboxAuthorizer:
             utils.log("Error: %s" % (e,))
             result = False
 
-        return result;
+        return result
 
     # return the DropboxClient, or None if can't be created
     def getClient(self):

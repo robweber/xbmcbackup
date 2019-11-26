@@ -11,6 +11,7 @@ from . progressbar import BackupProgressBar
 from resources.lib.guisettings import GuiSettingsManager
 from resources.lib.extractor import ZipExtractor
 
+
 def folderSort(aKey):
     result = aKey[0]
 
@@ -56,7 +57,7 @@ class XbmcBackup:
             self.remote_vfs = XBMCFileSystem(utils.getSetting('remote_path_2'))
             utils.setSetting("remote_path", "")
         elif(utils.getSetting('remote_selection') == '0'):
-            self.remote_base_path = utils.getSetting('remote_path');
+            self.remote_base_path = utils.getSetting('remote_path')
             self.remote_vfs = XBMCFileSystem(utils.getSetting("remote_path"))
         elif(utils.getSetting('remote_selection') == '2'):
             self.remote_base_path = "/"
@@ -252,7 +253,7 @@ class XbmcBackup:
                 return
 
             valFile = self._checkValidationFile(self.remote_vfs.root_path)
-            if(valFile == None):
+            if(valFile is None):
                 # don't continue
                 return
 
@@ -274,7 +275,7 @@ class XbmcBackup:
                     self._createResumeBackupFile()
 
                     # do not continue running
-                    xbmcgui.Dialog().ok(utils.getString(30077), utils.getString(30078)) 
+                    xbmcgui.Dialog().ok(utils.getString(30077), utils.getString(30078))
                     return
 
             # use a multiselect dialog to select sets to restore
@@ -346,7 +347,7 @@ class XbmcBackup:
 
             self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d%H%M") + "/")
             progressBarTitle = progressBarTitle + utils.getString(30023) + ": " + utils.getString(30016)
-        elif(mode == self.Restore and self.restore_point != None and self.remote_vfs.root_path != ''):
+        elif(mode == self.Restore and self.restore_point is not None and self.remote_vfs.root_path != ''):
             if(self.restore_point.split('.')[-1] != 'zip'):
                 self.remote_vfs.set_root(self.remote_vfs.root_path + self.restore_point + "/")
             progressBarTitle = progressBarTitle + utils.getString(30023) + ": " + utils.getString(30017)

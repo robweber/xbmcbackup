@@ -16,7 +16,7 @@ class BackupSetManager:
         self._readFile()
 
     def addSet(self, aSet):
-        self.paths[aSet['name']] = {'root': aSet['root'], 'dirs': [{"type":"include", "path": aSet['root'], 'recurse': True}]}
+        self.paths[aSet['name']] = {'root': aSet['root'], 'dirs': [{"type": "include", "path": aSet['root'], 'recurse': True}]}
 
         # save the file
         self._writeFile()
@@ -60,7 +60,7 @@ class BackupSetManager:
         aFile.close()
 
     def _readFile(self):
-        
+
         if(xbmcvfs.exists(self.jsonFile)):
 
             # read in the custom file
@@ -72,6 +72,7 @@ class BackupSetManager:
         else:
             # write a blank file
             self._writeFile()
+
 
 class AdvancedBackupEditor:
     dialog = None
@@ -128,7 +129,7 @@ class AdvancedBackupEditor:
                 elif(aDir['type'] == 'include'):
                     options.append(xbmcgui.ListItem(self._cleanPath(rootPath, aDir['path']), "%s: %s | %s: %s" % ("Type", utils.getString(30134), "Include Sub Folders", str(aDir['recurse']))))
 
-            optionSelected = self.dialog.select(utils.getString(30122) + ' ' +  name, options, useDetails=True)
+            optionSelected = self.dialog.select(utils.getString(30122) + ' ' + name, options, useDetails=True)
 
             if(optionSelected == 0 or optionSelected == 1):
                 # add a folder, will equal root if cancel is hit

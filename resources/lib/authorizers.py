@@ -10,10 +10,11 @@ try:
 except ImportError:
     pass
 
+
 class DropboxAuthorizer:
     APP_KEY = ""
     APP_SECRET = ""
-    
+
     def __init__(self):
         self.APP_KEY = utils.getSetting('dropbox_key')
         self.APP_SECRET = utils.getSetting('dropbox_secret')
@@ -32,7 +33,7 @@ class DropboxAuthorizer:
     def isAuthorized(self):
         user_token = self._getToken()
 
-        return user_token != ''        
+        return user_token != ''  
 
     def authorize(self):
         result = True
@@ -56,7 +57,7 @@ class DropboxAuthorizer:
         # get the auth code
         code = xbmcgui.Dialog().input(utils.getString(30027) + ' ' + utils.getString(30103))
 
-        #if user authorized this will work
+        # if user authorized this will work
 
         try:
             user_token = flow.finish(code)
@@ -74,13 +75,13 @@ class DropboxAuthorizer:
         user_token = self._getToken()
 
         if(user_token != ''):
-            #create the client
+            # create the client
             result = dropbox.Dropbox(user_token)
 
             try:
                 result.users_get_current_account()
             except:
-                #this didn't work, delete the token file
+                # this didn't work, delete the token file
                 self._deleteToken()
                 result = None
 

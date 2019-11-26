@@ -12,7 +12,7 @@ def get_params():
             args = i
             if('=' in args):
                 if(args.startswith('?')):
-                    args = args[1:] # legacy in case of url params
+                    args = args[1:]  # legacy in case of url params
                 splitString = args.split('=')
                 param[splitString[0]] = splitString[1]
     except:

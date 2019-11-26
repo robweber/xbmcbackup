@@ -34,7 +34,7 @@ class GuiSettingsManager:
         updateSettings = {k: v for k, v in list(restoreSettings.items()) if (k in currentSettings and currentSettings[k] != v)}
 
         # go through all the found settings and update them
-        jsonObj = {"jsonrpc":"2.0", "id":1, "method":"Settings.SetSettingValue", "params":{"setting":"", "value":""}}
+        jsonObj = {"jsonrpc": "2.0", "id": 1, "method": "Settings.SetSettingValue", "params": {"setting": "", "value": ""}}
         for anId, aValue in list(updateSettings.items()):
             utils.log("updating: " + anId + ", value: " + str(aValue))
 
@@ -48,7 +48,7 @@ class GuiSettingsManager:
 
         for node in nodeList:
             nodeValue = ''
-            if(node.firstChild != None):
+            if(node.firstChild is not None):
                 nodeValue = node.firstChild.nodeValue
 
             # check for numbers and booleans
@@ -60,7 +60,7 @@ class GuiSettingsManager:
                 nodeValue = False
 
             result[node.getAttribute('id')] = nodeValue
-            
+
         return result
 
     def _readFile(self, fileLoc):
@@ -70,4 +70,3 @@ class GuiSettingsManager:
                 self.doc = minidom.parse(fileLoc)
             except ExpatError:
                 utils.log("Can't read " + fileLoc)
-

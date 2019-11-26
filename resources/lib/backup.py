@@ -19,6 +19,7 @@ def folderSort(aKey):
 
     return result
 
+
 class XbmcBackup:
     # constants for initiating a back or restore
     Backup = 0
@@ -51,7 +52,7 @@ class XbmcBackup:
 
     def configureRemote(self):
         if(utils.getSetting('remote_selection') == '1'):
-            self.remote_base_path = utils.getSetting('remote_path_2');
+            self.remote_base_path = utils.getSetting('remote_path_2')
             self.remote_vfs = XBMCFileSystem(utils.getSetting('remote_path_2'))
             utils.setSetting("remote_path", "")
         elif(utils.getSetting('remote_selection') == '0'):
@@ -70,7 +71,7 @@ class XbmcBackup:
         return result
 
     # reverse - should reverse the resulting, default is true - newest to oldest
-    def listBackups(self,  reverse=True):
+    def listBackups(self, reverse=True):
         result = []
 
         # get all the folders in the current root path
@@ -78,7 +79,7 @@ class XbmcBackup:
 
         for aDir in dirs:
             if(self.remote_vfs.exists(self.remote_base_path + aDir + "/xbmcbackup.val")):
-                
+
                 # format the name according to regional settings
                 folderName = self._dateFormat(aDir)
 
@@ -89,7 +90,7 @@ class XbmcBackup:
             folderName = aFile.split('.')[0]
 
             if(file_ext == 'zip' and len(folderName) == 12 and folderName.isdigit()):
-                
+
                 # format the name according to regional settings
                 folderName = self._dateFormat(folderName)
 
@@ -183,7 +184,7 @@ class XbmcBackup:
                 self.xbmc_vfs.rename(xbmc.translatePath("special://temp/xbmc_backup_temp.zip"), xbmc.translatePath("special://temp/" + zip_name))
                 fileManager.addFile(xbmc.translatePath("special://temp/" + zip_name))
 
-                # set root to data dir home 
+                # set root to data dir home
                 self.xbmc_vfs.set_root(xbmc.translatePath("special://temp/"))
 
                 self.remote_vfs = self.saved_remote_vfs
@@ -214,7 +215,7 @@ class XbmcBackup:
                 self.progressBar.updateProgress(2, utils.getString(30088))
                 utils.log("copying zip file: " + self.restore_point)
 
-                # set root to data dir home 
+                # set root to data dir home
                 self.xbmc_vfs.set_root(xbmc.translatePath("special://temp/"))
 
                 if(not self.xbmc_vfs.exists(xbmc.translatePath("special://temp/" + self.restore_point))):
@@ -227,7 +228,7 @@ class XbmcBackup:
                     utils.log("zip file exists already")
 
                 # extract the zip file
-                zip_vfs = ZipFileSystem(xbmc.translatePath("special://temp/"+ self.restore_point), 'r')
+                zip_vfs = ZipFileSystem(xbmc.translatePath("special://temp/" + self.restore_point), 'r')
                 extractor = ZipExtractor()
 
                 if(not extractor.extract(zip_vfs, xbmc.translatePath("special://temp/"), self.progressBar)):
@@ -280,12 +281,12 @@ class XbmcBackup:
             restoreSets = [n['name'] for n in valFile['directories']]
 
             # if passed in list, skip selection
-            if(selectedSets == None):
+            if(selectedSets is None):
                 selectedSets = xbmcgui.Dialog().multiselect(utils.getString(30131), restoreSets)
             else:
-                selectedSets = [restoreSets.index(n) for n in selectedSets if n in restoreSets] # if set name not found just skip it
+                selectedSets = [restoreSets.index(n) for n in selectedSets if n in restoreSets]  # if set name not found just skip it
 
-            if(selectedSets != None):
+            if(selectedSets is not None):
                 # go through each of the directories in the backup and write them to the correct location
                 for index in selectedSets:
 
@@ -297,7 +298,7 @@ class XbmcBackup:
                         # walk the directory
                         fileManager.walkTree(self.remote_vfs.root_path + aDir['name'] + '/')
                         self.filesTotal = self.filesTotal + fileManager.size()
-                        allFiles.append({"source":self.remote_vfs.root_path + aDir['name'], "dest":self.xbmc_vfs.root_path, "files":fileManager.getFiles()}) 
+                        allFiles.append({"source": self.remote_vfs.root_path + aDir['name'], "dest": self.xbmc_vfs.root_path, "files": fileManager.getFiles()})
                     else:
                         utils.log("error path not found: " + self.remote_vfs.root_path + aDir['name'])
                         xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30045), self.remote_vfs.root_path + aDir['name'])
@@ -356,7 +357,6 @@ class XbmcBackup:
 
         utils.log(utils.getString(30047) + ": " + self.xbmc_vfs.root_path)
         utils.log(utils.getString(30048) + ": " + self.remote_vfs.root_path)
-
 
         # setup the progress bar
         self.progressBar = BackupProgressBar(progressOverride)
@@ -421,7 +421,7 @@ class XbmcBackup:
         # update total files
         self.filesTotal = self.filesTotal + fileManager.size()
 
-        return {"name":folder_name, "source":root_path, "dest":self.remote_vfs.root_path, "files":fileManager.getFiles()}
+        return {"name": folder_name, "source": root_path, "dest": self.remote_vfs.root_path, "files": fileManager.getFiles()}
 
     def _dateFormat(self, dirName):
         # create date_time object from foldername YYYYMMDDHHmm
@@ -434,7 +434,7 @@ class XbmcBackup:
 
     def _updateProgress(self, message=None):
         self.filesLeft = self.filesLeft - 1
-        self.progressBar.updateProgress(int((float(self.filesTotal - self.filesLeft)/float(self.filesTotal)) * 100), message)
+        self.progressBar.updateProgress(int((float(self.filesTotal - self.filesLeft) / float(self.filesTotal)) * 100), message)
 
     def _rotateBackups(self):
         total_backups = int(utils.getSetting('backup_rotation'))
@@ -462,11 +462,11 @@ class XbmcBackup:
                     remove_num = remove_num + 1
 
     def _createValidationFile(self, dirList):
-        valInfo = {"name":"XBMC Backup Validation File", "xbmc_version":xbmc.getInfoLabel('System.BuildVersion'), "type":0}
+        valInfo = {"name": "XBMC Backup Validation File", "xbmc_version": xbmc.getInfoLabel('System.BuildVersion'), "type": 0}
         valDirs = []
 
         for aDir in dirList:
-            valDirs.append({"name":aDir['name'], "path":aDir['source']})
+            valDirs.append({"name": aDir['name'], "path": aDir['source']})
         valInfo['directories'] = valDirs
 
         vFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"), 'w')
@@ -513,7 +513,7 @@ class XbmcBackup:
 
                 if(not shouldContinue):
                     result = None
-                
+
         except ValueError:
             # may fail on older archives
             result = None
@@ -530,6 +530,7 @@ class XbmcBackup:
         jsonString = jFile.read()
         jFile.close()
         return json.loads(jsonString)
+
 
 class FileManager:
     not_dir = ['.zip', '.xsp', '.rar']
@@ -565,7 +566,7 @@ class FileManager:
 
                     # check if directory is excluded
                     if(not any(dirPath.startswith(exDir) for exDir in self.exclude_dir)):
-                    
+
                         self.addFile("-" + dirPath)
 
                         # catch for "non directory" type files
@@ -576,7 +577,7 @@ class FileManager:
                                 shouldWalk = False
 
                         if(shouldWalk):
-                            self.walkTree(dirPath)  
+                            self.walkTree(dirPath)
 
             # copy all the files
             for aFile in files:
@@ -585,7 +586,7 @@ class FileManager:
 
     def addDir(self, dirMeta):
         if(dirMeta['type'] == 'include'):
-            self.root_dirs.append({'path':dirMeta['path'], 'recurse':dirMeta['recurse']})
+            self.root_dirs.append({'path': dirMeta['path'], 'recurse': dirMeta['recurse']})
         else:
             self.excludeFile(xbmc.translatePath(dirMeta['path']))
 

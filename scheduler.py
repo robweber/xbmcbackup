@@ -137,7 +137,7 @@ class BackupScheduler:
             fh.close()
 
             # only show when not in silent mode
-            if(progress_mode != 2):    
+            if(progress_mode != 2):
                 utils.showNotification(utils.getString(30081) + " " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run), ['dateshort', 'time']))
 
     def settingsChanged(self):

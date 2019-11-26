@@ -4,6 +4,7 @@ import xbmcgui
 import xbmcvfs
 from . import utils as utils
 
+
 class BackupSetManager:
     jsonFile = xbmc.translatePath(utils.data_dir() + "custom_paths.json")
     paths = None
@@ -15,7 +16,7 @@ class BackupSetManager:
         self._readFile()
 
     def addSet(self, aSet):
-        self.paths[aSet['name']] = {'root':aSet['root'], 'dirs':[{"type":"include", "path":aSet['root'], 'recurse':True}]}
+        self.paths[aSet['name']] = {'root': aSet['root'], 'dirs': [{"type":"include", "path": aSet['root'], 'recurse': True}]}
 
         # save the file
         self._writeFile()
@@ -33,7 +34,7 @@ class BackupSetManager:
         # delete this set
         del self.paths[keys[index]]
 
-        #save the file
+        # save the file
         self._writeFile()
 
     def getSets(self):
@@ -44,10 +45,10 @@ class BackupSetManager:
         return keys
 
     def getSet(self, index):
-        keys = self.getSets();
+        keys = self.getSets()
 
         # return the set at this index
-        return {'name':keys[index], 'set':self.paths[keys[index]]}
+        return {'name': keys[index], 'set': self.paths[keys[index]]}
 
     def validateSetName(self, name):
         return (name not in self.getSets())
@@ -79,7 +80,7 @@ class AdvancedBackupEditor:
         self.dialog = xbmcgui.Dialog()
 
     def _cleanPath(self, root, path):
-        return path[len(root)-1:]
+        return path[len(root) - 1:]
 
     def _validatePath(self, root, path):
         return path.startswith(root)
@@ -89,7 +90,7 @@ class AdvancedBackupEditor:
 
         name = self.dialog.input(utils.getString(30110), defaultt='Backup Set')
 
-        if(name != None):
+        if(name is not None):
 
             # give a choice to start in home or enter a root path
             enterHome = self.dialog.yesno(utils.getString(30111), line1=utils.getString(30112) + " - " + utils.getString(30114), line2=utils.getString(30113) + " - " + utils.getString(30115), nolabel=utils.getString(30112), yeslabel=utils.getString(30113))
@@ -110,11 +111,11 @@ class AdvancedBackupEditor:
                 # select path to start set
                 rootFolder = self.dialog.browse(type=0, heading=utils.getString(30119), shares='files', defaultt=rootFolder)
 
-            backupSet = {'name':name, 'root':rootFolder}
+            backupSet = {'name': name, 'root': rootFolder}
 
         return backupSet
 
-    def editSet(self ,name, backupSet):
+    def editSet(self, name, backupSet):
         optionSelected = ''
         rootPath = backupSet['root']
         utils.log(rootPath)
@@ -123,9 +124,9 @@ class AdvancedBackupEditor:
 
             for aDir in backupSet['dirs']:
                 if(aDir['type'] == 'exclude'):
-                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath, aDir['path']),"%s: %s" % ("Type", utils.getString(30129))))
+                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath, aDir['path']), "%s: %s" % ("Type", utils.getString(30129))))
                 elif(aDir['type'] == 'include'):
-                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath, aDir['path']),"%s: %s | %s: %s" % ("Type", utils.getString(30134), "Include Sub Folders", str(aDir['recurse']))))
+                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath, aDir['path']), "%s: %s | %s: %s" % ("Type", utils.getString(30134), "Include Sub Folders", str(aDir['recurse']))))
 
             optionSelected = self.dialog.select(utils.getString(30122) + ' ' +  name, options, useDetails=True)
 
@@ -138,10 +139,10 @@ class AdvancedBackupEditor:
                     if(not any(addFolder == aDir['path'] for aDir in backupSet['dirs'])):
                         # cannot add root as an exclusion
                         if(optionSelected == 0 and addFolder != backupSet['root']):
-                            backupSet['dirs'].append({"path":addFolder, "type":"exclude"})
+                            backupSet['dirs'].append({"path": addFolder, "type": "exclude"})
                         elif(optionSelected == 1):
                             # can add root as inclusion
-                            backupSet['dirs'].append({"path":addFolder, "type":"include", "recurse":True})
+                            backupSet['dirs'].append({"path": addFolder, "type": "include", "recurse": True})
                     else:
                         # this path is already part of another include/exclude rule
                         self.dialog.ok(utils.getString(30117), utils.getString(30137), addFolder)
@@ -174,7 +175,7 @@ class AdvancedBackupEditor:
 
         # show this every time
         self.dialog.ok(utils.getString(30036), utils.getString(30037))
- 
+
         while(exitCondition != -1):
             # load the custom paths
             options = [xbmcgui.ListItem(utils.getString(30126), '', utils.addon_dir() + '/resources/images/plus-icon.png')]
@@ -201,7 +202,7 @@ class AdvancedBackupEditor:
 
                     if(menuOption == 0):
                         # get the set
-                        aSet = customPaths.getSet(exitCondition -1)
+                        aSet = customPaths.getSet(exitCondition - 1)
 
                         # edit the set
                         updatedSet = self.editSet(aSet['name'], aSet['set'])
@@ -212,7 +213,7 @@ class AdvancedBackupEditor:
                     elif(menuOption == 1):
                         if(self.dialog.yesno(heading=utils.getString(30127), line1=utils.getString(30128))):
                             # delete this path - subtract one because of "add" item
-                            customPaths.deleteSet(exitCondition -1)
+                            customPaths.deleteSet(exitCondition - 1)
 
     def copySimpleConfig(self):
         # disclaimer in case the user hit this on accident
@@ -223,5 +224,3 @@ class AdvancedBackupEditor:
             dest = xbmc.translatePath(utils.data_dir() + "/custom_paths.json")
 
             xbmcvfs.copy(source, dest)
-
-

@@ -2,7 +2,7 @@ import xbmc
 import xbmcgui
 import xbmcaddon
 
-__addon_id__= 'script.xbmcbackup'
+__addon_id__ = 'script.xbmcbackup'
 __Addon = xbmcaddon.Addon(__addon_id__)
 
 
@@ -45,4 +45,3 @@ def getRegionalTimestamp(date_time, dateformat=['dateshort']):
         result = result + ("%s " % date_time.strftime(xbmc.getRegion(aFormat)))
 
     return result.strip()
-

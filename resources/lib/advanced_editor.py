@@ -119,7 +119,7 @@ class AdvancedBackupEditor:
     def editSet(self, name, backupSet):
         optionSelected = ''
         rootPath = backupSet['root']
-        utils.log(rootPath)
+
         while(optionSelected != -1):
             options = [xbmcgui.ListItem(utils.getString(30120), "Exclude a specific folder from this backup set"), xbmcgui.ListItem(utils.getString(30135), "Include a specific folder to this backup set"), xbmcgui.ListItem(rootPath, utils.getString(30121))]
 
@@ -179,11 +179,16 @@ class AdvancedBackupEditor:
 
         while(exitCondition != -1):
             # load the custom paths
-            options = [xbmcgui.ListItem(utils.getString(30126), '', utils.addon_dir() + '/resources/images/plus-icon.png')]
+            listItem = xbmcgui.ListItem(utils.getString(30126), '')
+            listItem.setArt({'icon': utils.addon_dir() + 'resources/images/plus-icon.png'})
+            options = [listItem]
 
             for index in range(0, len(customPaths.getSets())):
                 aSet = customPaths.getSet(index)
-                options.append(xbmcgui.ListItem(aSet['name'], utils.getString(30121) + ': ' + aSet['set']['root'], utils.addon_dir() + '/resources/images/folder-icon.png'))
+
+                listItem = xbmcgui.ListItem(aSet['name'], utils.getString(30121) + ': ' + aSet['set']['root'])
+                listItem.setArt({'icon': utils.addon_dir() + 'resources/images/folder-icon.png'})
+                options.append(listItem)
 
             # show the gui
             exitCondition = self.dialog.select(utils.getString(30125), options, useDetails=True)

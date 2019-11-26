@@ -1,7 +1,7 @@
 import xbmc
 import xbmcvfs
 import xbmcgui
-import zipfile
+from . import zipfile
 import os.path
 import sys
 import dropbox

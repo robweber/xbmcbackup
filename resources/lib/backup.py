@@ -382,7 +382,7 @@ class XbmcBackup:
         result = True
 
         utils.log("Source: " + source.root_path)
-        utils.log("Desintation: " + dest.root_path)
+        utils.log("Destination: " + dest.root_path)
 
         # make sure the dest folder exists - can cause write errors if the full path doesn't exist
         if(not dest.exists(dest.root_path)):

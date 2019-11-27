@@ -93,10 +93,9 @@
 		<screenshot>resources/images/screenshot3.png</screenshot>
 		<screenshot>resources/images/screenshot4.png</screenshot>
     </assets>
-    <news>Version 1.5.2
-- Added script.module.dropbox import as a dependency for Dropbox filesystem
-- Fixed issue getting xbmcbackup.val file from non-zipped remote directories. Was being copied as though it was a local file so it was failing. 
-- Use linux path separator (/) all the time, Kodi will interpret this correctly on windows. Was causing issues with remote file systems since os.path.sep 
+    <news>Version 1.6.0
+ - dependency on script.module.dateutil for relativedelta.py class
+ - added Python 3 compatibility
    	</news>
   </extension>
 </addon>

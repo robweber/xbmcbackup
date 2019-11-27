@@ -399,8 +399,8 @@ class XbmcBackup:
                     self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):]) + "/"))
                     dest.mkdir(dest.root_path + aFile['file'][len(source.root_path) + 1:])
                 else:
-                    self.transferLeft = self.transferLeft - aFile['size']
                     self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):])))
+                    self.transferLeft = self.transferLeft - aFile['size']
 
                     wroteFile = True
                     destFile = dest.root_path + aFile['file'][len(source.root_path):]
@@ -414,7 +414,6 @@ class XbmcBackup:
                     # if result is still true but this file failed
                     if(not wroteFile and result):
                         result = False
-                xbmc.sleep(200)
 
         return result
 

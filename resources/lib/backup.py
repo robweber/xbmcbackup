@@ -4,6 +4,7 @@ import json
 import xbmc
 import xbmcgui
 import xbmcvfs
+import os.path
 from . import utils as utils
 from datetime import datetime
 from . vfs import XBMCFileSystem, DropboxFileSystem, ZipFileSystem
@@ -391,11 +392,11 @@ class XbmcBackup:
             if(not self.progressBar.checkCancel()):
                 utils.log('Writing file: ' + aFile['file'], xbmc.LOGDEBUG)
                 if(aFile['file'].startswith("-")):
-                    self._updateProgress('%dKB %s' % (self.transferSize, aFile['file'][len(source.root_path) + 1:]))
+                    self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferSize), os.path.basename(aFile['file'][len(source.root_path):])))
                     dest.mkdir(dest.root_path + aFile['file'][len(source.root_path) + 1:])
                 else:
                     self.transferSize = self.transferSize - aFile['size']
-                    self._updateProgress('%dKB %s' % (self.transferSize, aFile['file'][len(source.root_path):]))
+                    self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferSize), os.path.basename(aFile['file'][len(source.root_path):])))
 
                     wroteFile = True
                     destFile = dest.root_path + aFile['file'][len(source.root_path):]
@@ -409,7 +410,7 @@ class XbmcBackup:
                     # if result is still true but this file failed
                     if(not wroteFile and result):
                         result = False
-                xbmc.sleep(1000)
+                xbmc.sleep(200)
 
         return result
 

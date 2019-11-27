@@ -387,7 +387,9 @@ class XbmcBackup:
 
         for aFile in fileList:
             if(not self.progressBar.checkCancel()):
-                utils.log('Writing file: ' + aFile, xbmc.LOGDEBUG)
+                if(utils.getSettingBool('verbose_logging')):
+                    utils.log('Writing file: ' + aFile)
+
                 if(aFile.startswith("-")):
                     self._updateProgress(aFile[len(source.root_path) + 1:])
                     dest.mkdir(dest.root_path + aFile[len(source.root_path) + 1:])
@@ -552,7 +554,9 @@ class FileManager:
             self.walkTree(xbmc.translatePath(aDir['path']), aDir['recurse'])
 
     def walkTree(self, directory, recurse=True):
-        utils.log('walking ' + directory + ', recurse: ' + str(recurse))
+        if(utils.getSettingBool('verbose_logging')):
+            utils.log('walking ' + directory + ', recurse: ' + str(recurse))
+
         if(directory[-1:] == '/' or directory[-1:] == '\\'):
             directory = directory[:-1]
 
@@ -593,11 +597,12 @@ class FileManager:
 
     def addFile(self, filename):
         # write the full remote path name of this file
-        utils.log("Add File: " + filename)
+        if(utils.getSettingBool('verbose_logging')):
+            utils.log("Add File: " + filename)
+
         self.fileArray.append(filename)
 
     def excludeFile(self, filename):
-
         # remove trailing slash
         if(filename[-1] == '/' or filename[-1] == '\\'):
             filename = filename[:-1]

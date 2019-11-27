@@ -125,14 +125,14 @@ class XbmcBackup:
             utils.log('File Selection Type: ' + str(utils.getSetting('backup_selection_type')))
             allFiles = []
 
-            if(int(utils.getSetting('backup_selection_type')) == 0):
+            if(utils.getSettingInt('backup_selection_type') == 0):
                 # read in a list of the directories to backup
                 selectedDirs = self._readBackupConfig(utils.addon_dir() + "/resources/data/default_files.json")
 
                 # simple mode - get file listings for all enabled directories
                 for aDir in self.simple_directory_list:
                     # if this dir enabled
-                    if(utils.getSetting('backup_' + aDir) == 'true'):
+                    if(utils.getSettingBool('backup_' + aDir)):
                         # get a file listing and append it to the allfiles array
                         allFiles.append(self._addBackupDir(aDir, selectedDirs[aDir]['root'], selectedDirs[aDir]['dirs']))
             else:
@@ -177,7 +177,7 @@ class XbmcBackup:
             self.xbmc_vfs.set_root("special://home/")
             self.remote_vfs.set_root(orig_base_path)
 
-            if(utils.getSetting("compress_backups") == 'true'):
+            if(utils.getSettingBool("compress_backups")):
                 fileManager = FileManager(self.xbmc_vfs)
 
                 # send the zip file to the real remote vfs
@@ -340,7 +340,7 @@ class XbmcBackup:
         # append backup folder name
         progressBarTitle = utils.getString(30010) + " - "
         if(mode == self.Backup and self.remote_vfs.root_path != ''):
-            if(utils.getSetting("compress_backups") == 'true'):
+            if(utils.getSettingBool("compress_backups")):
                 # delete old temp file
                 if(self.xbmc_vfs.exists(xbmc.translatePath('special://temp/xbmc_backup_temp.zip'))):
                     if(not self.xbmc_vfs.rmfile(xbmc.translatePath('special://temp/xbmc_backup_temp.zip'))):
@@ -394,10 +394,12 @@ class XbmcBackup:
 
         for aFile in fileList:
             if(not self.progressBar.checkCancel()):
-                utils.log('Writing file: ' + aFile['file'], xbmc.LOGDEBUG)
-                if(aFile['file'].startswith("-")):
+                if(utils.getSettingBool('verbose_logging')):
+                    utils.log('Writing file: ' + aFile)
+
+                if(aFile.startswith("-")):
                     self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):]) + "/"))
-                    dest.mkdir(dest.root_path + aFile['file'][len(source.root_path) + 1:])
+                    dest.mkdir(dest.root_path + aFile[len(source.root_path) + 1:])
                 else:
                     self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):])))
                     self.transferLeft = self.transferLeft - aFile['size']
@@ -446,7 +448,7 @@ class XbmcBackup:
         self.progressBar.updateProgress(int((float(self.transferSize - self.transferLeft) / float(self.transferSize)) * 100), message)
 
     def _rotateBackups(self):
-        total_backups = int(utils.getSetting('backup_rotation'))
+        total_backups = utils.getSettingInt('backup_rotation')
 
         if(total_backups > 0):
             # get a list of valid backup folders
@@ -560,7 +562,9 @@ class FileManager:
             self.walkTree(xbmc.translatePath(aDir['path']), aDir['recurse'])
 
     def walkTree(self, directory, recurse=True):
-        utils.log('walking ' + directory + ', recurse: ' + str(recurse))
+        if(utils.getSettingBool('verbose_logging')):
+            utils.log('walking ' + directory + ', recurse: ' + str(recurse))
+
         if(directory[-1:] == '/' or directory[-1:] == '\\'):
             directory = directory[:-1]
 
@@ -601,7 +605,9 @@ class FileManager:
 
     def addFile(self, filename):
         # write the full remote path name of this file
-        utils.log("Add File: " + filename)
+        if(utils.getSettingBool('verbose_logging')):
+            utils.log("Add File: " + filename)
+
 
         # get the file size
         fSize = self.vfs.fileSize(filename)
@@ -610,7 +616,6 @@ class FileManager:
         self.fileArray.append({'file': filename, 'size': fSize})
 
     def excludeFile(self, filename):
-
         # remove trailing slash
         if(filename[-1] == '/' or filename[-1] == '\\'):
             filename = filename[:-1]

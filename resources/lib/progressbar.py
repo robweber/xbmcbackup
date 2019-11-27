@@ -15,9 +15,9 @@ class BackupProgressBar:
         self.override = progressOverride
 
         # check if we should use the progress bar
-        if(int(utils.getSetting('progress_mode')) != 2):
+        if(utils.getSettingInt('progress_mode') != 2):
             # check if background or normal
-            if(int(utils.getSetting('progress_mode')) == 0 and not self.override):
+            if(utils.getSettingInt('progress_mode') == 0 and not self.override):
                 self.mode = self.DIALOG
                 self.progressBar = xbmcgui.DialogProgress()
             else:

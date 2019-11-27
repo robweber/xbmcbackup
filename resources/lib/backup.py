@@ -391,11 +391,11 @@ class XbmcBackup:
             if(not self.progressBar.checkCancel()):
                 utils.log('Writing file: ' + aFile['file'], xbmc.LOGDEBUG)
                 if(aFile['file'].startswith("-")):
-                    self._updateProgress('%s %dKB left' % (aFile['file'][len(source.root_path) + 1:],self.transferSize))
+                    self._updateProgress('%dKB %s' % (self.transferSize, aFile['file'][len(source.root_path) + 1:]))
                     dest.mkdir(dest.root_path + aFile['file'][len(source.root_path) + 1:])
                 else:
                     self.transferSize = self.transferSize - aFile['size']
-                    self._updateProgress('%s %dKB left' % (aFile['file'][len(source.root_path):],self.transferSize))
+                    self._updateProgress('%dKB %s' % (self.transferSize, aFile['file'][len(source.root_path):]))
 
                     wroteFile = True
                     destFile = dest.root_path + aFile['file'][len(source.root_path):]

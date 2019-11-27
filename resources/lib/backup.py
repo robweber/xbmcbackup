@@ -40,9 +40,8 @@ class XbmcBackup:
 
     # for the progress bar
     progressBar = None
-    filesLeft = 0
-    filesTotal = 1
     transferSize = 0
+    transferLeft = 0
 
     restore_point = None
     skip_advanced = False   # if we should check for the existance of advancedsettings in the restore
@@ -164,7 +163,7 @@ class XbmcBackup:
             orig_base_path = self.remote_vfs.root_path
 
             # backup all the files
-            self.filesLeft = self.filesTotal
+            self.transferLeft = self.transferSize
             for fileGroup in allFiles:
                 self.xbmc_vfs.set_root(xbmc.translatePath(fileGroup['source']))
                 self.remote_vfs.set_root(fileGroup['dest'] + fileGroup['name'])
@@ -300,15 +299,15 @@ class XbmcBackup:
                     if(self.remote_vfs.exists(self.remote_vfs.root_path + aDir['name'] + '/')):
                         # walk the directory
                         fileManager.walkTree(self.remote_vfs.root_path + aDir['name'] + '/')
-                        self.filesTotal = self.filesTotal + fileManager.size()
                         self.transferSize = self.transferSize + fileManager.fileSize()
+
                         allFiles.append({"source": self.remote_vfs.root_path + aDir['name'], "dest": self.xbmc_vfs.root_path, "files": fileManager.getFiles()})
                     else:
                         utils.log("error path not found: " + self.remote_vfs.root_path + aDir['name'])
                         xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30045), self.remote_vfs.root_path + aDir['name'])
 
                 # restore all the files
-                self.filesLeft = self.filesTotal
+                self.transferLeft = self.transferSize
                 for fileGroup in allFiles:
                     self.remote_vfs.set_root(fileGroup['source'])
                     self.xbmc_vfs.set_root(fileGroup['dest'])
@@ -392,11 +391,11 @@ class XbmcBackup:
             if(not self.progressBar.checkCancel()):
                 utils.log('Writing file: ' + aFile['file'], xbmc.LOGDEBUG)
                 if(aFile['file'].startswith("-")):
-                    self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferSize), os.path.basename(aFile['file'][len(source.root_path):])))
+                    self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):]) + "/"))
                     dest.mkdir(dest.root_path + aFile['file'][len(source.root_path) + 1:])
                 else:
-                    self.transferSize = self.transferSize - aFile['size']
-                    self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferSize), os.path.basename(aFile['file'][len(source.root_path):])))
+                    self.transferLeft = self.transferLeft - aFile['size']
+                    self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):])))
 
                     wroteFile = True
                     destFile = dest.root_path + aFile['file'][len(source.root_path):]
@@ -425,8 +424,7 @@ class XbmcBackup:
         # walk all the root trees
         fileManager.walk()
 
-        # update total files and total size
-        self.filesTotal = self.filesTotal + fileManager.size()
+        # update total size
         self.transferSize = self.transferSize + fileManager.fileSize()
 
         return {"name": folder_name, "source": root_path, "dest": self.remote_vfs.root_path, "files": fileManager.getFiles()}
@@ -441,8 +439,7 @@ class XbmcBackup:
         return result
 
     def _updateProgress(self, message=None):
-        self.filesLeft = self.filesLeft - 1
-        self.progressBar.updateProgress(int((float(self.filesTotal - self.filesLeft) / float(self.filesTotal)) * 100), message)
+        self.progressBar.updateProgress(int((float(self.transferSize - self.transferLeft) / float(self.transferSize)) * 100), message)
 
     def _rotateBackups(self):
         total_backups = int(utils.getSetting('backup_rotation'))
@@ -454,7 +451,6 @@ class XbmcBackup:
             if(len(dirs) > total_backups):
                 # remove backups to equal total wanted
                 remove_num = 0
-                self.filesTotal = self.filesTotal + remove_num + 1
 
                 # update the progress bar if it is available
                 while(remove_num < (len(dirs) - total_backups) and not self.progressBar.checkCancel()):

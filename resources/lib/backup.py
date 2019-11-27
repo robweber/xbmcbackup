@@ -93,7 +93,7 @@ class XbmcBackup:
 
             if(file_ext == 'zip' and len(folderName) == 12 and folderName.isdigit()):
 
-                # format the name according to regional settings
+                # format the name according to regional settings and display the file size
                 folderName = "%s - %s" % (self._dateFormat(folderName), utils.diskString(self.remote_vfs.fileSize(self.remote_base_path + aFile)))
 
                 result.append((aFile, folderName))
@@ -186,11 +186,13 @@ class XbmcBackup:
                 self.xbmc_vfs.rename(xbmc.translatePath("special://temp/xbmc_backup_temp.zip"), xbmc.translatePath("special://temp/" + zip_name))
                 fileManager.addFile(xbmc.translatePath("special://temp/" + zip_name))
 
-                # set root to data dir home
+                # set root to data dir home and reset remote
                 self.xbmc_vfs.set_root(xbmc.translatePath("special://temp/"))
-
                 self.remote_vfs = self.saved_remote_vfs
-                self.progressBar.updateProgress(98, utils.getString(30088))
+
+                #update the amount to transfer
+                self.transferSize = fileManager.fileSize()
+                self.transferLeft = self.transferSize
                 fileCopied = self._copyFiles(fileManager.getFiles(), self.xbmc_vfs, self.remote_vfs)
 
                 if(not fileCopied):
@@ -222,9 +224,12 @@ class XbmcBackup:
 
                 if(not self.xbmc_vfs.exists(xbmc.translatePath("special://temp/" + self.restore_point))):
                     # copy just this file from the remote vfs
+                    self.transferSize = self.remote_vfs.fileSize(self.remote_base_path + self.restore_point)
                     zipFile = []
-                    zipFile.append({'file': self.remote_base_path + self.restore_point, 'size': self.remote_vfs.fileSize(self.remote_base_path + self.restore_point)})
+                    zipFile.append({'file': self.remote_base_path + self.restore_point, 'size': self.transferSize})
 
+                    # set transfer size
+                    self.transferLeft = self.transferSize
                     self._copyFiles(zipFile, self.remote_vfs, self.xbmc_vfs)
                 else:
                     utils.log("zip file exists already")

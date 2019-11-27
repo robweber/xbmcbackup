@@ -262,8 +262,8 @@ class DropboxFileSystem(Vfs):
 
         if(self.client is not None):
             metadata = self.client.files_get_metadata(aFile)
-            result = metadata.size / 1024  #bytes to KB
-            
+            result = metadata.size / 1024  # bytes to KB
+
         return result
 
     def get_file(self, source, dest):

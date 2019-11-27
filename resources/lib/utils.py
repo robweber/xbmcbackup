@@ -51,7 +51,7 @@ def diskString(fSize):
     # convert a size in kilobytes to the best possible match and return as a string
     fSize = float(fSize)
     i = 0
-    sizeNames = ['KB','MB','GB','TB']
+    sizeNames = ['KB', 'MB', 'GB', 'TB']
 
     while(fSize > 1024):
         fSize = fSize / 1024

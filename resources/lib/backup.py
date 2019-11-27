@@ -190,7 +190,7 @@ class XbmcBackup:
                 self.xbmc_vfs.set_root(xbmc.translatePath("special://temp/"))
                 self.remote_vfs = self.saved_remote_vfs
 
-                #update the amount to transfer
+                # update the amount to transfer
                 self.transferSize = fileManager.fileSize()
                 self.transferLeft = self.transferSize
                 fileCopied = self._copyFiles(fileManager.getFiles(), self.xbmc_vfs, self.remote_vfs)
@@ -633,4 +633,3 @@ class FileManager:
 
     def fileSize(self):
         return self.totalSize
-

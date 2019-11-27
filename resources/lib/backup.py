@@ -628,7 +628,7 @@ class FileManager:
 
         return result
 
-    def size(self):
+    def totalFiles(self):
         return len(self.fileArray)
 
     def fileSize(self):

@@ -94,7 +94,7 @@ class XbmcBackup:
             if(file_ext == 'zip' and len(folderName) == 12 and folderName.isdigit()):
 
                 # format the name according to regional settings
-                folderName = self._dateFormat(folderName)
+                folderName = "%s - %s" % (self._dateFormat(folderName), utils.diskString(self.remote_vfs.fileSize(self.remote_base_path + aFile)))
 
                 result.append((aFile, folderName))
 

@@ -524,14 +524,12 @@ class XbmcBackup:
         return result
 
     def _createResumeBackupFile(self):
-        rFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "resume.txt"), 'w')
-        rFile.write(self.restore_point)
-        rFile.close()
+        with xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "resume.txt"), 'w') as f:
+            f.write(self.restore_point)
 
     def _readBackupConfig(self, aFile):
-        jFile = xbmcvfs.File(xbmc.translatePath(aFile), 'r')
-        jsonString = jFile.read()
-        jFile.close()
+        with xbmcvfs.File(xbmc.translatePath(aFile), 'r') as f:
+            jsonString = f.read()
         return json.loads(jsonString)
 
 

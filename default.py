@@ -1,4 +1,3 @@
-import sys
 import xbmc
 import xbmcgui
 import resources.lib.utils as utils

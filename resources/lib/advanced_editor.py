@@ -2,6 +2,7 @@ import json
 import xbmc
 import xbmcgui
 import xbmcvfs
+import os.path
 from . import utils as utils
 
 
@@ -180,14 +181,14 @@ class AdvancedBackupEditor:
         while(exitCondition != -1):
             # load the custom paths
             listItem = xbmcgui.ListItem(utils.getString(30126), '')
-            listItem.setArt({'icon': utils.addon_dir() + 'resources/images/plus-icon.png'})
+            listItem.setArt({'icon': os.path.join(utils.addon_dir(),'resources','images','plus-icon.png')})
             options = [listItem]
 
             for index in range(0, len(customPaths.getSets())):
                 aSet = customPaths.getSet(index)
 
                 listItem = xbmcgui.ListItem(aSet['name'], utils.getString(30121) + ': ' + aSet['set']['root'])
-                listItem.setArt({'icon': utils.addon_dir() + 'resources/images/folder-icon.png'})
+                listItem.setArt({'icon': os.path.join(utils.addon_dir(),'resources','images','folder-icon.png')})
                 options.append(listItem)
 
             # show the gui
@@ -226,7 +227,7 @@ class AdvancedBackupEditor:
         shouldContinue = self.dialog.yesno(utils.getString(30139), utils.getString(30140), utils.getString(30141))
 
         if(shouldContinue):
-            source = xbmc.translatePath(utils.addon_dir() + "/resources/data/default_files.json")
-            dest = xbmc.translatePath(utils.data_dir() + "/custom_paths.json")
+            source = xbmc.translatePath(os.path.join(utils.addon_dir(),'resources','data','default_files.json'))
+            dest = xbmc.translatePath(os.path.join(utils.data_dir(),'custom_paths.json'))
 
             xbmcvfs.copy(source, dest)

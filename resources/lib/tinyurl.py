@@ -9,4 +9,4 @@ def shorten(aUrl):
     data = req.read()
 
     # should be a tiny url
-    return str(data)
+    return data

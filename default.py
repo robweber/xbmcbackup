@@ -1,4 +1,3 @@
-import sys
 import xbmc
 import xbmcgui
 import resources.lib.utils as utils
@@ -39,7 +38,7 @@ if(mode == -1):
     options = [utils.getString(30016), utils.getString(30017), utils.getString(30099)]
 
     # find out if we're using the advanced editor
-    if(int(utils.getSetting('backup_selection_type')) == 1):
+    if(utils.getSettingInt('backup_selection_type') == 1):
         options.append(utils.getString(30125))
 
     # figure out if this is a backup or a restore from the user
@@ -53,7 +52,7 @@ if(mode != -1):
     if(mode == 2):
         # open the settings dialog
         utils.openSettings()
-    elif(mode == 3 and int(utils.getSetting('backup_selection_type')) == 1):
+    elif(mode == 3 and utils.getSettingInt('backup_selection_type') == 1):
         # open the advanced editor
         xbmc.executebuiltin('RunScript(special://home/addons/script.xbmcbackup/launcher.py, action=advanced_editor)')
     elif(backup.remoteConfigured()):

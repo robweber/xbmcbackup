@@ -10,5 +10,5 @@ before_script:
 
 # command to run our tests
 script:
-  - flake8 ./ --statistics --show-source --ignore=E501,E722 --exclude=croniter.py,relativedelta.py,*/dropbox/* # check python structure against flake8 tests, ignore long lines
+  - flake8 ./ --statistics --show-source --builtins=sys --ignore=E501,E722 --exclude=croniter.py,relativedelta.py,*/dropbox/* # check python structure against flake8 tests, ignore long lines
   - kodi-addon-checker --branch=matrix --allow-folder-id-mismatch

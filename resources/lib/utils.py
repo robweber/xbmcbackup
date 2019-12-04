@@ -30,6 +30,14 @@ def getSetting(name):
     return __Addon.getSetting(name)
 
 
+def getSettingBool(name):
+    return bool(__Addon.getSettingBool(name))
+
+
+def getSettingInt(name):
+    return __Addon.getSettingInt(name)
+
+
 def setSetting(name, value):
     __Addon.setSetting(name, value)
 

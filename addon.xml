@@ -5,9 +5,7 @@
     <import addon="xbmc.python" version="3.0.0"/>
     <import addon="script.module.dateutil" version="2.8.0" />
     <import addon="script.module.future" version="0.16.0.4"/>
-    <!-- for dropbox -->
-    <import addon="script.module.requests" version="2.18.4"/>
-    <import addon="script.module.six" version="1.11.0"/>
+    <import addon="script.module.dropbox" version="9.4.0"/>
   </requires>
   <extension point="xbmc.python.script" library="default.py"> 
      <provides>executable</provides> 
@@ -80,12 +78,10 @@
     <description lang="sk_SK">Už ste niekedy poškodili konfiguráciu Kodi a priali si mať zálohu? Teraz môžete - na jeden klik. Môžete exportovať Vašu databázu, playlist, náhľady, doplnky a konfigurácie na ktorýkoľvek zdroj zapisovateľný Kodi. Zálohy môžu byť púšťané na požiadanie alebo plánovačom. </description>
     <description lang="sv_SE">Har du någonsin tappat bort din Kodi konfiguration och önskat att du hade en backup? Nu kan du enkelt med ett klick. Du kan exportera din databas, spellista, minityrer, tillägg och andra konfigurationsdetaljer till valfri källa som är skrivbar för Kodi. Backupper kan köras på begäran eller via scheman.</description>
     <description lang="zh_CN">你是否经常折腾你的 Kodi，因而希望能够有个备份？你可以把资料库、播放列表、缩略图、插件和其他配置细节导出到 Kodi 可以写入的任意位置。备份可以按需运行或通过计划任务执行。</description>
-    <language></language>
     <platform>all</platform>
-    <license>The MIT License</license>
+    <license>MIT</license>
     <forum>https://forum.kodi.tv/showthread.php?tid=129499</forum>
     <source>https://github.com/robweber/xbmcbackup</source>
-    <email></email>
     <assets>
     	<icon>resources/images/icon.png</icon>
 		<screenshot>resources/images/screenshot1.png</screenshot>

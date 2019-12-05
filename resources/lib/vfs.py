@@ -5,9 +5,9 @@ import sys
 import xbmc
 import xbmcvfs
 import xbmcgui
-from . import dropbox
+from dropbox import dropbox
 from . import utils as utils
-from .dropbox.files import WriteMode, CommitInfo, UploadSessionCursor
+from dropbox.files import WriteMode, CommitInfo, UploadSessionCursor
 from . authorizers import DropboxAuthorizer
 
 

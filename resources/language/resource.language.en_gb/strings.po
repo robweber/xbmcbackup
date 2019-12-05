@@ -556,3 +556,7 @@ msgstr ""
 msgctxt "#30141"
 msgid "This will erase any current Advanced Editor settings"
 msgstr ""
+
+msgctxt "#30142"
+msgid "Enable Verbose Logging"
+msgstr ""

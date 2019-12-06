@@ -26,7 +26,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
  - added new badges for Kodi Version, TravisCI and license information from shields.io
  - dependency on script.module.dateutil for relativedelta.py class
- - add Dropbox library back in v 9.4.0, for Python 3 compatibility
 
 ### Changed
 
@@ -37,12 +36,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
  - updated code to make python3 compatible
  - updated code for pep9 styling
  - use setArt() to set ListItem icons as the icon= constructor is deprecated
+ - Dropbox dependency is now 9.4.0
 
 ### Removed
 
  - removed need for urlparse library
  - Removed GoogleDrive support - issues with python 3 compatibility
- - removed script.module.dropbox dependency, need version 9+ and it isn't in the Kodi repo yet
  - removed relativedelta.py, use the dateutil module for this
 
 ## [Version 1.5.2](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.1...robweber:krypton-1.5.2) - 2019-09-30

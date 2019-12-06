@@ -606,7 +606,6 @@ class FileManager:
         if(utils.getSettingBool('verbose_logging')):
             utils.log("Add File: " + filename)
 
-
         # get the file size
         fSize = self.vfs.fileSize(filename)
         self.totalSize = self.totalSize + fSize

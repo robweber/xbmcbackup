@@ -397,9 +397,9 @@ class XbmcBackup:
                 if(utils.getSettingBool('verbose_logging')):
                     utils.log('Writing file: ' + aFile)
 
-                if(aFile.startswith("-")):
+                if(aFile['file'].startswith("-")):
                     self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):]) + "/"))
-                    dest.mkdir(dest.root_path + aFile[len(source.root_path) + 1:])
+                    dest.mkdir(dest.root_path + aFile['file'][len(source.root_path) + 1:])
                 else:
                     self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):])))
                     self.transferLeft = self.transferLeft - aFile['size']

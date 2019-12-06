@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
  - updated code to make python3 compatible
  - updated code for pep9 styling
  - use setArt() to set ListItem icons as the icon= constructor is deprecated
+ - Dropbox dependency is now 9.4.0
 
 ### Removed
 

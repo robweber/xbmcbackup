@@ -55,6 +55,9 @@ class Vfs:
     def cleanup(self):
         return True
 
+    def fileSize(self, filename):
+        return 0  # result should be in KB
+
 
 class XBMCFileSystem(Vfs):
 
@@ -78,6 +81,13 @@ class XBMCFileSystem(Vfs):
 
     def exists(self, aFile):
         return xbmcvfs.exists(aFile)
+
+    def fileSize(self, filename):
+        f = xbmcvfs.File(filename)
+        result = f.size() / 1024  # bytes to kilobytes
+        f.close()
+
+        return result
 
 
 class ZipFileSystem(Vfs):
@@ -245,6 +255,16 @@ class DropboxFileSystem(Vfs):
                     return False
         else:
             return False
+
+    def fileSize(self, filename):
+        result = 0
+        aFile = self._fix_slashes(filename)
+
+        if(self.client is not None):
+            metadata = self.client.files_get_metadata(aFile)
+            result = metadata.size / 1024  # bytes to KB
+
+        return result
 
     def get_file(self, source, dest):
         if(self.client is not None):

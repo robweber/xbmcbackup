@@ -4,6 +4,7 @@ import json
 import xbmc
 import xbmcgui
 import xbmcvfs
+import os.path
 from . import utils as utils
 from datetime import datetime
 from . vfs import XBMCFileSystem, DropboxFileSystem, ZipFileSystem
@@ -39,8 +40,8 @@ class XbmcBackup:
 
     # for the progress bar
     progressBar = None
-    filesLeft = 0
-    filesTotal = 1
+    transferSize = 0
+    transferLeft = 0
 
     restore_point = None
     skip_advanced = False   # if we should check for the existance of advancedsettings in the restore
@@ -92,8 +93,8 @@ class XbmcBackup:
 
             if(file_ext == 'zip' and len(folderName) == 12 and folderName.isdigit()):
 
-                # format the name according to regional settings
-                folderName = self._dateFormat(folderName)
+                # format the name according to regional settings and display the file size
+                folderName = "%s - %s" % (self._dateFormat(folderName), utils.diskString(self.remote_vfs.fileSize(self.remote_base_path + aFile)))
 
                 result.append((aFile, folderName))
 
@@ -162,7 +163,7 @@ class XbmcBackup:
             orig_base_path = self.remote_vfs.root_path
 
             # backup all the files
-            self.filesLeft = self.filesTotal
+            self.transferLeft = self.transferSize
             for fileGroup in allFiles:
                 self.xbmc_vfs.set_root(xbmc.translatePath(fileGroup['source']))
                 self.remote_vfs.set_root(fileGroup['dest'] + fileGroup['name'])
@@ -185,11 +186,13 @@ class XbmcBackup:
                 self.xbmc_vfs.rename(xbmc.translatePath("special://temp/xbmc_backup_temp.zip"), xbmc.translatePath("special://temp/" + zip_name))
                 fileManager.addFile(xbmc.translatePath("special://temp/" + zip_name))
 
-                # set root to data dir home
+                # set root to data dir home and reset remote
                 self.xbmc_vfs.set_root(xbmc.translatePath("special://temp/"))
-
                 self.remote_vfs = self.saved_remote_vfs
-                self.progressBar.updateProgress(98, utils.getString(30088))
+
+                # update the amount to transfer
+                self.transferSize = fileManager.fileSize()
+                self.transferLeft = self.transferSize
                 fileCopied = self._copyFiles(fileManager.getFiles(), self.xbmc_vfs, self.remote_vfs)
 
                 if(not fileCopied):
@@ -221,9 +224,12 @@ class XbmcBackup:
 
                 if(not self.xbmc_vfs.exists(xbmc.translatePath("special://temp/" + self.restore_point))):
                     # copy just this file from the remote vfs
+                    self.transferSize = self.remote_vfs.fileSize(self.remote_base_path + self.restore_point)
                     zipFile = []
-                    zipFile.append(self.remote_base_path + self.restore_point)
+                    zipFile.append({'file': self.remote_base_path + self.restore_point, 'size': self.transferSize})
 
+                    # set transfer size
+                    self.transferLeft = self.transferSize
                     self._copyFiles(zipFile, self.remote_vfs, self.xbmc_vfs)
                 else:
                     utils.log("zip file exists already")
@@ -298,14 +304,15 @@ class XbmcBackup:
                     if(self.remote_vfs.exists(self.remote_vfs.root_path + aDir['name'] + '/')):
                         # walk the directory
                         fileManager.walkTree(self.remote_vfs.root_path + aDir['name'] + '/')
-                        self.filesTotal = self.filesTotal + fileManager.size()
+                        self.transferSize = self.transferSize + fileManager.fileSize()
+
                         allFiles.append({"source": self.remote_vfs.root_path + aDir['name'], "dest": self.xbmc_vfs.root_path, "files": fileManager.getFiles()})
                     else:
                         utils.log("error path not found: " + self.remote_vfs.root_path + aDir['name'])
                         xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30045), self.remote_vfs.root_path + aDir['name'])
 
                 # restore all the files
-                self.filesLeft = self.filesTotal
+                self.transferLeft = self.transferSize
                 for fileGroup in allFiles:
                     self.remote_vfs.set_root(fileGroup['source'])
                     self.xbmc_vfs.set_root(fileGroup['dest'])
@@ -379,7 +386,7 @@ class XbmcBackup:
         result = True
 
         utils.log("Source: " + source.root_path)
-        utils.log("Desintation: " + dest.root_path)
+        utils.log("Destination: " + dest.root_path)
 
         # make sure the dest folder exists - can cause write errors if the full path doesn't exist
         if(not dest.exists(dest.root_path)):
@@ -390,20 +397,21 @@ class XbmcBackup:
                 if(utils.getSettingBool('verbose_logging')):
                     utils.log('Writing file: ' + aFile)
 
-                if(aFile.startswith("-")):
-                    self._updateProgress(aFile[len(source.root_path) + 1:])
-                    dest.mkdir(dest.root_path + aFile[len(source.root_path) + 1:])
+                if(aFile['file'].startswith("-")):
+                    self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):]) + "/"))
+                    dest.mkdir(dest.root_path + aFile['file'][len(source.root_path) + 1:])
                 else:
-                    self._updateProgress()
+                    self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):])))
+                    self.transferLeft = self.transferLeft - aFile['size']
 
                     wroteFile = True
-                    destFile = dest.root_path + aFile[len(source.root_path):]
+                    destFile = dest.root_path + aFile['file'][len(source.root_path):]
                     if(isinstance(source, DropboxFileSystem)):
                         # if copying from cloud storage we need the file handle, use get_file
-                        wroteFile = source.get_file(aFile, destFile)
+                        wroteFile = source.get_file(aFile['file'], destFile)
                     else:
                         # copy using normal method
-                        wroteFile = dest.put(aFile, destFile)
+                        wroteFile = dest.put(aFile['file'], destFile)
 
                     # if result is still true but this file failed
                     if(not wroteFile and result):
@@ -421,8 +429,9 @@ class XbmcBackup:
 
         # walk all the root trees
         fileManager.walk()
-        # update total files
-        self.filesTotal = self.filesTotal + fileManager.size()
+
+        # update total size
+        self.transferSize = self.transferSize + fileManager.fileSize()
 
         return {"name": folder_name, "source": root_path, "dest": self.remote_vfs.root_path, "files": fileManager.getFiles()}
 
@@ -436,8 +445,7 @@ class XbmcBackup:
         return result
 
     def _updateProgress(self, message=None):
-        self.filesLeft = self.filesLeft - 1
-        self.progressBar.updateProgress(int((float(self.filesTotal - self.filesLeft) / float(self.filesTotal)) * 100), message)
+        self.progressBar.updateProgress(int((float(self.transferSize - self.transferLeft) / float(self.transferSize)) * 100), message)
 
     def _rotateBackups(self):
         total_backups = utils.getSettingInt('backup_rotation')
@@ -449,7 +457,6 @@ class XbmcBackup:
             if(len(dirs) > total_backups):
                 # remove backups to equal total wanted
                 remove_num = 0
-                self.filesTotal = self.filesTotal + remove_num + 1
 
                 # update the progress bar if it is available
                 while(remove_num < (len(dirs) - total_backups) and not self.progressBar.checkCancel()):
@@ -538,6 +545,7 @@ class FileManager:
     exclude_dir = []
     root_dirs = []
     pathSep = '/'
+    totalSize = 0
 
     def __init__(self, vfs):
         self.vfs = vfs
@@ -598,7 +606,11 @@ class FileManager:
         if(utils.getSettingBool('verbose_logging')):
             utils.log("Add File: " + filename)
 
-        self.fileArray.append(filename)
+        # get the file size
+        fSize = self.vfs.fileSize(filename)
+        self.totalSize = self.totalSize + fSize
+
+        self.fileArray.append({'file': filename, 'size': fSize})
 
     def excludeFile(self, filename):
         # remove trailing slash
@@ -614,8 +626,12 @@ class FileManager:
         self.fileArray = []
         self.root_dirs = []
         self.exclude_dir = []
+        self.totalSize = 0
 
         return result
 
-    def size(self):
+    def totalFiles(self):
         return len(self.fileArray)
+
+    def fileSize(self):
+        return self.totalSize

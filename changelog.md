@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
   - display every file transfered in progress bar, not just directory
   - base progress bar percent on transfer size, not total files
   - changed getSettings where needed to getSettingBool and getSettingInt
+  - use service.py to start scheduler, moving scheduler to resources/lib/scheduler.py Kodi doesn't cache files in the root directory
 
 ## [Version 1.6.0](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.2...robweber:matrix-1.6.0) - 2019-11-26
 

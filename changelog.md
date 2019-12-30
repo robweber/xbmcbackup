@@ -4,11 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.2...HEAD)
+## [Version 1.5.3](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.2...robweber:krypton-1.5.3) - 2019-12-30
 
 ### Added
 
-- added new badges for Kodi Version, TravisCI and license information from shields.io
+ - added new badges for Kodi Version, TravisCI and license information from shields.io
+
+### Changed
+
+ - backported a fix from Matrix that fixes backup rotation paths when slashes are missing from the base path (thanks @AnonTester)
 
 ## [Version 1.5.2](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.1...robweber:krypton-1.5.2) - 2019-09-30
 

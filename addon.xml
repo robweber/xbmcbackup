@@ -92,9 +92,11 @@
     <news>Version 1.6.1
  - added file transfer size to progress bar
  - progress bar now based on transfer size, not total file count
+ - fixed rotate backups error - thanks @AnonTester
 Version 1.6.0
  - dependency on script.module.dateutil for relativedelta.py class
  - added Python 3 compatibility
+ - added dropbox module dependency - v9.4.0
    	</news>
   </extension>
 </addon>

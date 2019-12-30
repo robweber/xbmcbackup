@@ -465,9 +465,9 @@ class XbmcBackup:
 
                     if(dirs[remove_num][0].split('.')[-1] == 'zip'):
                         # this is a file, remove it that way
-                        self.remote_vfs.rmfile(self.remote_vfs.root_path + dirs[remove_num][0])
+                        self.remote_vfs.rmfile(self.remote_vfs.clean_path(self.remote_base_path) + dirs[remove_num][0])
                     else:
-                        self.remote_vfs.rmdir(self.remote_vfs.root_path + dirs[remove_num][0] + "/")
+                        self.remote_vfs.rmdir(self.remote_vfs.clean_path(self.remote_base_path) + dirs[remove_num][0] + "/")
 
                     remove_num = remove_num + 1
 

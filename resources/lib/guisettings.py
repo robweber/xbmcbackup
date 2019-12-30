@@ -17,7 +17,7 @@ class GuiSettingsManager:
     
     def run(self):
         #get a list of all the settings we can manipulate via json
-        json_response = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.GetSettings","params":{"level":"advanced"}}').decode('utf-8'))
+        json_response = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.GetSettings","params":{"level":"advanced"}}').decode('utf-8', errors="ignore"))
         
         settings = json_response['result']['settings']
         currentSettings = {}

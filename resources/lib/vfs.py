@@ -20,11 +20,11 @@ class Vfs:
     def clean_path(self, path):
         # fix slashes
         path = path.replace("\\", "/")
-        
+
         # check if trailing slash is included
         if(path[-1:] != '/'):
             path = path + '/'
-            
+
         return path
 
     def set_root(self, rootString):

@@ -14,17 +14,20 @@ class Vfs:
 
     def __init__(self,rootString):
         self.set_root(rootString)
-        
+
+    def clean_path(self, path):
+        # fix slashes
+        path = path.replace("\\", "/")
+
+        # check if trailing slash is included
+        if(path[-1:] != '/'):
+            path = path + '/'
+
+        return path
+
     def set_root(self,rootString):
         old_root = self.root_path
-        self.root_path = rootString
-        
-        #fix slashes
-        self.root_path = self.root_path.replace("\\","/")
-        
-        #check if trailing slash is included
-        if(self.root_path[-1:] != "/"):
-            self.root_path = self.root_path + "/"
+        self.root_path = self.clean_path(rootString)
 
         #return the old root
         return old_root

@@ -395,7 +395,7 @@ class XbmcBackup:
         for aFile in fileList:
             if(not self.progressBar.checkCancel()):
                 if(utils.getSettingBool('verbose_logging')):
-                    utils.log('Writing file: ' + aFile)
+                    utils.log('Writing file: ' + aFile['file'])
 
                 if(aFile['file'].startswith("-")):
                     self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):]) + "/"))
@@ -465,9 +465,9 @@ class XbmcBackup:
 
                     if(dirs[remove_num][0].split('.')[-1] == 'zip'):
                         # this is a file, remove it that way
-                        self.remote_vfs.rmfile(self.remote_base_path + dirs[remove_num][0])
+                        self.remote_vfs.rmfile(self.remote_vfs.root_path + dirs[remove_num][0])
                     else:
-                        self.remote_vfs.rmdir(self.remote_base_path + dirs[remove_num][0] + "/")
+                        self.remote_vfs.rmdir(self.remote_vfs.root_path + dirs[remove_num][0] + "/")
 
                     remove_num = remove_num + 1
 

@@ -560,3 +560,24 @@ msgstr ""
 msgctxt "#30142"
 msgid "Enable Verbose Logging"
 msgstr ""
+
+msgctxt "#30143"
+msgid "Exclude a specific folder from this backup set"
+msgstr ""
+
+msgctxt "#30144"
+msgid "Include a specific folder to this backup set"
+msgstr ""
+
+msgctxt "#30145"
+msgid "Type"
+msgstr ""
+
+msgctxt "#30146"
+msgid "Include Sub Folders"
+msgstr ""
+
+msgctxt "#30147"
+msgid "Toggle Sub Folders"
+msgstr ""
+

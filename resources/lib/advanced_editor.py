@@ -122,13 +122,13 @@ class AdvancedBackupEditor:
         rootPath = backupSet['root']
 
         while(optionSelected != -1):
-            options = [xbmcgui.ListItem(utils.getString(30120), "Exclude a specific folder from this backup set"), xbmcgui.ListItem(utils.getString(30135), "Include a specific folder to this backup set"), xbmcgui.ListItem(rootPath, utils.getString(30121))]
+            options = [xbmcgui.ListItem(utils.getString(30120), utils.getString(30143)), xbmcgui.ListItem(utils.getString(30135), utils.getString(30144)), xbmcgui.ListItem(rootPath, utils.getString(30121))]
 
             for aDir in backupSet['dirs']:
                 if(aDir['type'] == 'exclude'):
-                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath, aDir['path']), "%s: %s" % ("Type", utils.getString(30129))))
+                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath, aDir['path']), "%s: %s" % (utils.getString(30145), utils.getString(30129))))
                 elif(aDir['type'] == 'include'):
-                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath, aDir['path']), "%s: %s | %s: %s" % ("Type", utils.getString(30134), "Include Sub Folders", str(aDir['recurse']))))
+                    options.append(xbmcgui.ListItem(self._cleanPath(rootPath, aDir['path']), "%s: %s | %s: %s" % (utils.getString(30145), utils.getString(30134), utils.getString(30146), str(aDir['recurse']))))
 
             optionSelected = self.dialog.select(utils.getString(30122) + ' ' + name, options, useDetails=True)
 
@@ -157,7 +157,7 @@ class AdvancedBackupEditor:
 
                 cOptions = ['Delete']
                 if(backupSet['dirs'][optionSelected - 3]['type'] == 'include'):
-                    cOptions.append('Toggle Sub Folders')
+                    cOptions.append(utils.getString(30147))
 
                 contextOption = self.dialog.contextmenu(cOptions)
 

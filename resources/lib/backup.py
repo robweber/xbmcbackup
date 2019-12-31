@@ -508,9 +508,8 @@ class XbmcBackup:
         else:
             self.xbmc_vfs.put(path + "xbmcbackup.val", xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
 
-        vFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"), 'r')
-        jsonString = vFile.read()
-        vFile.close()
+        with xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"), 'r') as vFile:
+            jsonString = vFile.read()
 
         # delete after checking
         xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))

@@ -132,9 +132,8 @@ class BackupScheduler:
             utils.log("scheduler will run again on " + utils.getRegionalTimestamp(datetime.fromtimestamp(self.next_run), ['dateshort', 'time']))
 
             # write the next time to a file
-            fh = xbmcvfs.File(self.next_run_path, 'w')
-            fh.write(str(self.next_run))
-            fh.close()
+            with xbmcvfs.File(self.next_run_path, 'w') as fh:
+                fh.write(str(self.next_run))
 
             # only show when not in silent mode
             if(progress_mode != 2):

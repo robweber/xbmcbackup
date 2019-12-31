@@ -86,9 +86,8 @@ class XBMCFileSystem(Vfs):
         return xbmcvfs.exists(aFile)
 
     def fileSize(self, filename):
-        f = xbmcvfs.File(filename)
-        result = f.size() / 1024  # bytes to kilobytes
-        f.close()
+        with xbmcvfs.File(filename) as f:
+            result = f.size() / 1024  # bytes to kilobytes
 
         return result
 

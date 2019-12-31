@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
   - show file size of zip files in the restore selection dialog
   - added getSettingInt and getSettingBool to utils.py class
   - added verbose logging setting and tied it to logging related to file paths added/written, this will significantly reduce the debug log size (thanks CastagnaIT)
+  - localize advanced editor strings instead of hard coding English
 
 ### Changed
 
@@ -20,7 +21,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
   - base progress bar percent on transfer size, not total files
   - changed getSettings where needed to getSettingBool and getSettingInt
   - use service.py to start scheduler, moving scheduler to resources/lib/scheduler.py Kodi doesn't cache files in the root directory
-  - fixed issues with rotating backups where trailing slash was missing (thanks @AnonTester) 
+  - fixed issues with rotating backups where trailing slash was missing (thanks @AnonTester)
+  - read/write files using contextlib
 
 ## [Version 1.6.0](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.2...robweber:matrix-1.6.0) - 2019-11-26
 

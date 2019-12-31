@@ -12,7 +12,7 @@ UPGRADE_INT = 2  # to keep track of any upgrade notifications
 
 class BackupScheduler:
     monitor = None
-    enabled = "false"
+    enabled = False
     next_run = 0
     next_run_path = None
     restore_point = None
@@ -30,14 +30,12 @@ class BackupScheduler:
             nr = 0
             if(xbmcvfs.exists(self.next_run_path)):
 
-                fh = xbmcvfs.File(self.next_run_path)
-                try:
-                    # check if we saved a run time from the last run
-                    nr = float(fh.read())
-                except ValueError:
-                    nr = 0
-
-                fh.close()
+                with xbmcvfs.File(self.next_run_path) as fh:
+                    try:
+                        # check if we saved a run time from the last run
+                        nr = float(fh.read())
+                    except ValueError:
+                        nr = 0
 
             # if we missed and the user wants to play catch-up
             if(0 < nr <= time.time() and utils.getSettingBool('schedule_miss')):

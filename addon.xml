@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.xbmcbackup"
-    name="Backup" version="1.5.3" provider-name="robweber">
+    name="Backup" version="1.5.4~beta1" provider-name="robweber">
   <requires>
 	<!-- jarvis -->
     <import addon="xbmc.python" version="2.25.0"/>
@@ -90,10 +90,10 @@
     <email></email>
     <assets>
     	<icon>resources/images/icon.png</icon>
-		<screenshot>resources/images/screenshot1.png</screenshot>
-		<screenshot>resources/images/screenshot2.png</screenshot>
-		<screenshot>resources/images/screenshot3.png</screenshot>
-		<screenshot>resources/images/screenshot4.png</screenshot>
+		<screenshot>resources/images/screenshot1.jpg</screenshot>
+		<screenshot>resources/images/screenshot2.jpg</screenshot>
+		<screenshot>resources/images/screenshot3.jpg</screenshot>
+		<screenshot>resources/images/screenshot4.jpg</screenshot>
     </assets>
     <news>Version 1.5.3
 - fixed issue with backup rotation when basepath not formatted correctly - thanks @AnonTester

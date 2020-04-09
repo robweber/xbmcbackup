@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.3...robweber:krypton)
+
+### Changed
+
+ - changed PNG screenshots to JPG (per #165)
+
 ## [Version 1.5.3](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.2...robweber:krypton-1.5.3) - 2019-12-30
 
 ### Added

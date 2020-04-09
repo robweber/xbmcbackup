@@ -84,10 +84,10 @@
     <source>https://github.com/robweber/xbmcbackup</source>
     <assets>
     	<icon>resources/images/icon.png</icon>
-		<screenshot>resources/images/screenshot1.png</screenshot>
-		<screenshot>resources/images/screenshot2.png</screenshot>
-		<screenshot>resources/images/screenshot3.png</screenshot>
-		<screenshot>resources/images/screenshot4.png</screenshot>
+		<screenshot>resources/images/screenshot1.jpg</screenshot>
+		<screenshot>resources/images/screenshot2.jpg</screenshot>
+		<screenshot>resources/images/screenshot3.jpg</screenshot>
+		<screenshot>resources/images/screenshot4.jpg</screenshot>
     </assets>
     <news>Version 1.6.1
  - added file transfer size to progress bar

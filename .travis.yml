@@ -13,7 +13,7 @@ script:
   - flake8 ./ --statistics --show-source --builtins=sys --ignore=E501,E722 --exclude=croniter.py # check python structure against flake8 tests, ignore long lines
   - kodi-addon-checker --branch=matrix --allow-folder-id-mismatch
   
- deploy:
+deploy:
   - provider: script
     script: submit-addon -r repo-plugins -b matrix --push-branch script.xbmcbackup
     on:

@@ -1,4 +1,6 @@
-*.pyo
-*.pyc
-.project
-.pydevproject
+.github/ export-ignore
+.setting export-ignore
+.gitignore export-ignore
+.travis.yml export-ignore
+README.md export-ignore
+changelog.md export-ignore

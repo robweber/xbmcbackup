@@ -15,6 +15,6 @@ script:
   
 deploy:
   - provider: script
-    script: submit-addon -r repo-plugins -b matrix --push-branch script.xbmcbackup
+    script: submit-addon -r repo-scripts -b matrix --push-branch script.xbmcbackup
     on:
       tags: true

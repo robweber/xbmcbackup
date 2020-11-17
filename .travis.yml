@@ -3,7 +3,7 @@ language: python
 python: 3.7
 
 install:
-  - pip install flake8 kodi-addon-checker
+  - pip install flake8 kodi-addon-checker git+https://github.com/romanvm/kodi-addon-submitter.git
 
 before_script:
 - git config core.quotepath false
@@ -12,3 +12,9 @@ before_script:
 script:
   - flake8 ./ --statistics --show-source --builtins=sys --ignore=E501,E722 --exclude=croniter.py # check python structure against flake8 tests, ignore long lines
   - kodi-addon-checker --branch=matrix --allow-folder-id-mismatch
+  
+deploy:
+  - provider: script
+    script: submit-addon -r repo-scripts -b matrix --push-branch script.xbmcbackup
+    on:
+      tags: true

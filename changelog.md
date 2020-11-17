@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Version 1.6.3](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.2...robweber:matrix-1.6.3) - 2020-06-15
+
+### Changed
+
+  - fixed validatePath error (issue #166) thanks (thanks @AnonTester)
+
 ## [Version 1.6.2](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.1...robweber:matrix-1.6.2) - 2019-04-09
 
 ### Changed

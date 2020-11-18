@@ -1,6 +1,5 @@
 # launcher for various helpful functions found in the settings.xml area
 import sys
-import xbmc
 import xbmcgui
 import xbmcvfs
 import resources.lib.utils as utils

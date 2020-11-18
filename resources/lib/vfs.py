@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 import zipfile
 import os.path
 import sys
-import xbmc
 import xbmcvfs
 import xbmcgui
 from dropbox import dropbox

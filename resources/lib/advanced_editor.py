@@ -1,5 +1,4 @@
 import json
-import xbmc
 import xbmcgui
 import xbmcvfs
 import os.path

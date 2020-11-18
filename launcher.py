@@ -25,8 +25,8 @@ def remove_auth():
 
     if(shouldDelete):
         # delete any of the known token file types
-        xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "tokens.txt"))  # dropbox
-        xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "google_drive.dat"))  # google drive
+        xbmcvfs.delete(xbmcvfs.translatePath(utils.data_dir() + "tokens.txt"))  # dropbox
+        xbmcvfs.delete(xbmcvfs.translatePath(utils.data_dir() + "google_drive.dat"))  # google drive
 
 
 def get_params():

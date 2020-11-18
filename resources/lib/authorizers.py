@@ -89,14 +89,14 @@ class DropboxAuthorizer:
 
     def _setToken(self, token):
         # write the token files
-        token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"), 'w')
+        token_file = open(xbmcvfs.translatePath(utils.data_dir() + "tokens.txt"), 'w')
         token_file.write(token)
         token_file.close()
 
     def _getToken(self):
         # get token, if it exists
-        if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "tokens.txt"))):
-            token_file = open(xbmc.translatePath(utils.data_dir() + "tokens.txt"))
+        if(xbmcvfs.exists(xbmcvfs.translatePath(utils.data_dir() + "tokens.txt"))):
+            token_file = open(xbmcvfs.translatePath(utils.data_dir() + "tokens.txt"))
             token = token_file.read()
             token_file.close()
 
@@ -105,5 +105,5 @@ class DropboxAuthorizer:
             return ""
 
     def _deleteToken(self):
-        if(xbmcvfs.exists(xbmc.translatePath(utils.data_dir() + "tokens.txt"))):
-            xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "tokens.txt"))
+        if(xbmcvfs.exists(xbmcvfs.translatePath(utils.data_dir() + "tokens.txt"))):
+            xbmcvfs.delete(xbmcvfs.translatePath(utils.data_dir() + "tokens.txt"))

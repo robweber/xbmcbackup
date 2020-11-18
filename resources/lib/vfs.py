@@ -68,10 +68,10 @@ class XBMCFileSystem(Vfs):
         return xbmcvfs.listdir(directory)
 
     def mkdir(self, directory):
-        return xbmcvfs.mkdir(xbmc.translatePath(directory))
+        return xbmcvfs.mkdir(xbmcvfs.translatePath(directory))
 
     def put(self, source, dest):
-        return xbmcvfs.copy(xbmc.translatePath(source), xbmc.translatePath(dest))
+        return xbmcvfs.copy(xbmcvfs.translatePath(source), xbmcvfs.translatePath(dest))
 
     def rmdir(self, directory):
         return xbmcvfs.rmdir(directory, True)
@@ -108,7 +108,7 @@ class ZipFileSystem(Vfs):
 
     def put(self, source, dest):
 
-        aFile = xbmcvfs.File(xbmc.translatePath(source), 'r')
+        aFile = xbmcvfs.File(xbmcvfs.translatePath(source), 'r')
 
         self.zip.writestr(dest, aFile.readBytes())
 

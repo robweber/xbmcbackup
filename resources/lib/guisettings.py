@@ -11,10 +11,10 @@ class GuiSettingsManager:
 
     def __init__(self):
         # first make a copy of the file
-        xbmcvfs.copy(xbmc.translatePath('special://home/userdata/guisettings.xml'), xbmc.translatePath("special://home/userdata/guisettings.xml.restored"))
+        xbmcvfs.copy(xbmcvfs.translatePath('special://home/userdata/guisettings.xml'), xbmcvfs.translatePath("special://home/userdata/guisettings.xml.restored"))
 
         # read in the copy
-        self._readFile(xbmc.translatePath('special://home/userdata/guisettings.xml.restored'))
+        self._readFile(xbmcvfs.translatePath('special://home/userdata/guisettings.xml.restored'))
 
     def run(self):
         # get a list of all the settings we can manipulate via json

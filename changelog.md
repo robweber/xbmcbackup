@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.3...matrix)
+
+### Changed
+
+- updated script.module.future version to current
+
 ## [Version 1.6.3](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.2...robweber:matrix-1.6.3) - 2020-06-15
 
 ### Changed

@@ -8,24 +8,25 @@ from xml.parsers.expat import ExpatError
 
 class GuiSettingsManager:
     filename = 'kodi_settings.json'
-    doc = None
-
-    def __init__(self):
-        # first make a copy of the file
-        xbmcvfs.copy(xbmcvfs.translatePath('special://home/userdata/guisettings.xml'), xbmcvfs.translatePath("special://home/userdata/guisettings.xml.restored"))
-
-        # read in the copy
-        self._readFile(xbmcvfs.translatePath('special://home/userdata/guisettings.xml.restored'))
-
+        
     def backup(self):
+        utils.log('Backing up Kodi settings')
+        
         # get all of the current Kodi settings
         json_response = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.GetSettings","params":{"level":"advanced"}}'))
 
         # write the settings as a json object to the addon data directory
-        sFile = xbmcvfs.File(xbmcvfs.translatePath(utils.data_dir() + self.filename), 'w')
-        sFile.write(json.dumps(json_response['result']['settings']))
-        sFile.write("")
-        sFile.close()
+        self._writeFile(xbmcvfs.translatePath(utils.data_dir() + self.filename), json_response['result']['settings'])
+
+    def restore(self):
+        utils.log('Restoring Kodi settings')
+
+        # read in the settings from the recovered JSON file
+        restoreSettings = self._readFile(xbmcvfs.translatePath(utils.data_dir() + self.filename))
+
+        for aSetting in restoreSettings:
+            if(aSetting['type'] != 'action'):
+                utils.log('%s : %s' % (aSetting['id'], aSetting['type']))
 
     def run(self):
         # get all of the current Kodi settings
@@ -54,30 +55,17 @@ class GuiSettingsManager:
 
             xbmc.executeJSONRPC(json.dumps(jsonObj))
 
-    def __parseNodes(self, nodeList):
-        result = {}
-
-        for node in nodeList:
-            nodeValue = ''
-            if(node.firstChild is not None):
-                nodeValue = node.firstChild.nodeValue
-
-            # check for numbers and booleans
-            if(nodeValue.isdigit()):
-                nodeValue = int(nodeValue)
-            elif(nodeValue == 'true'):
-                nodeValue = True
-            elif(nodeValue == 'false'):
-                nodeValue = False
-
-            result[node.getAttribute('id')] = nodeValue
+    def _readFile(self, fileLoc):
+        result = []
+        
+        if(xbmcvfs.exists(fileLoc)):
+            with xbmcvfs.File(fileLoc, 'r') as vFile:
+                result = json.loads(vFile.read())
 
         return result
 
-    def _readFile(self, fileLoc):
-
-        if(xbmcvfs.exists(fileLoc)):
-            try:
-                self.doc = minidom.parse(fileLoc)
-            except ExpatError:
-                utils.log("Can't read " + fileLoc)
+    def _writeFile(self, fileLoc, jsonData):
+        sFile = xbmcvfs.File(fileLoc, 'w')
+        sFile.write(json.dumps(jsonData))
+        sFile.write("")
+        sFile.close()

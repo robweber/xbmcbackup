@@ -162,7 +162,6 @@ class XbmcBackup:
 
             # check if Kodi settings should also be dumped
             if(utils.getSettingBool('backup_copy_settings')):
-                utils.log('Backing up Kodi settings')
                 gui_settings = GuiSettingsManager()
                 gui_settings.backup()
 
@@ -293,6 +292,11 @@ class XbmcBackup:
                     xbmcgui.Dialog().ok(utils.getString(30077), utils.getString(30078))
                     return
 
+            # copy the Kodi settings file - if it exists
+            gui_settings = GuiSettingsManager()
+            if(self.remote_vfs.exists(self.remote_vfs.root_path + gui_settings.filename)):
+                self._copyFile(self.remote_vfs, self.xbmc_vfs, self.remote_vfs.root_path + gui_settings.filename, xbmcvfs.translatePath(utils.data_dir() +  gui_settings.filename))
+
             # use a multiselect dialog to select sets to restore
             restoreSets = [n['name'] for n in valFile['directories']]
 
@@ -329,14 +333,14 @@ class XbmcBackup:
 
             self.progressBar.updateProgress(99, "Clean up operations .....")
 
+            # update the Kodi settings - if we can
+            if(xbmcvfs.exists(xbmcvfs.translatePath(utils.data_dir() + gui_settings.filename))):
+                gui_settings.restore()
+
             if(self.restore_point.split('.')[-1] == 'zip'):
                 # delete the zip file and the extracted directory
                 self.xbmc_vfs.rmfile(xbmcvfs.translatePath("special://temp/" + self.restore_point))
                 self.xbmc_vfs.rmdir(self.remote_vfs.root_path)
-
-            # update the guisettings information (or what we can from it)
-            gui_settings = GuiSettingsManager()
-            gui_settings.run()
 
             # call update addons to refresh everything
             xbmc.executebuiltin('UpdateLocalAddons')

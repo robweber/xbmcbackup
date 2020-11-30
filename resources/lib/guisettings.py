@@ -7,6 +7,7 @@ from xml.parsers.expat import ExpatError
 
 
 class GuiSettingsManager:
+    filename = 'kodi_settings.json'
     doc = None
 
     def __init__(self):
@@ -16,8 +17,18 @@ class GuiSettingsManager:
         # read in the copy
         self._readFile(xbmcvfs.translatePath('special://home/userdata/guisettings.xml.restored'))
 
+    def backup(self):
+        # get all of the current Kodi settings
+        json_response = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.GetSettings","params":{"level":"advanced"}}'))
+
+        # write the settings as a json object to the addon data directory
+        sFile = xbmcvfs.File(xbmcvfs.translatePath(utils.data_dir() + self.filename), 'w')
+        sFile.write(json.dumps(json_response['result']['settings']))
+        sFile.write("")
+        sFile.close()
+
     def run(self):
-        # get a list of all the settings we can manipulate via json
+        # get all of the current Kodi settings
         json_response = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.GetSettings","params":{"level":"advanced"}}'))
 
         settings = json_response['result']['settings']

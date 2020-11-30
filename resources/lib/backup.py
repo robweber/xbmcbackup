@@ -160,6 +160,15 @@ class XbmcBackup:
                 if(not shouldContinue):
                     return
 
+            # check if Kodi settings should also be dumped
+            if(utils.getSettingBool('backup_copy_settings')):
+                utils.log('Backing up Kodi settings')
+                gui_settings = GuiSettingsManager()
+                gui_settings.backup()
+
+                # add this file to the backup
+                self.remote_vfs.put(xbmcvfs.translatePath(utils.data_dir() + gui_settings.filename), self.remote_vfs.root_path + gui_settings.filename)
+
             orig_base_path = self.remote_vfs.root_path
 
             # backup all the files

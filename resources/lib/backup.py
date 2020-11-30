@@ -166,8 +166,8 @@ class XbmcBackup:
                 gui_settings = GuiSettingsManager()
                 gui_settings.backup()
 
-                # add this file to the backup
-                self.remote_vfs.put(xbmcvfs.translatePath(utils.data_dir() + gui_settings.filename), self.remote_vfs.root_path + gui_settings.filename)
+                # copy this file to the backup
+                self._copyFile(self.xbmc_vfs, self.remote_vfs, xbmcvfs.translatePath(utils.data_dir() + gui_settings.filename), self.remote_vfs.root_path + gui_settings.filename)
 
             orig_base_path = self.remote_vfs.root_path
 
@@ -413,18 +413,24 @@ class XbmcBackup:
                     self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):])))
                     self.transferLeft = self.transferLeft - aFile['size']
 
-                    wroteFile = True
-                    destFile = dest.root_path + aFile['file'][len(source.root_path):]
-                    if(isinstance(source, DropboxFileSystem)):
-                        # if copying from cloud storage we need the file handle, use get_file
-                        wroteFile = source.get_file(aFile['file'], destFile)
-                    else:
-                        # copy using normal method
-                        wroteFile = dest.put(aFile['file'], destFile)
-
+                    # copy the file
+                    wroteFile = self._copyFile(source, dest, aFile['file'], dest.root_path + aFile['file'][len(source.root_path):])
+                    
                     # if result is still true but this file failed
                     if(not wroteFile and result):
                         result = False
+
+        return result
+
+    def _copyFile(self, source, dest, sourceFile, destFile):
+        result = True
+
+        if(isinstance(source, DropboxFileSystem)):
+            # if copying from cloud storage we need the file handle, use get_file
+            result = source.get_file(sourceFile, destFile)
+        else:
+            # copy using normal method
+            result = dest.put(sourceFile, destFile)
 
         return result
 
@@ -493,7 +499,7 @@ class XbmcBackup:
         vFile.write("")
         vFile.close()
 
-        success = self.remote_vfs.put(xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup.val"), self.remote_vfs.root_path + "xbmcbackup.val")
+        success = self._copyFile(self.xbmc_vfs, self.remote_vfs, xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup.val"), self.remote_vfs.root_path + "xbmcbackup.val")
 
         # remove the validation file
         xbmcvfs.delete(xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup.val"))
@@ -504,7 +510,7 @@ class XbmcBackup:
                 nmFile = xbmcvfs.File(xbmcvfs.translatePath(utils.data_dir() + ".nomedia"), 'w')
                 nmFile.close()
 
-            success = self.remote_vfs.put(xbmcvfs.translatePath(utils.data_dir() + ".nomedia"), self.remote_vfs.root_path + ".nomedia")
+            success = self._copyFile(self.xbmc_vfs, self.remote_vfs, xbmcvfs.translatePath(utils.data_dir() + ".nomedia"), self.remote_vfs.root_path + ".nomedia")
 
         return success
 
@@ -512,10 +518,7 @@ class XbmcBackup:
         result = None
 
         # copy the file and open it
-        if(isinstance(self.remote_vfs, DropboxFileSystem)):
-            self.remote_vfs.get_file(path + "xbmcbackup.val", xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
-        else:
-            self.xbmc_vfs.put(path + "xbmcbackup.val", xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
+        self._copyFile(self.remote_vfs, self.xbmc_vfs, path + "xbmcbackup.val", xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
 
         with xbmcvfs.File(xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup_restore.val"), 'r') as vFile:
             jsonString = vFile.read()

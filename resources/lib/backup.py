@@ -288,7 +288,7 @@ class XbmcBackup:
             restoreSettings = utils.getSettingBool('always_restore_settings')
             if(not restoreSettings and 'system_settings' in valFile):
                 # prompt the user to restore settings yes/no
-                restoreSettings = xbmcgui.Dialog().yesno(utils.getString(30149),utils.getString(30150))
+                restoreSettings = xbmcgui.Dialog().yesno(utils.getString(30149), utils.getString(30150))
 
             # use a multiselect dialog to select sets to restore
             restoreSets = [n['name'] for n in valFile['directories']]

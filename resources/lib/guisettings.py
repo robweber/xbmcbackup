@@ -31,7 +31,7 @@ class GuiSettingsManager:
             if(aSetting['type'] != 'action'):
                 settingsDict[aSetting['id']] = aSetting['value']
 
-        restoreCount = 0;
+        restoreCount = 0
         for aSetting in restoreSettings:
             # only update a setting if its different than the current (action types have no value)
             if(aSetting['type'] != 'action' and settingsDict[aSetting['id']] != aSetting['value']):

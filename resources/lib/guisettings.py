@@ -10,7 +10,7 @@ class GuiSettingsManager:
 
     def __init__(self):
         # get all of the current Kodi settings
-        json_response = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.GetSettings","params":{"level":"advanced"}}'))
+        json_response = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.GetSettings","params":{"level":"expert"}}'))
 
         self.systemSettings = json_response['result']['settings']
 

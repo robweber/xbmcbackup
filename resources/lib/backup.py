@@ -284,6 +284,12 @@ class XbmcBackup:
                     xbmcgui.Dialog().ok(utils.getString(30077), utils.getString(30078))
                     return
 
+            # check if settings should be restored from this backup
+            restoreSettings = utils.getSettingBool('always_restore_settings')
+            if(not restoreSettings and 'system_settings' in valFile):
+                # prompt the user to restore settings yes/no
+                restoreSettings = xbmcgui.Dialog().yesno("Restore Kodi Settings","Restore saved Kodi system settings from backup?")
+
             # use a multiselect dialog to select sets to restore
             restoreSets = [n['name'] for n in valFile['directories']]
 
@@ -294,6 +300,7 @@ class XbmcBackup:
                 selectedSets = [restoreSets.index(n) for n in selectedSets if n in restoreSets]  # if set name not found just skip it
 
             if(selectedSets is not None):
+
                 # go through each of the directories in the backup and write them to the correct location
                 for index in selectedSets:
 
@@ -319,7 +326,7 @@ class XbmcBackup:
                     self._copyFiles(fileGroup['files'], self.remote_vfs, self.xbmc_vfs)
 
             # update the Kodi settings - if we can
-            if('system_settings' in valFile):
+            if('system_settings' in valFile and restoreSettings):
                 self.progressBar.updateProgress(98, "Restoring Kodi settings")
                 gui_settings = GuiSettingsManager()
                 gui_settings.restore(valFile['system_settings'])
@@ -332,7 +339,7 @@ class XbmcBackup:
                 self.xbmc_vfs.rmdir(self.remote_vfs.root_path)
 
             # call update addons to refresh everything
-            xbmc.executebuiltin('UpdateLocalAddons')
+            #xbmc.executebuiltin('UpdateLocalAddons')
 
     def _setupVFS(self, mode=-1, progressOverride=False):
         # set windows setting to true

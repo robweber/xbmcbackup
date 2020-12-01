@@ -285,7 +285,7 @@ class XbmcBackup:
                     return
 
             # check if settings should be restored from this backup
-            restoreSettings = utils.getSettingBool('always_restore_settings')
+            restoreSettings = not utils.getSettingBool('always_prompt_restore_settings')
             if(not restoreSettings and 'system_settings' in valFile):
                 # prompt the user to restore settings yes/no
                 restoreSettings = xbmcgui.Dialog().yesno(utils.getString(30149), utils.getString(30150))

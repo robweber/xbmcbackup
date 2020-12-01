@@ -581,3 +581,14 @@ msgctxt "#30147"
 msgid "Toggle Sub Folders"
 msgstr ""
 
+msgctxt "#30148"
+msgid "Always restore Kodi settings"
+msgstr ""
+
+msgctxt "#30149"
+msgid "Restore Kodi Settings"
+msgstr ""
+
+msgctxt "#30150"
+msgid "Restore saved Kodi system settings from backup?"
+msgstr ""

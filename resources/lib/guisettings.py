@@ -1,6 +1,5 @@
 import json
 import xbmc
-import xbmcvfs
 from . import utils as utils
 
 

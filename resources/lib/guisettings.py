@@ -13,14 +13,14 @@ class GuiSettingsManager:
         json_response = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.GetSettings","params":{"level":"advanced"}}'))
 
         self.systemSettings = json_response['result']['settings']
-    
+
     def backup(self):
         utils.log('Backing up Kodi settings')
 
-        # write the settings as a json object to the addon data directory
-        self._writeFile(xbmcvfs.translatePath(utils.data_dir() + self.filename), self.systemSettings)
+        # return all current settings
+        return self.systemSettings
 
-    def restore(self):
+    def restore(self, restoreSettings):
         utils.log('Restoring Kodi settings')
 
         updateJson = {"jsonrpc": "2.0", "id": 1, "method": "Settings.SetSettingValue", "params": {"setting": "", "value": ""}}
@@ -32,15 +32,13 @@ class GuiSettingsManager:
             if(aSetting['type'] != 'action'):
                 settingsDict[aSetting['id']] = aSetting['value']
 
-        # read in the settings from the recovered JSON file
-        restoreSettings = self._readFile(xbmcvfs.translatePath(utils.data_dir() + self.filename))
         restoreCount = 0;
         for aSetting in restoreSettings:
             # only update a setting if its different than the current (action types have no value)
             if(aSetting['type'] != 'action' and settingsDict[aSetting['id']] != aSetting['value']):
                 if(utils.getSettingBool('verbose_logging')):
                     utils.log('%s different than current: %s' % (aSetting['id'], str(aSetting['value'])))
-                    
+
                 updateJson['params']['setting'] = aSetting['id']
                 updateJson['params']['value'] = aSetting['value']
 
@@ -48,18 +46,3 @@ class GuiSettingsManager:
                 restoreCount = restoreCount + 1
 
         utils.log('Update %d settings' % restoreCount)
-
-    def _readFile(self, fileLoc):
-        result = []
-        
-        if(xbmcvfs.exists(fileLoc)):
-            with xbmcvfs.File(fileLoc, 'r') as vFile:
-                result = json.loads(vFile.read())
-
-        return result
-
-    def _writeFile(self, fileLoc, jsonData):
-        sFile = xbmcvfs.File(fileLoc, 'w')
-        sFile.write(json.dumps(jsonData))
-        sFile.write("")
-        sFile.close()

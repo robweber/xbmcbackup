@@ -160,14 +160,6 @@ class XbmcBackup:
                 if(not shouldContinue):
                     return
 
-            # check if Kodi settings should also be dumped
-            if(utils.getSettingBool('backup_copy_settings')):
-                gui_settings = GuiSettingsManager()
-                gui_settings.backup()
-
-                # copy this file to the backup
-                self._copyFile(self.xbmc_vfs, self.remote_vfs, xbmcvfs.translatePath(utils.data_dir() + gui_settings.filename), self.remote_vfs.root_path + gui_settings.filename)
-
             orig_base_path = self.remote_vfs.root_path
 
             # backup all the files
@@ -292,11 +284,6 @@ class XbmcBackup:
                     xbmcgui.Dialog().ok(utils.getString(30077), utils.getString(30078))
                     return
 
-            # copy the Kodi settings file - if it exists
-            gui_settings = GuiSettingsManager()
-            if(self.remote_vfs.exists(self.remote_vfs.root_path + gui_settings.filename)):
-                self._copyFile(self.remote_vfs, self.xbmc_vfs, self.remote_vfs.root_path + gui_settings.filename, xbmcvfs.translatePath(utils.data_dir() +  gui_settings.filename))
-
             # use a multiselect dialog to select sets to restore
             restoreSets = [n['name'] for n in valFile['directories']]
 
@@ -331,11 +318,13 @@ class XbmcBackup:
                     self.xbmc_vfs.set_root(fileGroup['dest'])
                     self._copyFiles(fileGroup['files'], self.remote_vfs, self.xbmc_vfs)
 
-            self.progressBar.updateProgress(99, "Clean up operations .....")
-
             # update the Kodi settings - if we can
-            if(xbmcvfs.exists(xbmcvfs.translatePath(utils.data_dir() + gui_settings.filename))):
-                gui_settings.restore()
+            if('system_settings' in valFile):
+                self.progressBar.updateProgress(98, "Restoring Kodi settings")
+                gui_settings = GuiSettingsManager()
+                gui_settings.restore(valFile['system_settings'])
+
+            self.progressBar.updateProgress(99, "Clean up operations .....")
 
             if(self.restore_point.split('.')[-1] == 'zip'):
                 # delete the zip file and the extracted directory
@@ -419,7 +408,7 @@ class XbmcBackup:
 
                     # copy the file
                     wroteFile = self._copyFile(source, dest, aFile['file'], dest.root_path + aFile['file'][len(source.root_path):])
-                    
+
                     # if result is still true but this file failed
                     if(not wroteFile and result):
                         result = False
@@ -491,12 +480,17 @@ class XbmcBackup:
                     remove_num = remove_num + 1
 
     def _createValidationFile(self, dirList):
-        valInfo = {"name": "XBMC Backup Validation File", "xbmc_version": xbmc.getInfoLabel('System.BuildVersion'), "type": 0}
+        valInfo = {"name": "XBMC Backup Validation File", "xbmc_version": xbmc.getInfoLabel('System.BuildVersion'), "type": 0, "system_settings": []}
         valDirs = []
 
+        # save list of file sets
         for aDir in dirList:
             valDirs.append({"name": aDir['name'], "path": aDir['source']})
         valInfo['directories'] = valDirs
+
+        # dump all current Kodi settings
+        gui_settings = GuiSettingsManager()
+        valInfo['system_settings'] = gui_settings.backup()
 
         vFile = xbmcvfs.File(xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup.val"), 'w')
         vFile.write(json.dumps(valInfo))

@@ -6,10 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.3...matrix)
 
+### Added
+
+- merged duplicate copy code into ```_copyFile``` method
+- added method to backup/restore Kodi settings via the GetSettings/SetSettingValue JSON methods in the validation file
+- added setting to always restore settings or prompt at the time of backup 
+
 ### Changed
 
 - updated script.module.future version to current
 - swapped xbmc.translatePath for xbmcvfs.translatePath, deprecated
+
+### Removed
+
+- removed old xml GuiSettings parsing for settings restore
 
 ## [Version 1.6.3](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.2...robweber:matrix-1.6.3) - 2020-06-15
 
@@ -55,7 +65,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
  - addon.xml updated to use Leia specific syntax and library imports
  - removed specific encode() calls per Python2/3 compatibility
  - call isdigit() method on the string directly instead of str.isdigit() (results in unicode error)
- - added flake8 testing to travis-ci 
+ - added flake8 testing to travis-ci
  - updated code to make python3 compatible
  - updated code for pep9 styling
  - use setArt() to set ListItem icons as the icon= constructor is deprecated
@@ -73,16 +83,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
  - Updated Changelog format to the one suggested by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
  - Added script.module.dropbox import as a dependency for Dropbox filesystem
- 
+
 ### Changed
 
- - Fixed issue getting xbmcbackup.val file from non-zipped remote directories. Was being copied as though it was a local file so it was failing. 
+ - Fixed issue getting xbmcbackup.val file from non-zipped remote directories. Was being copied as though it was a local file so it was failing.
  - Use linux path separator (/) all the time, Kodi will interpret this correctly on windows. Was causing issues with remote file systems since os.path.sep
- - Fixed minor python code style changes based on kodi-addon-checker output 
- 
+ - Fixed minor python code style changes based on kodi-addon-checker output
+
 ### Removed
 
- - files releated to dropbox library, using script.module.dropbox import now 
+ - files releated to dropbox library, using script.module.dropbox import now
 
 ## Version 1.5.1 - 2019-09-10
 
@@ -92,7 +102,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## Version 1.5.0 - 2019-08-26
 
 ### Added
-- Added new Advanced file editor and file selection based on a .json 
+- Added new Advanced file editor and file selection based on a .json
 
 ### Removed
 - File backups and restores will not work with old version - breaking change with previous versions PR117
@@ -102,7 +112,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
  - added file chunk support for Dropbox uploads
  - added scheduler delay to assist with time sync (rpi mostly), will delay startup by 2 min
- 
+
 ### Changed
  - fixed settings duplicate ids, thanks aster-anto
 
@@ -114,7 +124,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## Version 1.1.1
 
 ### Added
- - added ability to "catchup" on missed scheduled backup 
+ - added ability to "catchup" on missed scheduled backup
 
 ### Changed
  - fixed error on authorizers (missing secret/key)
@@ -125,10 +135,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Added
  - added tinyurl generation for oauth urls
- 
+
 ### Changed
  - moved authorize to settings area for cloud storage
- 
+
 ## Version 1.0.9
 
 ### Changed
@@ -149,7 +159,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 
  - added progress for zip extraction - hopefully helps with extract errors
- 
+
 ### Changed
  - fix for custom directories not working recursively
 
@@ -289,7 +299,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## Version 0.3.9
 
- - added "just once" scheduler for one-off type backups 
+ - added "just once" scheduler for one-off type backups
  - show  notification on scheduler  
  - update updated language files from  Transifex
 

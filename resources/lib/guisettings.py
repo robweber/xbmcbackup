@@ -1,73 +1,45 @@
 import json
 import xbmc,xbmcvfs
 from . import utils as utils
-from xml.dom import minidom
-from xml.parsers.expat import ExpatError
 
 
 class GuiSettingsManager:
-    doc = None
-    
-    def __init__(self):
-        #first make a copy of the file
-        xbmcvfs.copy(xbmc.translatePath('special://home/userdata/guisettings.xml'), xbmc.translatePath("special://home/userdata/guisettings.xml.restored"))
-        
-        #read in the copy
-        self._readFile(xbmc.translatePath('special://home/userdata/guisettings.xml.restored'))
-    
-    def run(self):
-        #get a list of all the settings we can manipulate via json
-        json_response = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.GetSettings","params":{"level":"advanced"}}').decode('utf-8', errors="ignore"))
-        
-        settings = json_response['result']['settings']
-        currentSettings = {}
-        
-        for aSetting in settings:
-            if('value' in aSetting):
-                currentSettings[aSetting['id']] = aSetting['value']
-            
-        #parse the existing xml file and get all the settings we need to restore
-        restoreSettings = self.__parseNodes(self.doc.getElementsByTagName('setting'))
-        
-        #get a list where the restore setting value != the current value
-        updateSettings = {k: v for k, v in list(restoreSettings.items()) if (k in currentSettings and currentSettings[k] != v)}
-        
-        #go through all the found settings and update them
-        jsonObj = {"jsonrpc":"2.0","id":1,"method":"Settings.SetSettingValue","params":{"setting":"","value":""}}
-        for anId, aValue in list(updateSettings.items()):
-            utils.log("updating: " + anId + ", value: " + str(aValue))
-        
-            jsonObj['params']['setting'] = anId
-            jsonObj['params']['value'] = aValue
-            
-            xbmc.executeJSONRPC(json.dumps(jsonObj))
-            
-    def __parseNodes(self,nodeList):
-        result = {}
+    systemSettings = None
 
-        for node in nodeList:
-            nodeValue = ''
-            if(node.firstChild != None):
-                nodeValue = node.firstChild.nodeValue
-            
-            #check for numbers and booleans
-            if(nodeValue.isdigit()):
-                nodeValue = int(nodeValue)
-            elif(nodeValue == 'true'):
-                nodeValue = True
-            elif(nodeValue == 'false'):
-                nodeValue = False
-            
-            result[node.getAttribute('id')] = nodeValue
-            
-        return result
-    
-    def _readFile(self,fileLoc):
-        
-        if(xbmcvfs.exists(fileLoc)):
-            try:
-                self.doc = minidom.parse(fileLoc)
-            except ExpatError:
-                utils.log("Can't read " + fileLoc)
-                
-        
+    def __init__(self):
+        # get all of the current Kodi settings
+        json_response = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "id":1, "method":"Settings.GetSettings","params":{"level":"expert"}}').decode('utf-8', errors="ignore"))
+
+        self.systemSettings = json_response['result']['settings']
+
+    def backup(self):
+        utils.log('Backing up Kodi settings')
+
+        # return all current settings
+        return self.systemSettings
+
+    def restore(self, restoreSettings):
+        utils.log('Restoring Kodi settings')
+
+        updateJson = {"jsonrpc": "2.0", "id": 1, "method": "Settings.SetSettingValue", "params": {"setting": "", "value": ""}}
+
+        # create a setting=value dict of the current settings
+        settingsDict = {}
+        for aSetting in self.systemSettings:
+            # ignore action types, no value
+            if(aSetting['type'] != 'action'):
+                settingsDict[aSetting['id']] = aSetting['value']
+
+        restoreCount = 0
+        for aSetting in restoreSettings:
+            # only update a setting if its different than the current (action types have no value)
+            if(aSetting['type'] != 'action' and settingsDict[aSetting['id']] != aSetting['value']):
+                utils.log('%s different than current: %s' % (aSetting['id'], str(aSetting['value'])), xbmc.LOGDEBUG)
+
+                updateJson['params']['setting'] = aSetting['id']
+                updateJson['params']['value'] = aSetting['value']
+
+                xbmc.executeJSONRPC(json.dumps(updateJson))
+                restoreCount = restoreCount + 1
+
+        utils.log('Update %d settings' % restoreCount)

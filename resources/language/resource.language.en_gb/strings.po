@@ -556,3 +556,15 @@ msgstr ""
 msgctxt "#30141"
 msgid "This will erase any current Advanced Editor settings"
 msgstr ""
+
+msgctxt "#30148"
+msgid "Ask before restoring Kodi UI settings"
+msgstr ""
+
+msgctxt "#30149"
+msgid "Restore Kodi UI Settings"
+msgstr ""
+
+msgctxt "#30150"
+msgid "Restore saved Kodi system settings from backup?"
+msgstr ""

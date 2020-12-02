@@ -98,6 +98,7 @@
     <news>Version 1.5.4
 - converted PNG to JPG
 - updated Travis-CI links
+- added utf decode to JSON calls
    	</news>
   </extension>
 </addon>

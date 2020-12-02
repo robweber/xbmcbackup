@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 
  - changed PNG screenshots to JPG (per #165)
+ - updated Travis CI links. travis-ci.org is deprectated to travis-ci.com
 
 ## [Version 1.5.3](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.2...robweber:krypton-1.5.3) - 2019-12-30
 

@@ -95,12 +95,9 @@
 		<screenshot>resources/images/screenshot3.jpg</screenshot>
 		<screenshot>resources/images/screenshot4.jpg</screenshot>
     </assets>
-    <news>Version 1.5.3
-- fixed issue with backup rotation when basepath not formatted correctly - thanks @AnonTester
-Version 1.5.2
-- Added script.module.dropbox import as a dependency for Dropbox filesystem
-- Fixed issue getting xbmcbackup.val file from non-zipped remote directories. Was being copied as though it was a local file so it was failing. 
-- Use linux path separator (/) all the time, Kodi will interpret this correctly on windows. Was causing issues with remote file systems since os.path.sep 
+    <news>Version 1.5.4
+- converted PNG to JPG
+- updated Travis-CI links
    	</news>
   </extension>
 </addon>

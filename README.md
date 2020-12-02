@@ -1,5 +1,5 @@
 # Backup Addon
-![Kodi Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Fversion%2Frobweber%2Fxbmcbackup%2Fkrypton%2Ftrue%2Ffalse) [![Build Status](https://img.shields.io/travis/robweber/xbmcbackup/krypton)](https://travis-ci.org/robweber/xbmcbackup) [![License](https://img.shields.io/github/license/robweber/xbmcbackup)](https://github.com/robweber/xbmcbackup/blob/master/LICENSE.txt)
+![Kodi Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Fversion%2Frobweber%2Fxbmcbackup%2Fkrypton%2Ftrue%2Ffalse) [![Build Status](https://img.shields.io/travis/com/robweber/xbmcbackup/krypton)](https://travis-ci.com/robweber/xbmcbackup) [![License](https://img.shields.io/github/license/robweber/xbmcbackup)](https://github.com/robweber/xbmcbackup/blob/master/LICENSE.txt)
 
 ## About
 

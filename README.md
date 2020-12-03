@@ -1,5 +1,6 @@
 # Backup Addon
-![Kodi Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Fversion%2Frobweber%2Fxbmcbackup%2Fmatrix%2Ftrue%2Ftrue) ![Total Downloads](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Fdownloads%2Fmatrix%2Fscript.xbmcbackup%2F1.6.3) [![Build Status](https://img.shields.io/travis/robweber/xbmcbackup/matrix)](https://travis-ci.org/robweber/xbmcbackup) [![License](https://img.shields.io/github/license/robweber/xbmcbackup)](https://github.com/robweber/xbmcbackup/blob/master/LICENSE.txt) [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
+
+### __This is not the default branch - go to the [Matrix branch](https://github.com/robweber/xbmcbackup/tree/matrix) for the current supported version__
 
 ## About
 

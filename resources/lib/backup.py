@@ -284,6 +284,12 @@ class XbmcBackup:
                     xbmcgui.Dialog().ok(utils.getString(30077), utils.getString(30078))
                     return
 
+            # check if settings should be restored from this backup
+            restoreSettings = not utils.getSettingBool('always_prompt_restore_settings')
+            if(not restoreSettings and 'system_settings' in valFile):
+                # prompt the user to restore settings yes/no
+                restoreSettings = xbmcgui.Dialog().yesno(utils.getString(30149), utils.getString(30150))
+
             # use a multiselect dialog to select sets to restore
             restoreSets = [n['name'] for n in valFile['directories']]
 
@@ -294,6 +300,7 @@ class XbmcBackup:
                 selectedSets = [restoreSets.index(n) for n in selectedSets if n in restoreSets]  # if set name not found just skip it
 
             if(selectedSets is not None):
+
                 # go through each of the directories in the backup and write them to the correct location
                 for index in selectedSets:
 
@@ -318,16 +325,18 @@ class XbmcBackup:
                     self.xbmc_vfs.set_root(fileGroup['dest'])
                     self._copyFiles(fileGroup['files'], self.remote_vfs, self.xbmc_vfs)
 
+            # update the Kodi settings - if we can
+            if('system_settings' in valFile and restoreSettings):
+                self.progressBar.updateProgress(98, "Restoring Kodi settings")
+                gui_settings = GuiSettingsManager()
+                gui_settings.restore(valFile['system_settings'])
+
             self.progressBar.updateProgress(99, "Clean up operations .....")
 
             if(self.restore_point.split('.')[-1] == 'zip'):
                 # delete the zip file and the extracted directory
                 self.xbmc_vfs.rmfile(xbmcvfs.translatePath("special://temp/" + self.restore_point))
                 self.xbmc_vfs.rmdir(self.remote_vfs.root_path)
-
-            # update the guisettings information (or what we can from it)
-            gui_settings = GuiSettingsManager()
-            gui_settings.run()
 
             # call update addons to refresh everything
             xbmc.executebuiltin('UpdateLocalAddons')
@@ -404,18 +413,24 @@ class XbmcBackup:
                     self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):])))
                     self.transferLeft = self.transferLeft - aFile['size']
 
-                    wroteFile = True
-                    destFile = dest.root_path + aFile['file'][len(source.root_path):]
-                    if(isinstance(source, DropboxFileSystem)):
-                        # if copying from cloud storage we need the file handle, use get_file
-                        wroteFile = source.get_file(aFile['file'], destFile)
-                    else:
-                        # copy using normal method
-                        wroteFile = dest.put(aFile['file'], destFile)
+                    # copy the file
+                    wroteFile = self._copyFile(source, dest, aFile['file'], dest.root_path + aFile['file'][len(source.root_path):])
 
                     # if result is still true but this file failed
                     if(not wroteFile and result):
                         result = False
+
+        return result
+
+    def _copyFile(self, source, dest, sourceFile, destFile):
+        result = True
+
+        if(isinstance(source, DropboxFileSystem)):
+            # if copying from cloud storage we need the file handle, use get_file
+            result = source.get_file(sourceFile, destFile)
+        else:
+            # copy using normal method
+            result = dest.put(sourceFile, destFile)
 
         return result
 
@@ -472,19 +487,24 @@ class XbmcBackup:
                     remove_num = remove_num + 1
 
     def _createValidationFile(self, dirList):
-        valInfo = {"name": "XBMC Backup Validation File", "xbmc_version": xbmc.getInfoLabel('System.BuildVersion'), "type": 0}
+        valInfo = {"name": "XBMC Backup Validation File", "xbmc_version": xbmc.getInfoLabel('System.BuildVersion'), "type": 0, "system_settings": []}
         valDirs = []
 
+        # save list of file sets
         for aDir in dirList:
             valDirs.append({"name": aDir['name'], "path": aDir['source']})
         valInfo['directories'] = valDirs
+
+        # dump all current Kodi settings
+        gui_settings = GuiSettingsManager()
+        valInfo['system_settings'] = gui_settings.backup()
 
         vFile = xbmcvfs.File(xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup.val"), 'w')
         vFile.write(json.dumps(valInfo))
         vFile.write("")
         vFile.close()
 
-        success = self.remote_vfs.put(xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup.val"), self.remote_vfs.root_path + "xbmcbackup.val")
+        success = self._copyFile(self.xbmc_vfs, self.remote_vfs, xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup.val"), self.remote_vfs.root_path + "xbmcbackup.val")
 
         # remove the validation file
         xbmcvfs.delete(xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup.val"))
@@ -495,7 +515,7 @@ class XbmcBackup:
                 nmFile = xbmcvfs.File(xbmcvfs.translatePath(utils.data_dir() + ".nomedia"), 'w')
                 nmFile.close()
 
-            success = self.remote_vfs.put(xbmcvfs.translatePath(utils.data_dir() + ".nomedia"), self.remote_vfs.root_path + ".nomedia")
+            success = self._copyFile(self.xbmc_vfs, self.remote_vfs, xbmcvfs.translatePath(utils.data_dir() + ".nomedia"), self.remote_vfs.root_path + ".nomedia")
 
         return success
 
@@ -503,10 +523,7 @@ class XbmcBackup:
         result = None
 
         # copy the file and open it
-        if(isinstance(self.remote_vfs, DropboxFileSystem)):
-            self.remote_vfs.get_file(path + "xbmcbackup.val", xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
-        else:
-            self.xbmc_vfs.put(path + "xbmcbackup.val", xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
+        self._copyFile(self.remote_vfs, self.xbmc_vfs, path + "xbmcbackup.val", xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
 
         with xbmcvfs.File(xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup_restore.val"), 'r') as vFile:
             jsonString = vFile.read()

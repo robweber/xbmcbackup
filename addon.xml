@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.xbmcbackup"
-    name="Backup" version="1.5.4~beta1" provider-name="robweber">
+    name="Backup" version="1.5.4" provider-name="robweber">
   <requires>
 	<!-- jarvis -->
     <import addon="xbmc.python" version="2.25.0"/>
@@ -99,6 +99,7 @@
 - converted PNG to JPG
 - updated Travis-CI links
 - added utf decode to JSON calls
+- added better system settings/restore functionality (enabled by default)
    	</news>
   </extension>
 </addon>

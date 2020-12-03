@@ -4,7 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.3...robweber:krypton)
+## [Version 1.5.4](https://github.com/robweber/xbmcbackup/compare/krypton-1.5.3...robweber:krypton-1.5.4) - 2020-12-03
+
+### Added 
+
+- added method to backup/restore Kodi settings via the GetSettings/SetSettingValue JSON methods in the validation file
+- added setting to always restore settings or prompt at the time of backup
 
 ### Changed
 

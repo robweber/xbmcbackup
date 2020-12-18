@@ -17,6 +17,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - updated script.module.future version to current
 - swapped xbmc.translatePath for xbmcvfs.translatePath, deprecated
 
+### Fixed
+
+- fixed calls to ```xbmcgui.Dialog().ok()```, method definition changed to only allow one message arg with Kodi 19
+- fixed import of dropbox Oauth package in authorizer flow
+
 ### Removed
 
 - removed old xml GuiSettings parsing for settings restore

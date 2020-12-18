@@ -6,6 +6,7 @@ import resources.lib.utils as utils
 # don't die on import error yet, these might not even get used
 try:
     from dropbox import dropbox
+    from dropbox import oauth
 except ImportError:
     pass
 
@@ -45,13 +46,13 @@ class DropboxAuthorizer:
             self._deleteToken()
 
         # copied flow from http://dropbox-sdk-python.readthedocs.io/en/latest/moduledoc.html#dropbox.oauth.DropboxOAuth2FlowNoRedirect
-        flow = dropbox.oauth.DropboxOAuth2FlowNoRedirect(self.APP_KEY, self.APP_SECRET)
+        flow = oauth.DropboxOAuth2FlowNoRedirect(self.APP_KEY, self.APP_SECRET)
 
         url = flow.start()
 
         # print url in log
         utils.log("Authorize URL: " + url)
-        xbmcgui.Dialog().ok(utils.getString(30010), '%s\n%s\n%s' % (utils.getString(30056), utils.getString(30057), tinyurl.shorten(url)))
+        xbmcgui.Dialog().ok(utils.getString(30010), '%s\n%s\n%s' % (utils.getString(30056), utils.getString(30057), str(tinyurl.shorten(url), 'utf-8')))
 
         # get the auth code
         code = xbmcgui.Dialog().input(utils.getString(30027) + ' ' + utils.getString(30103))

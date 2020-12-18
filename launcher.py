@@ -13,9 +13,9 @@ def authorize_cloud(cloudProvider):
         authorizer = DropboxAuthorizer()
 
         if(authorizer.authorize()):
-            xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30027) + ' ' + utils.getString(30106))
+            xbmcgui.Dialog().ok(utils.getString(30010), '%s %s' %(utils.getString(30027), utils.getString(30106)))
         else:
-            xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30107) + ' ' + utils.getString(30027))
+            xbmcgui.Dialog().ok(utils.getString(30010), '%s %s' % (utils.getString(30107), utils.getString(30027)))
 
 
 def remove_auth():

@@ -197,7 +197,7 @@ class XbmcBackup:
 
                 if(not fileCopied):
                     # zip archive copy filed, inform the user
-                    shouldContinue = xbmcgui.Dialog().ok(utils.getString(30089), utils.getString(30090), utils.getString(30091))
+                    shouldContinue = xbmcgui.Dialog().ok(utils.getString(30089), '%s\n%s' % (utils.getString(30090), utils.getString(30091)))
 
                 # delete the temp zip file
                 self.xbmc_vfs.rmfile(xbmcvfs.translatePath("special://temp/" + zip_name))
@@ -255,7 +255,7 @@ class XbmcBackup:
 
             # for restores remote path must exist
             if(not self.remote_vfs.exists(self.remote_vfs.root_path)):
-                xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30045), self.remote_vfs.root_path)
+                xbmcgui.Dialog().ok(utils.getString(30010), '%s\n%s' % (utils.getString(30045), self.remote_vfs.root_path))
                 return
 
             valFile = self._checkValidationFile(self.remote_vfs.root_path)
@@ -316,7 +316,7 @@ class XbmcBackup:
                         allFiles.append({"source": self.remote_vfs.root_path + aDir['name'], "dest": self.xbmc_vfs.root_path, "files": fileManager.getFiles()})
                     else:
                         utils.log("error path not found: " + self.remote_vfs.root_path + aDir['name'])
-                        xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30045), self.remote_vfs.root_path + aDir['name'])
+                        xbmcgui.Dialog().ok(utils.getString(30010), '%s\n%s' % (utils.getString(30045), self.remote_vfs.root_path + aDir['name']))
 
                 # restore all the files
                 self.transferLeft = self.transferSize
@@ -354,7 +354,7 @@ class XbmcBackup:
                 if(self.xbmc_vfs.exists(xbmcvfs.translatePath('special://temp/xbmc_backup_temp.zip'))):
                     if(not self.xbmc_vfs.rmfile(xbmcvfs.translatePath('special://temp/xbmc_backup_temp.zip'))):
                         # we had some kind of error deleting the old file
-                        xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30096), utils.getString(30097))
+                        xbmcgui.Dialog().ok(utils.getString(30010), '%s\n%s' % (utils.getString(30096), utils.getString(30097)))
                         return False
 
                 # save the remote file system and use the zip vfs

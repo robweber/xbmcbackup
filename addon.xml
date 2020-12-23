@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.xbmcbackup"
-    name="Backup" version="1.6.4~beta2" provider-name="robweber">
+    name="Backup" version="1.6.4" provider-name="robweber">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
     <import addon="script.module.dateutil" version="2.8.0" />
@@ -92,6 +92,8 @@
     <news>Version 1.6.4
  - updated deprecated Kodi python methods
  - added better system settings/restore functionality (enabled by default)
+ - fixed Dropbox oauth import
+ - fixed xbmcgui.Dialog().ok() parameter list
 </news>
   </extension>
 </addon>

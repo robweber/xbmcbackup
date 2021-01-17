@@ -4,13 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.4...robweber:matrix)
+
+### Changed
+
+- updated ```settings.xml``` to match new [Kodi settings syntax](https://kodi.wiki/view/Add-on_settings_conversion), including visibility levels
+
 ## [Version 1.6.4](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.3...robweber:matrix-1.6.4) - 2020-12-23
 
 ### Added
 
 - merged duplicate copy code into ```_copyFile``` method
 - added method to backup/restore Kodi settings via the GetSettings/SetSettingValue JSON methods in the validation file
-- added setting to always restore settings or prompt at the time of backup 
+- added setting to always restore settings or prompt at the time of backup
 
 ### Changed
 

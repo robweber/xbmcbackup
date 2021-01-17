@@ -592,3 +592,7 @@ msgstr ""
 msgctxt "#30150"
 msgid "Restore saved Kodi system settings from backup?"
 msgstr ""
+
+msgctxt "#30151"
+msgid "Enable Verbose Logging"
+msgstr ""

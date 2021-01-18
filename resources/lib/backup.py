@@ -339,7 +339,9 @@ class XbmcBackup:
             if(self.restore_point.split('.')[-1] == 'zip'):
                 # delete the zip file and the extracted directory
                 self.xbmc_vfs.rmfile(os.path.join(self.ZIP_TEMP_PATH, self.restore_point))
-                self.xbmc_vfs.rmdir(self.remote_vfs.root_path)
+                xbmc.sleep(1000)
+                self.xbmc_vfs.rmdir(self.remote_vfs.clean_path(os.path.join(self.ZIP_TEMP_PATH, self.restore_point.split(".")[0])))
+                xbmc.sleep(1000)
 
             # call update addons to refresh everything
             xbmc.executebuiltin('UpdateLocalAddons')

@@ -10,7 +10,7 @@
           <control type="toggle" />
         </setting>
         <!-- zip folder staging path -->
-        <setting id="zip_temp_path" type="string" label="30152" help="">
+        <setting id="zip_temp_path" type="string" label="30152" help="30153">
 	        <level>3</level>
 	          <default>special://temp</default>
 	          <constraints>
@@ -32,7 +32,7 @@
           </control>
         </setting>
         <!-- prompt to restore settings -->
-        <setting id="always_prompt_restore_settings" type="boolean" label="30148" help="">
+        <setting id="always_prompt_restore_settings" type="boolean" label="30148" help="30154">
           <level>2</level>
           <default>false</default>
           <control type="toggle" />
@@ -53,7 +53,7 @@
       </group>
       <group id="2" label="">
         <!-- verbose logging -->
-        <setting id="verbose_logging" type="boolean" label="30151" help="">
+        <setting id="verbose_logging" type="boolean" label="30151" help="30155">
           <level>3</level>
           <default>false</default>
           <control type="toggle" />
@@ -113,7 +113,7 @@
           </control>
         </setting>
         <!-- dropbox key and secret -->
-        <setting id="dropbox_key" type="string" label="30028" help="">
+        <setting id="dropbox_key" type="string" label="30028" help="30156">
           <level>0</level>
           <default></default>
           <constraints>
@@ -126,7 +126,7 @@
             <heading>30028</heading>
           </control>
         </setting>
-        <setting id="dropbox_secret" type="string" label="30029" help="">
+        <setting id="dropbox_secret" type="string" label="30029" help="30156">
           <level>0</level>
           <default></default>
           <constraints>
@@ -168,7 +168,7 @@
     <category id="selection" label="30012">
       <group id="1" label="">
         <!-- selection type (simple/advanced) -->
-        <setting id="backup_selection_type" type="integer" label="30023" help="">
+        <setting id="backup_selection_type" type="integer" label="30023" help="30157">
           <level>2</level>
           <default>0</default>
           <constraints>
@@ -270,7 +270,7 @@
     <category id="scheduling" label="30013">
       <group id="1" label="">
         <!-- enable scheduler -->
-        <setting id="enable_scheduler" type="boolean" label="30060" help="">
+        <setting id="enable_scheduler" type="boolean" label="30060" help="30158">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />

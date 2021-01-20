@@ -600,3 +600,27 @@ msgstr ""
 msgctxt "#30152"
 msgid "Set Zip File Location"
 msgstr ""
+
+msgctxt "#30153"
+msgid "Full path to where the zip file will be staged during backup or restore - must be local to this device"
+msgstr ""
+
+msgctxt "#30154"
+msgid "Always prompt if Kodi settings should be restored - no by default"
+msgstr ""
+
+msgctxt "#30155"
+msgid "Adds additional information to the log file"
+msgstr ""
+
+msgctxt "#30156"
+msgid "Must save key/secret first, then return to settings to authorize"
+msgstr ""
+
+msgctxt "#30157"
+msgid "Simple uses pre-defined folder locations, use Advanced Editor to define custom paths"
+msgstr ""
+
+msgctxt "#30158"
+msgid "Run backup on daily, weekly, monthly, or custom schedule"
+msgstr ""

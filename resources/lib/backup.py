@@ -50,7 +50,7 @@ class XbmcBackup:
 
     def __init__(self):
         self.xbmc_vfs = XBMCFileSystem(xbmcvfs.translatePath('special://home'))
-        self.ZIP_TEMP_PATH = xbmcvfs.translatePath('special://temp')
+        self.ZIP_TEMP_PATH = xbmcvfs.translatePath(utils.getSetting('zip_temp_path'))
 
         self.configureRemote()
         utils.log(utils.getString(30046))
@@ -70,7 +70,7 @@ class XbmcBackup:
     def remoteConfigured(self):
         result = True
 
-        if(self.remote_base_path == ""):
+        if(self.remote_base_path == "" or not xbmcvfs.exists(self.ZIP_TEMP_PATH)):
             result = False
 
         return result
@@ -380,6 +380,7 @@ class XbmcBackup:
 
         utils.log(utils.getString(30047) + ": " + self.xbmc_vfs.root_path)
         utils.log(utils.getString(30048) + ": " + self.remote_vfs.root_path)
+        utils.log(utils.getString(30152) + ": " + utils.getSetting('zip_temp_path'))
 
         # setup the progress bar
         self.progressBar = BackupProgressBar(progressOverride)

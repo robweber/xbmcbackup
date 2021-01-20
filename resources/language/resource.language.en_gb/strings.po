@@ -173,8 +173,8 @@ msgid "Would you like to continue?"
 msgstr "Would you like to continue?"
 
 msgctxt "#30045"
-msgid "Error: Remote path doesn't exist"
-msgstr "Error: Remote path doesn't exist"
+msgid "Error: Remote or zip file path doesn't exist"
+msgstr "Error: Remote or zip file path doesn't exist"
 
 msgctxt "#30046"
 msgid "Starting"
@@ -595,4 +595,8 @@ msgstr ""
 
 msgctxt "#30151"
 msgid "Enable Verbose Logging"
+msgstr ""
+
+msgctxt "#30152"
+msgid "Set Zip File Location"
 msgstr ""

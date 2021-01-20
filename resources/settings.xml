@@ -9,6 +9,20 @@
           <default>false</default>
           <control type="toggle" />
         </setting>
+        <!-- zip folder staging path -->
+        <setting id="zip_temp_path" type="string" label="30152" help="">
+	        <level>3</level>
+	          <default>special://temp</default>
+	          <constraints>
+		          <allowempty>true</allowempty>
+	          </constraints>
+            <dependencies>
+              <dependency type="visible" setting="compress_backups">true</dependency>
+            </dependencies>
+	          <control type="edit" format="string">
+		          <heading>30152</heading>
+	          </control>
+        </setting>
         <!-- backup rotation -->
         <setting id="backup_rotation" type="integer" label="30026" help="">
           <level>0</level>

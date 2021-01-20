@@ -6,9 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.4...robweber:matrix)
 
+### Added
+
+- added Expert setting to change location of zip file temp location as it's being built or extracted
+
 ### Changed
 
 - updated ```settings.xml``` to match new [Kodi settings syntax](https://kodi.wiki/view/Add-on_settings_conversion), including visibility levels
+
+### Fixed
+
+- when restoring from a zip file the command to delete the extracted directory was incorrect
 
 ## [Version 1.6.4](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.3...robweber:matrix-1.6.4) - 2020-12-23
 

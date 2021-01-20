@@ -91,6 +91,7 @@
     </assets>
     <news>Version 1.6.5 Beta 1
  - updated to new settings format with levels
+ - added ability to change path where temp zip file is built
 </news>
   </extension>
 </addon>

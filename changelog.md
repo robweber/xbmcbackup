@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 
 - when restoring from a zip file the command to delete the extracted directory was incorrect
+- ```Dialog().yesno()``` no longer takes line1 arg, changed to message
 
 ## [Version 1.6.4](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.3...robweber:matrix-1.6.4) - 2020-12-23
 

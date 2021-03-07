@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.4...robweber:matrix)
+## [Version 1.6.5](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.4...robweber:matrix-1.6.5) - 2021-03-06
 
 ### Added
 

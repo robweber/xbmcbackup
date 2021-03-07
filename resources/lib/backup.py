@@ -158,7 +158,7 @@ class XbmcBackup:
 
             if(not writeCheck):
                 # we may not be able to write to this destination for some reason
-                shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30089), utils.getString(30090), utils.getString(30044), autoclose=25000)
+                shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30089), "%s\n%s" % (utils.getString(30090), utils.getString(30044)), autoclose=25000)
 
                 if(not shouldContinue):
                     return
@@ -273,7 +273,7 @@ class XbmcBackup:
             # check for the existance of an advancedsettings file
             if(self.remote_vfs.exists(self.remote_vfs.root_path + "config/advancedsettings.xml") and not self.skip_advanced):
                 # let the user know there is an advanced settings file present
-                restartXbmc = xbmcgui.Dialog().yesno(utils.getString(30038), utils.getString(30039), utils.getString(30040), utils.getString(30041))
+                restartXbmc = xbmcgui.Dialog().yesno(utils.getString(30038), "%s\n%s" % (utils.getString(30039), utils.getString(30040)), utils.getString(30041))
 
                 if(restartXbmc):
                     # add only this file to the file list
@@ -542,7 +542,7 @@ class XbmcBackup:
             result = json.loads(jsonString)
 
             if(xbmc.getInfoLabel('System.BuildVersion') != result['xbmc_version']):
-                shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30085), utils.getString(30086), utils.getString(30044))
+                shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30085), "%s\n%s" % (utils.getString(30086), utils.getString(30044)))
 
                 if(not shouldContinue):
                     result = None

@@ -8,7 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Fixed
 
-- error when typing the remote path, ```listBackups()``` function was not working if final slash not included in typed directory path name. 
+- error when typing the remote path, ```listBackups()``` function was not working if final slash not included in typed directory path name.
+- added ```force=True``` flag to the ```rmdir()``` function. Fixes issue with directories being removed when not empty
 
 ## [Version 1.6.5](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.4...robweber:matrix-1.6.5) - 2021-03-06
 

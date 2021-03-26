@@ -5,6 +5,14 @@ from resources.lib.backup import XbmcBackup
 from resources.lib.authorizers import DropboxAuthorizer
 from resources.lib.advanced_editor import AdvancedBackupEditor
 
+# mode constants
+BACKUP = 0
+RESTORE = 1
+SETTINGS = 2
+ADVANCED_EDITOR = 3
+LAUNCHER = 4
+
+
 def authorize_cloud(cloudProvider):
     # drobpox
     if(cloudProvider == 'dropbox'):
@@ -48,11 +56,11 @@ params = get_params()
 
 if("mode" in params):
     if(params['mode'] == 'backup'):
-        mode = 0
+        mode = BACKUP
     elif(params['mode'] == 'restore'):
-        mode = 1
+        mode = RESTORE
     elif(params['mode'] == 'launcher'):
-        mode = 4
+        mode = LAUNCHER
 
 
 # if mode wasn't passed in as arg, get from user
@@ -72,13 +80,13 @@ if(mode != -1):
     # run the profile backup
     backup = XbmcBackup()
 
-    if(mode == 2):
+    if(mode == SETTINGS):
         # open the settings dialog
         utils.openSettings()
-    elif(mode == 3 and utils.getSettingInt('backup_selection_type') == 1):
-        # open the advanced editor
+    elif(mode == ADVANCED_EDITOR and utils.getSettingInt('backup_selection_type') == 1):
+        # open the advanced editor but only if in advanced mode
         xbmc.executebuiltin('RunScript(special://home/addons/script.xbmcbackup/launcher.py, action=advanced_editor)')
-    elif(mode == 4):
+    elif(mode == LAUNCHER):
         # copied from old launcher.py
         if(params['action'] == 'authorize_cloud'):
             authorize_cloud(params['provider'])
@@ -90,10 +98,11 @@ if(mode != -1):
         elif(params['action'] == 'advanced_copy_config'):
             editor = AdvancedBackupEditor()
             editor.copySimpleConfig()
+
     elif(backup.remoteConfigured()):
 
         # if mode was RESTORE
-        if(mode == backup.Restore):
+        if(mode == RESTORE):
             # get list of valid restore points
             restorePoints = backup.listBackups()
             pointNames = []

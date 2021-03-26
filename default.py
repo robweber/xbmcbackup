@@ -34,6 +34,7 @@ def remove_auth():
         xbmcvfs.delete(xbmcvfs.translatePath(utils.data_dir() + "tokens.txt"))  # dropbox
         xbmcvfs.delete(xbmcvfs.translatePath(utils.data_dir() + "google_drive.dat"))  # google drive
 
+
 def get_params():
     param = {}
     try:

@@ -1,5 +1,6 @@
 import xbmc
 import xbmcgui
+import xbmcvfs
 import resources.lib.utils as utils
 from resources.lib.backup import XbmcBackup
 from resources.lib.authorizers import DropboxAuthorizer

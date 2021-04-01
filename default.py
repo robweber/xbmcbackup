@@ -87,7 +87,8 @@ if(mode != -1):
         utils.openSettings()
     elif(mode == ADVANCED_EDITOR and utils.getSettingInt('backup_selection_type') == 1):
         # open the advanced editor but only if in advanced mode
-        xbmc.executebuiltin('RunScript(special://home/addons/script.xbmcbackup/launcher.py, action=advanced_editor)')
+        editor = AdvancedBackupEditor()
+        editor.showMainScreen()
     elif(mode == LAUNCHER):
         # copied from old launcher.py
         if(params['action'] == 'authorize_cloud'):

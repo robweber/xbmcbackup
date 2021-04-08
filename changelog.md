@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.5...robweber:matrix)
 
+### Added
+
+- added QRcode when setting up Dropbox, uses pyqrcode
+
 ### Fixed
 
 - fixed issue when using ```RunScript()``` within settings to launch Advanced Editor

@@ -63,7 +63,6 @@ if("mode" in params):
     elif(params['mode'] == 'launcher'):
         mode = LAUNCHER
 
-
 # if mode wasn't passed in as arg, get from user
 if(mode == -1):
     # by default, Backup,Restore,Open Settings

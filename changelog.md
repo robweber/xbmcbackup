@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 
 - fixed issue when using ```RunScript()``` within settings to launch Advanced Editor
+- error on advanced settings restore prior to reboot
+- minor gui dialog fixes
 
 ## [Version 1.6.6](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.5...robweber:matrix-1.6.6) - 2020-03-15
 

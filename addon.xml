@@ -93,6 +93,7 @@
     <news>Version 1.6.7
  - fixed issue with RunScript not launching Advanced Editor in some cases
  - added qr code for Dropbox setup
+ - fixed error on advanced settings restore
 </news>
   </extension>
 </addon>

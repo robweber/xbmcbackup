@@ -276,6 +276,8 @@ class XbmcBackup:
 
                 if(restartXbmc):
                     # add only this file to the file list
+                    self.transferSize = 1
+                    self.transferLeft = 1
                     fileManager.addFile(self.remote_vfs.root_path + "config/advancedsettings.xml")
                     self._copyFiles(fileManager.getFiles(), self.remote_vfs, self.xbmc_vfs)
 

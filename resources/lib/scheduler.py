@@ -178,7 +178,7 @@ class BackupScheduler:
             self.restore_point = rFile.read()
             rFile.close()
             xbmcvfs.delete(xbmcvfs.translatePath(utils.data_dir() + "resume.txt"))
-            shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30042), utils.getString(30043), utils.getString(30044))
+            shouldContinue = xbmcgui.Dialog().yesno(utils.getString(30042), "%s\n%s" % (utils.getString(30043), utils.getString(30044)))
 
         return shouldContinue
 

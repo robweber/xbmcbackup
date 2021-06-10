@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unrelease](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.7...robweber:matrix)
+
+### Fixed
+
+- default en_gb file must use empty `msgstr` value
+
 ## [Version 1.6.7](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.5...robweber:matrix-1.6.7) - 2021-04-16
 
 ### Added

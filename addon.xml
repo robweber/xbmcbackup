@@ -91,7 +91,8 @@
 		<screenshot>resources/images/screenshot4.jpg</screenshot>
     </assets>
     <news>Version 1.6.8
-Fix lang file "mgstr" value
+Fix lang file "msgtr" value
+Bring in saved sources from File Manager to file browser
 </news>
   </extension>
 </addon>

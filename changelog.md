@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unrelease](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.7...robweber:matrix)
 
+### Changed
+
+- use the `<source>files</source>` tag on the remote path browser to bring in saved file paths from the File Manager
+
 ### Fixed
 
 - default en_gb file must use empty `msgstr` value

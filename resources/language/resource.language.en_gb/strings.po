@@ -186,51 +186,51 @@ msgstr ""
 
 msgctxt "#30048"
 msgid "Remote Dir"
-mgstr ""
+msgstr ""
 
 msgctxt "#30049"
 msgid "Gathering file list"
-mgstr ""
+msgstr ""
 
 msgctxt "#30050"
 msgid "Remote Path exists - may have old files in it!"
-mgstr ""
+msgstr ""
 
 msgctxt "#30051"
 msgid "Creating Files List"
-mgstr ""
+msgstr ""
 
 msgctxt "#30052"
 msgid "Writing file"
-mgstr ""
+msgstr ""
 
 msgctxt "#30053"
 msgid "Starting scheduled backup"
-mgstr ""
+msgstr ""
 
 msgctxt "#30054"
 msgid "Removing backup"
-mgstr ""
+msgstr ""
 
 msgctxt "#30056"
 msgid "Scan or click this URL to authorize, click OK AFTER completion"
-mgstr ""
+msgstr ""
 
 msgctxt "#30057"
 msgid "Click OK AFTER completion"
-mgstr ""
+msgstr ""
 
 msgctxt "#30058"
 msgid "Developer Code Needed"
-mgstr ""
+msgstr ""
 
 msgctxt "#30059"
 msgid "Visit https://www.dropbox.com/developers"
-mgstr ""
+msgstr ""
 
 msgctxt "#30060"
 msgid "Enable Scheduler"
-mgstr ""
+msgstr ""
 
 msgctxt "#30061"
 msgid "Schedule"
@@ -238,15 +238,15 @@ msgstr ""
 
 msgctxt "#30062"
 msgid "Hour of Day"
-mgstr ""
+msgstr ""
 
 msgctxt "#30063"
 msgid "Day of Week"
-mgstr ""
+msgstr ""
 
 msgctxt "#30064"
 msgid "Cron Schedule"
-mgstr ""
+msgstr ""
 
 msgctxt "#30065"
 msgid "Sunday"
@@ -278,156 +278,156 @@ msgstr ""
 
 msgctxt "#30072"
 msgid "Every Day"
-mgstr ""
+msgstr ""
 
 msgctxt "#30073"
 msgid "Every Week"
-mgstr ""
+msgstr ""
 
 msgctxt "#30074"
 msgid "First Day of Month"
-mgstr ""
+msgstr ""
 
 msgctxt "#30075"
 msgid "Custom Schedule"
-mgstr ""
+msgstr ""
 
 msgctxt "#30076"
 msgid "Shutdown After Backup"
-mgstr ""
+msgstr ""
 
 msgctxt "#30077"
 msgid "Restart Kodi"
-mgstr ""
+msgstr ""
 
 msgctxt "#30078"
 msgid "You should restart Kodi to continue"
-mgstr ""
+msgstr ""
 
 msgctxt "#30079"
 msgid "Just Today"
-mgstr ""
+msgstr ""
 
 msgctxt "#30080"
 msgid "Profiles"
- ""
+msgstr ""
 
 msgctxt "#30081"
 msgid "Scheduler will run again on"
- "Scheduler will run again on"
+msgstr ""
 
 msgctxt "#30082"
 msgid "Progress Bar"
-mgstr ""
+msgstr ""
 
 msgctxt "#30083"
 msgid "Background Progress Bar"
-mgstr ""
+msgstr ""
 
 msgctxt "#30084"
 msgid "None (Silent)"
-mgstr ""
+msgstr ""
 
 msgctxt "#30085"
 msgid "Version Warning"
-mgstr ""
+msgstr ""
 
 msgctxt "#30086"
 msgid ""
 "This version of Kodi is different than the one used to create the archive"
-mgstr ""
+msgstr ""
 
 msgctxt "#30087"
 msgid "Compress Archives"
-mgstr ""
+msgstr ""
 
 msgctxt "#30088"
 msgid "Copying Zip Archive"
-mgstr ""
+msgstr ""
 
 msgctxt "#30089"
 msgid "Write Error Detected"
-mgstr ""
+msgstr ""
 
 msgctxt "#30090"
 msgid "The destination may not be writeable"
-mgstr ""
+msgstr ""
 
 msgctxt "#30091"
 msgid "Zip archive could not be copied"
-mgstr ""
+msgstr ""
 
 msgctxt "#30092"
 msgid "Not all files were copied"
-mgstr ""
+msgstr ""
 
 msgctxt "#30093"
 msgid "Delete Authorization Info"
-mgstr ""
+msgstr ""
 
 msgctxt "#30094"
 msgid "This will delete any OAuth token files"
-mgstr ""
+msgstr ""
 
 msgctxt "#30095"
 msgid "Do you want to do this?"
-mgstr ""
+msgstr ""
 
 msgctxt "#30096"
 msgid "Old Zip Archive could not be deleted"
-mgstr ""
+msgstr ""
 
 msgctxt "#30097"
 msgid "This needs to happen before a backup can run"
-mgstr ""
+msgstr ""
 
 msgctxt "#30098"
 msgid "Google Drive"
-mgstr ""
+msgstr ""
 
 msgctxt "#30099"
 msgid "Open Settings"
-mgstr ""
+msgstr ""
 
 msgctxt "#30100"
 msgid "Extracting Archive"
-mgstr ""
+msgstr ""
 
 msgctxt "#30101"
 msgid "Error extracting the zip archive"
-mgstr ""
+msgstr ""
 
 msgctxt "#30102"
 msgid "Click OK to enter code"
-mgstr ""
+msgstr ""
 
 msgctxt "#30103"
 msgid "Validation Code"
-mgstr ""
+msgstr ""
 
 msgctxt "#30104"
 msgid "Authorize Now"
-mgstr ""
+msgstr ""
 
 msgctxt "#30105"
 msgid "Authorize this remote service in the settings first"
-mgstr ""
+msgstr ""
 
 msgctxt "#30106"
 msgid "is authorized"
-mgstr ""
+msgstr ""
 
 msgctxt "#30107"
 msgid "error authorizing"
-mgstr ""
+msgstr ""
 
 msgctxt "#30108"
 msgid "Visit https://console.developers.google.com/"
-mgstr ""
+msgstr ""
 
 msgctxt "#30109"
 msgid "Run on startup if missed"
-mgstr ""
+msgstr ""
 
 msgctxt "#30110"
 msgid "Set Name"

@@ -21,3 +21,9 @@ For more specific information please check out the [wiki on Github](https://gith
 ## Attributions
 
 Icon files from Open Iconic — www.useiconic.com/open
+
+## Contributing
+
+If you're having issues with this addon there are two main places to look. The first is the addon thread on [the Kodi Forums](https://forum.kodi.tv/showthread.php?tid=129499). This is where you can ask general questions regarding functionality. If you're having a legitimate issue, such as an error message, you can [create an Issue](https://github.com/robweber/xbmcbackup/issues) for it in this repository.
+
+Pull Requests are welcome if you want to dig around in the code to fix issues or add functionality. Please submit them using [the usual workflow](https://guides.github.com/introduction/flow/index.html). Additionally you can help keep languages files up to date by visiting [the Weblate page](https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-xbmcbackup/) for this addon and updating untranslated strings. Changes to Weblate will automatically create PRs to this repository. This is a great way to contribute if you're not a coder!

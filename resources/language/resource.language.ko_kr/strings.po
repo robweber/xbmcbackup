@@ -28,7 +28,7 @@ msgstr "Kodi 데이터베이스와 설정 파일을 백업하고 복구합니다
 
 msgctxt "Addon Description"
 msgid "Ever hosed your Kodi configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by Kodi or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. "
-msgstr "Kodi 설정 백업본이 있었으면 하고 원했던 적이 있습니까? 이제 한 번의 클릭으로 가능합니다. 데이터베이스, 재생목록, 썸네일, 애드온과 기타 세부 설정을 어디에나 내보내거나 직접 Dropbox 에 저장할 수 있습니다. 백업은 수동 또는 예약으로 실행할 수 있습니다. "
+msgstr "Kodi 설정 백업본이 있었으면 하고 원했던 적이 있습니까? 이제 한 번의 클릭으로 가능합니다. 데이터베이스, 재생목록, 썸네일, 애드온과 기타  세부 설정을 어디에나 내보내거나 직접 Dropbox 에  저장할 수 있습니다. 백업은 수동 또는 예약으로 실행할 수 있습니다."
 
 msgctxt "#30010"
 msgid "Backup"

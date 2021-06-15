@@ -29,11 +29,11 @@ msgstr ""
 
 msgctxt "Addon Summary"
 msgid "Backup and restore your Kodi database and configuration files in the event of a crash or file corruption."
-msgstr "Tworzenie i przywracanie kopii zapasowej bazy danych i konfiguracji Kodi, na wypadek awarii lub uszkodzenia pliku."
+msgstr "Stwórz kopię bezpieczeństwa oraz przywróć twoją bazę danych Kodi łącznie z plikami konfiguracyjnymi, w przypadku awarii lub uszkodzenia plików."
 
 msgctxt "Addon Description"
 msgid "Ever hosed your Kodi configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by Kodi or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. "
-msgstr "Doświadczyłeś utraty konfiguracji Kodi i marzyłeś o posiadaniu kopii zapasowej? Teraz możesz ją mieć i to w prosty sposób. Możesz wyeksportować bazę danych, listy odtwarzania, miniatury, dodatki oraz pozostałe pliki do dowolnego źródła, włączając w to Dropbox, bezpośrednio z Kodi. Kopie zapasowe mogą zostać utworzone na żądanie lub wg harmonogramu."
+msgstr "Straciłeś kiedyś swoją konfigurację Kodi i marzyłeś o kopii zapasowej? Teraz już możesz i to w prosty sposób. Możesz eksportować swoją bazę, listy odtwarzania, miniatury, wtyczki oraz wiele więcej do dowolnego źródła bezpośrednio z Kodi. Kopia bezpieczeństwa może być uruchomiona na żądanie lub wg harmonogramu."
 
 msgctxt "#30010"
 msgid "Backup"

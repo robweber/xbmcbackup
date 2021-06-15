@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 
 - use the `<source>files</source>` tag on the remote path browser to bring in saved file paths from the File Manager
+- multiple language files updated through integration with [Webpate](https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-xbmcbackup/), thanks to @gade01 for helping to get it working.
 
 ### Fixed
 

@@ -21,11 +21,11 @@ msgstr ""
 
 msgctxt "Addon Summary"
 msgid "Backup and restore your Kodi database and configuration files in the event of a crash or file corruption."
-msgstr "Atsarginė kopija katra atkuria jūsų Kodi duomenų bazę ir konfigūracijos failus avarijos ar failo sugadinimo metu."
+msgstr "Sukurkite savo Kodi duomenų bazės ir konfigūracijos failų atsarginę kopiją ir atstatykite iš jos, jei sistema užstrigtų ar susigadintų failas."
 
 msgctxt "Addon Description"
 msgid "Ever hosed your Kodi configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by Kodi or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. "
-msgstr "Kada naujinate ir konfiguruojate savo Kodi ar susimastėte, kad jums reikalinga atsarginė kopija? Dabar galite tai atlikti vienu spustelėjimu. Savo duomenų bazes, atkūrimą, miniatiūras, priedus ir kitas konfigūracijos failus galite eksportuoti iš bet kokio šaltinio. Atsarginė(-ės) kopija(-os) gali būti paleistos pareikalavus arba per tvarkaraštį."
+msgstr "Ar kada nors praradote savo Kodi konfigūraciją ir gailėjotės, kad neturėjote atsarginės kopijos? Dabar galite ją turėti vienu paspaudimu. Jūs galite išeksportuoti duomenų bazę, grojaraščius, priedus ir kitą konfigūracijos informaciją į bet kokį Kodi palaikomą šaltinį ar tiesiai į Dropbox debesų saugyklą. Atsarginės kopijos gali būti daromos rankiniu arba automatiniu būdu."
 
 msgctxt "#30010"
 msgid "Backup"

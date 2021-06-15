@@ -28,7 +28,7 @@ msgstr "备份和恢复 Kodi 数据库和配置文件，以防范系统崩溃或
 
 msgctxt "Addon Description"
 msgid "Ever hosed your Kodi configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by Kodi or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. "
-msgstr "你是否经常折腾你的 Kodi，因而希望能够有个备份？你可以把资料库、播放列表、缩略图、插件和其他配置细节导出到 Kodi 可以写入的任意位置。备份可以按需运行或通过计划任务执行。"
+msgstr "你是否经常折腾你的 Kodi，因而希望能够有个备份？现在可以通过简单点击来实现。你可以把资料库、播放列表、缩略图、插件和其他配置细节导出到 Kodi 可以写入的任意位置或 Dropgox 云存储空间。备份可以按需运行或通过计划任务执行。"
 
 msgctxt "#30010"
 msgid "Backup"

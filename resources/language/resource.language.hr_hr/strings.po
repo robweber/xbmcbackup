@@ -24,7 +24,7 @@ msgstr "Sigurnosno kopirajte i obnovite vašu Kodi bazu podataka i datoteke pode
 
 msgctxt "Addon Description"
 msgid "Ever hosed your Kodi configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by Kodi or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. "
-msgstr "Jeste li ikada oštetili vaša Kodi podešavanja i poželjeli ste ih obnoviti iz sigurnosne kopije? Sada to možete jednim klikom. Možete izvesti vašu bazu podataka, popis izvođenja, minijature, dodatke i ostale pojedinosti podešavanja na svaki izvor dostupan Kodiju ili izravno na Dropbox oblak pohrane. Sigurnosno kopiranje se može pokrenuti na zahtjev ili u planiranom vremenu."
+msgstr "Jeste li ikada oštetili vaša Kodi podešavanja i poželjeli ste ih obnoviti iz sigurnosne kopije? Sada to možete jednim klikom. Možete izvesti vašu bazu podataka, popis izvođenja, minijature, dodatke i ostale pojedinosti podešavanja na svaki izvor dostupan Kodi-u ili izravno na Dropbox oblak pohrane. Sigurnosno kopiranje se može pokrenuti na zahtjev ili u planiranom vremenu."
 
 msgctxt "#30010"
 msgid "Backup"

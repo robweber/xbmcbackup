@@ -28,11 +28,11 @@ msgstr ""
 
 msgctxt "Addon Summary"
 msgid "Backup and restore your Kodi database and configuration files in the event of a crash or file corruption."
-msgstr "Backup en herstel je Kodi database- en configuratiebestanden in geval van een crash of bestandscorruptie."
+msgstr "Back-up en herstel je Kodi database en configuratiebestanden in geval van een crash of bestandscorruptie."
 
 msgctxt "Addon Description"
 msgid "Ever hosed your Kodi configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by Kodi or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. "
-msgstr "Ooit je Kodi-configuratie verknald en hoopte je dat je een backup had? Nu kan dat met een simpele klik. Je kunt je bibliotheek, afspeellijsten, miniaturen, addons en andere configuratie-opties naar elke bron die door Kodi beschrijfbaar is of direct naar een Dropbox-cloudopslag exporteren. Backups kunnen op aanvraag of via planning gemaakt worden."
+msgstr "Ooit je Kodi configuratie verknalt en gewenst dat je een backup had? Nu kan dat met een simpele klik. Je kunt je bibliotheek, afspeellijsten, miniaturen, addons en andere configuratie optes exporteren naar elke bron die door Kodi beschrijfbaar is of direct naar een Dropbox cloud opslag. Backups kunnen op verzoek of via een rooster gedraaid worden."
 
 msgctxt "#30010"
 msgid "Backup"

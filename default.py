@@ -14,7 +14,7 @@ LAUNCHER = 4
 
 
 def authorize_cloud(cloudProvider):
-    # drobpox
+    # dropbox
     if(cloudProvider == 'dropbox'):
         authorizer = DropboxAuthorizer()
 
@@ -26,7 +26,7 @@ def authorize_cloud(cloudProvider):
 
 def remove_auth():
     # triggered from settings.xml - asks if user wants to delete OAuth token information
-    shouldDelete = xbmcgui.Dialog().yesno(utils.getString(30093), utils.getString(30094), utils.getString(30095), autoclose=7000)
+    shouldDelete = xbmcgui.Dialog().yesno(utils.getString(30093), '%s\n%s' % (utils.getString(30094), utils.getString(30095)), autoclose=7000)
 
     if(shouldDelete):
         # delete any of the known token file types
@@ -77,7 +77,6 @@ if(mode == -1):
 
 # check if program should be run
 if(mode != -1):
-    # run the profile backup
     backup = XbmcBackup()
 
     if(mode == SETTINGS):
@@ -101,7 +100,6 @@ if(mode != -1):
             editor.copySimpleConfig()
 
     elif(backup.remoteConfigured()):
-
         # if mode was RESTORE
         if(mode == RESTORE):
             # get list of valid restore points

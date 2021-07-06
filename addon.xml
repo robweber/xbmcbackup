@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.xbmcbackup"
-    name="Backup" version="1.6.8~beta1" provider-name="robweber">
+    name="Backup" version="1.6.8~beta2" provider-name="robweber">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
     <import addon="script.module.dateutil" version="2.8.0" />
@@ -27,6 +27,8 @@
     <news>Version 1.6.8
 Updated language files with Weblate integration
 Bring in saved sources from File Manager to file browser
+Fixed Dropbox authorization flow
+Minor UI fixes
 </news>
     <summary lang="ar_SA">إنسخ إحتياطياً قاعده بيانات إكس بى إم سى وملفات اﻹعدادات فى حاله وقوع إنهيار مع إمكانيه اﻹسترجاع</summary>
     <summary lang="be_BY">Backup and restore your Kodi database and configuration files in the event of a crash or file corruption.</summary>

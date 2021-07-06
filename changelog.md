@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 
 - default en_gb file must use empty `msgstr` value
+- minor UI fixes for dialog prompts
+- fixed catch22 situation where Dropbox remote tries to load prior to authorization flow
 
 ## [Version 1.6.7](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.5...robweber:matrix-1.6.7) - 2021-04-16
 

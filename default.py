@@ -75,9 +75,8 @@ if(mode == -1):
     # figure out if this is a backup or a restore from the user
     mode = xbmcgui.Dialog().select(utils.getString(30010) + " - " + utils.getString(30023), options)
 
-# check if program should be run
+# check which mode should be run
 if(mode != -1):
-    backup = XbmcBackup()
 
     if(mode == SETTINGS):
         # open the settings dialog
@@ -99,9 +98,11 @@ if(mode != -1):
             editor = AdvancedBackupEditor()
             editor.copySimpleConfig()
 
-    elif(backup.remoteConfigured()):
+    elif(mode == BACKUP or mode == RESTORE):
+        backup = XbmcBackup()
+
         # if mode was RESTORE
-        if(mode == RESTORE):
+        if(mode == RESTORE and backup.remoteConfigured()):
             # get list of valid restore points
             restorePoints = backup.listBackups()
             pointNames = []
@@ -133,10 +134,12 @@ if(mode != -1):
                 backup.restore(selectedSets=params['sets'].split('|'))
             else:
                 backup.restore()
-        else:
+        elif(mode == BACKUP and backup.remoteConfigured()):
             # mode was BACKUP
             backup.backup()
+        else:
+            # can't go any further
+            xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30045))
+            utils.openSettings()
     else:
-        # can't go any further
-        xbmcgui.Dialog().ok(utils.getString(30010), utils.getString(30045))
-        utils.openSettings()
+        xbmcgui.Dialog().ok(utils.getString(30010), "%s %s" % (utils.getString(30159), params['mode']))

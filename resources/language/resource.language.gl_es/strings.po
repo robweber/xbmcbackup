@@ -621,6 +621,10 @@ msgctxt "#30158"
 msgid "Run backup on daily, weekly, monthly, or custom schedule"
 msgstr ""
 
+msgctxt "#30159"
+msgid "Backup started with unknown mode"
+msgstr ""
+
 #~ msgctxt "#30036"
 #~ msgid "Custom Directory 1"
 #~ msgstr "Cartafol Personalizado 1"

@@ -19,16 +19,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2017-09-19 14:20+0000\n"
-"Last-Translator: Martijn Kaijser <machine.sanctum@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/teamxbmc/xbmc-addons/language/de/)\n"
-"Language: de\n"
+"PO-Revision-Date: 2021-09-22 14:30+0000\n"
+"Last-Translator: Chillbo <admin.weblate@contribute-osmc.com>\n"
+"Language-Team: German <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-xbmcbackup/de_de/>\n"
+"Language: de_de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.8\n"
 
 msgctxt "Addon Summary"
 msgid "Backup and restore your Kodi database and configuration files in the event of a crash or file corruption."
@@ -36,7 +37,7 @@ msgstr "Die Kodi-Datenbank sichern und bei Dateiverlust oder Beschädigung wiede
 
 msgctxt "Addon Description"
 msgid "Ever hosed your Kodi configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by Kodi or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. "
-msgstr "Wurde jemals deine Kodi-Konfiguration zerschossen und hättest dir dann gewünscht, dass eine Datensicherung existiert? Jetzt kannst du eine Sicherung mit nur einem Klick erzeugen. Du kannst deine Datenbanken, Wiedergabelisten, Vorschaubilder, Addons und andere Konfigurationsdetails an einem für Kodi beschreibbaren Ort deiner Wahl oder direkt in den Dropbox Cloud-Speicher exportieren. Datensicherungen können auf Anfrage oder durch ein Steuerprogramm ausgeführt werden."
+msgstr "Wurde jemals deine Kodi-Konfiguration zerschossen und hättest dir dann gewünscht, dass eine Datensicherung existiert? Jetzt kannst du eine Sicherung mit nur einem Klick erzeugen. Du kannst deine Datenbanken, Wiedergabelisten, Vorschaubilder, Addons und andere Konfigurationsdetails an einem für Kodi beschreibbaren Ort deiner Wahl oder direkt in den Dropbox Cloud-Speicher exportieren. Datensicherungen können auf Anfrage oder durch ein Steuerprogramm ausgeführt werden. "
 
 msgctxt "#30010"
 msgid "Backup"
@@ -56,11 +57,11 @@ msgstr "Zeitplan"
 
 msgctxt "#30014"
 msgid "Simple"
-msgstr ""
+msgstr "Einfach"
 
 msgctxt "#30015"
 msgid "Advanced"
-msgstr ""
+msgstr "Erweitert"
 
 msgctxt "#30016"
 msgid "Backup"
@@ -144,11 +145,11 @@ msgstr "Konfigurationsdateien"
 
 msgctxt "#30036"
 msgid "Disclaimer"
-msgstr ""
+msgstr "Ausschlussklausel"
 
 msgctxt "#30037"
 msgid "Canceling this menu will close and save changes"
-msgstr ""
+msgstr "Abbrechen dieses Menüs wird es schließen und Änderungen speichern"
 
 msgctxt "#30038"
 msgid "Advanced Settings Detected"
@@ -172,7 +173,7 @@ msgstr "Wiederherstellung fortsetzen"
 
 msgctxt "#30043"
 msgid "The Backup addon has detected an unfinished restore"
-msgstr "Kodi Backup hat eine nicht komplette Wiederherstellung entdeckt"
+msgstr "Das Sicherungs-Addon hat eine nicht komplette Wiederherstellung entdeckt"
 
 msgctxt "#30044"
 msgid "Would you like to continue?"
@@ -180,7 +181,7 @@ msgstr "Möchtest du fortfahren?"
 
 msgctxt "#30045"
 msgid "Error: Remote or zip file path doesn't exist"
-msgstr ""
+msgstr "Fehler: Entfernter ider zip-Datei-Pfad existiert nicht"
 
 msgctxt "#30046"
 msgid "Starting"
@@ -220,15 +221,15 @@ msgstr "Sicherheitskopie wird entfernt"
 
 msgctxt "#30056"
 msgid "Scan or click this URL to authorize, click OK AFTER completion"
-msgstr ""
+msgstr "Durchsuchen oder diese URL zum Authorisieren klicken, NACH Abschluss OK klicken"
 
 msgctxt "#30057"
 msgid "Click OK AFTER completion"
-msgstr ""
+msgstr "NACH Abschluss OK klicken"
 
 msgctxt "#30058"
 msgid "Developer Code Needed"
-msgstr ""
+msgstr "Entwickler-Code benötigt"
 
 msgctxt "#30059"
 msgid "Visit https://www.dropbox.com/developers"
@@ -340,7 +341,7 @@ msgstr "Versionswarnung"
 
 msgctxt "#30086"
 msgid "This version of Kodi is different than the one used to create the archive"
-msgstr "Diese Version von Kodi ist eine andere als jene mit der das Archiv erstellt wurde."
+msgstr "Diese Version von Kodi ist eine andere, als jene, mit der das Archiv erstellt wurde"
 
 msgctxt "#30087"
 msgid "Compress Archives"
@@ -384,7 +385,7 @@ msgstr "Altes ZIP-Archiv konnte nicht gelöscht werden"
 
 msgctxt "#30097"
 msgid "This needs to happen before a backup can run"
-msgstr "Dies muss vor einem möglichen Backup getan sein."
+msgstr "Dies muss vor einer möglichen Sicherung passiert sein"
 
 msgctxt "#30098"
 msgid "Google Drive"
@@ -404,231 +405,235 @@ msgstr "Fehler beim Entpacken des ZIP-Archivs"
 
 msgctxt "#30102"
 msgid "Click OK to enter code"
-msgstr ""
+msgstr "Zum Eingeben des Codes OK klicken"
 
 msgctxt "#30103"
 msgid "Validation Code"
-msgstr ""
+msgstr "Bestätigungscode"
 
 msgctxt "#30104"
 msgid "Authorize Now"
-msgstr ""
+msgstr "Jetzt authorisieren"
 
 msgctxt "#30105"
 msgid "Authorize this remote service in the settings first"
-msgstr ""
+msgstr "Diesen Remote Service zunächst in den Einstellungen authorisieren"
 
 msgctxt "#30106"
 msgid "is authorized"
-msgstr ""
+msgstr "ist authorisiert"
 
 msgctxt "#30107"
 msgid "error authorizing"
-msgstr ""
+msgstr "Fehler beim Authorisieren"
 
 msgctxt "#30108"
 msgid "Visit https://console.developers.google.com/"
-msgstr ""
+msgstr "https://console.developers.google.com/ besuchen"
 
 msgctxt "#30109"
 msgid "Run on startup if missed"
-msgstr ""
+msgstr "Während des Starts ausführen, falls vergessen"
 
 msgctxt "#30110"
 msgid "Set Name"
-msgstr ""
+msgstr "Namen festlegen"
 
 msgctxt "#30111"
 msgid "Root folder selection"
-msgstr ""
+msgstr "Root-Ordner-Auswahl"
 
 msgctxt "#30112"
 msgid "Browse Folder"
-msgstr ""
+msgstr "Ordner durchsuchen"
 
 msgctxt "#30113"
 msgid "Enter Own"
-msgstr ""
+msgstr "Jetzt eingeben"
 
 msgctxt "#30114"
 msgid "starts in Kodi home"
-msgstr ""
+msgstr "startet in Kodi-Home"
 
 msgctxt "#30115"
 msgid "enter path to start there"
-msgstr ""
+msgstr "Pfad zum dort Starten eingeben"
 
 msgctxt "#30116"
 msgid "Enter root path"
-msgstr ""
+msgstr "Root-Pfad eingeben"
 
 msgctxt "#30117"
 msgid "Path Error"
-msgstr ""
+msgstr "Pfad-Fehler"
 
 msgctxt "#30118"
 msgid "Path does not exist"
-msgstr ""
+msgstr "Pfad existiert nicht"
 
 msgctxt "#30119"
 msgid "Select root"
-msgstr ""
+msgstr "Root auswählen"
 
 msgctxt "#30120"
 msgid "Add Exclude Folder"
-msgstr ""
+msgstr "Ausschluss-Ordner hinzufügen"
 
 msgctxt "#30121"
 msgid "Root Folder"
-msgstr ""
+msgstr "Root-Ordner"
 
 msgctxt "#30122"
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 msgctxt "#30123"
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 msgctxt "#30124"
 msgid "Choose Action"
-msgstr ""
+msgstr "Aktion auswählen"
 
 msgctxt "#30125"
 msgid "Advanced Editor"
-msgstr ""
+msgstr "Erweiterter Editor"
 
 msgctxt "#30126"
 msgid "Add Set"
-msgstr ""
+msgstr "Set hinzufügen"
 
 msgctxt "#30127"
 msgid "Delete Set"
-msgstr ""
+msgstr "Set löschen"
 
 msgctxt "#30128"
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "Sicher löschen?"
 
 msgctxt "#30129"
 msgid "Exclude"
-msgstr ""
+msgstr "Ausschließen"
 
 msgctxt "#30130"
 msgid "The root folder cannot be changed"
-msgstr ""
+msgstr "Der Root-Ordner kann nicht geändert werden"
 
 msgctxt "#30131"
 msgid "Choose Sets to Restore"
-msgstr ""
+msgstr "Sets zum Wiederherstellen auswählen"
 
 msgctxt "#30132"
 msgid "Version 1.5.0 requires you to setup your file selections again - this is a breaking change"
-msgstr ""
+msgstr "Version 1.5.0 macht die erneute Einrichtung der Dateiauswahl erforderlich - dies ist eine Änderung mit unerwünschten Nebenwirkungen"
 
 msgctxt "#30133"
 msgid "Game Saves"
-msgstr ""
+msgstr "Spielespeicherstände"
 
 msgctxt "#30134"
 msgid "Include"
-msgstr ""
+msgstr "Einschließen"
 
 msgctxt "#30135"
 msgid "Add Include Folder"
-msgstr ""
+msgstr "Einschließen-Ordner hinzufügen"
 
 msgctxt "#30136"
 msgid "Path must be within root folder"
-msgstr ""
+msgstr "Pfad muss sich innerhalb des Root-Ordners befinden"
 
 msgctxt "#30137"
 msgid "This path is part of a rule already"
-msgstr ""
+msgstr "Dieser Pfad ist bereits Teil einer Regel"
 
 msgctxt "#30138"
 msgid "Set Name exists already"
-msgstr ""
+msgstr "Festgelegter Name existiert bereits"
 
 msgctxt "#30139"
 msgid "Copy Simple Config"
-msgstr ""
+msgstr "Einfache Konfiguration kopieren"
 
 msgctxt "#30140"
 msgid "This will copy the default Simple file selection to the Advanced Editor"
-msgstr ""
+msgstr "Dies wird den Standard-'Einfache Dateiauswahl'-Abschnitt in den erweiterten Editor kopieren"
 
 msgctxt "#30141"
 msgid "This will erase any current Advanced Editor settings"
-msgstr ""
+msgstr "Dies wird alle aktuellen Einstellungen des erweiterten Editors löschen"
 
 msgctxt "#30142"
 msgid "Enable Verbose Logging"
-msgstr ""
+msgstr "Ausführliche Protokollierung aktivieren"
 
 msgctxt "#30143"
 msgid "Exclude a specific folder from this backup set"
-msgstr ""
+msgstr "Einen bestimmten Ordner von diesem Sicherungs-Set ausschließen"
 
 msgctxt "#30144"
 msgid "Include a specific folder to this backup set"
-msgstr ""
+msgstr "Einen bestimmten Ordner in dieses Sicherungs-Set einbeziehen"
 
 msgctxt "#30145"
 msgid "Type"
-msgstr ""
+msgstr "Art"
 
 msgctxt "#30146"
 msgid "Include Sub Folders"
-msgstr ""
+msgstr "Unterordner einbeziehen"
 
 msgctxt "#30147"
 msgid "Toggle Sub Folders"
-msgstr ""
+msgstr "Unterordner umschalten"
 
 msgctxt "#30148"
 msgid "Ask before restoring Kodi UI settings"
-msgstr ""
+msgstr "Vor dem Wiederherstellen der Kodi-UI-Einstellungen fragen"
 
 msgctxt "#30149"
 msgid "Restore Kodi UI Settings"
-msgstr ""
+msgstr "Kodi-UI-Einstellungen wiederherstellen"
 
 msgctxt "#30150"
 msgid "Restore saved Kodi system settings from backup?"
-msgstr ""
+msgstr "Gespeicherte Kodi-Systemeinstellungen aus der Sicherung wiederherstellen?"
 
 msgctxt "#30151"
 msgid "Enable Verbose Logging"
-msgstr ""
+msgstr "Ausführliche Protokollierung aktivieren"
 
 msgctxt "#30152"
 msgid "Set Zip File Location"
-msgstr ""
+msgstr "Zip-Dateiort festlegen"
 
 msgctxt "#30153"
 msgid "Full path to where the zip file will be staged during backup or restore - must be local to this device"
-msgstr ""
+msgstr "Voller Pfad, in den die zip-Datei während der Sicherung oder Wiederherstellung abgelegt wird - muss ein lokaler Pfad dieses Geräts sein"
 
 msgctxt "#30154"
 msgid "Always prompt if Kodi settings should be restored - no by default"
-msgstr ""
+msgstr "Immer auffordern, falls Kodi-Einstellungen wiederhergestellt werden sollen - standardmäßig nein"
 
 msgctxt "#30155"
 msgid "Adds additional information to the log file"
-msgstr ""
+msgstr "Zusätzliche Informationen zu der Protokoll-Datei hinzufügen"
 
 msgctxt "#30156"
 msgid "Must save key/secret first, then return to settings to authorize"
-msgstr ""
+msgstr "Schlüssel/Geheimnis muss zuerst gespeichert werden, dann zum Authorisieren zu den Einstellungen zurückkehren"
 
 msgctxt "#30157"
 msgid "Simple uses pre-defined folder locations, use Advanced Editor to define custom paths"
-msgstr ""
+msgstr "Einfach verwendet vorher festgelegte Orderorte, erweiterten Editor zum Festlegen von benutzerdefinierten Pfaden verwenden"
 
 msgctxt "#30158"
 msgid "Run backup on daily, weekly, monthly, or custom schedule"
-msgstr ""
+msgstr "Sicherung einem täglichen, wöchentlichen, monatlichen oder benutzerdefinierten Zeitplan folgend ausführen"
+
+msgctxt "#30159"
+msgid "Backup started with unknown mode"
+msgstr "Sicherung mit unbekannten Modus begonnen"
 
 #~ msgctxt "#30036"
 #~ msgid "Custom Directory 1"

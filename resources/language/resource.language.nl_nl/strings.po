@@ -14,9 +14,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-06-14 21:56+0000\n"
+"PO-Revision-Date: 2021-12-10 15:13+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Dutch <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-xbmcbackup/nl_nl/>\n"
 "Language: nl_nl\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6.2\n"
+"X-Generator: Weblate 4.9.1\n"
 
 msgctxt "Addon Summary"
 msgid "Backup and restore your Kodi database and configuration files in the event of a crash or file corruption."
@@ -52,11 +52,11 @@ msgstr "Inplannen"
 
 msgctxt "#30014"
 msgid "Simple"
-msgstr ""
+msgstr "Eenvoudig"
 
 msgctxt "#30015"
 msgid "Advanced"
-msgstr ""
+msgstr "Geavanceerd"
 
 msgctxt "#30016"
 msgid "Backup"
@@ -120,7 +120,7 @@ msgstr "Gebruiker addons"
 
 msgctxt "#30031"
 msgid "Addon Data"
-msgstr "Addon Data"
+msgstr "Add-on Data"
 
 msgctxt "#30032"
 msgid "Database"
@@ -140,11 +140,11 @@ msgstr "Configuratiebestanden"
 
 msgctxt "#30036"
 msgid "Disclaimer"
-msgstr ""
+msgstr "Disclaimer"
 
 msgctxt "#30037"
 msgid "Canceling this menu will close and save changes"
-msgstr ""
+msgstr "Dit menu annuleren zal het sluiten en de wijzigingen opslaan"
 
 msgctxt "#30038"
 msgid "Advanced Settings Detected"
@@ -176,7 +176,7 @@ msgstr "Wil je verdergaan?"
 
 msgctxt "#30045"
 msgid "Error: Remote or zip file path doesn't exist"
-msgstr ""
+msgstr "Fout: Extern of zip pad bestaat niet"
 
 msgctxt "#30046"
 msgid "Starting"
@@ -216,15 +216,15 @@ msgstr "Backup verwijderen"
 
 msgctxt "#30056"
 msgid "Scan or click this URL to authorize, click OK AFTER completion"
-msgstr ""
+msgstr "Scan of klik op deze URL om te autoriseren, klik OK NA voltooiing"
 
 msgctxt "#30057"
 msgid "Click OK AFTER completion"
-msgstr ""
+msgstr "Klik OK NA voltooien"
 
 msgctxt "#30058"
 msgid "Developer Code Needed"
-msgstr ""
+msgstr "Ontwikkelaars code benodigd"
 
 msgctxt "#30059"
 msgid "Visit https://www.dropbox.com/developers"
@@ -400,231 +400,235 @@ msgstr "Fout bij uitpakken van het ziparchief"
 
 msgctxt "#30102"
 msgid "Click OK to enter code"
-msgstr ""
+msgstr "Klik OK om code in te voeren"
 
 msgctxt "#30103"
 msgid "Validation Code"
-msgstr ""
+msgstr "Validatiecode"
 
 msgctxt "#30104"
 msgid "Authorize Now"
-msgstr ""
+msgstr "Nu Autoriseren"
 
 msgctxt "#30105"
 msgid "Authorize this remote service in the settings first"
-msgstr ""
+msgstr "Autoriseer deze externe dienst eerst in de instellingen"
 
 msgctxt "#30106"
 msgid "is authorized"
-msgstr ""
+msgstr "is geautoriseerd"
 
 msgctxt "#30107"
 msgid "error authorizing"
-msgstr ""
+msgstr "fout bij autoriseren"
 
 msgctxt "#30108"
 msgid "Visit https://console.developers.google.com/"
-msgstr ""
+msgstr "Ga naar https://console.developers.google.com/"
 
 msgctxt "#30109"
 msgid "Run on startup if missed"
-msgstr ""
+msgstr "Draai bij opstarten indien niet uitgevoerd"
 
 msgctxt "#30110"
 msgid "Set Name"
-msgstr ""
+msgstr "Stel naam in"
 
 msgctxt "#30111"
 msgid "Root folder selection"
-msgstr ""
+msgstr "Root map selectie"
 
 msgctxt "#30112"
 msgid "Browse Folder"
-msgstr ""
+msgstr "Verken map"
 
 msgctxt "#30113"
 msgid "Enter Own"
-msgstr ""
+msgstr "Voer eigen in"
 
 msgctxt "#30114"
 msgid "starts in Kodi home"
-msgstr ""
+msgstr "start in Kodi home"
 
 msgctxt "#30115"
 msgid "enter path to start there"
-msgstr ""
+msgstr "voer pad in om daar te starten"
 
 msgctxt "#30116"
 msgid "Enter root path"
-msgstr ""
+msgstr "Voer root pad in"
 
 msgctxt "#30117"
 msgid "Path Error"
-msgstr ""
+msgstr "Pad Fout"
 
 msgctxt "#30118"
 msgid "Path does not exist"
-msgstr ""
+msgstr "Pad bestaat niet"
 
 msgctxt "#30119"
 msgid "Select root"
-msgstr ""
+msgstr "Selecteer root"
 
 msgctxt "#30120"
 msgid "Add Exclude Folder"
-msgstr ""
+msgstr "Voeg Uitsluiting Map toe"
 
 msgctxt "#30121"
 msgid "Root Folder"
-msgstr ""
+msgstr "Root map"
 
 msgctxt "#30122"
 msgid "Edit"
-msgstr ""
+msgstr "Aanpassen"
 
 msgctxt "#30123"
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
 msgctxt "#30124"
 msgid "Choose Action"
-msgstr ""
+msgstr "Kies Actie"
 
 msgctxt "#30125"
 msgid "Advanced Editor"
-msgstr ""
+msgstr "Geavanceerde Bewerker"
 
 msgctxt "#30126"
 msgid "Add Set"
-msgstr ""
+msgstr "Voeg Set toe"
 
 msgctxt "#30127"
 msgid "Delete Set"
-msgstr ""
+msgstr "Verwijder Set"
 
 msgctxt "#30128"
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "Weet je zeker dat je wilt verwijderen?"
 
 msgctxt "#30129"
 msgid "Exclude"
-msgstr ""
+msgstr "Uitsluiten"
 
 msgctxt "#30130"
 msgid "The root folder cannot be changed"
-msgstr ""
+msgstr "De root map kan niet worden gewijzigd"
 
 msgctxt "#30131"
 msgid "Choose Sets to Restore"
-msgstr ""
+msgstr "Kies Sets om te Herstellen"
 
 msgctxt "#30132"
 msgid "Version 1.5.0 requires you to setup your file selections again - this is a breaking change"
-msgstr ""
+msgstr "Versie 1.5.0 vereist dat de bestandselecties opnieuw worden ingesteld - dit is een brekende verandering"
 
 msgctxt "#30133"
 msgid "Game Saves"
-msgstr ""
+msgstr "Spelopslag"
 
 msgctxt "#30134"
 msgid "Include"
-msgstr ""
+msgstr "Insluiten"
 
 msgctxt "#30135"
 msgid "Add Include Folder"
-msgstr ""
+msgstr "Voeg Ingesloten Map toe"
 
 msgctxt "#30136"
 msgid "Path must be within root folder"
-msgstr ""
+msgstr "Pad moet in de root map zijn"
 
 msgctxt "#30137"
 msgid "This path is part of a rule already"
-msgstr ""
+msgstr "Dit pad maakt al deel uit van een regel"
 
 msgctxt "#30138"
 msgid "Set Name exists already"
-msgstr ""
+msgstr "Set Naam bestaat al"
 
 msgctxt "#30139"
 msgid "Copy Simple Config"
-msgstr ""
+msgstr "Kopieer Eenvoudige Configuratie"
 
 msgctxt "#30140"
 msgid "This will copy the default Simple file selection to the Advanced Editor"
-msgstr ""
+msgstr "Dit zal de standaard Eenvoudige bestandsselectie kopiëren naar de Geavanceerde Bewerker"
 
 msgctxt "#30141"
 msgid "This will erase any current Advanced Editor settings"
-msgstr ""
+msgstr "Dit zal alle huidige Geavanceerde Bewerker instellingen verwijderen"
 
 msgctxt "#30142"
 msgid "Enable Verbose Logging"
-msgstr ""
+msgstr "Activeer Verbose Logging"
 
 msgctxt "#30143"
 msgid "Exclude a specific folder from this backup set"
-msgstr ""
+msgstr "Sluit een specifieke map uit van deze backup set"
 
 msgctxt "#30144"
 msgid "Include a specific folder to this backup set"
-msgstr ""
+msgstr "Sluit een specifieke map in voor deze backup set"
 
 msgctxt "#30145"
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 msgctxt "#30146"
 msgid "Include Sub Folders"
-msgstr ""
+msgstr "Voeg Sub Folders in"
 
 msgctxt "#30147"
 msgid "Toggle Sub Folders"
-msgstr ""
+msgstr "Schakel Sub Folders"
 
 msgctxt "#30148"
 msgid "Ask before restoring Kodi UI settings"
-msgstr ""
+msgstr "Vraag voordat Kodi UI instellingen worden hersteld"
 
 msgctxt "#30149"
 msgid "Restore Kodi UI Settings"
-msgstr ""
+msgstr "Herstel Kodi UI Instellingen"
 
 msgctxt "#30150"
 msgid "Restore saved Kodi system settings from backup?"
-msgstr ""
+msgstr "Herstel opgeslagen Kodi systeeminstellingen vanuit backup?"
 
 msgctxt "#30151"
 msgid "Enable Verbose Logging"
-msgstr ""
+msgstr "Schakel Verbose Logging In"
 
 msgctxt "#30152"
 msgid "Set Zip File Location"
-msgstr ""
+msgstr "Stel Zip Bestandslocatie in"
 
 msgctxt "#30153"
 msgid "Full path to where the zip file will be staged during backup or restore - must be local to this device"
-msgstr ""
+msgstr "Volledige pad waar het zip bestand wordt opgeslagen tijdens backup of herstellen - moet lokaal zijn op dit apparaat"
 
 msgctxt "#30154"
 msgid "Always prompt if Kodi settings should be restored - no by default"
-msgstr ""
+msgstr "Vraag altijd of Kodi instellingen moeten worden hersteld - nee is standaard"
 
 msgctxt "#30155"
 msgid "Adds additional information to the log file"
-msgstr ""
+msgstr "Voegt additionele informatie toe in het log bestand"
 
 msgctxt "#30156"
 msgid "Must save key/secret first, then return to settings to authorize"
-msgstr ""
+msgstr "Sla sleutel/geheim eerst op, kom daarna terug naar de instellingen voor authorisatie"
 
 msgctxt "#30157"
 msgid "Simple uses pre-defined folder locations, use Advanced Editor to define custom paths"
-msgstr ""
+msgstr "Eenvoudig gebruikt vooraf ingestelde map locaties, gebruik de Geavanceerde Bewerker om afwijkende paden in te stellen"
 
 msgctxt "#30158"
 msgid "Run backup on daily, weekly, monthly, or custom schedule"
-msgstr ""
+msgstr "Draai de backup dagelijks, wekelijks, maandelijks, of op maat"
+
+msgctxt "#30159"
+msgid "Backup started with unknown mode"
+msgstr "Backup is gestart met onbekende modus"
 
 #~ msgctxt "#30036"
 #~ msgid "Custom Directory 1"

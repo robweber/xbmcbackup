@@ -4,18 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unrelease](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.7...robweber:matrix)
+## [Version 1.6.8](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.7...robweber:matrix-1.6.8)
 
 ### Changed
 
 - use the `<source>files</source>` tag on the remote path browser to bring in saved file paths from the File Manager
-- multiple language files updated through integration with [Webpate](https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-xbmcbackup/), thanks to @gade01 for helping to get it working.
+- multiple language files updated through integration with [Weblate](https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-xbmcbackup/), thanks to @gade01 for helping to get it working.
 
 ### Fixed
 
 - default en_gb file must use empty `msgstr` value
 - minor UI fixes for dialog prompts
 - fixed catch22 situation where Dropbox remote tries to load prior to authorization flow
+- travis CI links in README
 
 ## [Version 1.6.7](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.5...robweber:matrix-1.6.7) - 2021-04-16
 

@@ -618,6 +618,10 @@ msgctxt "#30158"
 msgid "Run backup on daily, weekly, monthly, or custom schedule"
 msgstr ""
 
+msgctxt "#30159"
+msgid "Backup started with unknown mode"
+msgstr ""
+
 #~ msgctxt "#30045"
 #~ msgid "Error: Remote path doesn't exist"
 #~ msgstr "Chyba: Vzdialená cesta neexistuje"

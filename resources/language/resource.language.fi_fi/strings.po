@@ -7,16 +7,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2017-09-19 14:20+0000\n"
-"Last-Translator: A B\n"
-"Language-Team: Finnish (http://www.transifex.com/teamxbmc/xbmc-addons/language/fi/)\n"
-"Language: fi\n"
+"PO-Revision-Date: 2022-01-17 13:13+0000\n"
+"Last-Translator: G0mez82 <jalehto_99@hotmail.com>\n"
+"Language-Team: Finnish <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-xbmcbackup/fi_fi/>\n"
+"Language: fi_fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.10.1\n"
 
 msgctxt "Addon Summary"
 msgid "Backup and restore your Kodi database and configuration files in the event of a crash or file corruption."
@@ -24,11 +25,11 @@ msgstr "Varmuuskopioi ja palauttaa Kodin tietokannan ja asetukset kaatumisen tai
 
 msgctxt "Addon Description"
 msgid "Ever hosed your Kodi configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by Kodi or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. "
-msgstr "Oletko joskus hukannut Kodin asetukset ja harmitellut varmuuskopioiden puutetta? Nyt voit varmuuskopioida asetuksesi napin painalluksella. Voit tallentaa tietokantasi, toistolistasi, kuvasi, lisäosasi ja muut tiedot mihin tahansa paikkaan, johon Kodilla on kirjoitusoikeudet. Lisäosa tukee myös varnuuskopiointia Dropboxiin. Varmuuskopionti voidaan suorittaa tarvittaessa tai tietyllä aikataululla."
+msgstr "Oletko joskus hukannut Kodin asetukset ja harmitellut varmuuskopioiden puutetta? Nyt voit varmuuskopioida asetuksesi napin painalluksella. Voit tallentaa tietokantasi, toistolistasi, kuvasi, lisäosasi ja muut tiedot mihin tahansa paikkaan, johon Kodilla on kirjoitusoikeudet. Lisäosa tukee myös varnuuskopiointia Dropboxiin. Varmuuskopiointi voidaan suorittaa tarvittaessa tai tietyllä aikataululla. "
 
 msgctxt "#30010"
 msgid "Backup"
-msgstr "Varmuuskopionti"
+msgstr "Varmuuskopiointi"
 
 msgctxt "#30011"
 msgid "General"
@@ -616,6 +617,10 @@ msgstr ""
 
 msgctxt "#30158"
 msgid "Run backup on daily, weekly, monthly, or custom schedule"
+msgstr ""
+
+msgctxt "#30159"
+msgid "Backup started with unknown mode"
 msgstr ""
 
 #~ msgctxt "#30036"

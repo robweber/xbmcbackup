@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## Unreleased
+
+### Changed
+
+- added new line between file size and file name, was unreadable on some systems due to string resizing
+
 ## [Version 1.6.8](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.7...robweber:matrix-1.6.8)
 
 ### Changed

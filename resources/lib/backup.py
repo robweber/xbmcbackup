@@ -415,10 +415,10 @@ class XbmcBackup:
                     utils.log('Writing file: ' + aFile['file'])
 
                 if(aFile['file'].startswith("-")):
-                    self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):]) + "/"))
+                    self._updateProgress('%s remaining\nwriting %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):]) + "/"))
                     dest.mkdir(dest.root_path + aFile['file'][len(source.root_path) + 1:])
                 else:
-                    self._updateProgress('%s remaining, writing %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):])))
+                    self._updateProgress('%s remaining\nwriting %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):])))
                     self.transferLeft = self.transferLeft - aFile['size']
 
                     # copy the file

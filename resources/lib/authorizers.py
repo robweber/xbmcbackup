@@ -4,6 +4,7 @@ import json
 import pyqrcode
 import resources.lib.tinyurl as tinyurl
 import resources.lib.utils as utils
+from datetime import datetime
 
 # don't die on import error yet, these might not even get used
 try:
@@ -116,8 +117,8 @@ class DropboxAuthorizer:
 
         if(user_token != ''):
             # create the client
-            result = dropbox.Dropbox(user_token['access_token'])
-
+            result = dropbox.Dropbox(oauth2_access_token=user_token['access_token'], oauth2_refresh_token=user_token['refresh_token'],
+                                     oauth2_access_token_expiration=user_token['expiration'], app_key=self.APP_KEY, app_secret=self.APP_SECRET)
             try:
                 result.users_get_current_account()
             except:
@@ -143,6 +144,8 @@ class DropboxAuthorizer:
 
             if(token.strip() != ""):
                 result = json.loads(token)
+                # convert expiration back to a datetime object
+                result['expiration'] = datetime.strptime(result['expiration'], "%Y-%m-%d %H:%M:%S.%f")
 
             token_file.close()
 

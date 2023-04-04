@@ -99,12 +99,12 @@ class DropboxAuthorizer:
 
         # if user authorized this will work
 
-        #try:
-        user_token = flow.finish(code)
-        self._setToken(user_token)
-        #except Exception as e:
-            #utils.log("Error: %s" % (e,))
-            #result = False
+        try:
+            user_token = flow.finish(code)
+            self._setToken(user_token)
+        except Exception as e:
+            utils.log("Error: %s" % (e,))
+            result = False
 
         return result
 

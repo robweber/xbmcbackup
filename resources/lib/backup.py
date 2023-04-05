@@ -569,7 +569,7 @@ class FileManager:
     exclude_dir = []
     root_dirs = []
     pathSep = '/'
-    totalSize = 0
+    totalSize = 1
 
     def __init__(self, vfs):
         self.vfs = vfs

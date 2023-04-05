@@ -6,9 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## Unreleased
 
+### Added
+
+- You can now append a suffix to the end of each backup name (folder or zip file). This is only available in the Advanced or Expert settings.
+- validation file now saves a list of all installed addons and versions
+
 ### Changed
 
 - added new line between file size and file name, was unreadable on some systems due to string resizing
+- modified GitHub issue template slightly
+
+### Fixed
+
+- fixed minor UI issues
+- division error when transferSize = 0
 
 ## [Version 1.6.8](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.7...robweber:matrix-1.6.8)
 

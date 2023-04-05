@@ -495,7 +495,7 @@ class XbmcBackup:
                     remove_num = remove_num + 1
 
     def _createValidationFile(self, dirList):
-        valInfo = {"name": "XBMC Backup Validation File", "xbmc_version": xbmc.getInfoLabel('System.BuildVersion'), "type": 0, "system_settings": []}
+        valInfo = {"name": "XBMC Backup Validation File", "xbmc_version": xbmc.getInfoLabel('System.BuildVersion'), "type": 0, "system_settings": [], "addons": []}
         valDirs = []
 
         # save list of file sets
@@ -506,6 +506,9 @@ class XbmcBackup:
         # dump all current Kodi settings
         gui_settings = GuiSettingsManager()
         valInfo['system_settings'] = gui_settings.backup()
+
+        # save all currently installed addons
+        valInfo['addons'] = gui_settings.list_addons()
 
         vFile = xbmcvfs.File(xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup.val"), 'w')
         vFile.write(json.dumps(valInfo))

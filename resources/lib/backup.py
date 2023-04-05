@@ -93,7 +93,7 @@ class XbmcBackup:
             file_ext = aFile.split('.')[-1]
             folderName = aFile.split('.')[0]
 
-            if(file_ext == 'zip' and len(folderName) == 12 and folderName.isdigit()):
+            if(file_ext == 'zip' and len(folderName) >= 12 and folderName[0:12].isdigit()):
 
                 # format the name according to regional settings and display the file size
                 folderName = "%s - %s" % (self._dateFormat(folderName), utils.diskString(self.remote_vfs.fileSize(self.remote_base_path + aFile)))
@@ -368,7 +368,7 @@ class XbmcBackup:
                 self.saved_remote_vfs = self.remote_vfs
                 self.remote_vfs = ZipFileSystem(zip_path, "w")
 
-            self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d%H%M") + "/")
+            self.remote_vfs.set_root(self.remote_vfs.root_path + time.strftime("%Y%m%d%H%M") + utils.getSetting('backup_suffix').strip() + "/")
             progressBarTitle = progressBarTitle + utils.getString(30023) + ": " + utils.getString(30016)
         elif(mode == self.Restore and self.restore_point is not None and self.remote_vfs.root_path != ''):
             if(self.restore_point.split('.')[-1] != 'zip'):
@@ -495,7 +495,7 @@ class XbmcBackup:
                     remove_num = remove_num + 1
 
     def _createValidationFile(self, dirList):
-        valInfo = {"name": "XBMC Backup Validation File", "xbmc_version": xbmc.getInfoLabel('System.BuildVersion'), "type": 0, "system_settings": []}
+        valInfo = {"name": "XBMC Backup Validation File", "xbmc_version": xbmc.getInfoLabel('System.BuildVersion'), "type": 0, "system_settings": [], "addons": []}
         valDirs = []
 
         # save list of file sets
@@ -506,6 +506,9 @@ class XbmcBackup:
         # dump all current Kodi settings
         gui_settings = GuiSettingsManager()
         valInfo['system_settings'] = gui_settings.backup()
+
+        # save all currently installed addons
+        valInfo['addons'] = gui_settings.list_addons()
 
         vFile = xbmcvfs.File(xbmcvfs.translatePath(utils.data_dir() + "xbmcbackup.val"), 'w')
         vFile.write(json.dumps(valInfo))
@@ -569,7 +572,7 @@ class FileManager:
     exclude_dir = []
     root_dirs = []
     pathSep = '/'
-    totalSize = 0
+    totalSize = 1
 
     def __init__(self, vfs):
         self.vfs = vfs

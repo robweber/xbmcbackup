@@ -13,6 +13,12 @@ class GuiSettingsManager:
 
         self.systemSettings = json_response['result']['settings']
 
+    def list_addons(self):
+        # list all currently installed addons
+        addons = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Addons.GetAddons", "params":{"properties":["version","author"]}, "id":2}'))
+
+        return addons['result']['addons']
+
     def backup(self):
         utils.log('Backing up Kodi settings')
 

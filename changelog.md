@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 - added new line between file size and file name, was unreadable on some systems due to string resizing
 - modified GitHub issue template slightly
+- translations sync
 
 ### Fixed
 

@@ -16,11 +16,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - added new line between file size and file name, was unreadable on some systems due to string resizing
 - modified GitHub issue template slightly
 - translations sync
+- token files are stored in a `.json` instead of a `.txt` file
 
 ### Fixed
 
 - fixed minor UI issues
 - division error when transferSize = 0
+- fixed Dropbox tokens expiring by using [refresh tokens](https://dropbox-sdk-python.readthedocs.io/en/latest/api/oauth.html)
 
 ## [Version 1.6.8](https://github.com/robweber/xbmcbackup/compare/matrix-1.6.7...robweber:matrix-1.6.8)
 

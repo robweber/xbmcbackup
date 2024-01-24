@@ -414,9 +414,9 @@ class XbmcBackup:
                 if(utils.getSettingBool('verbose_logging')):
                     utils.log('Writing file: ' + aFile['file'])
 
-                if(aFile['file'].startswith("-")):
+                if(aFile['is_dir']):
                     self._updateProgress('%s remaining\nwriting %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):]) + "/"))
-                    dest.mkdir(dest.root_path + aFile['file'][len(source.root_path) + 1:])
+                    dest.mkdir(dest.root_path + aFile['file'][len(source.root_path):])
                 else:
                     self._updateProgress('%s remaining\nwriting %s' % (utils.diskString(self.transferLeft), os.path.basename(aFile['file'][len(source.root_path):])))
                     self.transferLeft = self.transferLeft - aFile['size']
@@ -426,6 +426,7 @@ class XbmcBackup:
 
                     # if result is still true but this file failed
                     if(not wroteFile and result):
+                        utils.log("Failed to write " + aFile['file'])
                         result = False
 
         return result
@@ -583,7 +584,7 @@ class FileManager:
     def walk(self):
 
         for aDir in self.root_dirs:
-            self.addFile('-' + xbmcvfs.translatePath(aDir['path']))
+            self.addFile(xbmcvfs.translatePath(aDir['path']), True)
             self.walkTree(xbmcvfs.translatePath(aDir['path']), aDir['recurse'])
 
     def walkTree(self, directory, recurse=True):
@@ -605,7 +606,7 @@ class FileManager:
                     # check if directory is excluded
                     if(not any(dirPath.startswith(exDir) for exDir in self.exclude_dir)):
 
-                        self.addFile("-" + dirPath)
+                        self.addFile(dirPath, True)
 
                         # catch for "non directory" type files
                         shouldWalk = True
@@ -628,7 +629,7 @@ class FileManager:
         else:
             self.excludeFile(xbmcvfs.translatePath(dirMeta['path']))
 
-    def addFile(self, filename):
+    def addFile(self, filename, is_dir = False):
         # write the full remote path name of this file
         if(utils.getSettingBool('verbose_logging')):
             utils.log("Add File: " + filename)
@@ -637,7 +638,7 @@ class FileManager:
         fSize = self.vfs.fileSize(filename)
         self.totalSize = self.totalSize + fSize
 
-        self.fileArray.append({'file': filename, 'size': fSize})
+        self.fileArray.append({'file': filename, 'size': fSize, 'is_dir': is_dir})
 
     def excludeFile(self, filename):
         # remove trailing slash

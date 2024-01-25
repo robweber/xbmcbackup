@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - modified GitHub issue template slightly
 - translations sync
 - token files are stored in a `.json` instead of a `.txt` file
+- file discovery process now flags directories with an `is_dir` metadata property instead of prefixing with a dash (-). This was done for legacy reasons and there is no reason for it. 
 
 ### Fixed
 

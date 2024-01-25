@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 - You can now append a suffix to the end of each backup name (folder or zip file). This is only available in the Advanced or Expert settings.
 - validation file now saves a list of all installed addons and versions
+- prompt to close Kodi at the end of successful restore
 
 ### Changed
 
@@ -17,7 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - modified GitHub issue template slightly
 - translations sync
 - token files are stored in a `.json` instead of a `.txt` file
-- file discovery process now flags directories with an `is_dir` metadata property instead of prefixing with a dash (-). This was done for legacy reasons and there is no reason for it. 
+- file discovery process now flags directories with an `is_dir` metadata property instead of prefixing with a dash (-). This was done for legacy reasons and there is no reason for it.
 
 ### Fixed
 

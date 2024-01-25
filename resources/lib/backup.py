@@ -285,7 +285,9 @@ class XbmcBackup:
                     self._createResumeBackupFile()
 
                     # do not continue running
-                    xbmcgui.Dialog().ok(utils.getString(30077), utils.getString(30078))
+                    if(xbmcgui.Dialog().yesno(utils.getString(30077), utils.getString(30078), autoclose=15000)):
+                        xbmc.executebuiltin('Quit')
+
                     return
 
             # check if settings should be restored from this backup
@@ -346,6 +348,11 @@ class XbmcBackup:
 
             # call update addons to refresh everything
             xbmc.executebuiltin('UpdateLocalAddons')
+
+            # notify user that restart is recommended
+            if(xbmcgui.Dialog().yesno(utils.getString(30077), utils.getString(30078), autoclose=15000)):
+                xbmc.executebuiltin('Quit')
+
 
     def _setupVFS(self, mode=-1, progressOverride=False):
         # set windows setting to true

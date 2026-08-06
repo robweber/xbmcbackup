@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2024-08-11 18:26+0000\n"
 "Last-Translator: José Antonio Alvarado <jalvarado0.eses@gmail.com>\n"
@@ -650,9 +650,25 @@ msgctxt "#30163"
 msgid "Current folder"
 msgstr "Carpeta actual"
 
-#~ msgctxt "#30078"
-#~ msgid "You should restart Kodi to continue"
-#~ msgstr "Debería reiniciar Kodi para continuar"
+msgctxt "#30078"
+msgid "You should restart Kodi to continue"
+msgstr "Debería reiniciar Kodi para continuar"
+
+msgctxt "#30045"
+msgid "Error: Remote path doesn't exist"
+msgstr "Error: La ruta Remota no existe"
+
+msgctxt "#30056"
+msgid "Check log for Dropbox authorize URL"
+msgstr "Autoriza la URL en Dropbox"
+
+msgctxt "#30057"
+msgid "Click OK when authorized"
+msgstr "Presiona OK cuando se haya autorizado"
+
+msgctxt "#30058"
+msgid "Dropbox Developer Code Needed"
+msgstr "Código de Desarrollador Dropbox necesario"
 
 #~ msgctxt "#30036"
 #~ msgid "Custom Directory 1"
@@ -661,19 +677,3 @@ msgstr "Carpeta actual"
 #~ msgctxt "#30037"
 #~ msgid "Custom Directory 2"
 #~ msgstr "Directorio Personalizado 2"
-
-#~ msgctxt "#30045"
-#~ msgid "Error: Remote path doesn't exist"
-#~ msgstr "Error: La ruta Remota no existe"
-
-#~ msgctxt "#30056"
-#~ msgid "Check log for Dropbox authorize URL"
-#~ msgstr "Autoriza la URL en Dropbox"
-
-#~ msgctxt "#30057"
-#~ msgid "Click OK when authorized"
-#~ msgstr "Presiona OK cuando se haya autorizado"
-
-#~ msgctxt "#30058"
-#~ msgid "Dropbox Developer Code Needed"
-#~ msgstr "Código de Desarrollador Dropbox necesario"

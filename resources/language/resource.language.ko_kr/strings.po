@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2024-04-29 14:53+0000\n"
 "Last-Translator: Minho Park <parkmino@gmail.com>\n"
@@ -642,9 +642,25 @@ msgctxt "#30163"
 msgid "Current folder"
 msgstr "현재 폴더"
 
-#~ msgctxt "#30078"
-#~ msgid "You should restart Kodi to continue"
-#~ msgstr "계속하려면 Kodi를 다시 시작하여야 합니다"
+msgctxt "#30078"
+msgid "You should restart Kodi to continue"
+msgstr "계속하려면 Kodi를 다시 시작하여야 합니다"
+
+msgctxt "#30045"
+msgid "Error: Remote path doesn't exist"
+msgstr "오류: 존재하지 않는 원격 경로"
+
+msgctxt "#30056"
+msgid "Check log for Dropbox authorize URL"
+msgstr "로그에서 Dropbox 인증 URL을 확인하세요"
+
+msgctxt "#30057"
+msgid "Click OK when authorized"
+msgstr "인증이 완료되면 확인을 누르세요"
+
+msgctxt "#30058"
+msgid "Dropbox Developer Code Needed"
+msgstr "Dropbox 개발자 코드가 필요합니다"
 
 #~ msgctxt "#30036"
 #~ msgid "Custom Directory 1"
@@ -653,19 +669,3 @@ msgstr "현재 폴더"
 #~ msgctxt "#30037"
 #~ msgid "Custom Directory 2"
 #~ msgstr "사용자 디렉터리 2"
-
-#~ msgctxt "#30045"
-#~ msgid "Error: Remote path doesn't exist"
-#~ msgstr "오류: 존재하지 않는 원격 경로"
-
-#~ msgctxt "#30056"
-#~ msgid "Check log for Dropbox authorize URL"
-#~ msgstr "로그에서 Dropbox 인증 URL을 확인하세요"
-
-#~ msgctxt "#30057"
-#~ msgid "Click OK when authorized"
-#~ msgstr "인증이 완료되면 확인을 누르세요"
-
-#~ msgctxt "#30058"
-#~ msgid "Dropbox Developer Code Needed"
-#~ msgstr "Dropbox 개발자 코드가 필요합니다"

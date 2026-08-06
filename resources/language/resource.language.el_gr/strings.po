@@ -641,9 +641,25 @@ msgctxt "#30163"
 msgid "Current folder"
 msgstr ""
 
-#~ msgctxt "#30078"
-#~ msgid "You should restart Kodi to continue"
-#~ msgstr "Πρέπει να επανεκκινήσετε το Kodi για να συνεχίσετε"
+msgctxt "#30078"
+msgid "You should restart Kodi to continue"
+msgstr "Πρέπει να επανεκκινήσετε το Kodi για να συνεχίσετε"
+
+msgctxt "#30045"
+msgid "Error: Remote path doesn't exist"
+msgstr "Σφάλμα: Δεν υπάρχει η απομακρυσμένη διαδρομή"
+
+msgctxt "#30056"
+msgid "Check log for Dropbox authorize URL"
+msgstr "Ελέγξτε το αρχείο καταγραφής για τη διεύθυνση URL έγκρισης του Dropbox"
+
+msgctxt "#30057"
+msgid "Click OK when authorized"
+msgstr "Πιέστε 'Επιλογή' κατά την έγκριση"
+
+msgctxt "#30058"
+msgid "Dropbox Developer Code Needed"
+msgstr "Απαιτείται Κωδικός Προγραμματιστή Dropbox"
 
 #~ msgctxt "#30036"
 #~ msgid "Custom Directory 1"
@@ -652,19 +668,3 @@ msgstr ""
 #~ msgctxt "#30037"
 #~ msgid "Custom Directory 2"
 #~ msgstr "Προσαρμοσμένος Φάκελος 2"
-
-#~ msgctxt "#30045"
-#~ msgid "Error: Remote path doesn't exist"
-#~ msgstr "Σφάλμα: Δεν υπάρχει η απομακρυσμένη διαδρομή"
-
-#~ msgctxt "#30056"
-#~ msgid "Check log for Dropbox authorize URL"
-#~ msgstr "Ελέγξτε το αρχείο καταγραφής για τη διεύθυνση URL έγκρισης του Dropbox"
-
-#~ msgctxt "#30057"
-#~ msgid "Click OK when authorized"
-#~ msgstr "Πιέστε 'Επιλογή' κατά την έγκριση"
-
-#~ msgctxt "#30058"
-#~ msgid "Dropbox Developer Code Needed"
-#~ msgstr "Απαιτείται Κωδικός Προγραμματιστή Dropbox"

@@ -641,9 +641,25 @@ msgctxt "#30163"
 msgid "Current folder"
 msgstr ""
 
-#~ msgctxt "#30078"
-#~ msgid "You should restart Kodi to continue"
-#~ msgstr "Ten de restaurar o Kodi para continuar"
+msgctxt "#30078"
+msgid "You should restart Kodi to continue"
+msgstr "Ten de restaurar o Kodi para continuar"
+
+msgctxt "#30045"
+msgid "Error: Remote path doesn't exist"
+msgstr "Erro: A ruta remota non existe"
+
+msgctxt "#30056"
+msgid "Check log for Dropbox authorize URL"
+msgstr "Verificar o rexistro para o URL de autorización de Dropbox"
+
+msgctxt "#30057"
+msgid "Click OK when authorized"
+msgstr "Prema Aceptar cando teña autorización"
+
+msgctxt "#30058"
+msgid "Dropbox Developer Code Needed"
+msgstr "É necesario o códido de desenvolvedor de Dropbox"
 
 #~ msgctxt "#30036"
 #~ msgid "Custom Directory 1"
@@ -652,19 +668,3 @@ msgstr ""
 #~ msgctxt "#30037"
 #~ msgid "Custom Directory 2"
 #~ msgstr "Cartafol Personalizado 2"
-
-#~ msgctxt "#30045"
-#~ msgid "Error: Remote path doesn't exist"
-#~ msgstr "Erro: A ruta remota non existe"
-
-#~ msgctxt "#30056"
-#~ msgid "Check log for Dropbox authorize URL"
-#~ msgstr "Verificar o rexistro para o URL de autorización de Dropbox"
-
-#~ msgctxt "#30057"
-#~ msgid "Click OK when authorized"
-#~ msgstr "Prema Aceptar cando teña autorización"
-
-#~ msgctxt "#30058"
-#~ msgid "Dropbox Developer Code Needed"
-#~ msgstr "É necesario o códido de desenvolvedor de Dropbox"

@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2024-06-07 22:13+0000\n"
+"PO-Revision-Date: 2026-01-03 10:13+0000\n"
 "Last-Translator: Kai Sommerfeld <ksooo@users.noreply.kodi.weblate.cloud>\n"
 "Language-Team: German <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-xbmcbackup/de_de/>\n"
 "Language: de_de\n"
@@ -29,15 +29,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.15.1\n"
 
 msgctxt "Addon Summary"
 msgid "Backup and restore your Kodi database and configuration files in the event of a crash or file corruption."
-msgstr "Die Kodi-Datenbank sichern und bei Dateiverlust oder Beschädigung wiederherstellen."
+msgstr "Kodi-Datenbank und Konfigurationsdateien sichern und bei Datenverlust oder Beschädigung wiederherstellen."
 
 msgctxt "Addon Description"
 msgid "Ever hosed your Kodi configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by Kodi or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. "
-msgstr "Schon mal die eigene Kodi-Konfiguration zerstört und sich gewünscht, eine Sicherung zu haben? Jetzt möglich mit einem einfachen Klick. Man kann die Datenbank, Wiedergabeliste, Thumbnails, Addons und andere Konfigurationsdetails in eine beliebige, von Kodi beschreibbare Quelle oder direkt in den Cloudspeicher Dropbox exportieren. Backups können bei Bedarf oder über einen Planer ausgeführt werden. "
+msgstr "Schon mal die eigene Kodi-Konfiguration zerstört und sich gewünscht, eine Sicherung zu haben? Das ist jetzt möglich mit einem einfachen Klick. Man kann die Datenbank, Wiedergabeliste, Vorschaubilder, Addons und andere Konfigurationsdetails in eine beliebige, von Kodi beschreibbare Quelle oder direkt in den Cloudspeicher Dropbox exportieren. Backups können bei Bedarf oder über einen Planer ausgeführt werden. "
 
 msgctxt "#30010"
 msgid "Backup"
@@ -149,15 +149,15 @@ msgstr "Haftungsausschluss"
 
 msgctxt "#30037"
 msgid "Canceling this menu will close and save changes"
-msgstr "Abbrechen wird dieses Menüs schließen und Änderungen speichern"
+msgstr "Abbrechen wird dieses Menü schließen und Änderungen speichern"
 
 msgctxt "#30038"
 msgid "Advanced Settings Detected"
-msgstr "Erweiterte Einstellungen erkannt"
+msgstr "Datei mit erweiterten Einstellungen gefunden"
 
 msgctxt "#30039"
 msgid "The advancedsettings file should be restored first"
-msgstr "Die erweiterte Einstellungsdatei sollte zuerst wiederhergestellt werden"
+msgstr "Die Datei mit erweiterten Einstellungen sollte zuerst wiederhergestellt werden"
 
 msgctxt "#30040"
 msgid "Select Yes to restore this file and restart Kodi"
@@ -165,7 +165,7 @@ msgstr "Ja wählen, um diese Datei wiederherzustellen und Kodi neu zu starten"
 
 msgctxt "#30041"
 msgid "Select No to continue"
-msgstr "Nein wählen, um Fortzufahren"
+msgstr "Nein wählen, um fortzufahren"
 
 msgctxt "#30042"
 msgid "Resume Restore"
@@ -177,7 +177,7 @@ msgstr "Das Sicherungs-Addon hat eine unvollständige Wiederherstellung entdeckt
 
 msgctxt "#30044"
 msgid "Would you like to continue?"
-msgstr "Damit fortfahren?"
+msgstr "Fortfahren?"
 
 msgctxt "#30045"
 msgid "Error: Remote or zip file path doesn't exist"
@@ -237,7 +237,7 @@ msgstr "https://www.dropbox.com/developers besuchen"
 
 msgctxt "#30060"
 msgid "Enable Scheduler"
-msgstr "Zeitplaner einschalten"
+msgstr "Zeitplaner aktivieren"
 
 msgctxt "#30061"
 msgid "Schedule"
@@ -349,7 +349,7 @@ msgstr "Archive komprimieren"
 
 msgctxt "#30088"
 msgid "Copying Zip Archive"
-msgstr "ZIP-Archive werden kopiert"
+msgstr "ZIP-Archiv wird kopiert"
 
 msgctxt "#30089"
 msgid "Write Error Detected"
@@ -373,11 +373,11 @@ msgstr "Autorisierungsinformationen löschen"
 
 msgctxt "#30094"
 msgid "This will delete any OAuth token files"
-msgstr "Dies löscht alle vorhandenen OAuth-Tokendateien"
+msgstr "Dies löscht alle vorhandenen OAuth-Token-Dateien"
 
 msgctxt "#30095"
 msgid "Do you want to do this?"
-msgstr "Soll das geschehen?"
+msgstr "Einveerstanden?"
 
 msgctxt "#30096"
 msgid "Old Zip Archive could not be deleted"
@@ -441,7 +441,7 @@ msgstr "Namen festlegen"
 
 msgctxt "#30111"
 msgid "Root folder selection"
-msgstr "Rootordner-Auswahl"
+msgstr "Root-Ordnerauswahl"
 
 msgctxt "#30112"
 msgid "Browse Folder"
@@ -449,7 +449,7 @@ msgstr "Ordner durchsuchen"
 
 msgctxt "#30113"
 msgid "Enter Own"
-msgstr "Jetzt eingeben"
+msgstr "Eigenen eingeben"
 
 msgctxt "#30114"
 msgid "starts in Kodi home"
@@ -461,7 +461,7 @@ msgstr "Pfad eingeben, um dort zu beginnen"
 
 msgctxt "#30116"
 msgid "Enter root path"
-msgstr "Rootpfad eingeben"
+msgstr "Root-Pfad eingeben"
 
 msgctxt "#30117"
 msgid "Path Error"
@@ -481,7 +481,7 @@ msgstr "Ausschlussordner hinzufügen"
 
 msgctxt "#30121"
 msgid "Root Folder"
-msgstr "Rootordner"
+msgstr "Root-Ordner"
 
 msgctxt "#30122"
 msgid "Edit"
@@ -517,7 +517,7 @@ msgstr "Ausschließen"
 
 msgctxt "#30130"
 msgid "The root folder cannot be changed"
-msgstr "Der Rootordner kann nicht geändert werden"
+msgstr "Der Root-Ordner kann nicht geändert werden"
 
 msgctxt "#30131"
 msgid "Choose Sets to Restore"
@@ -541,7 +541,7 @@ msgstr "Einschließenordner hinzufügen"
 
 msgctxt "#30136"
 msgid "Path must be within root folder"
-msgstr "Pfad muss sich innerhalb des Rootordners befinden"
+msgstr "Pfad muss sich innerhalb des Root-Ordners befinden"
 
 msgctxt "#30137"
 msgid "This path is part of a rule already"
@@ -651,9 +651,25 @@ msgctxt "#30163"
 msgid "Current folder"
 msgstr "Aktueller Ordner"
 
-#~ msgctxt "#30078"
-#~ msgid "You should restart Kodi to continue"
-#~ msgstr "Kodi sollte neu gestarten werden, um fortzufahren"
+msgctxt "#30078"
+msgid "You should restart Kodi to continue"
+msgstr "Um fortzufahren sollte Kodi neu gestarten werden"
+
+msgctxt "#30045"
+msgid "Error: Remote path doesn't exist"
+msgstr "Fehler: Entfernter Pfad nicht vorhanden"
+
+msgctxt "#30056"
+msgid "Check log for Dropbox authorize URL"
+msgstr "Protokoll für die Dropbox-Autorisierungs-URL prüfen"
+
+msgctxt "#30057"
+msgid "Click OK when authorized"
+msgstr "Nach erfolgreicher Autorisierung OK klicken"
+
+msgctxt "#30058"
+msgid "Dropbox Developer Code Needed"
+msgstr "Dropbox Developer Code benötigt"
 
 #~ msgctxt "#30036"
 #~ msgid "Custom Directory 1"
@@ -662,19 +678,3 @@ msgstr "Aktueller Ordner"
 #~ msgctxt "#30037"
 #~ msgid "Custom Directory 2"
 #~ msgstr "Benutzerdefiniertes Verzeichnis 2"
-
-#~ msgctxt "#30045"
-#~ msgid "Error: Remote path doesn't exist"
-#~ msgstr "Fehler: Entfernter Pfad nicht vorhanden"
-
-#~ msgctxt "#30056"
-#~ msgid "Check log for Dropbox authorize URL"
-#~ msgstr "Überprüfe die Protokollierung für die Dropbox-Autorisierungs URL."
-
-#~ msgctxt "#30057"
-#~ msgid "Click OK when authorized"
-#~ msgstr "Klicke OK, sobald du autorisiert bist."
-
-#~ msgctxt "#30058"
-#~ msgid "Dropbox Developer Code Needed"
-#~ msgstr "Dropbox Developer Code benötigt"

@@ -8,25 +8,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-09-07 11:11+0000\n"
-"Last-Translator: HansCR <h.vanek@gmail.com>\n"
+"PO-Revision-Date: 2026-07-07 08:31+0000\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-xbmcbackup/cs_cz/>\n"
 "Language: cs_cz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 2026.7\n"
 
 msgctxt "Addon Summary"
 msgid "Backup and restore your Kodi database and configuration files in the event of a crash or file corruption."
-msgstr "Zálohování a obnovení vaší databáze Kodi a konfiguračních souborů v případě chyby nebo poškození souboru."
+msgstr "Zálohování a obnovení databáze Kodi a konfiguračních souborů v případě pádu nebo poškození souborů."
 
 msgctxt "Addon Description"
 msgid "Ever hosed your Kodi configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by Kodi or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. "
-msgstr "Pokazila se vám někdy konfigurace Kodi a přáli jste si, abyste měli zálohu? Nyní ji můžete mít pomocí jednoho jednoduchého kliknutí. Můžete exportovat svou databázi, seznam stop, náhledy, doplňky a další konfigurace do jakéhokoliv zdroje, do kterého může Kodi zapisovat, nebo přímo do cloudového úložiště Dropbox. Zálohy mohou být spuštěny na vyžádání nebo prostřednictvím plánovače. "
+msgstr "Stalo se vám někdy, že se poškodila konfigurace Kodi, a přáli jste si mít zálohu? Teď ji můžete vytvořit jedním kliknutím. Databázi, seznamy stop, miniatury, doplňky a další konfigurační údaje můžete exportovat do libovolného umístění, do kterého Kodi může zapisovat, nebo přímo do cloudového úložiště Dropbox. Zálohy lze spouštět na vyžádání nebo prostřednictvím plánovače. "
 
 msgctxt "#30010"
 msgid "Backup"
@@ -38,7 +38,7 @@ msgstr "Obecné"
 
 msgctxt "#30012"
 msgid "File Selection"
-msgstr "Výběr souboru"
+msgstr "Výběr souborů"
 
 msgctxt "#30013"
 msgid "Scheduling"
@@ -46,11 +46,11 @@ msgstr "Plánování"
 
 msgctxt "#30014"
 msgid "Simple"
-msgstr "Jednoduchý"
+msgstr "Jednoduché"
 
 msgctxt "#30015"
 msgid "Advanced"
-msgstr "Rozšířený"
+msgstr "Pokročilé"
 
 msgctxt "#30016"
 msgid "Backup"
@@ -62,7 +62,7 @@ msgstr "Obnovit"
 
 msgctxt "#30018"
 msgid "Browse Path"
-msgstr "Vyhledat cestu"
+msgstr "Vybrat cestu"
 
 msgctxt "#30019"
 msgid "Type Path"
@@ -70,15 +70,15 @@ msgstr "Zadat cestu"
 
 msgctxt "#30020"
 msgid "Browse Remote Path"
-msgstr "Vyhledejte vzdálenou cestu"
+msgstr "Vybrat vzdálenou cestu"
 
 msgctxt "#30021"
 msgid "Backup Folder Name"
-msgstr "Název složky zálohování"
+msgstr "Název složky zálohy"
 
 msgctxt "#30022"
 msgid "Progress Display"
-msgstr "Zobrazit průběh"
+msgstr "Zobrazení průběhu"
 
 msgctxt "#30023"
 msgid "Mode"
@@ -86,7 +86,7 @@ msgstr "Režim"
 
 msgctxt "#30024"
 msgid "Type Remote Path"
-msgstr "Zadejte vzdálenou cestu"
+msgstr "Zadat vzdálenou cestu"
 
 msgctxt "#30025"
 msgid "Remote Path Type"
@@ -94,7 +94,7 @@ msgstr "Typ vzdálené cesty"
 
 msgctxt "#30026"
 msgid "Backups to keep (0 for all)"
-msgstr "Ponechat záloh (0 pro vše)"
+msgstr "Počet ponechaných záloh (0 = všechny)"
 
 msgctxt "#30027"
 msgid "Dropbox"
@@ -114,7 +114,7 @@ msgstr "Uživatelské doplňky"
 
 msgctxt "#30031"
 msgid "Addon Data"
-msgstr "Data doplňku"
+msgstr "Data doplňků"
 
 msgctxt "#30032"
 msgid "Database"
@@ -122,11 +122,11 @@ msgstr "Databáze"
 
 msgctxt "#30033"
 msgid "Playlist"
-msgstr "Seznam stop"
+msgstr "Seznamy stop"
 
 msgctxt "#30034"
 msgid "Thumbnails/Fanart"
-msgstr "Náhledy a fanarty"
+msgstr "Miniatury/Fanart"
 
 msgctxt "#30035"
 msgid "Config Files"
@@ -134,27 +134,27 @@ msgstr "Konfigurační soubory"
 
 msgctxt "#30036"
 msgid "Disclaimer"
-msgstr "Právní omezení"
+msgstr "Upozornění"
 
 msgctxt "#30037"
 msgid "Canceling this menu will close and save changes"
-msgstr "Zrušením této nabídky dojde k uzavření a uložení změn"
+msgstr "Zavřením této nabídky se uloží změny"
 
 msgctxt "#30038"
 msgid "Advanced Settings Detected"
-msgstr "Rozpoznána rozšířená nastavení"
+msgstr "Zjištěna pokročilá nastavení"
 
 msgctxt "#30039"
 msgid "The advancedsettings file should be restored first"
-msgstr "Soubor advancedsettings by měl být obnoven jako první"
+msgstr "Soubor advancedsettings by se měl obnovit jako první"
 
 msgctxt "#30040"
 msgid "Select Yes to restore this file and restart Kodi"
-msgstr "Vyberte Ano pro obnovení tohoto souboru a restartování Kodi"
+msgstr "Výběrem Ano obnovíte tento soubor a restartujete Kodi"
 
 msgctxt "#30041"
 msgid "Select No to continue"
-msgstr "Vyberte Ne pro pokračování"
+msgstr "Výběrem Ne budete pokračovat"
 
 msgctxt "#30042"
 msgid "Resume Restore"
@@ -162,7 +162,7 @@ msgstr "Pokračovat v obnovení"
 
 msgctxt "#30043"
 msgid "The Backup addon has detected an unfinished restore"
-msgstr "Doplněk Záloha rozpoznal nedokončené obnovení"
+msgstr "Doplněk Záloha zjistil nedokončené obnovení"
 
 msgctxt "#30044"
 msgid "Would you like to continue?"
@@ -170,7 +170,7 @@ msgstr "Chcete pokračovat?"
 
 msgctxt "#30045"
 msgid "Error: Remote or zip file path doesn't exist"
-msgstr "Chyba: Vzdálená cesta k souboru neexistuje"
+msgstr "Chyba: vzdálená cesta nebo cesta k souboru ZIP neexistuje"
 
 msgctxt "#30046"
 msgid "Starting"
@@ -190,7 +190,7 @@ msgstr "Získávání seznamu souborů"
 
 msgctxt "#30050"
 msgid "Remote Path exists - may have old files in it!"
-msgstr "Vzdálená cesta existuje - může obsahovat staré soubory!"
+msgstr "Vzdálená cesta existuje - může obsahovat starší soubory!"
 
 msgctxt "#30051"
 msgid "Creating Files List"
@@ -206,23 +206,23 @@ msgstr "Spouštění naplánované zálohy"
 
 msgctxt "#30054"
 msgid "Removing backup"
-msgstr "Odebírání zálohy"
+msgstr "Odstraňování zálohy"
 
 msgctxt "#30056"
 msgid "Scan or click this URL to authorize, click OK AFTER completion"
-msgstr "Prohledejte nebo klikněte na toto URL pro autorizaci, klikněte na OK po dokončení"
+msgstr "Naskenujte tuto URL adresu nebo na ni klikněte kvůli autorizaci. Po dokončení stiskněte OK."
 
 msgctxt "#30057"
 msgid "Click OK AFTER completion"
-msgstr "Klikněte na OK po dokončení"
+msgstr "Po dokončení stiskněte OK"
 
 msgctxt "#30058"
 msgid "Developer Code Needed"
-msgstr "Požadován vývojářský kód"
+msgstr "Je potřeba vývojářský kód"
 
 msgctxt "#30059"
 msgid "Visit https://www.dropbox.com/developers"
-msgstr "Navštivte https://www.dropbox.com/developers"
+msgstr "Přejděte na https://www.dropbox.com/developers"
 
 msgctxt "#30060"
 msgid "Enable Scheduler"
@@ -234,7 +234,7 @@ msgstr "Plán"
 
 msgctxt "#30062"
 msgid "Hour of Day"
-msgstr "Hodina"
+msgstr "Hodina dne"
 
 msgctxt "#30063"
 msgid "Day of Week"
@@ -242,7 +242,7 @@ msgstr "Den v týdnu"
 
 msgctxt "#30064"
 msgid "Cron Schedule"
-msgstr "Plán Cron"
+msgstr "Plán cron"
 
 msgctxt "#30065"
 msgid "Sunday"
@@ -282,7 +282,7 @@ msgstr "Každý týden"
 
 msgctxt "#30074"
 msgid "First Day of Month"
-msgstr "První den v měsíci"
+msgstr "První den měsíce"
 
 msgctxt "#30075"
 msgid "Custom Schedule"
@@ -298,7 +298,7 @@ msgstr "Restartovat Kodi"
 
 msgctxt "#30078"
 msgid "A restart is recommended, select Yes to close Kodi"
-msgstr ""
+msgstr "Doporučuje se restart. Výběrem Ano zavřete Kodi."
 
 msgctxt "#30079"
 msgid "Just Today"
@@ -310,7 +310,7 @@ msgstr "Profily"
 
 msgctxt "#30081"
 msgid "Scheduler will run again on"
-msgstr "Plánovač se spustí znovu"
+msgstr "Plánovač se znovu spustí dne"
 
 msgctxt "#30082"
 msgid "Progress Bar"
@@ -322,7 +322,7 @@ msgstr "Indikátor průběhu na pozadí"
 
 msgctxt "#30084"
 msgid "None (Silent)"
-msgstr "Žádný (tichý)"
+msgstr "Žádné (tichý režim)"
 
 msgctxt "#30085"
 msgid "Version Warning"
@@ -330,7 +330,7 @@ msgstr "Upozornění na verzi"
 
 msgctxt "#30086"
 msgid "This version of Kodi is different than the one used to create the archive"
-msgstr "Tato verze Kodi je jiná než ta, která byla použita pro vytvoření archivu"
+msgstr "Tato verze Kodi se liší od verze použité k vytvoření archivu"
 
 msgctxt "#30087"
 msgid "Compress Archives"
@@ -338,19 +338,19 @@ msgstr "Komprimovat archivy"
 
 msgctxt "#30088"
 msgid "Copying Zip Archive"
-msgstr "Kopírování archivu zip"
+msgstr "Kopírování archivu ZIP"
 
 msgctxt "#30089"
 msgid "Write Error Detected"
-msgstr "Rozpoznána chyba zápisu"
+msgstr "Zjištěna chyba zápisu"
 
 msgctxt "#30090"
 msgid "The destination may not be writeable"
-msgstr "Cíl možná není zapisovatelný"
+msgstr "Do cílového umístění se možná nedá zapisovat"
 
 msgctxt "#30091"
 msgid "Zip archive could not be copied"
-msgstr "Archiv zip nemohl být zkopírován"
+msgstr "Archiv ZIP se nepodařilo zkopírovat"
 
 msgctxt "#30092"
 msgid "Not all files were copied"
@@ -362,19 +362,19 @@ msgstr "Odstranit informace o autorizaci"
 
 msgctxt "#30094"
 msgid "This will delete any OAuth token files"
-msgstr "Toto odstraní jakékoliv soubory tokenu OAuth"
+msgstr "Tím se odstraní všechny soubory tokenů OAuth"
 
 msgctxt "#30095"
 msgid "Do you want to do this?"
-msgstr "Chcete to udělat?"
+msgstr "Chcete to provést?"
 
 msgctxt "#30096"
 msgid "Old Zip Archive could not be deleted"
-msgstr "Staré archivy zip nemohly být odstraněny"
+msgstr "Starý archiv ZIP se nepodařilo odstranit"
 
 msgctxt "#30097"
 msgid "This needs to happen before a backup can run"
-msgstr "K tomuto musí dojít, než se může spustit zálohování"
+msgstr "To je potřeba provést, než bude možné spustit zálohování"
 
 msgctxt "#30098"
 msgid "Google Drive"
@@ -390,11 +390,11 @@ msgstr "Rozbalování archivu"
 
 msgctxt "#30101"
 msgid "Error extracting the zip archive"
-msgstr "Chyba při rozbalování archivu zip"
+msgstr "Chyba při rozbalování archivu ZIP"
 
 msgctxt "#30102"
 msgid "Click OK to enter code"
-msgstr "Klikněte na OK pro zadání kódu"
+msgstr "Stiskněte OK a zadejte kód"
 
 msgctxt "#30103"
 msgid "Validation Code"
@@ -406,7 +406,7 @@ msgstr "Autorizovat nyní"
 
 msgctxt "#30105"
 msgid "Authorize this remote service in the settings first"
-msgstr "Autorizujte nejdříve tuto vzdálenou službu v nastavení"
+msgstr "Nejprve tuto vzdálenou službu autorizujte v nastavení"
 
 msgctxt "#30106"
 msgid "is authorized"
@@ -414,19 +414,19 @@ msgstr "je autorizován"
 
 msgctxt "#30107"
 msgid "error authorizing"
-msgstr "chyba při autorizaci"
+msgstr "chyba autorizace"
 
 msgctxt "#30108"
 msgid "Visit https://console.developers.google.com/"
-msgstr "Navštivte https://console.developers.google.com/"
+msgstr "Přejděte na https://console.developers.google.com/"
 
 msgctxt "#30109"
 msgid "Run on startup if missed"
-msgstr "Spustit při spuštění, pokud neproběhlo"
+msgstr "Spustit při startu, pokud plán neproběhl"
 
 msgctxt "#30110"
 msgid "Set Name"
-msgstr "Nastavte jméno"
+msgstr "Název sady"
 
 msgctxt "#30111"
 msgid "Root folder selection"
@@ -434,23 +434,23 @@ msgstr "Výběr kořenové složky"
 
 msgctxt "#30112"
 msgid "Browse Folder"
-msgstr "Procházet složku"
+msgstr "Vybrat složku"
 
 msgctxt "#30113"
 msgid "Enter Own"
-msgstr "Zadejte vlastní"
+msgstr "Zadat vlastní"
 
 msgctxt "#30114"
 msgid "starts in Kodi home"
-msgstr "spouští se v domovské Kodi"
+msgstr "začíná v domovské složce Kodi"
 
 msgctxt "#30115"
 msgid "enter path to start there"
-msgstr "zadejte zde cestu pro spuštění"
+msgstr "zadejte cestu, kde se má začít"
 
 msgctxt "#30116"
 msgid "Enter root path"
-msgstr "Zadejte kořenovou cestu"
+msgstr "Zadat kořenovou cestu"
 
 msgctxt "#30117"
 msgid "Path Error"
@@ -462,11 +462,11 @@ msgstr "Cesta neexistuje"
 
 msgctxt "#30119"
 msgid "Select root"
-msgstr "Vyberte kořen"
+msgstr "Vybrat kořenovou složku"
 
 msgctxt "#30120"
 msgid "Add Exclude Folder"
-msgstr "Zadejte vyloučené složky"
+msgstr "Přidat vyloučenou složku"
 
 msgctxt "#30121"
 msgid "Root Folder"
@@ -486,7 +486,7 @@ msgstr "Vyberte akci"
 
 msgctxt "#30125"
 msgid "Advanced Editor"
-msgstr "Rozšířený editor"
+msgstr "Pokročilý editor"
 
 msgctxt "#30126"
 msgid "Add Set"
@@ -494,11 +494,11 @@ msgstr "Přidat sadu"
 
 msgctxt "#30127"
 msgid "Delete Set"
-msgstr "Smazat sadu"
+msgstr "Odstranit sadu"
 
 msgctxt "#30128"
 msgid "Are you sure you want to delete?"
-msgstr "Jste si jisti, že se má odstranit?"
+msgstr "Opravdu chcete odstranit?"
 
 msgctxt "#30129"
 msgid "Exclude"
@@ -506,27 +506,27 @@ msgstr "Vyloučit"
 
 msgctxt "#30130"
 msgid "The root folder cannot be changed"
-msgstr "Kořenová složka nemůže být změněna"
+msgstr "Kořenovou složku nelze změnit"
 
 msgctxt "#30131"
 msgid "Choose Sets to Restore"
-msgstr "Vyberte sadu k obnovení"
+msgstr "Vyberte sady k obnovení"
 
 msgctxt "#30132"
 msgid "Version 1.5.0 requires you to setup your file selections again - this is a breaking change"
-msgstr "Verze 1.5.0 vyžaduje abyste provedli znovu výběr souboru - toto je přelomová změna"
+msgstr "Verze 1.5.0 vyžaduje, abyste znovu nastavili výběr souborů - jde o nekompatibilní změnu"
 
 msgctxt "#30133"
 msgid "Game Saves"
-msgstr "Uložené hry"
+msgstr "Uložené pozice her"
 
 msgctxt "#30134"
 msgid "Include"
-msgstr "Zahrnuje"
+msgstr "Zahrnout"
 
 msgctxt "#30135"
 msgid "Add Include Folder"
-msgstr "Přidejte zahrnutou složku"
+msgstr "Přidat složku k zahrnutí"
 
 msgctxt "#30136"
 msgid "Path must be within root folder"
@@ -534,35 +534,35 @@ msgstr "Cesta musí být uvnitř kořenové složky"
 
 msgctxt "#30137"
 msgid "This path is part of a rule already"
-msgstr "Tato cesta je už v pravidlech zahrnuta"
+msgstr "Tato cesta už je součástí pravidla"
 
 msgctxt "#30138"
 msgid "Set Name exists already"
-msgstr "Nastavené jméno už existuje"
+msgstr "Název sady už existuje"
 
 msgctxt "#30139"
 msgid "Copy Simple Config"
-msgstr "Kopie jednoduchého nastavení"
+msgstr "Zkopírovat jednoduchou konfiguraci"
 
 msgctxt "#30140"
 msgid "This will copy the default Simple file selection to the Advanced Editor"
-msgstr "Toto zkopíruje výchozí jednoduchý výběr souborů do Rozšířeného Editoru"
+msgstr "Zkopíruje se výchozí jednoduchý výběr souborů do Pokročilého editoru"
 
 msgctxt "#30141"
 msgid "This will erase any current Advanced Editor settings"
-msgstr "Toto odstraní jakékoliv současné nastavení Rozšířeného editoru"
+msgstr "Odstraní se všechna aktuální nastavení Pokročilého editoru"
 
 msgctxt "#30142"
 msgid "Enable Verbose Logging"
-msgstr "Povolit podrobné ladění"
+msgstr "Povolit podrobné protokolování"
 
 msgctxt "#30143"
 msgid "Exclude a specific folder from this backup set"
-msgstr "Vyloučit specifickou složku z této zálohové sady"
+msgstr "Vyloučit konkrétní složku z této sady zálohy"
 
 msgctxt "#30144"
 msgid "Include a specific folder to this backup set"
-msgstr "Zahrnout specifickou složku do této zálohové sady"
+msgstr "Zahrnout konkrétní složku do této sady zálohy"
 
 msgctxt "#30145"
 msgid "Type"
@@ -570,19 +570,19 @@ msgstr "Typ"
 
 msgctxt "#30146"
 msgid "Include Sub Folders"
-msgstr "Včetně podsložek"
+msgstr "Zahrnout podsložky"
 
 msgctxt "#30147"
 msgid "Toggle Sub Folders"
-msgstr "Přepnout podsložky"
+msgstr "Přepnout zahrnutí podsložek"
 
 msgctxt "#30148"
 msgid "Ask before restoring Kodi UI settings"
-msgstr "Zeptat se před obnovou nastavení Kodi UI"
+msgstr "Zeptat se před obnovením nastavení uživatelského rozhraní Kodi"
 
 msgctxt "#30149"
 msgid "Restore Kodi UI Settings"
-msgstr "Obnovit nastavení Kodi UI"
+msgstr "Obnovit nastavení uživatelského rozhraní Kodi"
 
 msgctxt "#30150"
 msgid "Restore saved Kodi system settings from backup?"
@@ -590,31 +590,31 @@ msgstr "Obnovit uložená systémová nastavení Kodi ze zálohy?"
 
 msgctxt "#30151"
 msgid "Enable Verbose Logging"
-msgstr "Povolit podrobné ladění"
+msgstr "Povolit podrobné protokolování"
 
 msgctxt "#30152"
 msgid "Set Zip File Location"
-msgstr "Nastavit umístění soboru Zip"
+msgstr "Nastavit umístění souboru ZIP"
 
 msgctxt "#30153"
 msgid "Full path to where the zip file will be staged during backup or restore - must be local to this device"
-msgstr "Úplná cesta k místu, kde bude soubor zip uložen během zálohování nebo obnovy - musí být místní pro toto zařízení"
+msgstr "Úplná cesta k místu, kam se během zálohování nebo obnovení připraví soubor ZIP. Musí být místní pro toto zařízení."
 
 msgctxt "#30154"
 msgid "Always prompt if Kodi settings should be restored - no by default"
-msgstr "Vždy se ptát, zda má být obnoveno nastavení Kodi - výchozí je ne"
+msgstr "Vždy se zeptat, zda se má obnovit nastavení Kodi - výchozí odpověď je Ne"
 
 msgctxt "#30155"
 msgid "Adds additional information to the log file"
-msgstr "Přidá další informace do ladícího souboru"
+msgstr "Přidá další informace do souboru protokolu"
 
 msgctxt "#30156"
 msgid "Must save key/secret first, then return to settings to authorize"
-msgstr "Nejprve je nutné uložit klíč/tajné údaje a poté se vrátit do nastavení pro autorizaci"
+msgstr "Nejprve je nutné uložit klíč a tajný klíč a potom se vrátit do nastavení kvůli autorizaci"
 
 msgctxt "#30157"
 msgid "Simple uses pre-defined folder locations, use Advanced Editor to define custom paths"
-msgstr "Jednoduché používá předdefinované umístění složek, použijte Rozšířený editor pro nastavení vlastních cest"
+msgstr "Jednoduchý režim používá předdefinovaná umístění složek. Vlastní cesty nastavíte v Pokročilém editoru."
 
 msgctxt "#30158"
 msgid "Run backup on daily, weekly, monthly, or custom schedule"
@@ -626,23 +626,39 @@ msgstr "Záloha spuštěna v neznámém režimu"
 
 msgctxt "#30160"
 msgid "Backup Filename Suffix"
-msgstr "Přípona záložního souboru"
+msgstr "Přípona názvu zálohy"
 
 msgctxt "#30161"
 msgid "Amend a string to the end of each backup folder or ZIP file"
-msgstr "Úprava řetězce na konci každé složky nebo souboru ZIP se zálohou"
+msgstr "Přidat řetězec na konec názvu každé složky zálohy nebo souboru ZIP"
 
 msgctxt "#30162"
 msgid "this could take some time"
-msgstr ""
+msgstr "může to chvíli trvat"
 
 msgctxt "#30163"
 msgid "Current folder"
-msgstr ""
+msgstr "Aktuální složka"
 
-#~ msgctxt "#30078"
-#~ msgid "You should restart Kodi to continue"
-#~ msgstr "Pro pokračování byste měli restartovat Kodi"
+msgctxt "#30078"
+msgid "You should restart Kodi to continue"
+msgstr "Pro pokračování byste měli restartovat Kodi"
+
+msgctxt "#30045"
+msgid "Error: Remote path doesn't exist"
+msgstr "Chyba: vzdálená cesta neexistuje"
+
+msgctxt "#30056"
+msgid "Check log for Dropbox authorize URL"
+msgstr "Autorizační URL adresu Dropboxu najdete v protokolu"
+
+msgctxt "#30057"
+msgid "Click OK when authorized"
+msgstr "Po dokončení autorizace stiskněte OK"
+
+msgctxt "#30058"
+msgid "Dropbox Developer Code Needed"
+msgstr "Je potřeba vývojářský kód Dropboxu"
 
 #~ msgctxt "#30036"
 #~ msgid "Custom Directory 1"
@@ -651,19 +667,3 @@ msgstr ""
 #~ msgctxt "#30037"
 #~ msgid "Custom Directory 2"
 #~ msgstr "Vlastní adresář 2"
-
-#~ msgctxt "#30045"
-#~ msgid "Error: Remote path doesn't exist"
-#~ msgstr "Chyba: Vzdálená cesta neexistuje"
-
-#~ msgctxt "#30056"
-#~ msgid "Check log for Dropbox authorize URL"
-#~ msgstr "Podívejte se do protokolu kvůli autorizační URL Dropboxu"
-
-#~ msgctxt "#30057"
-#~ msgid "Click OK when authorized"
-#~ msgstr "Klikněte na OK po dokončení autorizace"
-
-#~ msgctxt "#30058"
-#~ msgid "Dropbox Developer Code Needed"
-#~ msgstr "Je potřeba vývojářský kód Dropboxu"

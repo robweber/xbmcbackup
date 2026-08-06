@@ -639,9 +639,25 @@ msgctxt "#30163"
 msgid "Current folder"
 msgstr ""
 
-#~ msgctxt "#30078"
-#~ msgid "You should restart Kodi to continue"
-#~ msgstr "Za nastavak je potrebno ponovno pokretanje Kodija"
+msgctxt "#30078"
+msgid "You should restart Kodi to continue"
+msgstr "Za nastavak je potrebno ponovno pokretanje Kodija"
+
+msgctxt "#30045"
+msgid "Error: Remote path doesn't exist"
+msgstr "Greška: udaljena putanja ne postoji"
+
+msgctxt "#30056"
+msgid "Check log for Dropbox authorize URL"
+msgstr "Provjera zapisa za URL autorizacije Dropboxa"
+
+msgctxt "#30057"
+msgid "Click OK when authorized"
+msgstr "Kliknite 'U redu' kada je autorizirano"
+
+msgctxt "#30058"
+msgid "Dropbox Developer Code Needed"
+msgstr "Potreban je kôd Dropbox razvijatelja"
 
 #~ msgctxt "#30036"
 #~ msgid "Custom Directory 1"
@@ -650,19 +666,3 @@ msgstr ""
 #~ msgctxt "#30037"
 #~ msgid "Custom Directory 2"
 #~ msgstr "Prilagođeni direktorij 2"
-
-#~ msgctxt "#30045"
-#~ msgid "Error: Remote path doesn't exist"
-#~ msgstr "Greška: udaljena putanja ne postoji"
-
-#~ msgctxt "#30056"
-#~ msgid "Check log for Dropbox authorize URL"
-#~ msgstr "Provjera zapisa za URL autorizacije Dropboxa"
-
-#~ msgctxt "#30057"
-#~ msgid "Click OK when authorized"
-#~ msgstr "Kliknite 'U redu' kada je autorizirano"
-
-#~ msgctxt "#30058"
-#~ msgid "Dropbox Developer Code Needed"
-#~ msgstr "Potreban je kôd Dropbox razvijatelja"

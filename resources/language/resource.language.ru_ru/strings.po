@@ -59,7 +59,7 @@ msgstr "Резервная копия"
 
 msgctxt "#30017"
 msgid "Restore"
-msgstr "Всстановить"
+msgstr "Восстановить"
 
 msgctxt "#30018"
 msgid "Browse Path"
